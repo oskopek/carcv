@@ -13,15 +13,15 @@ static void help()
 {
     cout << "\nThis program demonstrates the cascade recognizer. Now you can use Haar or LBP features.\n"
             "This classifier can recognize many kinds of rigid objects, once the appropriate classifier is trained.\n"
-            "It's most known use is for faces.\n"
+            "It's most known use is for cars.\n"
             "Usage:\n"
-            "./facedetect [--cascade=<cascade_path> this is the primary trained classifier such as frontal face]\n"
-               "   [--nested-cascade[=nested_cascade_path this an optional secondary classifier such as eyes]]\n"
+            "./cardtc [--cascade=<cascade_path> this is the primary trained classifier such as cars]\n"
+               "   [--nested-cascade[=nested_cascade_path this an optional secondary classifier such as headlights]]\n"
                "   [--scale=<image scale greater or equal to 1, try 1.3 for example>]\n"
                "   [--try-flip]\n"
                "   [filename|camera_index]\n\n"
-            "see facedetect.cmd for one call:\n"
-            "./facedetect --cascade=\"../../data/haarcascades/haarcascade_frontalface_alt.xml\" --nested-cascade=\"../../data/haarcascades/haarcascade_eye.xml\" --scale=1.3\n\n"
+            "example call:\n"
+            "./facedetect --cascade=\"haarcascade_cars.xml\" --nested-cascade=\"haarcascade_headlights.xml\" --scale=1.3\n\n"
             "During execution:\n\tHit any key to quit.\n"
             "\tUsing OpenCV version " << CV_VERSION << "\n" << endl;
 }
