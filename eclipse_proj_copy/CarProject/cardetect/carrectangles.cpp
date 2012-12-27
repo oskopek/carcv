@@ -88,7 +88,7 @@ int main( int argc, const char** argv )
         return -1;
     }
     cout << "test1" << endl;
-    oldCascade = Ptr<CvHaarClassifierCascade>((CvHaarClassifierCascade*)cvLoad(cascadeName.c_str(), 0, 0, 0));//
+    //oldCascade = Ptr<CvHaarClassifierCascade>((CvHaarClassifierCascade*) cvLoad(cascadeName.c_str(), 0, 0, 0));//
     cout << "test2" << endl;
     //cvNamedWindow( "result", 1 );
     
