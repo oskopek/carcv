@@ -5,6 +5,6 @@
 using namespace cv;
 
 static void help();
-void detectAndSort( Mat&, CascadeClassifier&, CascadeClassifier&, double, bool);
-bool detect( Mat&, CascadeClassifier&, CascadeClassifier&, double, bool);
-void detectAndDraw( Mat&, CascadeClassifier&, CascadeClassifier&, double, bool);
+void detectAndSort(Mat&, CascadeClassifier&, double);
+int detect(Mat&, CascadeClassifier&, double);
+void detectAndDraw(Mat&, CascadeClassifier&, double);
