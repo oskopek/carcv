@@ -37,8 +37,13 @@
 							<tool id="cdt.managedbuild.tool.gnu.c.linker.exe.debug.744405245" name="GCC C Linker" superClass="cdt.managedbuild.tool.gnu.c.linker.exe.debug"/>
 							<tool id="cdt.managedbuild.tool.gnu.cpp.linker.exe.debug.1275461766" name="GCC C++ Linker" superClass="cdt.managedbuild.tool.gnu.cpp.linker.exe.debug">
 								<option id="gnu.cpp.link.option.libs.1460357828" name="Libraries (-l)" superClass="gnu.cpp.link.option.libs" valueType="libs">
+<<<<<<< HEAD
 									<listOptionValue builtIn="false" value="/lib/boost_filesystem"/>
 									<listOptionValue builtIn="false" value="/lib/boost_system"/>
+=======
+									<listOptionValue builtIn="false" value="boost_filesystem"/>
+									<listOptionValue builtIn="false" value="boost_system"/>
+>>>>>>> 55e815654fb5f484eff157da0c21f33285280a61
 									<listOptionValue builtIn="false" value="opencv_contrib"/>
 									<listOptionValue builtIn="false" value="opencv_legacy"/>
 									<listOptionValue builtIn="false" value="opencv_nonfree"/>
@@ -53,6 +58,10 @@
 									<listOptionValue builtIn="false" value="opencv_flann"/>
 								</option>
 								<option id="gnu.cpp.link.option.paths.829795325" name="Library search path (-L)" superClass="gnu.cpp.link.option.paths" valueType="libPaths">
+<<<<<<< HEAD
+=======
+									<listOptionValue builtIn="false" value="/lib"/>
+>>>>>>> 55e815654fb5f484eff157da0c21f33285280a61
 									<listOptionValue builtIn="false" value="/usr/local/lib"/>
 								</option>
 								<inputType id="cdt.managedbuild.tool.gnu.cpp.linker.input.317245632" superClass="cdt.managedbuild.tool.gnu.cpp.linker.input">
