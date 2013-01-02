@@ -1,7 +1,3 @@
-#include <iostream>
-#include <iterator>
-#include <stdio.h>
-
 #include "carrectangles.hpp"
 
 #define RESET_COLOR "\e[m"
@@ -9,8 +5,9 @@
 
 using namespace std;
 using namespace cv;
+namespace fs = boost::filesystem;
 
-static void help()
+void Det::help()
 {
     cout << "\nThis program demonstrates the cascade recognizer. Now you can use Haar or LBP features.\n"
     "This classifier can recognize many kinds of rigid objects, once the appropriate classifier is trained.\n"
@@ -30,8 +27,28 @@ static void help()
 
 string cascadeName = "/home/odenkos/recttest.xml";
 string methodName = "DETECTDEMO";
+string posdir = "pos";
+string negdir = "neg";
+string one, two;
 
-int main( int argc, const char** argv )
+string windowName = "result";
+
+const static Scalar colors[] =  { 	CV_RGB(0,0,255),
+									CV_RGB(0,128,255),
+									CV_RGB(0,255,255),
+									CV_RGB(0,255,0),
+									CV_RGB(255,128,0),
+									CV_RGB(255,255,0),
+									CV_RGB(255,0,0),
+									CV_RGB(255,0,255)};
+
+int main(int argc, const char** argv)
+{
+	Det d;
+	return d.run(argc, argv);
+}
+
+int Det::run(int argc, const char** argv)
 {
     Mat frame, frameCopy, image;
     const string scaleOpt = "--scale=";
@@ -81,34 +98,56 @@ int main( int argc, const char** argv )
         return -1;
     }
 
-    if (methodName == "DETECTDRAWDEMO") {
-    	cvNamedWindow( "result", 1 );
+    if (methodName == "DETECTDRAWDEMO" || methodName == "DETECTDRAWDEMOFAST") {
+    	cvNamedWindow(windowName.c_str(), 1);
+    } else if (methodName == "DETECTSORTDEMO") {
+    	fs::path posPath = posdir;
+    	fs::path negPath = negdir;
+    	if (!fs::exists(posPath)) {
+    		cout << "Creating positive image directory: " << posPath << endl;
+    		fs::create_directory(posPath);
+    	}
+    	if (!fs::exists(negPath)) {
+    		cout << "Creating negative image directory: " << negPath << endl;
+    		fs::create_directory(negPath);
+    	}
+    	/*posPath = fs::absolute(posPath);
+    	negPath = fs::absolute(negPath);*/
+    } else if (methodName == "DETECTMATCHDEMO") {
+    	one = "";
+    	two = "";
     }
 
     cout << "In image read" << endl;
     if( !image.empty() )
     {
-        detectAndDraw( image, cascade, scale);
+        detectAndDraw( image, cascade, scale, windowName);
         waitKey(0);
     }
     else if( !inputName.empty() )
     {
+    	string dashes = "---------------------------------------------------------";
+    	if (methodName == "DETECTDEMO") {
+    		cout << dashes << endl;
+    		cout << "|	" << "Filename" << "	|   " << "Detected?" << "	| " << "Object#"<< "	|" << endl;
+    	}
         /* assume it is a text file containing the
          *            list of the image filenames to be processed - one per line */
         FILE* f = fopen( inputName.c_str(), "rt" );
         if( f )
         {
             char buf[1000+1];
-            string dashes = "---------------------------------------------------------";
-            cout << dashes << endl;
-            cout << "|	" << "Filename" << "	|   " << "Detected?" << "	| " << "Object#"<< "	|" << endl;
             while( fgets( buf, 1000, f ) )
             {
                 int len = (int)strlen(buf);
                 while( len > 0 && isspace(buf[len-1]) )
                     len--;
                 buf[len] = '\0';
-                //cout << "file " << buf << endl; //Silencing for output
+
+                if (methodName != "DETECTDEMO") {
+                	//cout << "file " << buf << endl; //Silencing for output
+            	}
+
                 image = imread( buf, 1 );
                 if( !image.empty() )
                 {
@@ -119,144 +158,105 @@ int main( int argc, const char** argv )
                                             	if( c == 27 || c == 'q' || c == 'Q' )
                                                 	break;
                 		 */
-                		int detectedN = detect(image, cascade, scale);
-                		string detected;
-                		if (detectedN > 0) {
-                			detected = "true";
-                			cout << MAKE_RED << "|	" << buf << "	|	" << detected << "	|	" << detectedN << "	|" << RESET_COLOR <<  endl;
-                		}
-                		else {
-                			detected = "false";
-                			cout << "|	" << buf << "	|	" << detected << "	|	" << detectedN << "	|" << endl;
-                		}
+                		int detectedN = countDetected(image, cascade, scale);
+                		string detected = (detectedN > 0 ? "true" : "false");
+                		cout << "|	" << buf << "	|	" << detected << "	|	" << detectedN << "	|" << endl;
+
                 	} else if(methodName == "DETECTSORTDEMO") {
-                		cerr << "METHOD NOT YET IMPLEMENTED: " << methodName << endl;
+                		//cerr << "METHOD NOT YET IMPLEMENTED: " << methodName << endl;
+
+
+                		bool succes = detectAndSort(image, cascade, scale, "pos", "neg", buf);
+                		if (succes) {
+                			//cout << "Images were successfully sorted and moved" << endl;
+                		} else {
+                			//cout << "Images were NOT successfully sorted and moved\nWARNING: SOME MAY HAVE ALREADY BEEN MOVED, SOME DATALOSS MAY HAVE BEEN CREATED" << endl;
+                		}
                 	} else if(methodName == "DETECTDRAWDEMO") {
-                		cerr << "METHOD NOT YET IMPLEMENTED: " << methodName << endl;
+                		detectAndDraw(image, cascade, scale, windowName);
+                		char c = waitKey(0);
+                		if( c == 27 || c == 'q' || c == 'Q' )
+                			break;
+                	} else if(methodName == "DETECTDRAWDEMOFAST") {
+                		if(isDetected(image, cascade, scale)) {
+                			detectAndDraw(image, cascade, scale, windowName);
+                			char c = waitKey(0);
+                			if( c == 27 || c == 'q' || c == 'Q' ) {
+                				break;
+                			}
+                		}
+                	} else if (methodName == "DETECTMATCHDEMO") {
+                		if (!one.empty()) {
+                			two = buf;
+                			Mat mat1 = imread(one);
+                			Mat mat2 = imread(two);
+
+                			Mat detected1 = detectMat(mat1, cascade, scale);
+                			Mat detected2 = detectMat(mat2, cascade, scale);
+                			vector<Rect> objects1 = detect(mat1, cascade, scale);
+                			vector<Rect> objects2 = detect(mat2, cascade, scale);
+
+                			Rect roi = objects1.front();
+
+                			Mat cropped = mat1(roi);
+
+                			Match m;
+                			m.match(mat1, mat2);
+                			m.templateMatch(mat1, cropped, CV_TM_CCOEFF_NORMED);
+                			m.templateMatch(mat1, cropped, CV_TM_CCOEFF);
+
+                			return 0;
+                		} else {
+                			one = buf;
+                		}
                 	}
                 	else {
                 		cerr << "NO SUCH METHOD: " << methodName << endl;
+                		break;
                 	}
                 }
                 else
                 {
-                    //cerr << "Aw snap, couldn't read image " << buf << endl; //Silencing for output, just skip it
+                    cerr << "Couldn't read image: " << buf << endl; //Silencing for output, just skip it
                 }
             }
-            cout << dashes << endl;
+
+            if (methodName == "DETECTDEMO") {
+            	cout << dashes << endl;
+            }
+
             fclose(f);
         }
     }
 
-    if (methodName == "DETECTDRAWDEMO") {
-        	cvDestroyWindow("result");
+    if (methodName == "DETECTDRAWDEMO" || methodName == "DETECTDRAWDEMOFAST") {
+        	cvDestroyWindow(windowName.c_str());
     }
     return 0;
 }
 
-
-void detectAndDraw( Mat& img, CascadeClassifier& cascade, double scale)
+/*
+ * Detect an image with Mat#detect(Mat&, CascadeClassifier&, double)
+ * an shows it in a window named windowName
+ */
+void Det::detectAndDraw( Mat& img, CascadeClassifier& cascade, double scale, string windowName)
 {
-    int i = 0;
-    double t = 0;
-    vector<Rect> objects, objects2;
-    const static Scalar colors[] =  { CV_RGB(0,0,255),
-    CV_RGB(0,128,255),
-    CV_RGB(0,255,255),
-    CV_RGB(0,255,0),
-    CV_RGB(255,128,0),
-    CV_RGB(255,255,0),
-    CV_RGB(255,0,0),
-    CV_RGB(255,0,255)} ;
-    Mat gray, smallImg( cvRound (img.rows/scale), cvRound(img.cols/scale), CV_8UC1 );
-    
-    cvtColor( img, gray, CV_BGR2GRAY );
-    resize( gray, smallImg, smallImg.size(), 0, 0, INTER_LINEAR );
-    equalizeHist( smallImg, smallImg );
-    
-    t = (double)cvGetTickCount();
-    cascade.detectMultiScale( smallImg, objects,
-                              1.1, 2, 0
-                              //|CV_HAAR_FIND_BIGGEST_OBJECT
-                              //|CV_HAAR_DO_ROUGH_SEARCH
-                              |CV_HAAR_SCALE_IMAGE
-                              ,
-                              Size(30, 30) );
-
-    t = (double)cvGetTickCount() - t;
-    printf( "detection time = %g ms\n", t/((double)cvGetTickFrequency()*1000.) );
-    for( vector<Rect>::const_iterator r = objects.begin(); r != objects.end(); r++, i++ )
-    {
-        Point center;
-        Scalar color = colors[i%8];
-        int radius;
-        
-        double aspect_ratio = (double)r->width/r->height;
-        if( 0.75 < aspect_ratio && aspect_ratio < 1.3 )
-        {
-            center.x = cvRound((r->x + r->width*0.5)*scale);
-            center.y = cvRound((r->y + r->height*0.5)*scale);
-            radius = cvRound((r->width + r->height)*0.25*scale);
-            circle( img, center, radius, color, 3, 8, 0 );
-        }
-        else
-            rectangle( img, cvPoint(cvRound(r->x*scale), cvRound(r->y*scale)),
-                       cvPoint(cvRound((r->x + r->width-1)*scale), cvRound((r->y + r->height-1)*scale)),
-                       color, 3, 8, 0);
-
-    }
-    cv::imshow( "result", img );
+    Mat result = detectMat(img, cascade, scale);
+    cv::imshow(windowName, result);
 }
 
 /*
- * Returns true if detected object is in frame, false if not.
- * 
+ * Detects objects in img and returns a vector of rectangles of object regions
  */
-int detect( Mat& img, CascadeClassifier& cascade, double scale)
+vector<Rect> Det::detect( Mat& img, CascadeClassifier& cascade, double scale)
 {
-	    //double t = 0;
-	    vector<Rect> objects;
-	    Mat gray, smallImg( cvRound (img.rows/scale), cvRound(img.cols/scale), CV_8UC1 );
-
-	    cvtColor( img, gray, CV_BGR2GRAY );
-	    resize( gray, smallImg, smallImg.size(), 0, 0, INTER_LINEAR );
-	    equalizeHist( smallImg, smallImg );
-
-	    //t = (double)cvGetTickCount();
-	    cascade.detectMultiScale( smallImg, objects,
-	                              1.1, 2, 0
-	                              //|CV_HAAR_FIND_BIGGEST_OBJECT
-	                              //|CV_HAAR_DO_ROUGH_SEARCH
-	                              |CV_HAAR_SCALE_IMAGE
-	                              ,
-	                              Size(30, 30) );
-	    //t = (double)cvGetTickCount() - t;
-	    //printf( "detection time = %g ms\n", t/((double)cvGetTickFrequency()*1000.) );
-
-	    return objects.size();
-}
-
-
-void detectAndSort( Mat& img, CascadeClassifier& cascade, double scale)
-{
-    int i = 0;
-    double t = 0;
-    vector<Rect> objects, objects2;
-    const static Scalar colors[] =  { CV_RGB(0,0,255),
-    CV_RGB(0,128,255),
-    CV_RGB(0,255,255),
-    CV_RGB(0,255,0),
-    CV_RGB(255,128,0),
-    CV_RGB(255,255,0),
-    CV_RGB(255,0,0),
-    CV_RGB(255,0,255)} ;
+    vector<Rect> objects;
     Mat gray, smallImg( cvRound (img.rows/scale), cvRound(img.cols/scale), CV_8UC1 );
 
     cvtColor( img, gray, CV_BGR2GRAY );
     resize( gray, smallImg, smallImg.size(), 0, 0, INTER_LINEAR );
     equalizeHist( smallImg, smallImg );
 
-    t = (double)cvGetTickCount();
     cascade.detectMultiScale( smallImg, objects,
                               1.1, 2, 0
                               //|CV_HAAR_FIND_BIGGEST_OBJECT
@@ -264,29 +264,82 @@ void detectAndSort( Mat& img, CascadeClassifier& cascade, double scale)
                               |CV_HAAR_SCALE_IMAGE
                               ,
                               Size(30, 30) );
+    return objects;
+}
 
+/*
+ * Detects objects in img, draws rectangles around them and returns the img
+ */
+Mat Det::detectMat( Mat& img, CascadeClassifier& cascade, double scale) {
 
-    t = (double)cvGetTickCount() - t;
-    printf( "detection time = %g ms\n", t/((double)cvGetTickFrequency()*1000.) );
-    for( vector<Rect>::const_iterator r = objects.begin(); r != objects.end(); r++, i++ )
-    {
-        Point center;
-        Scalar color = colors[i%8];
-        int radius;
+	int i = 0;
+	vector<Rect> objects = detect(img, cascade, scale);
 
-        double aspect_ratio = (double)r->width/r->height;
-        if( 0.75 < aspect_ratio && aspect_ratio < 1.3 )
-        {
-            center.x = cvRound((r->x + r->width*0.5)*scale);
-            center.y = cvRound((r->y + r->height*0.5)*scale);
-            radius = cvRound((r->width + r->height)*0.25*scale);
-            circle( img, center, radius, color, 3, 8, 0 );
-        }
-        else
-            rectangle( img, cvPoint(cvRound(r->x*scale), cvRound(r->y*scale)),
-                       cvPoint(cvRound((r->x + r->width-1)*scale), cvRound((r->y + r->height-1)*scale)),
-                       color, 3, 8, 0);
+	for( vector<Rect>::const_iterator r = objects.begin(); r != objects.end(); r++, i++ )
+	{
+	        Point center;
+	        Scalar color = colors[i%8];
+	        int radius;
 
-    }
-    cv::imshow( "result", img );
+	        double aspect_ratio = (double)r->width/r->height;
+	        if( 0.75 < aspect_ratio && aspect_ratio < 1.3 )
+	        {
+	            center.x = cvRound((r->x + r->width*0.5)*scale);
+	            center.y = cvRound((r->y + r->height*0.5)*scale);
+	            radius = cvRound((r->width + r->height)*0.25*scale);
+	            circle( img, center, radius, color, 3, 8, 0 );
+	        }
+	        else {
+	            rectangle( img, cvPoint(cvRound(r->x*scale), cvRound(r->y*scale)),
+	                       cvPoint(cvRound((r->x + r->width-1)*scale), cvRound((r->y + r->height-1)*scale)),
+	                       color, 3, 8, 0);
+	        }
+	}
+	return img;
+}
+
+/*
+ * Returns true if detected object is in img, false if not.
+ *
+ */
+bool Det::isDetected(Mat &img, CascadeClassifier &cascade, double scale)
+{
+	return (countDetected(img, cascade, scale) > 0 ? true : false);
+}
+
+/*
+ * Returns the number of detected objects in img
+ */
+int Det::countDetected(Mat &img, CascadeClassifier &cascade, double scale)
+{
+	return detect(img, cascade, scale).size();
+}
+
+/*
+ * Returns true if successfully sorted
+ * <b>Prerequisite:</b> If a posdir and negdir arent created, create them!
+ */
+bool Det::detectAndSort(Mat &img, CascadeClassifier &cascade, double scale, string posdir, string negdir, string filename)
+{
+	fs::path filenamePath = filename;
+	//filenamePath = fs::absolute(filenamePath);
+	fs::path posdirPath = posdir;
+	//posdirPath = fs::absolute(posdirPath);
+	fs::path negdirPath = negdir;
+	//negdirPath = fs::absolute(negdirPath);
+
+	if (isDetected(img, cascade, scale)) {
+		posdirPath/=filename;
+		Mat rect = detectMat(img, cascade, scale);
+		//cout << "Moving image " << filenamePath.c_str() << " to " << posdirPath.c_str() << endl;
+		cout << "COPY: " << filenamePath << " to: " << posdirPath << endl;
+		imwrite(posdirPath.generic_string(), rect);
+		//fs::copy_file(filename, posdirPath);
+	} else {
+		negdirPath/=filename;
+		//cout << "Moving image " << filenamePath.c_str() << " to " << negdirPath.c_str() << endl;
+		cout << "COPY: " << filenamePath << " to: " << negdirPath << endl;
+		fs::copy_file(filename, negdirPath);
+	}
+	return true;
 }
