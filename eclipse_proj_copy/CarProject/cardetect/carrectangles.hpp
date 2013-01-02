@@ -5,6 +5,8 @@
 using namespace cv;
 
 static void help();
-void detectAndSort(Mat&, CascadeClassifier&, double);
-int detect(Mat&, CascadeClassifier&, double);
-void detectAndDraw(Mat&, CascadeClassifier&, double);
+bool detectAndSort(Mat &img, CascadeClassifier &cascade, double scale, string posdir, string negdir, string filename);
+int countDetected(Mat &img, CascadeClassifier &cascade, double scale);
+void detectAndDraw(Mat &img, CascadeClassifier &cascade, double scale, string windowName);
+vector<Rect> detect(Mat &img, CascadeClassifier& cascade, double scale);
+Mat detectMat(Mat &img, CascadeClassifier &cascade, double scale);
