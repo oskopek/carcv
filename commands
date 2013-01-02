@@ -1,0 +1,6 @@
+Try out:
+./alltargets-build.sh
+cd test/all
+./carrect --cascade="../t5.xml" --method=DETECTDEMO list
+cd ..
+./countefficiency.sh
