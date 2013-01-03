@@ -1,4 +1,3 @@
-#include "carmatcher.hpp"
 #include "carrectangles.hpp"
 #include "carimg.hpp"
 
@@ -8,17 +7,34 @@ namespace fs = boost::filesystem;
 using namespace std;
 using namespace cv;
 
-class {
+
+enum method {CCV_HAAR_SURF, CCV_HAAR_TMPLMATCH};
+
+class CarCV {
 public:
-	const enum method {CCV_HAAR_SURF, CCV_HAAR_TMPLMATCH};
 
 	void run(fs::path &imgList, method, CascadeClassifier &cascade);
 
-	void detect(fs::path &imgList, CascadeClassifier &cascade);
+	void detect(fs::path *imgList, CascadeClassifier &cascade);
 
-	void sortPOS_AND_NEG(fs::path &imgList);
+	void sortPOS_AND_NEG(fs::path *imgList);
 
-	void sortUnique(fs::path &posImgList);
+	/*
+	 * Supply a list of positive images, and a dir where to place cars
+	 */
+	void sortUnique(fs::path &posImgList, fs::path carsDir);
 
+	static list<string> parseList(string &list);
+
+	template <class T>
+	static T atList(list<T> &tlist, int index);
+
+	template <class P>
+	static int listLength(list<P> &plist);
+
+private:
+
+	void saveCars(list<CarImg>);
+	list<CarImg> loadCars();
 
 };

@@ -7,10 +7,7 @@ namespace fs = boost::filesystem;
 
 class CarImg {
 public:
-	CarImg(fs::path &path, string &filename, Mat &img) {CarImg x = CarImg();
-														x.path = path;
-														x.filename = filename;
-														x.img = img;};
+	CarImg(fs::path &path, string &filename, Mat &img) {CarImg x = CarImg(); x.path = path; x.filename = filename; x.img = img;};
 	fs::path getPath() 		{return path;};
 	void setFilename(string &filename)	{this->filename = filename;};
 	string getFilename()	{return filename;};
@@ -24,7 +21,7 @@ public:
 
 private:
 	CarImg();
-	const fs::path path;
+	fs::path path;
 	string filename;
 	Mat img;
 };
