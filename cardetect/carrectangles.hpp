@@ -25,4 +25,9 @@ public:
 	vector<Rect> detect(Mat &img, CascadeClassifier& cascade, double scale);
 	Mat detectMat(Mat &img, CascadeClassifier &cascade, double scale);
 	bool isDetected(Mat &img, CascadeClassifier &cascade, double scale);
+	Mat crop(Mat &img, Rect &roi, double &scale);
+	void coutp(string name, Rect roi);
+	Point2d center(Rect r);
+	Rect scaleRect(Rect roi, double scale);
+	void testCropping(Mat &crop, Mat &comp, CascadeClassifier &cascade, double &scale);
 };

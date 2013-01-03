@@ -188,22 +188,19 @@ int Det::run(int argc, const char** argv)
                 	} else if (methodName == "DETECTMATCHDEMO") {
                 		if (!one.empty()) {
                 			two = buf;
-                			Mat mat1 = imread(one);
-                			Mat mat2 = imread(two);
+                			Mat mat1 = imread("1.bmp"); //carcrop
+                			Mat mat2 = imread("2.bmp"); //samecar
+                			Mat mat3 = imread("3.bmp"); //diffcar
 
-                			Mat detected1 = detectMat(mat1, cascade, scale);
-                			Mat detected2 = detectMat(mat2, cascade, scale);
-                			vector<Rect> objects1 = detect(mat1, cascade, scale);
-                			vector<Rect> objects2 = detect(mat2, cascade, scale);
+                			//Mat detected1 = detectMat(mat1, cascade, scale);
+                			//Mat detected2 = detectMat(mat2, cascade, scale);
 
-                			Rect_<int> roi = objects1.front();
+                			testCropping(mat1, mat2, cascade, scale);
+                			testCropping(mat1, mat3, cascade, scale);
 
-                			Mat cropped = mat1(roi);
-
-                			Match m;
-                			m.match(mat1, mat2);
-                			m.templateMatch(mat1, cropped, CV_TM_CCOEFF_NORMED);
-                			m.templateMatch(mat1, cropped, CV_TM_CCOEFF);
+                			return 0;
+                			//m.templateMatch(mat1, cropped, CV_TM_CCOEFF_NORMED);
+                			//m.templateMatch(mat1, cropped, CV_TM_CCOEFF);
 
                 			return 0;
                 		} else {
@@ -342,4 +339,97 @@ bool Det::detectAndSort(Mat &img, CascadeClassifier &cascade, double scale, stri
 		fs::copy_file(filename, negdirPath);
 	}
 	return true;
+}
+
+/*
+ * Scales the roi and scales it
+ * Note!!! scale must be < 1
+ */
+Mat Det::crop(Mat &img, Rect &roi, double &scale) {
+	Rect scaledROI = scaleRect(roi, scale);
+	Mat ret = img(scaledROI);
+	return ret;
+
+}
+
+/*
+ * Calculates the center point of Rect r
+ */
+Point2d Det::center(Rect r) {
+	Point2d p;
+	p.x = r.x+((r.width)/2);
+	p.y = r.y+((r.height)/2);
+	return p;
+}
+
+/*
+ * Scales the given rect to keep ~ the same center point, just be scaled
+ */
+Rect Det::scaleRect(Rect roi, double scale) {
+	Rect scaledROI;
+
+	scaledROI.height = roi.height*scale;
+	scaledROI.width = roi.width*scale;
+
+	Point2d croi = center(roi);
+	scaledROI.x = croi.x-((roi.width*scale)/2);
+	scaledROI.y = croi.y-((roi.height*scale)/2);
+	//scaledROI.x = roi.x+(roi.width*(1-scale));
+	//scaledROI.y = roi.y+(roi.height*(1-scale));
+
+	return scaledROI;
+}
+
+/*
+ * Prints info about the rectangle to cout
+ */
+void Det::coutp(string name, Rect roi) {
+	cout << name.c_str() << ":		" << "Point[" << roi.x << ", " << roi.y << "];height=" << roi.height << ";width=" << roi.width << endl;
+}
+
+void Det::testCropping(Mat &forcrop, Mat &comp, CascadeClassifier &cascade, double &scale) {
+	vector<Rect> forcropObj = detect(forcrop, cascade, scale);
+	vector<Rect> compObj = detect(comp, cascade, scale);
+
+	Rect roi = forcropObj.front();
+	Match m;
+	Mat lol;
+
+	cvNamedWindow("forcropcropped");
+	cvNamedWindow("matched");
+
+	int start = 85;
+	int limit = 90;
+
+	for(int i = start; i < limit; i++) {
+		double di = (double) i;
+		cout << di << endl;
+		double scale = di/limit;
+		cout << scale << endl;
+
+		Mat cropped = crop(forcrop, roi, scale);
+		imshow("forcropcropped", cropped);
+
+		lol = m.matGoodMatches(cropped, comp, true);
+		imshow("matched", lol);
+		waitKey(0);
+
+		Mat img_matches = comp.clone(); //(Size(1000,1000), CV_8UC1);
+		Mat img_object = comp.clone();
+		vector<Point2f> scene_corners = m.sceneCornersGoodMatches(cropped, comp, true);
+		cout << scene_corners << endl;
+		//-- Draw lines between the corners (the mapped object in the scene - image_2 )
+			  line( img_matches, scene_corners[0] + Point2f( img_object.cols, 0), scene_corners[1] + Point2f( img_object.cols, 0), Scalar(0, 255, 0), 4 );
+			  line( img_matches, scene_corners[1] + Point2f( img_object.cols, 0), scene_corners[2] + Point2f( img_object.cols, 0), Scalar( 0, 255, 0), 4 );
+			  line( img_matches, scene_corners[2] + Point2f( img_object.cols, 0), scene_corners[3] + Point2f( img_object.cols, 0), Scalar( 0, 255, 0), 4 );
+			  line( img_matches, scene_corners[3] + Point2f( img_object.cols, 0), scene_corners[0] + Point2f( img_object.cols, 0), Scalar( 0, 255, 0), 4 );
+		/*line(img_matches, scene_corners[0], scene_corners[1], Scalar(0, 255, 0), 4);
+		line(img_matches, scene_corners[1], scene_corners[2], Scalar(0, 255, 0), 4);
+		line(img_matches, scene_corners[2], scene_corners[3], Scalar(0, 255, 0), 4);
+		line(img_matches, scene_corners[3], scene_corners[0], Scalar(0, 255, 0), 4);*/
+		imshow("forcropcropped", img_matches);
+		waitKey(0);
+	}
+	cvDestroyAllWindows();
+	return;
 }

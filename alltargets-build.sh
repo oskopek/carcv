@@ -33,7 +33,7 @@ echo $DASHES
 echo "-------CREATING BUILD DIR"
 echo $DASHES
 cd $basedir
-mkdir build
+mkdir -v build
 
 echo
 echo
