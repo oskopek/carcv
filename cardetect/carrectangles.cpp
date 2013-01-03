@@ -314,7 +314,6 @@ int Det::countDetected(Mat &img, CascadeClassifier &cascade, double scale)
 
 /*
  * Returns true if successfully sorted
- * <b>Prerequisite:</b> If a posdir and negdir arent created, create them!
  */
 bool Det::detectAndSort(Mat &img, CascadeClassifier &cascade, double scale, string posdir, string negdir, string filename)
 {
@@ -324,6 +323,14 @@ bool Det::detectAndSort(Mat &img, CascadeClassifier &cascade, double scale, stri
 	//posdirPath = fs::absolute(posdirPath);
 	fs::path negdirPath = negdir;
 	//negdirPath = fs::absolute(negdirPath);
+
+	if (!fs::exists(posdirPath) || !fs::is_directory(posdirPath)) {
+		fs::create_directory(posdirPath);
+	}
+
+	if (!fs::exists(negdirPath) || fs::is_directory(negdirPath)) {
+		fs::create_directory(negdirPath);
+	}
 
 	if (isDetected(img, cascade, scale)) {
 		posdirPath/=filename;

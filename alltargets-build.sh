@@ -43,7 +43,7 @@ echo "-------COPYING SOURCE FILES OVER"
 echo $DASHES
 cd $basedir
 cd cardetect
-rm -rfv carmatcher* carrectangles*
+rm -rfv carmatcher* carrectangles* carcv* carimg*
 cp -v /home/odenkos/c_workspace/CarProject/cardetect/* .
 
 echo
@@ -71,6 +71,7 @@ echo $DASHES
 echo "------DISTRIBUTING"
 echo $DASHES
 cp -v $basedir/build/cardetect/carrect $basedir/test/all/
+cp -v $basedir/build/cardetect/carcv $basedir/test/all/
 
 echo
 echo
