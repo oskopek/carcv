@@ -22,20 +22,20 @@ enum method {CCV_HAAR_SURF, CCV_HAAR_TMPLMATCH};
 class CarCV {
 public:
 
-	void run(fs::path &imgList, method, CascadeClassifier &cascade);
+	void run(fs::path &imgListPath, method, CascadeClassifier &cascade);
 
-	void detect(fs::path *imgList, CascadeClassifier &cascade);
+	void detect(list<string> *imgList, CascadeClassifier &cascade);
 
-	void sortPOS_AND_NEG(fs::path *imgList);
+	void sortPOS_AND_NEG(list<string> *imgList, fs::path &posDirPath, fs::path &negDirPath);
 
 	/*
 	 * Supply a list of positive images, and a dir where to place cars
 	 */
-	void sortUnique(fs::path &posImgList, fs::path carsDir);
+	void sortUnique(list<string> &posImgList, fs::path carsDir);
 
 	double calcSpeed(list<CarImg> clist);
 
-	static list<string> parseList(string &list);
+	static list<string> parseList(fs::path &list);
 
 	template <class T>
 	static T atList(list<T> &tlist, int index);

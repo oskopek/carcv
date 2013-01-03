@@ -16,16 +16,19 @@ int main(int argc, char** argv) {
 /*
  * Main run method
  */
-void CarCV::run(fs::path &imgList, method, CascadeClassifier &cascade) {
-	fs::path posImgDir = "pos";
-	fs::path negImgDir = "neg";
+void CarCV::run(fs::path &imgListPath, method, CascadeClassifier &cascade) {
+	fs::path posDirPath = "pos";
+	fs::path negDirPath = "neg";
+
+	list<string> imgList = CarCV::parseList(imgListPath);
+
 	CarCV c;
 	c.detect(&imgList, cascade);
-	c.sortPOS_AND_NEG(&imgList);
+	c.sortPOS_AND_NEG(&imgList, posDirPath, negDirPath);
 
 
 	fs::path carsDir = "cars";
-	c.sortUnique(posImgDir, carsDir);
+	c.sortUnique(imgList, carsDir);
 
 	list<CarImg> carlist;
 
@@ -36,14 +39,14 @@ void CarCV::run(fs::path &imgList, method, CascadeClassifier &cascade) {
 /*
  * //TODO: to be implemented
  */
-void CarCV::detect(fs::path *imgList, CascadeClassifier &cascade) { //TODO: mix with sortPOS_AND_NEG()
+void CarCV::detect(list<string> *imgList, CascadeClassifier &cascade) { //TODO: mix with sortPOS_AND_NEG()
 
 }
 
 /*
  * //TODO: to be implemented
  */
-void CarCV::sortPOS_AND_NEG(fs::path *imgList) { //detect and sort? w/ detect()
+void CarCV::sortPOS_AND_NEG(list<string> *imgList, fs::path &posDirPath, fs::path &negDirPath) { //detect and sort? w/ detect()
 
 }
 
@@ -51,7 +54,8 @@ void CarCV::sortPOS_AND_NEG(fs::path *imgList) { //detect and sort? w/ detect()
  * Sort images from posImgList into unique car subdirectiories of carsDir
  * Uses <sarcasm> Ondrej Skopek Sort Algorithm (OSSA) </sarcasm>
  */
-void CarCV::sortUnique(fs::path &posImgList, fs::path carsDir) { //TODO: implement super algorithm 3000
+void CarCV::sortUnique(list<string> &posImgList, fs::path carsDir) { //TODO: implement super algorithm 3000
+
 
 }
 
@@ -79,7 +83,7 @@ list<CarImg> loadCars(fs::path carsDir) { //create a loader/parser for CarImg
 /*
  * Parses the input file plist into a list<string>
  */
-list<string> CarCV::parseList(string &plist) {
+list<string> CarCV::parseList(fs::path &plist) {
 	list<string> retlist;
 
 	FILE* f = fopen(plist.c_str(), "rt");
