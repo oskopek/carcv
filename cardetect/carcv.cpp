@@ -3,48 +3,76 @@
 using namespace std;
 
 int main(int argc, char** argv) {
-	string plist;
-	plist.assign(argv[1]);
-	int index = argv[2][0];
+	CarCV c;
 
-	list<string> dummy;
-	dummy = CarCV::parseList(plist);
+	CascadeClassifier cascade;
+	cascade.load(argv[2]);
 
-	list<string>::iterator dummyI = dummy.begin();
+	fs::path dir(argv[1]);
 
-	for (int i = 0; dummyI != dummy.end();i++) {
-		//cout << "No pointer: "<< dummyI << endl;
-		cout << "Pointer: " << *dummyI << endl;
-
-
-		dummyI++;
-	}
-
-	cout << CarCV::listLength(dummy) << endl;
-	cout << CarCV::atList(dummy, 0) << ", " << CarCV::atList(dummy, CarCV::listLength(dummy)) << endl;
-	cout << CarCV::atList(dummy, 1000);
+	c.run(dir, CCV_HAAR_SURF, cascade);
 }
 
+/*
+ * Main run method
+ */
 void CarCV::run(fs::path &imgList, method, CascadeClassifier &cascade) {
+	fs::path posImgDir = "pos";
+	fs::path negImgDir = "neg";
+	CarCV c;
+	c.detect(&imgList, cascade);
+	c.sortPOS_AND_NEG(&imgList);
+
+
+	fs::path carsDir = "cars";
+	c.sortUnique(posImgDir, carsDir);
+
+	list<CarImg> carlist;
+
+	double speed = c.calcSpeed(carlist);
 
 }
 
-void CarCV::detect(fs::path *imgList, CascadeClassifier &cascade) {
+/*
+ * //TODO: to be implemented
+ */
+void CarCV::detect(fs::path *imgList, CascadeClassifier &cascade) { //TODO: mix with sortPOS_AND_NEG()
 
 }
 
-void CarCV::sortPOS_AND_NEG(fs::path *imgList) {
+/*
+ * //TODO: to be implemented
+ */
+void CarCV::sortPOS_AND_NEG(fs::path *imgList) { //detect and sort? w/ detect()
 
 }
 
-void CarCV::sortUnique(fs::path &posImgList, fs::path carsDir) {
+/*
+ * Sort images from posImgList into unique car subdirectiories of carsDir
+ * Uses <sarcasm> Ondrej Skopek Sort Algorithm (OSSA) </sarcasm>
+ */
+void CarCV::sortUnique(fs::path &posImgList, fs::path carsDir) { //TODO: implement super algorithm 3000
 
 }
 
-void CarCV::saveCars(list<CarImg>) {
+/*
+ * Calculates speed of a given unique car from the list of CarImg
+ */
+double CarCV::calcSpeed(list<CarImg> clist) { //TODO: leave empty for now
 
 }
-list<CarImg> loadCars() {
+
+/*
+ * Save CarImg objects to carsDir
+ */
+void CarCV::saveCars(list<CarImg>, fs::path carsDir) { //create a saver for CarImg
+
+}
+
+/*
+ * Load/parse CarImg objects from carsDir
+ */
+list<CarImg> loadCars(fs::path carsDir) { //create a loader/parser for CarImg
 
 }
 
@@ -92,12 +120,44 @@ T CarCV::atList(list<T> &tlist, int index) {
  * Length of plist
  */
 template <class P>
-int CarCV::listLength(list<P> &plist) {
+int CarCV::listSize(list<P> &plist) {
 	typename list<P>::iterator plistI = plist.begin();
 	int i;
 
 	for (i = 0; plistI != plist.end();i++) {
 			plistI++;
+		}
+	return i;
+}
+
+
+/*
+ * Map item at index
+ */
+template <class K, class V>
+V CarCV::atMap(map<K, V> &tmap, V index) {
+
+	typename map<K, V>::iterator tmapI = tmap.begin();
+
+	for (int i = 0; tmapI != tmap.end();i++) {
+			if (i == index) {
+				return *tmapI;
+			}
+			tmapI++;
+		}
+	return *--tmapI;
+}
+
+/*
+ * Size of pmap
+ */
+template <class K, class V>
+int CarCV::mapSize(map<K, V> &pmap) {
+	typename map<K, V>::iterator pmapI = pmap.begin();
+	int i;
+
+	for (i = 0; pmapI != pmap.end();i++) {
+			pmapI++;
 		}
 	return i;
 }
