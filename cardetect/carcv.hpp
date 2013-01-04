@@ -26,9 +26,9 @@ public:
 
 	void run(fs::path &imgListPath, int method, CascadeClassifier &cascade);
 
-	list<CarImg> detect_sortPOS_AND_NEG(list<CarImg> *imgList, CascadeClassifier &cascade, fs::path &posDirPath, fs::path &negDirPath);
+	list<CarImg> detect_sortPOS_AND_NEG(list<CarImg> &imgList, CascadeClassifier &cascade, list<CarImg> *negList);
 
-	//list<string> sortPOS_AND_NEG(list<string> *imgList, fs::path &posDirPath, fs::path &negDirPath); //unimplemented, joined with detect()
+	//list<string> sortPOS_AND_NEG(list<string> &imgList, CascadeClassifier &cascade, list<CarImg> *negList); //unimplemented, joined with detect()
 
 	/*
 	 * Supply a list of positive images, and a dir where to place cars
