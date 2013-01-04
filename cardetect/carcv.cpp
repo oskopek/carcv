@@ -6,6 +6,8 @@ using namespace cv;
 
 namespace fs = boost::filesystem;
 
+const double scale = 1;
+
 int main(int argc, char** argv) {
 	CarCV c;
 
@@ -62,15 +64,16 @@ void CarCV::run(fs::path &imgListPath, int method, CascadeClassifier &cascade) {
 	list<string> strImgList = CarCV::parseList(imgListPath); //parse image list file to list<string>
 	list<CarImg> imgList = CarCV::loadCarImgList(strImgList); //load CarImg objects from the list
 
+
+	list<CarImg> negList;
 	CarCV c; //create an instance of CarCV
-	list<CarImg> posCarImgList = c.detect_sortPOS_AND_NEG(&imgList, cascade, posDirPath, negDirPath);//detect and sort objects in images of imgList
+	list<CarImg> posCarImgList = c.detect_sortPOS_AND_NEG(imgList, cascade, &negList);//detect and sort objects in images of imgList
 
 
 	fs::path carsDir = "cars";
 	if (!fs::exists(carsDir) || !fs::is_directory(carsDir)) { //create cars dir
 		fs::create_directory(carsDir);
 	}
-
 
 	list<list<CarImg> > cars = c.sortUnique(posCarImgList, cascade);
 
@@ -83,19 +86,36 @@ void CarCV::run(fs::path &imgListPath, int method, CascadeClassifier &cascade) {
 		speed = c.calcSpeed(carlist, CCV_SP_FROMALLFILES);
 		cout << "Car speed: " << speed << "km/h" << endl;
 	}
-
-
 }
 
 /*
- * //TODO: to be implemented
  * Returns list of positive images list<CarImg>
- *
+ * Negative images are stored in *imgList pointer
  */
-list<CarImg> CarCV::detect_sortPOS_AND_NEG(list<CarImg> *imgList, CascadeClassifier &cascade, fs::path &posDirPath, fs::path &negDirPath) {
-	list<CarImg> sorted = *imgList;
+list<CarImg> CarCV::detect_sortPOS_AND_NEG(list<CarImg> &imgList, CascadeClassifier &cascade, list<CarImg> *negList) { //todo: test this
+	list<CarImg> posList;
 
-	return sorted; //temp
+	const int listSize = imgList.size();
+
+	fs::path cPath = (*imgList.begin()).getPath();
+	string cFile = "";
+	Mat cMat;
+	CarImg cImg(cPath, cFile, cMat);
+
+	for (int i = 0; i < listSize; i++) {
+		cImg = CarCV::atList(imgList, i);
+		cPath = cImg.getPath();
+		cFile = cImg.getFilename();
+		cMat = cImg.getImg();
+
+		if (Det::isDetected(cMat, cascade, scale)) {
+			posList.push_back(cImg); //maybe .clone()?
+		} else {
+			negList->push_back(cImg); //maybe .clone()?
+		}
+	}
+
+	return posList;
 }
 
 /*
@@ -103,7 +123,6 @@ list<CarImg> CarCV::detect_sortPOS_AND_NEG(list<CarImg> *imgList, CascadeClassif
  * Uses <sarcasm> Ondrej Skopek Sort Algorithm (OSSA) </sarcasm>
  */
 list<list<CarImg> > CarCV::sortUnique(list<CarImg> &posCarImgList, CascadeClassifier &cascade) { //TODO: test implementation of super algorithm 3000
-	/*const*/ double scale = 1;
 
 
 	map<CarImg, double> probability; //flushed at every iteration over posImgList
