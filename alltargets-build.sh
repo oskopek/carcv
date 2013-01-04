@@ -62,7 +62,7 @@ echo
 echo $DASHES
 echo "-------RUNNING MAKE"
 echo $DASHES
-make
+make carcv                     ##WARNING, edited, should be all
 
 echo
 echo
@@ -70,7 +70,7 @@ echo
 echo $DASHES
 echo "------DISTRIBUTING"
 echo $DASHES
-cp -v $basedir/build/carrect/carrect $basedir/test/all/
+#cp -v $basedir/build/carrect/carrect $basedir/test/all/ ##WARNING, edited, should be uncomennted
 cp -v $basedir/build/cardetect/carcv $basedir/test/all/
 
 echo
