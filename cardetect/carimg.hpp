@@ -14,12 +14,14 @@ public:
 	void setImg(Mat &img) 	{this->img = img;};
 	Mat getImg()			{return img;};
 
+	//todo override operator< and operator=
+
 	/*
 	static CarImg load(fs::path &fromPath);
 	static CarImg load(string &filename);
 	*/
 
-private:
+//temp outcommented, cause of struct comparision see ^ todo: private:
 	CarImg();
 	fs::path path;
 	string filename;

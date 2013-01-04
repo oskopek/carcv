@@ -37,6 +37,8 @@ public:
 
 	static list<string> parseList(fs::path &list);
 
+	static int findMaxIndex(list<double> &mlist);
+
 	template <class T>
 	static T atList(list<T> &tlist, int index);
 
@@ -44,7 +46,7 @@ public:
 	static int listSize(list<P> &plist);
 
 	template <class K, class V>
-	V atMap(map<K, V> &tmap, V index);
+	V atMap(map<K, V> &tmap, K index);
 
 	template <class K, class V>
 	int mapSize(map<K, V> &pmap);
@@ -52,6 +54,7 @@ public:
 private:
 
 	void saveCars(list<CarImg>, fs::path carsDir);
-	list<CarImg> loadCars();
+	static list<CarImg> loadCars();
+	static list<CarImg> loadCars(list<string> carList);
 
 };

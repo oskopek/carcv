@@ -28,6 +28,10 @@ void CarCV::run(fs::path &imgListPath, method, CascadeClassifier &cascade) {
 
 
 	fs::path carsDir = "cars";
+	if (!fs::exists(carsDir) || !fs::is_directory(carsDir)) {
+		fs::create_directory(carsDir);
+	}
+
 	c.sortUnique(imgList, carsDir);
 
 	list<CarImg> carlist;
@@ -56,8 +60,83 @@ void CarCV::sortPOS_AND_NEG(list<string> *imgList, fs::path &posDirPath, fs::pat
  */
 void CarCV::sortUnique(list<string> &posImgList, fs::path carsDir) { //TODO: implement super algorithm 3000
 
+	//temp
+	struct cmp_str
+	{
+		bool operator()(const CarImg *a, const CarImg *b) const
+		{
+			const char* ac = a->filename.c_str();
+			const char* bc = b->filename.c_str();
+			return std::strcmp(ac, bc) < 0;
+		}
+	};
+	//temp
 
+
+	list<CarImg> posCarImgList; //=converted from posImgList
+
+	map<CarImg, double, cmp_str> probability; //flushed at every iteration over posImgList
+
+	list<list<CarImg> > cars; //sorted list
+
+	list<double> carProbabilty; //result probabilities for every potential unique car
+
+	for (int i = 0; i < CarCV::listSize(posCarImgList); i++) { //iterate over posImgList
+		probability.clear();
+		carProbabilty.clear();
+
+		if (i == 0 && cars.size() == 0) { //first iteration
+			CarCV::atList(cars, 0).push_back(CarCV::atList(posCarImgList, i));
+			continue;
+		}
+
+		for (int j = 0; j < CarCV::listSize(cars); j++) { //iterate over the main list of cars
+			int k;
+
+			for (k = 0; k < CarCV::atList(cars, j).size(); k++) {
+				double prob = 0;
+				list<CarImg> li = CarCV::atList(cars, j);
+				CarImg t = CarCV::atList(li, k);
+				probability.insert(std::pair<CarImg, double>(t, prob));
+			}
+		}
+
+		for (int l = 0; l < cars.size(); l++) {
+			double prob;
+			int m;
+			for (m = 0; m < CarCV::atList(cars, l).size(); m++) {
+				list<CarImg> li = CarCV::atList(cars, l);
+				CarImg t = CarCV::atList(li, m);
+				prob += CarCV::atMap(probability, t);
+			}
+			prob /= CarCV::atList(cars, l).size();
+			carProbabilty.push_back(prob);
+		}
+
+		int carProbId = CarCV::findMaxIndex(carProbabilty); //TODO: 1 iterate over, find max, print not max but id of max
+		CarCV::atList(cars, carProbId).push_back(CarCV::atList(posCarImgList, i));
+	}
 }
+
+/*
+ * Should return the index of the biggest double in mlist
+ */
+int CarCV::findMaxIndex(list<double> &mlist) {
+	list<double>::iterator mlistI = mlist.begin();
+	double probmax;
+	int index;
+
+	for (int i = 0; mlistI != mlist.end();i++) {
+		if(*mlistI > probmax) {
+			probmax = *mlistI;
+			index = i;
+		}
+
+		mlistI++;
+	}
+	return index;
+}
+
 
 /*
  * Calculates speed of a given unique car from the list of CarImg
@@ -77,7 +156,18 @@ void CarCV::saveCars(list<CarImg>, fs::path carsDir) { //create a saver for CarI
  * Load/parse CarImg objects from carsDir
  */
 list<CarImg> loadCars(fs::path carsDir) { //create a loader/parser for CarImg
+	list<CarImg> carImgList; //todo not good
 
+	return carImgList;
+}
+
+/*
+ * Load/parse CarImg from carList
+ */
+list<CarImg> loadCars(list<string> carList) { //TODO: create a loader/parser for CarImg
+	list<CarImg> carImgList;
+
+	return carImgList;
 }
 
 /*
@@ -139,17 +229,19 @@ int CarCV::listSize(list<P> &plist) {
  * Map item at index
  */
 template <class K, class V>
-V CarCV::atMap(map<K, V> &tmap, V index) {
+V CarCV::atMap(map<K, V> &tmap, K index) {
 
 	typename map<K, V>::iterator tmapI = tmap.begin();
+	typename map<K, V>::iterator searching = tmap.find(index);
+
 
 	for (int i = 0; tmapI != tmap.end();i++) {
-			if (i == index) {
-				return *tmapI;
+			if (tmapI == searching) {
+				return (*tmapI).second;
 			}
 			tmapI++;
 		}
-	return *--tmapI;
+	return (*--tmapI).second;
 }
 
 /*
