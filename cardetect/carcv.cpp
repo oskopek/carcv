@@ -83,7 +83,7 @@ void CarCV::run(fs::path &imgListPath, int method, CascadeClassifier &cascade) {
 /*
  * //TODO: to be implemented
  */
-void CarCV::detect(list<string> *imgList, CascadeClassifier &cascade) { //TODO: mix with sortPOS_AND_NEG()
+void CarCV::detect(list<string> *imgList, CascadeClassifier &cascade) { //mix with sortPOS_AND_NEG()?
 
 }
 
@@ -197,25 +197,32 @@ double CarCV::calcSpeed(list<CarImg> clist, int speed_method) { //TODO: leave em
 }
 
 /*
- * Save CarImg objects to carsDir
+ * Save CarImg objects to carDir (USE FOR UNIQUE CARS)
  */
-void CarCV::saveCars(list<CarImg>, fs::path carsDir) { //create a saver for CarImg
+void CarCV::saveCarImgList(list<CarImg> carList, fs::path carDir) { //todo: create a saver for CarImgs
+
+}
+
+/**
+ * Save list<CarImg> objects to carsDir
+ */
+void CarCV::saveCars(list<list<CarImg> > cars, fs::path carsDir) { //TODO: create a saver for carsDir
 
 }
 
 /*
- * Load/parse CarImg objects from carsDir
+ * Load/parse list<CarImg> objects from carsDir
  */
-list<CarImg> loadCars(fs::path carsDir) { //create a loader/parser for CarImg
-	list<CarImg> carImgList; //todo not good
+list<list<CarImg> > CarCV::loadCars(fs::path carsDir) { //TODO: create a loader/parser for carsDir
+	list<list<CarImg> > carsList;
 
-	return carImgList;
+	return carsList;
 }
 
 /*
- * Load/parse CarImg from carList
+ * Load/parse CarImg objects from carList
  */
-list<CarImg> loadCars(list<string> carList) { //TODO: create a loader/parser for CarImg
+list<CarImg> CarCV::loadCarImgList(list<string> carList) { //TODO: create a loader/parser for CarImg
 	list<CarImg> carImgList;
 
 	return carImgList;
@@ -267,7 +274,7 @@ T CarCV::atList(list<T> &tlist, int index) { //
  * Useless: use plist.size()
  */
 template <class P>
-int CarCV::listSize(list<P> &plist) { //todo: useless, use plist.size()
+int CarCV::listSize(list<P> &plist) { //useless, use plist.size()
 	typename list<P>::iterator plistI = plist.begin();
 	int i;
 
@@ -303,7 +310,7 @@ V CarCV::atMap(map<K, V> &tmap, K index) { //tested, works
  * Useless, use pmap.size()
  */
 template <class K, class V>
-int CarCV::mapSize(map<K, V> &pmap) { //todo: useless, use pmap.size()
+int CarCV::mapSize(map<K, V> &pmap) { //useless, use pmap.size()
 	typename map<K, V>::iterator pmapI = pmap.begin();
 	int i;
 
