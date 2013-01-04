@@ -59,11 +59,11 @@ void CarCV::run(fs::path &imgListPath, int method, CascadeClassifier &cascade) {
 	fs::path posDirPath = "pos"; //load pos dir path
 	fs::path negDirPath = "neg"; //load neg dir path
 
-	list<string> imgList = CarCV::parseList(imgListPath); //parse image list file to list<string>
+	list<string> strImgList = CarCV::parseList(imgListPath); //parse image list file to list<string>
+	list<CarImg> imgList = CarCV::loadCarImgList(strImgList); //load CarImg objects from the list
 
 	CarCV c; //create an instance of CarCV
-	c.detect(&imgList, cascade); //detect objects in images of imgList
-	c.sortPOS_AND_NEG(&imgList, posDirPath, negDirPath);
+	list<CarImg> posCarImgList = c.detect_sortPOS_AND_NEG(&imgList, cascade, posDirPath, negDirPath);//detect and sort objects in images of imgList
 
 
 	fs::path carsDir = "cars";
@@ -71,9 +71,15 @@ void CarCV::run(fs::path &imgListPath, int method, CascadeClassifier &cascade) {
 		fs::create_directory(carsDir);
 	}
 
-	c.sortUnique(imgList, carsDir, cascade);
+
+	list<list<CarImg> > cars = c.sortUnique(posCarImgList, cascade);
 
 	list<CarImg> carlist;
+	const int carListSize = cars.size();
+
+	for (int i = 0; i < carListSize; i++) {
+
+	}
 
 	const double speed = c.calcSpeed(carlist, CCV_SP_FROMALLFILES);
 	cout << "Car speed: " << speed << "km/h" << endl;
@@ -82,26 +88,21 @@ void CarCV::run(fs::path &imgListPath, int method, CascadeClassifier &cascade) {
 
 /*
  * //TODO: to be implemented
+ * Returns list of positive images list<CarImg>
+ *
  */
-void CarCV::detect(list<string> *imgList, CascadeClassifier &cascade) { //mix with sortPOS_AND_NEG()?
-
-}
-
-/*
- * //TODO: to be implemented
- */
-void CarCV::sortPOS_AND_NEG(list<string> *imgList, fs::path &posDirPath, fs::path &negDirPath) { //detect and sort? w/ detect()
-
+list<CarImg> CarCV::detect_sortPOS_AND_NEG(list<CarImg> *imgList, CascadeClassifier &cascade, fs::path &posDirPath, fs::path &negDirPath) {
+	list<CarImg> sorted = *imgList;
+	return sorted;
 }
 
 /*
  * Sort images from posImgList into unique car subdirectiories of carsDir
  * Uses <sarcasm> Ondrej Skopek Sort Algorithm (OSSA) </sarcasm>
  */
-void CarCV::sortUnique(list<string> &posImgList, fs::path carsDir, CascadeClassifier &cascade) { //TODO: test implementation of super algorithm 3000
+list<list<CarImg> > CarCV::sortUnique(list<CarImg> &posCarImgList, CascadeClassifier &cascade) { //TODO: test implementation of super algorithm 3000
 	/*const*/ double scale = 1;
 
-	list<CarImg> posCarImgList; //=converted from posImgList
 
 	map<CarImg, double> probability; //flushed at every iteration over posImgList
 
@@ -122,7 +123,8 @@ void CarCV::sortUnique(list<string> &posImgList, fs::path carsDir, CascadeClassi
 		for (int j = 0; j < CarCV::listSize(cars); j++) { //iterate over the main list of cars
 			int k;
 
-			for (k = 0; k < CarCV::atList(cars, j).size(); k++) {
+			const int carsjSize = CarCV::atList(cars, j).size();
+			for (k = 0; k < carsjSize; k++) {
 				list<CarImg> curList = CarCV::atList(cars, j);
 				const CarImg curCar = CarCV::atList(curList, k);
 
@@ -135,10 +137,12 @@ void CarCV::sortUnique(list<string> &posImgList, fs::path carsDir, CascadeClassi
 			}
 		}
 
-		for (int l = 0; l < cars.size(); l++) {
+		int carsSize = cars.size();
+		for (int l = 0; l < carsSize; l++) {
 			double prob;
 			int m;
-			for (m = 0; m < CarCV::atList(cars, l).size(); m++) {
+			const int carslSize = CarCV::atList(cars, l).size();
+			for (m = 0; m < carslSize; m++) {
 				list<CarImg> li = CarCV::atList(cars, l);
 				CarImg t = CarCV::atList(li, m);
 				prob += CarCV::atMap(probability, t);
@@ -150,6 +154,8 @@ void CarCV::sortUnique(list<string> &posImgList, fs::path carsDir, CascadeClassi
 		int carProbId = CarCV::findMaxIndex(carProbabilty);
 		CarCV::atList(cars, carProbId).push_back(CarCV::atList(posCarImgList, i));
 	}
+
+	return cars;
 }
 
 /*
@@ -182,7 +188,7 @@ int CarCV::findMaxIndex(list<double> &mlist) { //tested, works
  *
  * speed_method is from enum of same name
  */
-double CarCV::calcSpeed(list<CarImg> clist, int speed_method) { //TODO: leave empty for now
+double CarCV::calcSpeed(list<CarImg> clist, int speed_method) { //TODO: not yet implemented
 	if (speed_method == 1) { //CCV_SP_FROMSORTEDFILES
 		return 1;
 	} else if (speed_method == 2) { //CCV_SP_FROMALLFILES
@@ -222,7 +228,7 @@ list<list<CarImg> > CarCV::loadCars(fs::path carsDir) { //TODO: create a loader/
 /*
  * Load/parse CarImg objects from carList
  */
-list<CarImg> CarCV::loadCarImgList(list<string> carList) { //TODO: create a loader/parser for CarImg
+list<CarImg> CarCV::loadCarImgList(list<string> carList) { //TODO: create a loader/parser for CarImg //add a posdir param here
 	list<CarImg> carImgList;
 
 	return carImgList;
