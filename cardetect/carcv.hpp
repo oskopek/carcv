@@ -46,10 +46,10 @@ public:
 	static int listSize(list<P> &plist);
 
 	template <class K, class V>
-	V atMap(map<K, V> &tmap, K index);
+	static V atMap(map<K, V> &tmap, K index);
 
 	template <class K, class V>
-	int mapSize(map<K, V> &pmap);
+	static int mapSize(map<K, V> &pmap);
 
 private:
 

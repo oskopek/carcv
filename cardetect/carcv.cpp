@@ -5,12 +5,46 @@ using namespace std;
 int main(int argc, char** argv) {
 	CarCV c;
 
+	cout << "arg1: path of list" << endl;
+	cout << "arg2: cascadexml path" << endl;
+
+	/* testing
 	CascadeClassifier cascade;
 	cascade.load(argv[2]);
 
-	fs::path dir(argv[1]);
+	fs::path listPath(argv[1]);
 
 	c.run(dir, CCV_HAAR_SURF, cascade);
+	*/
+
+	/* maptest
+	map<string, double> mapl;
+
+	for (int i = 1; i <= 5; i++) {
+		istringstream source(argv[i]);
+		string token;
+		string key;
+	    double value;
+		for (int i = 0; getline( source, token, '=' ); i++) {
+			if (i == 0) {
+				key = token;
+			}
+		    istringstream ss(token);
+		    ss >> value;
+
+		}
+		mapl.insert(pair<string, double>(key, value));
+	}
+
+	cout << mapl.size() << endl;
+
+	string s = argv[6];
+	bool test = (CarCV::atMap(mapl, s) == (*mapl.end()).second);
+	cout << "---------------------" << endl;
+	cout << "AtIndex: "<< CarCV::atMap(mapl, s) << endl;
+	cout << "Works?: " << test << endl;*/
+
+	return 0;
 }
 
 /*
@@ -58,21 +92,7 @@ void CarCV::sortPOS_AND_NEG(list<string> *imgList, fs::path &posDirPath, fs::pat
  * Sort images from posImgList into unique car subdirectiories of carsDir
  * Uses <sarcasm> Ondrej Skopek Sort Algorithm (OSSA) </sarcasm>
  */
-void CarCV::sortUnique(list<string> &posImgList, fs::path carsDir) { //TODO: implement super algorithm 3000
-
-	//temp
-	/*struct cmp_str
-	{
-		bool operator()(const CarImg *a, const CarImg *b) const
-		{
-			const char* ac = a->filename.c_str();
-			const char* bc = b->filename.c_str();
-			return std::strcmp(ac, bc) < 0;
-		}
-	};*/
-	//temp
-
-
+void CarCV::sortUnique(list<string> &posImgList, fs::path carsDir) { //TODO: test implementation of super algorithm 3000
 	list<CarImg> posCarImgList; //=converted from posImgList
 
 	map<CarImg, double> probability; //flushed at every iteration over posImgList
@@ -113,15 +133,17 @@ void CarCV::sortUnique(list<string> &posImgList, fs::path carsDir) { //TODO: imp
 			carProbabilty.push_back(prob);
 		}
 
-		int carProbId = CarCV::findMaxIndex(carProbabilty); //TODO: 1 iterate over, find max, print not max but id of max
+		int carProbId = CarCV::findMaxIndex(carProbabilty);
 		CarCV::atList(cars, carProbId).push_back(CarCV::atList(posCarImgList, i));
 	}
 }
 
 /*
  * Should return the index of the biggest double in mlist
+ * If two are equal, returns the index of the first one
+ *
  */
-int CarCV::findMaxIndex(list<double> &mlist) {
+int CarCV::findMaxIndex(list<double> &mlist) { //tested, works
 	list<double>::iterator mlistI = mlist.begin();
 	double probmax;
 	int index;
@@ -173,7 +195,7 @@ list<CarImg> loadCars(list<string> carList) { //TODO: create a loader/parser for
 /*
  * Parses the input file plist into a list<string>
  */
-list<string> CarCV::parseList(fs::path &plist) {
+list<string> CarCV::parseList(fs::path &plist) { //tested, should work
 	list<string> retlist;
 
 	FILE* f = fopen(plist.c_str(), "rt");
@@ -195,9 +217,10 @@ list<string> CarCV::parseList(fs::path &plist) {
 
 /*
  * List item at index
+ * If index is out of bounds, returns *tlist.end()
  */
 template <class T>
-T CarCV::atList(list<T> &tlist, int index) {
+T CarCV::atList(list<T> &tlist, int index) { //
 
 	typename list<T>::iterator tlistI = tlist.begin();
 
@@ -207,14 +230,15 @@ T CarCV::atList(list<T> &tlist, int index) {
 			}
 			tlistI++;
 		}
-	return *--tlistI;
+	return *tlist.end();//*--tlistI; was used for returning the last element anyway
 }
 
 /*
  * Length of plist
+ * Useless: use plist.size()
  */
 template <class P>
-int CarCV::listSize(list<P> &plist) {
+int CarCV::listSize(list<P> &plist) { //todo: useless, use plist.size()
 	typename list<P>::iterator plistI = plist.begin();
 	int i;
 
@@ -227,9 +251,10 @@ int CarCV::listSize(list<P> &plist) {
 
 /*
  * Map item at index
+ * If index is not found in map, returns (*tmap.end()).second
  */
 template <class K, class V>
-V CarCV::atMap(map<K, V> &tmap, K index) {
+V CarCV::atMap(map<K, V> &tmap, K index) { //tested, works
 
 	typename map<K, V>::iterator tmapI = tmap.begin();
 	typename map<K, V>::iterator searching = tmap.find(index);
@@ -241,14 +266,15 @@ V CarCV::atMap(map<K, V> &tmap, K index) {
 			}
 			tmapI++;
 		}
-	return (*--tmapI).second;
+	return (*tmap.end()).second;
 }
 
 /*
  * Size of pmap
+ * Useless, use pmap.size()
  */
 template <class K, class V>
-int CarCV::mapSize(map<K, V> &pmap) {
+int CarCV::mapSize(map<K, V> &pmap) { //todo: useless, use pmap.size()
 	typename map<K, V>::iterator pmapI = pmap.begin();
 	int i;
 
@@ -256,4 +282,25 @@ int CarCV::mapSize(map<K, V> &pmap) {
 			pmapI++;
 		}
 	return i;
+}
+
+void grabKVparams(char **argv) { //just for testing reference, erase later
+	for (int i = 1; i <= 5; i++) {
+		istringstream source(argv[i]);
+		string token;
+		string key;
+		double n;
+		for (int i = 0; getline( source, token, '=' ); i++) {
+			if (i == 0) {
+				key = token;
+			}
+		    istringstream ss(token);
+		    ss >> n;
+
+		}
+		cout << key << endl;
+		cout << n << endl;
+		// do something with n
+		cout << "----------" << endl;
+	}
 }
