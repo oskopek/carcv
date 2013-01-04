@@ -260,7 +260,7 @@ vector<Rect> Det::detect(Mat &img, CascadeClassifier &cascade, double scale)
  * with CascadeClassifier cascade and double scale
  * probability is from range <0, 1>
  */
-double Det::probability(Mat &imga, Mat &imgb, CascadeClassifier &cascade, const double scale) {
+double Det::probability(Mat &imga, Mat &imgb, CascadeClassifier &cascade, const double scale) { //todo: implemnt according to whiteboard
 	return 0;
 }
 
