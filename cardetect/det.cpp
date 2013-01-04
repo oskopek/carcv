@@ -1,5 +1,5 @@
-#include "carrectangles.hpp"
-#include "carmatcher.hpp"
+#include "det.hpp"
+//#include "match.hpp" //for outcommented run and testCropping
 
 #define RESET_COLOR "\e[m"
 #define MAKE_RED "\e[31m"
@@ -43,13 +43,7 @@ const static Scalar colors[] =  { 	CV_RGB(0,0,255),
 									CV_RGB(255,0,0),
 									CV_RGB(255,0,255)};
 
-/*int main(int argc, const char** argv)
-{
-	Det d;
-	return d.run(argc, argv);
-}*/
-
-int Det::run(int argc, const char** argv)
+/*int Det::run(int argc, const char** argv)
 {
     Mat frame, frameCopy, image;
     const string scaleOpt = "--scale=";
@@ -112,8 +106,6 @@ int Det::run(int argc, const char** argv)
     		cout << "Creating negative image directory: " << negPath << endl;
     		fs::create_directory(negPath);
     	}
-    	/*posPath = fs::absolute(posPath);
-    	negPath = fs::absolute(negPath);*/
     } else if (methodName == "DETECTMATCHDEMO") {
     	one = "";
     	two = "";
@@ -132,8 +124,6 @@ int Det::run(int argc, const char** argv)
     		cout << dashes << endl;
     		cout << "|	" << "Filename" << "	|   " << "Detected?" << "	| " << "Object#"<< "	|" << endl;
     	}
-        /* assume it is a text file containing the
-         *            list of the image filenames to be processed - one per line */
         FILE* f = fopen( inputName.c_str(), "rt" );
         if( f )
         {
@@ -158,7 +148,7 @@ int Det::run(int argc, const char** argv)
                                             	c = waitKey(0);
                                             	if( c == 27 || c == 'q' || c == 'Q' )
                                                 	break;
-                		 */
+                		 *\/
                 		int detectedN = countDetected(image, cascade, scale);
                 		string detected = (detectedN > 0 ? "true" : "false");
                 		cout << "|	" << buf << "	|	" << detected << "	|	" << detectedN << "	|" << endl;
@@ -232,6 +222,7 @@ int Det::run(int argc, const char** argv)
     }
     return 0;
 }
+*/
 
 /*
  * Detect an image with Mat#detect(Mat&, CascadeClassifier&, double)
@@ -403,6 +394,7 @@ void Det::coutp(string name, Rect roi) {
 	cout << name.c_str() << ":		" << "Point[" << roi.x << ", " << roi.y << "];height=" << roi.height << ";width=" << roi.width << endl;
 }
 
+/*
 void Det::testCropping(Mat &forcrop, Mat &comp, CascadeClassifier &cascade, double &scale) {
 	vector<Rect> forcropObj = detect(forcrop, cascade, scale);
 	vector<Rect> compObj = detect(comp, cascade, scale);
@@ -439,13 +431,10 @@ void Det::testCropping(Mat &forcrop, Mat &comp, CascadeClassifier &cascade, doub
 			  line( img_matches, scene_corners[1] + Point2f( img_object.cols, 0), scene_corners[2] + Point2f( img_object.cols, 0), Scalar( 0, 255, 0), 4 );
 			  line( img_matches, scene_corners[2] + Point2f( img_object.cols, 0), scene_corners[3] + Point2f( img_object.cols, 0), Scalar( 0, 255, 0), 4 );
 			  line( img_matches, scene_corners[3] + Point2f( img_object.cols, 0), scene_corners[0] + Point2f( img_object.cols, 0), Scalar( 0, 255, 0), 4 );
-		/*line(img_matches, scene_corners[0], scene_corners[1], Scalar(0, 255, 0), 4);
-		line(img_matches, scene_corners[1], scene_corners[2], Scalar(0, 255, 0), 4);
-		line(img_matches, scene_corners[2], scene_corners[3], Scalar(0, 255, 0), 4);
-		line(img_matches, scene_corners[3], scene_corners[0], Scalar(0, 255, 0), 4);*/
 		imshow("forcropcropped", img_matches);
 		waitKey(0);
 	}
 	cvDestroyAllWindows();
 	return;
 }
+*/
