@@ -8,8 +8,6 @@
 #include <iterator>
 #include <stdio.h>
 
-#include "carmatcher.hpp"
-
 using namespace cv;
 
 /*
@@ -23,6 +21,7 @@ public:
 	int countDetected(Mat &img, CascadeClassifier &cascade, double scale);
 	void detectAndDraw(Mat &img, CascadeClassifier &cascade, double scale, string windowName);
 	vector<Rect> detect(Mat &img, CascadeClassifier& cascade, double scale);
+	static double probability(Mat &imga, Mat &imgb, CascadeClassifier &cascade, double &scale);
 	Mat detectMat(Mat &img, CascadeClassifier &cascade, double scale);
 	bool isDetected(Mat &img, CascadeClassifier &cascade, double scale);
 	Mat crop(Mat &img, Rect &roi, double &scale);

@@ -1,6 +1,10 @@
 #include "carcv.hpp"
+#include "carrectangles.hpp"
 
 using namespace std;
+using namespace cv;
+
+namespace fs = boost::filesystem;
 
 int main(int argc, char** argv) {
 	CarCV c;
@@ -8,14 +12,14 @@ int main(int argc, char** argv) {
 	cout << "arg1: path of list" << endl;
 	cout << "arg2: cascadexml path" << endl;
 
-	/* testing
+
 	CascadeClassifier cascade;
 	cascade.load(argv[2]);
 
 	fs::path listPath(argv[1]);
 
-	c.run(dir, CCV_HAAR_SURF, cascade);
-	*/
+	c.run(listPath, CCV_HAAR_SURF, cascade);
+
 
 	/* maptest
 	map<string, double> mapl;
@@ -51,22 +55,22 @@ int main(int argc, char** argv) {
  * Main run method
  */
 void CarCV::run(fs::path &imgListPath, method, CascadeClassifier &cascade) {
-	fs::path posDirPath = "pos";
-	fs::path negDirPath = "neg";
+	fs::path posDirPath = "pos"; //load pos dir path
+	fs::path negDirPath = "neg"; //load neg dir path
 
-	list<string> imgList = CarCV::parseList(imgListPath);
+	list<string> imgList = CarCV::parseList(imgListPath); //parse image list file to list<string>
 
-	CarCV c;
-	c.detect(&imgList, cascade);
+	CarCV c; //create an instance of CarCV
+	c.detect(&imgList, cascade); //detect objects in images of imgList
 	c.sortPOS_AND_NEG(&imgList, posDirPath, negDirPath);
 
 
 	fs::path carsDir = "cars";
-	if (!fs::exists(carsDir) || !fs::is_directory(carsDir)) {
+	if (!fs::exists(carsDir) || !fs::is_directory(carsDir)) { //create cars dir
 		fs::create_directory(carsDir);
 	}
 
-	c.sortUnique(imgList, carsDir);
+	c.sortUnique(imgList, carsDir, cascade);
 
 	list<CarImg> carlist;
 
@@ -92,7 +96,9 @@ void CarCV::sortPOS_AND_NEG(list<string> *imgList, fs::path &posDirPath, fs::pat
  * Sort images from posImgList into unique car subdirectiories of carsDir
  * Uses <sarcasm> Ondrej Skopek Sort Algorithm (OSSA) </sarcasm>
  */
-void CarCV::sortUnique(list<string> &posImgList, fs::path carsDir) { //TODO: test implementation of super algorithm 3000
+void CarCV::sortUnique(list<string> &posImgList, fs::path carsDir, CascadeClassifier &cascade) { //TODO: test implementation of super algorithm 3000
+	/*const*/ double scale = 1;
+
 	list<CarImg> posCarImgList; //=converted from posImgList
 
 	map<CarImg, double> probability; //flushed at every iteration over posImgList
@@ -104,6 +110,7 @@ void CarCV::sortUnique(list<string> &posImgList, fs::path carsDir) { //TODO: tes
 	for (int i = 0; i < CarCV::listSize(posCarImgList); i++) { //iterate over posImgList
 		probability.clear();
 		carProbabilty.clear();
+		const CarImg sortingCar = CarCV::atList(posCarImgList, i);
 
 		if (i == 0 && cars.size() == 0) { //first iteration
 			CarCV::atList(cars, 0).push_back(CarCV::atList(posCarImgList, i));
@@ -114,10 +121,15 @@ void CarCV::sortUnique(list<string> &posImgList, fs::path carsDir) { //TODO: tes
 			int k;
 
 			for (k = 0; k < CarCV::atList(cars, j).size(); k++) {
-				const double prob = 0;
-				list<CarImg> li = CarCV::atList(cars, j);
-				const CarImg t = CarCV::atList(li, k);
-				probability.insert(std::pair<CarImg, double>(t, prob));
+				list<CarImg> curList = CarCV::atList(cars, j);
+				const CarImg curCar = CarCV::atList(curList, k);
+
+				Mat sortingCarMat = sortingCar.getImg();
+				Mat curCarMat = curCar.getImg();
+
+				const double prob = Det::probability(sortingCarMat, curCarMat, cascade, scale); //input from detection algorithm here
+
+				probability.insert(std::pair<CarImg, double>(curCar, prob));
 			}
 		}
 

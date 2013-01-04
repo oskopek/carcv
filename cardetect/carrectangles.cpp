@@ -1,4 +1,5 @@
 #include "carrectangles.hpp"
+#include "carmatcher.hpp"
 
 #define RESET_COLOR "\e[m"
 #define MAKE_RED "\e[31m"
@@ -42,11 +43,11 @@ const static Scalar colors[] =  { 	CV_RGB(0,0,255),
 									CV_RGB(255,0,0),
 									CV_RGB(255,0,255)};
 
-int main(int argc, const char** argv)
+/*int main(int argc, const char** argv)
 {
 	Det d;
 	return d.run(argc, argv);
-}
+}*/
 
 int Det::run(int argc, const char** argv)
 {
@@ -245,29 +246,37 @@ void Det::detectAndDraw( Mat& img, CascadeClassifier& cascade, double scale, str
 /*
  * Detects objects in img and returns a vector of rectangles of object regions
  */
-vector<Rect> Det::detect( Mat& img, CascadeClassifier& cascade, double scale)
+vector<Rect> Det::detect(Mat &img, CascadeClassifier &cascade, double scale)
 {
     vector<Rect> objects;
     Mat gray, smallImg( cvRound (img.rows/scale), cvRound(img.cols/scale), CV_8UC1 );
 
-    cvtColor( img, gray, CV_BGR2GRAY );
-    resize( gray, smallImg, smallImg.size(), 0, 0, INTER_LINEAR );
-    equalizeHist( smallImg, smallImg );
+    cvtColor(img, gray, CV_BGR2GRAY);
+    resize(gray, smallImg, smallImg.size(), 0, 0, INTER_LINEAR);
+    equalizeHist(smallImg, smallImg);
 
-    cascade.detectMultiScale( smallImg, objects,
-                              1.1, 2, 0
-                              //|CV_HAAR_FIND_BIGGEST_OBJECT
-                              //|CV_HAAR_DO_ROUGH_SEARCH
-                              |CV_HAAR_SCALE_IMAGE
-                              ,
-                              Size(30, 30) );
+    cascade.detectMultiScale(smallImg, objects,
+    						1.1, 2, 0
+    						//|CV_HAAR_FIND_BIGGEST_OBJECT
+    						//|CV_HAAR_DO_ROUGH_SEARCH
+    						|CV_HAAR_SCALE_IMAGE,
+    						Size(30, 30));
     return objects;
+}
+
+/*
+ * Returns probability that the detected object in  imga = imgb
+ * with CascadeClassifier cascade and double scale
+ * probability is from range <0, 1>
+ */
+double Det::probability(Mat &imga, Mat &imgb, CascadeClassifier &cascade, double &scale) {
+	return 0;
 }
 
 /*
  * Detects objects in img, draws rectangles around them and returns the img
  */
-Mat Det::detectMat( Mat& img, CascadeClassifier& cascade, double scale) {
+Mat Det::detectMat(Mat &img, CascadeClassifier &cascade, double scale) {
 
 	int i = 0;
 	vector<Rect> objects = detect(img, cascade, scale);
