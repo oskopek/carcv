@@ -61,7 +61,7 @@ void CarCV::sortPOS_AND_NEG(list<string> *imgList, fs::path &posDirPath, fs::pat
 void CarCV::sortUnique(list<string> &posImgList, fs::path carsDir) { //TODO: implement super algorithm 3000
 
 	//temp
-	struct cmp_str
+	/*struct cmp_str
 	{
 		bool operator()(const CarImg *a, const CarImg *b) const
 		{
@@ -69,13 +69,13 @@ void CarCV::sortUnique(list<string> &posImgList, fs::path carsDir) { //TODO: imp
 			const char* bc = b->filename.c_str();
 			return std::strcmp(ac, bc) < 0;
 		}
-	};
+	};*/
 	//temp
 
 
 	list<CarImg> posCarImgList; //=converted from posImgList
 
-	map<CarImg, double, cmp_str> probability; //flushed at every iteration over posImgList
+	map<CarImg, double> probability; //flushed at every iteration over posImgList
 
 	list<list<CarImg> > cars; //sorted list
 
@@ -94,9 +94,9 @@ void CarCV::sortUnique(list<string> &posImgList, fs::path carsDir) { //TODO: imp
 			int k;
 
 			for (k = 0; k < CarCV::atList(cars, j).size(); k++) {
-				double prob = 0;
+				const double prob = 0;
 				list<CarImg> li = CarCV::atList(cars, j);
-				CarImg t = CarCV::atList(li, k);
+				const CarImg t = CarCV::atList(li, k);
 				probability.insert(std::pair<CarImg, double>(t, prob));
 			}
 		}

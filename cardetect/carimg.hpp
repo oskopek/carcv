@@ -7,12 +7,18 @@ namespace fs = boost::filesystem;
 
 class CarImg {
 public:
-	CarImg(fs::path &path, string &filename, Mat &img) {CarImg x = CarImg(); x.path = path; x.filename = filename; x.img = img;};
-	fs::path getPath() 		{return path;};
-	void setFilename(string &filename)	{this->filename = filename;};
-	string getFilename()	{return filename;};
-	void setImg(Mat &img) 	{this->img = img;};
-	Mat getImg()			{return img;};
+	CarImg(fs::path &path, string &filename, Mat &img);
+	fs::path getPath() const;
+	void setFilename(string &filename);
+	string getFilename() const;
+	void setImg(Mat &img);
+	Mat getImg() const;
+
+	bool operator<(const CarImg &car) const;
+	bool operator==(const CarImg &car) const;
+
+	long hashCode() const;
+
 
 	//todo override operator< and operator=
 
