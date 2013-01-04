@@ -6,13 +6,25 @@ namespace fs = boost::filesystem;
 using namespace std;
 using namespace cv;
 
+/*
+ * CCV_HAAR_SURF = use Viola-Jones detection and match it with SURF
+ * CCV_HAAR_TMPLMATCH = use Viola-Jones detection and match it with template matching
+ */
+enum method {CCV_HAAR_SURF = 1, CCV_HAAR_TMPLMATCH = 2};
 
-enum method {CCV_HAAR_SURF, CCV_HAAR_TMPLMATCH};
+/*
+ * CCV_SP_FROMSORTEDFILES=Uses only the current car dir, calculates the range
+ * of file ids where the car is in speedrectangle and calculate number of frames / framerate
+ *
+ * CCV_SP_FROMALLFILES=Uses the whole all dir to find images of the given car, calculates the range
+ * of file ids where the car is in speedrectangle and calculate number of frames / framerate
+ */
+enum speed_method {CCV_SP_FROMSORTEDFILES = 1, CCV_SP_FROMALLFILES = 2};
 
 class CarCV {
 public:
 
-	void run(fs::path &imgListPath, method, CascadeClassifier &cascade);
+	void run(fs::path &imgListPath, int method, CascadeClassifier &cascade);
 
 	void detect(list<string> *imgList, CascadeClassifier &cascade);
 
@@ -23,7 +35,7 @@ public:
 	 */
 	void sortUnique(list<string> &posImgList, fs::path carsDir, CascadeClassifier &cascade);
 
-	double calcSpeed(list<CarImg> clist);
+	double calcSpeed(list<CarImg> clist, int speed_method);
 
 	static list<string> parseList(fs::path &list);
 

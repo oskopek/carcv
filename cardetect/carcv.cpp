@@ -53,8 +53,9 @@ int main(int argc, char** argv) {
 
 /*
  * Main run method
+ * method is from enum of same name
  */
-void CarCV::run(fs::path &imgListPath, method, CascadeClassifier &cascade) {
+void CarCV::run(fs::path &imgListPath, int method, CascadeClassifier &cascade) {
 	fs::path posDirPath = "pos"; //load pos dir path
 	fs::path negDirPath = "neg"; //load neg dir path
 
@@ -74,7 +75,8 @@ void CarCV::run(fs::path &imgListPath, method, CascadeClassifier &cascade) {
 
 	list<CarImg> carlist;
 
-	double speed = c.calcSpeed(carlist);
+	const double speed = c.calcSpeed(carlist, CCV_SP_FROMALLFILES);
+	cout << "Car speed: " << speed << "km/h" << endl;
 
 }
 
@@ -173,10 +175,25 @@ int CarCV::findMaxIndex(list<double> &mlist) { //tested, works
 
 
 /*
- * Calculates speed of a given unique car from the list of CarImg
+ * Calculates speed of given unique car from the list of CarImg
+ * Give him a row from the main list<list<CarImg> >
+ * Returns a positive double
+ * if speed_method isn't recognized, returns -1
+ *
+ * speed_method is from enum of same name
  */
-double CarCV::calcSpeed(list<CarImg> clist) { //TODO: leave empty for now
-
+double CarCV::calcSpeed(list<CarImg> clist, int speed_method) { //TODO: leave empty for now
+	if (speed_method == 1) { //CCV_SP_FROMSORTEDFILES
+		return 1;
+	} else if (speed_method == 2) { //CCV_SP_FROMALLFILES
+		return 2;
+	}
+	else {
+		int n = speed_method;
+		cerr << "ERROR: Unimplemented method: " << n << endl;
+		return -1;
+	}
+	return 0;
 }
 
 /*
