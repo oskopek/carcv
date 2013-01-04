@@ -7,6 +7,10 @@ CarImg::CarImg(fs::path &path, string &filename, Mat &img)
 	this->img = img;
 }
 
+CarImg::CarImg() {
+
+}
+
 fs::path CarImg::getPath() const
 {
 	return path;
