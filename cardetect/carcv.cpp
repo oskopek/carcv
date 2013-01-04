@@ -75,14 +75,15 @@ void CarCV::run(fs::path &imgListPath, int method, CascadeClassifier &cascade) {
 	list<list<CarImg> > cars = c.sortUnique(posCarImgList, cascade);
 
 	list<CarImg> carlist;
-	const int carListSize = cars.size();
+	const int carsListSize = cars.size();
+	double speed;
 
-	for (int i = 0; i < carListSize; i++) {
-
+	for (int i = 0; i < carsListSize; i++) {
+		carlist = CarCV::atList(cars, i);
+		speed = c.calcSpeed(carlist, CCV_SP_FROMALLFILES);
+		cout << "Car speed: " << speed << "km/h" << endl;
 	}
 
-	const double speed = c.calcSpeed(carlist, CCV_SP_FROMALLFILES);
-	cout << "Car speed: " << speed << "km/h" << endl;
 
 }
 
@@ -93,7 +94,8 @@ void CarCV::run(fs::path &imgListPath, int method, CascadeClassifier &cascade) {
  */
 list<CarImg> CarCV::detect_sortPOS_AND_NEG(list<CarImg> *imgList, CascadeClassifier &cascade, fs::path &posDirPath, fs::path &negDirPath) {
 	list<CarImg> sorted = *imgList;
-	return sorted;
+
+	return sorted; //temp
 }
 
 /*
