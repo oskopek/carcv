@@ -318,9 +318,24 @@ string CarCV::shorten(string s, int length) {
 
 /*
  * Load/parse list<CarImg> objects from carsDir
+ * WARNING: _DON'T_ expect folder car0 to be have index 0, car1 index 1, etc..
  */
-list<list<CarImg> > CarCV::loadCars(fs::path carsDir) { //TODO: create a loader/parser for carsDir
+list<list<CarImg> > CarCV::loadCars(fs::path carsDir) { //tested, should work, nema rovnake poradie! fix?
 	list<list<CarImg> > carsList;
+
+	fs::directory_iterator dIt(carsDir);
+	fs::directory_iterator dEnd;
+
+	fs::path currentPath;
+	while(dIt != dEnd) {
+		currentPath = fs::absolute((*dIt));
+
+		list<CarImg> line = CarCV::loadCarImgList(currentPath);
+
+		carsList.push_front(line);
+
+		dIt++;
+	}
 
 	return carsList;
 }
@@ -337,7 +352,6 @@ list<CarImg> CarCV::loadCarImgList(fs::path carDir) { //tested, works
 	fs::path currentPath;
 	while(dIt != dEnd) {
 		currentPath = fs::absolute((*dIt));
-		cout << currentPath << endl;
 
 		CarImg c;
 		c.setPath(currentPath);
@@ -376,7 +390,7 @@ list<string> CarCV::parseList(fs::path &plist) { //tested, should work
 
 /*
  * List item at index
- * If index is out of bounds, returns *tlist.end()
+ * If index is out of bounds, should return *tlist.end(), but returns rather unexpected results
  */
 template <class T>
 T CarCV::atList(list<T> &tlist, int index) { //
@@ -500,9 +514,11 @@ void CarCV::test(int argc, char** argv) {
 	cars.push_front(c1);
 	cars.push_back(c2);
 
-	CarCV::saveCars(cars, carDir);
+	//CarCV::saveCars(cars, carDir);
 
-	list<CarImg> loaded = CarCV::loadCarImgList(carDir/fs::path(argv[6]));
+	list<list<CarImg> > set = CarCV::loadCars(carDir);
+	list<CarImg> loaded = CarCV::atList(set, atoi(argv[6]));
+
 	cvNamedWindow("Images");
 	for(list<CarImg>::iterator i = loaded.begin(); i != loaded.end(); i++) {
 		imshow("Images", (*i).getImg());
