@@ -65,7 +65,7 @@ void CarCV::run(fs::path &imgListPath, int method, CascadeClassifier &cascade) {
 	fs::path negDirPath = "neg"; //load neg dir path
 
 	list<string> strImgList = CarCV::parseList(imgListPath); //parse image list file to list<string>
-	list<CarImg> imgList = CarCV::loadCarImgList(strImgList); //load CarImg objects from the list
+	list<CarImg> imgList;// = CarCV::loadCarImgList(strImgList); //load CarImg objects from the list
 
 
 	list<CarImg> negList;
@@ -289,7 +289,7 @@ void CarCV::saveCars(list<list<CarImg> > cars, fs::path carsDir) { //tested, sho
 			lineIt++;
 		}
 
-		saveCarImgList(line);
+		CarCV::saveCarImgList(line);
 	}
 
 
@@ -326,10 +326,27 @@ list<list<CarImg> > CarCV::loadCars(fs::path carsDir) { //TODO: create a loader/
 }
 
 /*
- * Load/parse CarImg objects from carList
+ * Load/parse CarImg objects from carDir
+ * Beware of 'boost::filesystem3::filesystem_error':'No such (file) or directory' for parameter carDir
  */
-list<CarImg> CarCV::loadCarImgList(list<string> carList) { //TODO: create a loader/parser for CarImg //add a posdir param here
+list<CarImg> CarCV::loadCarImgList(fs::path carDir) { //tested, works
 	list<CarImg> carImgList;
+	fs::directory_iterator dIt(carDir);
+	fs::directory_iterator dEnd;
+
+	fs::path currentPath;
+	while(dIt != dEnd) {
+		currentPath = fs::absolute((*dIt));
+		cout << currentPath << endl;
+
+		CarImg c;
+		c.setPath(currentPath);
+		c.load();
+
+		carImgList.push_back(c);
+
+		dIt++;
+	}
 
 	return carImgList;
 }
@@ -483,6 +500,14 @@ void CarCV::test(int argc, char** argv) {
 	cars.push_front(c1);
 	cars.push_back(c2);
 
-	saveCars(cars, carDir);
+	CarCV::saveCars(cars, carDir);
+
+	list<CarImg> loaded = CarCV::loadCarImgList(carDir/fs::path(argv[6]));
+	cvNamedWindow("Images");
+	for(list<CarImg>::iterator i = loaded.begin(); i != loaded.end(); i++) {
+		imshow("Images", (*i).getImg());
+		waitKey(0);
+	}
+	cvDestroyWindow("Images");
 
 }

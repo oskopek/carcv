@@ -59,9 +59,9 @@ public:
 
 private:
 
-	void saveCarImgList(list<CarImg> carList);
-	void saveCars(list<list<CarImg> > cars, fs::path carsDir);
+	static void saveCarImgList(list<CarImg> carList);
+	static void saveCars(list<list<CarImg> > cars, fs::path carsDir);
 	static list<list<CarImg> > loadCars(fs::path carsDir);
-	static list<CarImg> loadCarImgList(list<string> carList);
+	static list<CarImg> loadCarImgList(fs::path carDir);
 
 };
