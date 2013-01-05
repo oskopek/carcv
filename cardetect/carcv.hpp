@@ -57,9 +57,13 @@ public:
 
 	static string shorten(string s, int length);
 
+	template <class T>
+	static list<T> replaceObj(list<T> &list, T &replaceObj, T &withObj, int index);
+
 private:
 
 	static void saveCarImgList(list<CarImg> carList);
+	static void saveCarImgList(list<CarImg> carList, fs::path carListDir);
 	static void saveCars(list<list<CarImg> > cars, fs::path carsDir);
 	static list<list<CarImg> > loadCars(fs::path carsDir);
 	static list<CarImg> loadCarImgList(fs::path carDir);

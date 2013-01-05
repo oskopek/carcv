@@ -92,16 +92,34 @@ void CarCV::run(fs::path &imgListPath, int method, CascadeClassifier &cascade) {
 	}
 	*/ //printing lists
 
+
+	fs::path carsDir = "cars";
+
+	//testing saveing
+
+	t1 = (double) cvGetTickCount();
+	cout << DEBSTR << "START saveCarImgList(pos)" << endl;
+	CarCV::saveCarImgList(posCarImgList, posDirPath);
+	cout << DEBSTR << "END saveCarImgList(pos)" << endl;
+	t2 = (double) cvGetTickCount() - t1;
+	cout << "TIME:		" << (t2/(double)tickspersecond) << "s" << endl;
+	cout << endl;
+
+	t1 = (double) cvGetTickCount();
+	cout << DEBSTR << "START saveCarImgList(neg)" << endl;
+	CarCV::saveCarImgList(negList, negDirPath);
+	cout << DEBSTR << "END saveCarImgList(neg)" << endl;
+	t2 = (double) cvGetTickCount() - t1;
+	cout << "TIME:		" << (t2/(double)tickspersecond) << "s" << endl;
+	cout << endl;
+
+	//testing saving
+
 	cout << endl << endl;
 	Tend = (double) cvGetTickCount() - Tstart;
 	cout << "TOTALTIME:		" << (Tend/(double)tickspersecond) << "s" << endl;
 	return;
 
-
-	fs::path carsDir = "cars";//todo: tested up to here
-	if (!fs::exists(carsDir) || !fs::is_directory(carsDir)) { //create cars dir
-		fs::create_directory(carsDir);
-	}
 
 	list<list<CarImg> > cars = CarCV::sortUnique(posCarImgList, cascade);
 
@@ -261,6 +279,34 @@ void CarCV::saveCarImgList(list<CarImg> carList) { //tested, works
 
 }
 
+/*
+ * Save CarImg objects to carDir (USE FOR UNIQUE CARS)
+ */
+void CarCV::saveCarImgList(list<CarImg> carList, fs::path carListDir) { //tested, works
+	carListDir = fs::absolute(carListDir);
+	if (!fs::exists(carListDir) || !fs::is_directory(carListDir)) { //if not exists, create it
+		fs::create_directory(carListDir);
+	}
+
+	int index = 0;
+	CarImg c;
+	fs::path thisPath;
+	string thisFilename;
+	for(list<CarImg>::iterator i = carList.begin(); i != carList.end(); i++) {
+		thisFilename = (*i).getPath().filename().generic_string();
+
+		thisPath = carListDir/thisFilename;
+
+		c = *i;
+		c.setPath(thisPath);
+
+		c.save();
+
+		index++;
+	}
+
+}
+
 /**
  * Save list<list<CarImg> > objects to carsDir
  */
@@ -302,18 +348,7 @@ void CarCV::saveCars(list<list<CarImg> > cars, fs::path carsDir) { //tested, sho
 			CarImg backupImg = CarCV::atList(line, j);
 			CarImg c = backupImg;
 			c.setPath(thisPath);
-			if (lineSize > 1) {
-				list<CarImg>::iterator bIt = lineIt;
-				list<CarImg>::iterator eIt = lineIt;
-				bIt--;
-				eIt++;
-				replace(bIt, eIt, backupImg, c);
-			}
-			else {
-				replace(line.begin(), line.end(), backupImg, c);
-			}
-
-			lineIt++;
+			line = CarCV::replaceObj(line, backupImg, c, j);
 		}
 
 		CarCV::saveCarImgList(line);
@@ -506,6 +541,29 @@ int CarCV::mapSize(map<K, V> &pmap) { //useless, use pmap.size()
 			pmapI++;
 		}
 	return i;
+}
+
+template <class T>
+list<T> CarCV::replaceObj(list<T> &list, T &replaceObj, T &withObj, int index) {
+	typename std::list<T>::iterator lineIte = list.begin();
+
+	for (int i = 0; i != index; i++) {
+		lineIte++;
+	}
+
+	const int lineSize = list.size();
+	if (lineSize > 1) {
+		typename std::list<T>::iterator bIt = lineIte;
+		typename std::list<T>::iterator eIt = lineIte;
+		bIt--;
+		eIt++;
+		replace(bIt, eIt, replaceObj, withObj);
+	}
+	else {
+		replace(list.begin(), list.end(), replaceObj, withObj);
+	}
+
+	return list;
 }
 
 void grabKVparams(char **argv) { //just for testing reference, erase later
