@@ -53,9 +53,13 @@ public:
 	template <class K, class V>
 	static int mapSize(map<K, V> &pmap);
 
+	void test(int argc, char** argv);
+
+	static string shorten(string s, int length);
+
 private:
 
-	void saveCarImgList(list<CarImg> carList, fs::path carDir);
+	void saveCarImgList(list<CarImg> carList);
 	void saveCars(list<list<CarImg> > cars, fs::path carsDir);
 	static list<list<CarImg> > loadCars(fs::path carsDir);
 	static list<CarImg> loadCarImgList(list<string> carList);

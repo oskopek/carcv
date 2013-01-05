@@ -1,6 +1,8 @@
 #include "carcv.hpp"
 #include "det.hpp"
 
+#include <boost/lexical_cast.hpp>
+
 using namespace std;
 using namespace cv;
 
@@ -16,11 +18,12 @@ int main(int argc, char** argv) {
 
 
 	CascadeClassifier cascade;
-	cascade.load(argv[2]);
+	//cascade.load(argv[2]);
 
 	fs::path listPath(argv[1]);
 
-	c.run(listPath, CCV_HAAR_SURF, cascade);
+	//c.run(listPath, CCV_HAAR_SURF, cascade);
+	c.test(argc, argv);
 
 
 	/* maptest
@@ -98,14 +101,12 @@ list<CarImg> CarCV::detect_sortPOS_AND_NEG(list<CarImg> &imgList, CascadeClassif
 	const int listSize = imgList.size();
 
 	fs::path cPath = (*imgList.begin()).getPath();
-	string cFile = "";
 	Mat cMat;
-	CarImg cImg(cPath, cFile, cMat);
+	CarImg cImg(cPath, cMat);
 
 	for (int i = 0; i < listSize; i++) {
 		cImg = CarCV::atList(imgList, i);
 		cPath = cImg.getPath();
-		cFile = cImg.getFilename();
 		cMat = cImg.getImg();
 
 		if (Det::isDetected(cMat, cascade, scale)) {
@@ -226,16 +227,94 @@ double CarCV::calcSpeed(list<CarImg> clist, int speed_method) { //TODO: not yet 
 /*
  * Save CarImg objects to carDir (USE FOR UNIQUE CARS)
  */
-void CarCV::saveCarImgList(list<CarImg> carList, fs::path carDir) { //todo: create a saver for CarImgs
+void CarCV::saveCarImgList(list<CarImg> carList) { //todo: create a saver for CarImgs
+	for(list<CarImg>::iterator i = carList.begin(); i != carList.end(); i++) {
+		(*i).save();
+	}
 
 }
 
 /**
- * Save list<CarImg> objects to carsDir
+ * Save list<list<CarImg> > objects to carsDir
  */
-void CarCV::saveCars(list<list<CarImg> > cars, fs::path carsDir) { //TODO: create a saver for carsDir
+void CarCV::saveCars(list<list<CarImg> > cars, fs::path carsDir) { //tested, should work
+	carsDir = fs::absolute(carsDir);
+	if (!fs::exists(carsDir) || !fs::is_directory(carsDir)) { //if not exists, create it
+		fs::create_directory(carsDir);
+	}
+
+	fs::path::iterator iterate;
+	fs::path temp;
+	list<CarImg> line;
+
+	int carsSize = cars.size();
+	for (int i = 0; i < carsSize; i++) {
+		line = CarCV::atList(cars, i);
+
+		//this gets the "car" prefix from the name of carsDir, "cars"
+		iterate = carsDir.end();
+		iterate--;
+		string cDirName = (*iterate).generic_string();
+		string linePrefix = CarCV::shorten(cDirName, cDirName.size()-1);
+
+		int lineSize = line.size();
+		string number = boost::lexical_cast<string>(i);
+		temp = fs::path(cDirName+"/"+linePrefix+number);
+		temp = fs::absolute(temp);
+
+		if (!fs::exists(temp) || !fs::is_directory(temp)) { //if not exists, create it
+				fs::create_directory(temp);
+		}
+
+		list<CarImg>::iterator lineIt = line.begin();
+		for (int j = 0; j < lineSize; j++) {
+			string thisFilename = CarCV::atList(line, j).getPath().filename().generic_string();
+
+			fs::path thisPath = temp/thisFilename;
+
+			CarImg backupImg = CarCV::atList(line, j);
+			CarImg c = backupImg;
+			c.setPath(thisPath);
+			if (lineSize > 1) {
+				list<CarImg>::iterator bIt = lineIt;
+				list<CarImg>::iterator eIt = lineIt;
+				bIt--;
+				eIt++;
+				replace(bIt, eIt, backupImg, c);
+			}
+			else {
+				replace(line.begin(), line.end(), backupImg, c);
+			}
+
+			lineIt++;
+		}
+
+		saveCarImgList(line);
+	}
+
 
 }
+
+/*
+ * int length = length of return shortened sstring
+ */
+string CarCV::shorten(string s, int length) {
+	int len = length+1;
+	const char* schar = s.c_str();
+
+	char sshort[len];
+
+	for(int i = 0; i < len; i++) {
+		sshort[i] = schar[i];
+	}
+	sshort[len-1] = '\0';
+
+	string shortString = sshort;
+	return shortString;
+
+}
+
+
 
 /*
  * Load/parse list<CarImg> objects from carsDir
@@ -366,4 +445,44 @@ void grabKVparams(char **argv) { //just for testing reference, erase later
 		// do something with n
 		cout << "----------" << endl;
 	}
+}
+
+void CarCV::test(int argc, char** argv) {
+	fs::path imgPath1(argv[1]);
+	CarImg car1;
+	car1.setPath(fs::absolute(imgPath1));
+	car1.load();
+
+	fs::path imgPath2(argv[2]);
+	CarImg car2;
+	car2.setPath(fs::absolute(imgPath2));
+	car2.load();
+
+	fs::path imgPath3(argv[3]);
+	CarImg car3;
+	car3.setPath(fs::absolute(imgPath3));
+	car3.load();
+
+	fs::path imgPath4(argv[4]);
+	CarImg car4;
+	car4.setPath(fs::absolute(imgPath4));
+	car4.load();
+
+	fs::path carDir = argv[5];
+
+	list<list<CarImg> > cars;
+
+	list<CarImg> c1;
+	c1.push_back(car1);
+	c1.push_back(car2);
+
+	list<CarImg> c2;
+	c2.push_back(car3);
+	c2.push_back(car4);
+
+	cars.push_front(c1);
+	cars.push_back(c2);
+
+	saveCars(cars, carDir);
+
 }
