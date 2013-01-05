@@ -3,6 +3,8 @@
 
 #include <boost/lexical_cast.hpp>
 
+#define DEBSTR "DEBUG:		"
+
 using namespace std;
 using namespace cv;
 
@@ -14,44 +16,16 @@ int main(int argc, char** argv) {
 	CarCV c;
 
 	cout << "arg1: path of list" << endl;
-	cout << "arg2: cascadexml path" << endl;
+	cout << "arg2: cascade.xml path" << endl;
 
 
 	CascadeClassifier cascade;
-	//cascade.load(argv[2]);
+	cascade.load(argv[2]);
 
 	fs::path listPath(argv[1]);
 
 	c.run(listPath, CCV_HAAR_SURF, cascade);
 	//c.test(argc, argv);
-
-
-	/* maptest
-	map<string, double> mapl;
-
-	for (int i = 1; i <= 5; i++) {
-		istringstream source(argv[i]);
-		string token;
-		string key;
-	    double value;
-		for (int i = 0; getline( source, token, '=' ); i++) {
-			if (i == 0) {
-				key = token;
-			}
-		    istringstream ss(token);
-		    ss >> value;
-
-		}
-		mapl.insert(pair<string, double>(key, value));
-	}
-
-	cout << mapl.size() << endl;
-
-	string s = argv[6];
-	bool test = (CarCV::atMap(mapl, s) == (*mapl.end()).second);
-	cout << "---------------------" << endl;
-	cout << "AtIndex: "<< CarCV::atMap(mapl, s) << endl;
-	cout << "Works?: " << test << endl;*/
 
 	return 0;
 }
@@ -64,29 +38,72 @@ void CarCV::run(fs::path &imgListPath, int method, CascadeClassifier &cascade) {
 	fs::path posDirPath = "pos"; //load pos dir path
 	fs::path negDirPath = "neg"; //load neg dir path
 
-	list<string> strImgList = CarCV::parseList(imgListPath); //parse image list file to list<string>
-	list<CarImg> imgList = CarCV::loadCarImgList(strImgList); //load CarImg objects from the list
+	double t1, t2, Tstart, Tend;
+	double tickspersecond=cvGetTickFrequency() * 1.0e6;
+	Tstart = (double) cvGetTickCount();
 
-	cout << imgList.size() << endl;
-	return;
-	cvNamedWindow("Images");
-	for(list<CarImg>::iterator i = imgList.begin(); i != imgList.end(); i++) {
-		imshow("Images", (*i).getImg());
-		waitKey(0);
-	}
-	cvDestroyWindow("Images");
+	t1 = (double) cvGetTickCount();
+	cout << DEBSTR << "START parseList()" << endl;
+	list<string> strImgList = CarCV::parseList(imgListPath); //parse image list file to list<string>
+	cout << DEBSTR << "END parseList()" << endl;
+	t2 = (double) cvGetTickCount() - t1;
+	cout << "TIME:		" << (t2/(double)tickspersecond) << "s" << endl;
+	cout << endl;
+
+	t1 = (double) cvGetTickCount();
+	cout << DEBSTR << "START loadCarImgList()" << endl;
+	list<CarImg> imgList = CarCV::loadCarImgList(strImgList); //load CarImg objects from the list
+	cout << DEBSTR << "END loadCarImgList()" << endl;
+	t2 = (double) cvGetTickCount() - t1;
+	cout << "TIME:		" << (t2/(double)tickspersecond) << "s" << endl;
+	cout << endl;
 
 	list<CarImg> negList;
-	CarCV c; //create an instance of CarCV
-	list<CarImg> posCarImgList = c.detect_sortPOS_AND_NEG(imgList, cascade, &negList);//detect and sort objects in images of imgList
+
+	t1 = (double) cvGetTickCount();
+	cout << DEBSTR << "START detect_sortPOS_AND_NEG()" << endl;
+	list<CarImg> posCarImgList = CarCV::detect_sortPOS_AND_NEG(imgList, cascade, &negList);//detect and sort objects in images of imgList
+	cout << DEBSTR << "END detect_sortPOS_AND_NEG()" << endl;
+	t2 = (double) cvGetTickCount() - t1;
+	cout << "TIME:		" << (t2/(double)tickspersecond) << "s" << endl;
+	cout << endl;
+
+	/* //printing lists
+	cout << endl << endl << endl;
+	cout << "-------------------------------------------------" << endl;
+	cout << "POSITIVE IMAGES" << endl;
+	cout << "-------------------------------------------------" << endl;
+	int index = 0;
+	for (list<CarImg>::iterator i = posCarImgList.begin(); i != posCarImgList.end(); i++) {
+		cout << index << ". " << (*i).getPath() << endl;
+
+		index++;
+	}
+
+	cout << endl << endl << endl;
+	cout << "-------------------------------------------------" << endl;
+	cout << "NEGATIVE IMAGES" << endl;
+	cout << "-------------------------------------------------" << endl;
+	index = 0;
+	for (list<CarImg>::iterator i = negList.begin(); i != negList.end(); i++) {
+		cout << index << ". " << (*i).getPath() << endl;
+
+		index++;
+	}
+	*/ //printing lists
+
+	cout << endl << endl;
+	Tend = (double) cvGetTickCount() - Tstart;
+	cout << "TOTALTIME:		" << (Tend/(double)tickspersecond) << "s" << endl;
+	return;
 
 
-	fs::path carsDir = "cars";
+	fs::path carsDir = "cars";//todo: tested up to here
 	if (!fs::exists(carsDir) || !fs::is_directory(carsDir)) { //create cars dir
 		fs::create_directory(carsDir);
 	}
 
-	list<list<CarImg> > cars = c.sortUnique(posCarImgList, cascade);
+	list<list<CarImg> > cars = CarCV::sortUnique(posCarImgList, cascade);
 
 	list<CarImg> carlist;
 	const int carsListSize = cars.size();
@@ -94,32 +111,34 @@ void CarCV::run(fs::path &imgListPath, int method, CascadeClassifier &cascade) {
 
 	for (int i = 0; i < carsListSize; i++) {
 		carlist = CarCV::atList(cars, i);
-		speed = c.calcSpeed(carlist, CCV_SP_FROMALLFILES);
+		speed = CarCV::calcSpeed(carlist, CCV_SP_FROMALLFILES);
 		cout << "Car speed: " << speed << "km/h" << endl;
 	}
 }
 
 /*
  * Returns list of positive images list<CarImg>
- * Negative images are stored in *imgList pointer
+ * Negative images are stored in *negList pointer (should probably be empty when calling method)
  */
 list<CarImg> CarCV::detect_sortPOS_AND_NEG(list<CarImg> &imgList, CascadeClassifier &cascade, list<CarImg> *negList) { //todo: test this
 	list<CarImg> posList;
-
-	const int listSize = imgList.size();
 
 	fs::path cPath = (*imgList.begin()).getPath();
 	Mat cMat;
 	CarImg cImg(cPath, cMat);
 
+	const int listSize = imgList.size();
 	for (int i = 0; i < listSize; i++) {
 		cImg = CarCV::atList(imgList, i);
 		cPath = cImg.getPath();
 		cMat = cImg.getImg();
 
+		cout << DEBSTR << "Sorting image:	" << cPath.generic_string() << "--->";
 		if (Det::isDetected(cMat, cascade, scale)) {
+			cout << "POSITIVE";
 			posList.push_back(cImg); //maybe .clone()?
 		} else {
+			cout << "NEGATIVE" << endl;
 			negList->push_back(cImg); //maybe .clone()?
 		}
 	}

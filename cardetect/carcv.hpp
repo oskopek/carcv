@@ -26,16 +26,16 @@ public:
 
 	void run(fs::path &imgListPath, int method, CascadeClassifier &cascade);
 
-	list<CarImg> detect_sortPOS_AND_NEG(list<CarImg> &imgList, CascadeClassifier &cascade, list<CarImg> *negList);
+	static list<CarImg> detect_sortPOS_AND_NEG(list<CarImg> &imgList, CascadeClassifier &cascade, list<CarImg> *negList);
 
-	//list<string> sortPOS_AND_NEG(list<string> &imgList, CascadeClassifier &cascade, list<CarImg> *negList); //unimplemented, joined with detect()
+	//static list<string> sortPOS_AND_NEG(list<string> &imgList, CascadeClassifier &cascade, list<CarImg> *negList); //unimplemented, joined with detect()
 
 	/*
 	 * Supply a list of positive images, and a dir where to place cars
 	 */
-	list<list<CarImg> > sortUnique(list<CarImg> &posCarImgList, CascadeClassifier &cascade);
+	static list<list<CarImg> > sortUnique(list<CarImg> &posCarImgList, CascadeClassifier &cascade);
 
-	double calcSpeed(list<CarImg> clist, int speed_method);
+	static double calcSpeed(list<CarImg> clist, int speed_method);
 
 	static list<string> parseList(fs::path &list);
 
