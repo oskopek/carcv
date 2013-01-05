@@ -78,7 +78,7 @@ void CarImg::load() {
 	this->setImg(img);
 }
 
-string CarImg::toString() {
+string CarImg::toString() const {
 	string path = this->getPath().generic_string();
 	int rows = this->getImg().rows;
 	int cols = this->getImg().cols;

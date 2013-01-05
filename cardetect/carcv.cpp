@@ -15,6 +15,9 @@ const double scale = 1;
 int main(int argc, char** argv) {
 	CarCV c;
 
+	/* initialize random generator */ //todo: erase
+	srand ( time(NULL) );
+
 	cout << "arg1: path of list" << endl;
 	cout << "arg2: cascade.xml path" << endl;
 
@@ -118,9 +121,9 @@ void CarCV::run(fs::path &imgListPath, int method, CascadeClassifier &cascade) {
 
 
 	t1 = (double) cvGetTickCount();
-	cout << DEBSTR << "START saveCarImgList(neg)" << endl;
+	cout << DEBSTR << "START sortUnique(pos)" << endl;
 	list<list<CarImg> > cars = CarCV::sortUnique(posCarImgList, cascade);
-	cout << DEBSTR << "END saveCarImgList(neg)" << endl;
+	cout << DEBSTR << "END saveUnique(pos)" << endl;
 	t2 = (double) cvGetTickCount() - t1;
 	cout << "TIME:		" << (t2/(double)tickspersecond) << "s" << endl;
 	cout << endl;
@@ -205,17 +208,22 @@ list<list<CarImg> > CarCV::sortUnique(list<CarImg> &posCarImgList, CascadeClassi
 		probability.clear();
 		carProbabilty.clear();
 		const CarImg sortingCar = CarCV::atList(posCarImgList, i);
+		cout << "i=" << i << ";carssize=" << cars.size() << endl;
 
 		if (i == 0 && cars.size() == 0) { //first iteration
-			CarCV::atList(cars, 0).push_back(CarCV::atList(posCarImgList, i));
+			cout << "First iter" << endl;
+			CarCV::atList(cars, 0).push_back(CarCV::atList(posCarImgList, i)); //todo: crashes here
+			cout << "First iter" << endl;
 			continue;
 		}
 
 		for (int j = 0; j < CarCV::listSize(cars); j++) { //iterate over the main list of cars
+			cout << "j=" << j << endl;
 			int k;
 
 			const int carsjSize = CarCV::atList(cars, j).size();
 			for (k = 0; k < carsjSize; k++) {
+				cout << "k=" << k << endl;
 				list<CarImg> curList = CarCV::atList(cars, j);
 				const CarImg curCar = CarCV::atList(curList, k);
 
@@ -225,6 +233,7 @@ list<list<CarImg> > CarCV::sortUnique(list<CarImg> &posCarImgList, CascadeClassi
 				const double prob = Det::probability(sortingCarMat, curCarMat, cascade, scale); //input from detection algorithm here
 
 				probability.insert(std::pair<CarImg, double>(curCar, prob));
+				cout << DEBSTR << curCar.toString() << ";prob=" << prob << endl;
 			}
 		}
 

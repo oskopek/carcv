@@ -21,7 +21,7 @@ public:
 	void save();
 	void load();
 
-	string toString();
+	string toString() const;
 
 
 	//todo override operator< and operator=
