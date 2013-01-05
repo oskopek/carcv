@@ -22,8 +22,8 @@ int main(int argc, char** argv) {
 
 	fs::path listPath(argv[1]);
 
-	//c.run(listPath, CCV_HAAR_SURF, cascade);
-	c.test(argc, argv);
+	c.run(listPath, CCV_HAAR_SURF, cascade);
+	//c.test(argc, argv);
 
 
 	/* maptest
@@ -65,8 +65,16 @@ void CarCV::run(fs::path &imgListPath, int method, CascadeClassifier &cascade) {
 	fs::path negDirPath = "neg"; //load neg dir path
 
 	list<string> strImgList = CarCV::parseList(imgListPath); //parse image list file to list<string>
-	list<CarImg> imgList;// = CarCV::loadCarImgList(strImgList); //load CarImg objects from the list
+	list<CarImg> imgList = CarCV::loadCarImgList(strImgList); //load CarImg objects from the list
 
+	cout << imgList.size() << endl;
+	return;
+	cvNamedWindow("Images");
+	for(list<CarImg>::iterator i = imgList.begin(); i != imgList.end(); i++) {
+		imshow("Images", (*i).getImg());
+		waitKey(0);
+	}
+	cvDestroyWindow("Images");
 
 	list<CarImg> negList;
 	CarCV c; //create an instance of CarCV
@@ -227,7 +235,7 @@ double CarCV::calcSpeed(list<CarImg> clist, int speed_method) { //TODO: not yet 
 /*
  * Save CarImg objects to carDir (USE FOR UNIQUE CARS)
  */
-void CarCV::saveCarImgList(list<CarImg> carList) { //todo: create a saver for CarImgs
+void CarCV::saveCarImgList(list<CarImg> carList) { //tested, works
 	for(list<CarImg>::iterator i = carList.begin(); i != carList.end(); i++) {
 		(*i).save();
 	}
@@ -360,6 +368,30 @@ list<CarImg> CarCV::loadCarImgList(fs::path carDir) { //tested, works
 		carImgList.push_back(c);
 
 		dIt++;
+	}
+
+	return carImgList;
+}
+
+/*
+ * Load/parse CarImg objects from carDir
+ * Beware of 'boost::filesystem3::filesystem_error':'No such file or (directory)' for parameter carList or any of its contents
+ */
+list<CarImg> CarCV::loadCarImgList(list<string> carList) { //tested, works
+	list<CarImg> carImgList;
+	list<string>::iterator it = carList.begin();
+
+	fs::path currentPath;
+	while(it != carList.end()) {
+		currentPath = fs::absolute((*it));
+
+		CarImg c;
+		c.setPath(currentPath);
+		c.load();
+
+		carImgList.push_back(c);
+
+		it++;
 	}
 
 	return carImgList;

@@ -63,5 +63,6 @@ private:
 	static void saveCars(list<list<CarImg> > cars, fs::path carsDir);
 	static list<list<CarImg> > loadCars(fs::path carsDir);
 	static list<CarImg> loadCarImgList(fs::path carDir);
+	static list<CarImg> loadCarImgList(list<string> carList);
 
 };
