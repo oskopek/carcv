@@ -95,7 +95,7 @@ void CarCV::run(fs::path &imgListPath, int method, CascadeClassifier &cascade) {
 
 	fs::path carsDir = "cars";
 
-	//testing saveing
+	//testing saveing - should actually be uncommented in a production run, but I wanna  save time
 
 	t1 = (double) cvGetTickCount();
 	cout << DEBSTR << "START saveCarImgList(pos)" << endl;
@@ -115,30 +115,54 @@ void CarCV::run(fs::path &imgListPath, int method, CascadeClassifier &cascade) {
 
 	//testing saving
 
-	cout << endl << endl;
-	Tend = (double) cvGetTickCount() - Tstart;
-	cout << "TOTALTIME:		" << (Tend/(double)tickspersecond) << "s" << endl;
-	return;
 
 
+	t1 = (double) cvGetTickCount();
+	cout << DEBSTR << "START saveCarImgList(neg)" << endl;
 	list<list<CarImg> > cars = CarCV::sortUnique(posCarImgList, cascade);
+	cout << DEBSTR << "END saveCarImgList(neg)" << endl;
+	t2 = (double) cvGetTickCount() - t1;
+	cout << "TIME:		" << (t2/(double)tickspersecond) << "s" << endl;
+	cout << endl;
+
+
+
+	t1 = (double) cvGetTickCount();
+	cout << DEBSTR << "START saveCars()" << endl;
+	CarCV::saveCars(cars, carsDir);
+	cout << DEBSTR << "END saveCars()" << endl;
+	t2 = (double) cvGetTickCount() - t1;
+	cout << "TIME:		" << (t2/(double)tickspersecond) << "s" << endl;
+	cout << endl;
+
 
 	list<CarImg> carlist;
 	const int carsListSize = cars.size();
 	double speed;
 
+	t1 = (double) cvGetTickCount();
+	cout << DEBSTR << "START calcSpeed()" << endl;
 	for (int i = 0; i < carsListSize; i++) {
 		carlist = CarCV::atList(cars, i);
 		speed = CarCV::calcSpeed(carlist, CCV_SP_FROMALLFILES);
 		cout << "Car speed: " << speed << "km/h" << endl;
 	}
+	cout << DEBSTR << "END saveCars()" << endl;
+	t2 = (double) cvGetTickCount() - t1;
+	cout << "TIME:		" << (t2/(double)tickspersecond) << "s" << endl;
+	cout << endl;
+
+	cout << endl << endl;
+	Tend = (double) cvGetTickCount() - Tstart;
+	cout << "TOTALTIME:		" << (Tend/(double)tickspersecond) << "s" << endl;
+	return;
 }
 
 /*
  * Returns list of positive images list<CarImg>
  * Negative images are stored in *negList pointer (should probably be empty when calling method)
  */
-list<CarImg> CarCV::detect_sortPOS_AND_NEG(list<CarImg> &imgList, CascadeClassifier &cascade, list<CarImg> *negList) { //todo: test this
+list<CarImg> CarCV::detect_sortPOS_AND_NEG(list<CarImg> &imgList, CascadeClassifier &cascade, list<CarImg> *negList) { //tested, works
 	list<CarImg> posList;
 
 	fs::path cPath = (*imgList.begin()).getPath();
@@ -153,7 +177,7 @@ list<CarImg> CarCV::detect_sortPOS_AND_NEG(list<CarImg> &imgList, CascadeClassif
 
 		cout << DEBSTR << "Sorting image:	" << cPath.generic_string() << "--->";
 		if (Det::isDetected(cMat, cascade, scale)) {
-			cout << "POSITIVE";
+			cout << "POSITIVE" << endl;
 			posList.push_back(cImg); //maybe .clone()?
 		} else {
 			cout << "NEGATIVE" << endl;
