@@ -262,19 +262,14 @@ vector<Rect> Det::detect(Mat &img, CascadeClassifier &cascade, double scale)
  * with CascadeClassifier cascade and int scaleHI, scaleLO
  * probability is from range <0, 1>
  */
-double Det::probability(Mat &imga, Mat &imgb, CascadeClassifier &cascade, const int scaleLO, const int scaleHI) { //todo: implemnt according to whiteboard
-	//not needed:
-	/*int random = rand() % 100;
-	double prob = (double) random/100;*/
+double Det::probability(Mat &imga, Mat &imgb, CascadeClassifier &cascade, const int scaleLO, const int scaleHI) { //implemented according to whiteboard, needs optimization
 
 	int probTrue = 0;
-	//int probFalse = 0; //not needed
 	int counterAll = 0;
 
 
 	double dscale = (double) scaleLO/100;
 
-	//
 	int scale = 1;
 	vector<Rect> imgaObj = detect(imga, cascade, scale);
 	vector<Rect> imgbObj = detect(imgb, cascade, scale);
@@ -298,9 +293,6 @@ double Det::probability(Mat &imga, Mat &imgb, CascadeClassifier &cascade, const 
 		if(Det::evaluatef(sizeSCR.area(), sizeCropped.area())) {
 			probTrue++;
 			//cout << "TRUE:	"<< "SizeSCR=" << sizeSCR.area() << "	;SizeCropped=" << sizeCropped.area() << endl;
-		} else {
-			//probFalse++; //not needed
-			//cout << "FALSE:	"<< "SizeSCR=" << sizeSCR.area() << "	;SizeCropped=" << sizeCropped.area() << endl;
 		}
 
 		counterAll++;
@@ -318,19 +310,15 @@ double Det::probability(Mat &imga, Mat &imgb, CascadeClassifier &cascade, const 
 		if(Det::evaluatef(sizeSCR.area(), sizeCropped.area())) {
 			probTrue++;
 			//cout << "TRUE:	"<< "SizeSCR=" << sizeSCR.area() << "	;SizeCropped=" << sizeCropped.area() << endl;
-		} else {
-			//probFalse++; //not needed
-			//cout << "FALSE:	" << "SizeSCR=" << sizeSCR.area() << "	;SizeCropped=" << sizeCropped.area() << endl;
 		}
 
 		counterAll++;
 	}
 
 	double dProbTrue = (double) probTrue;
-	//double dProbFalse = (double) probFalse; //not needed
 	double prob = (double) dProbTrue/counterAll;
 
-	cout << "Prob=" << prob << "	;ProbTrue=" << dProbTrue << "	;CounterAll=" << counterAll << endl;
+	//cout << "Prob=" << prob << "	;ProbTrue=" << dProbTrue << "	;CounterAll=" << counterAll << endl;
 
 	return prob;
 }
@@ -515,7 +503,7 @@ bool Det::evaluatef(const float a, const float b) {
 	float absB = fabsf(b);
 	float absdiff = absA > absB ? absA-absB : absB-absA ;
 
-	if (absdiff < 1000) {
+	if (absdiff < 2000) {
 		return true;
 	}
 	else {

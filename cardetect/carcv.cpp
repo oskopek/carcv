@@ -13,22 +13,16 @@ namespace fs = boost::filesystem;
 const double scale = 1;
 
 int main(int argc, char** argv) {
-	CarCV c;
-
-	/* initialize random generator */ //todo: erase
-	srand ( time(NULL) );
-
 	cout << "arg1: path of list" << endl;
 	cout << "arg2: cascade.xml path" << endl;
-
 
 	CascadeClassifier cascade;
 	cascade.load(argv[2]);
 
 	fs::path listPath(argv[1]);
 
-	c.run(listPath, CCV_HAAR_SURF, cascade);
-	//c.test(argc, argv);
+	CarCV::run(listPath, CCV_HAAR_SURF, cascade);
+	//CarCV::test(argc, argv);
 
 	return 0;
 }
@@ -122,7 +116,7 @@ void CarCV::run(fs::path &imgListPath, int method, CascadeClassifier &cascade) {
 
 	t1 = (double) cvGetTickCount();
 	cout << DEBSTR << "START sortUnique(pos)" << endl;
-	list<list<CarImg> > cars = CarCV::sortUnique(posCarImgList, cascade, 0.8);
+	list<list<CarImg> > cars = CarCV::sortUnique(posCarImgList, cascade, 0.5);
 	cout << DEBSTR << "END saveUnique(pos)" << endl;
 	t2 = (double) cvGetTickCount() - t1;
 	cout << "TIME:		" << (t2/(double)tickspersecond) << "s" << endl;
@@ -291,14 +285,14 @@ list<list<CarImg> > CarCV::sortUnique(list<CarImg> &posCarImgList, CascadeClassi
 		if (maxCarProb>=PROBABILITYCONST) { //if found a decent match
 			//if decent, add to the existing car
 			CarCV::atList(&cars, carProbId)->push_back(*sortingCar);
-			cout << DEBSTR << ">=Push to: Car" << carProbId << "	with prob=" << maxCarProb  << ":	" << sortingCar->toString() << endl;
+			cout << DEBSTR << i << ">=Push to: Car" << carProbId << "	with prob=" << maxCarProb  << ":	" << sortingCar->toString() << endl;
 		}
 		else {
 			//if not decent enough, add it as a new car
 			list<CarImg> newLine;
 			newLine.push_back(*sortingCar);
 			cars.push_back(newLine);
-			cout << DEBSTR << "< Push to: Car" << cars.size()-1 << "	with prob=" << maxCarProb  << ":	" << sortingCar->toString() << endl;
+			cout << DEBSTR << i << "< Push to: Car" << cars.size()-1 << "	with prob=" << maxCarProb  << ":	" << sortingCar->toString() << endl;
 		}
 
 	}

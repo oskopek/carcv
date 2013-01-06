@@ -24,7 +24,7 @@ enum speed_method {CCV_SP_FROMSORTEDFILES = 1, CCV_SP_FROMALLFILES = 2};
 class CarCV {
 public:
 
-	void run(fs::path &imgListPath, int method, CascadeClassifier &cascade);
+	static void run(fs::path &imgListPath, int method, CascadeClassifier &cascade);
 
 	static list<CarImg> detect_sortPOS_AND_NEG(list<CarImg> &imgList, CascadeClassifier &cascade, list<CarImg> *negList);
 
@@ -53,7 +53,7 @@ public:
 	template <class K, class V>
 	static int mapSize(map<K, V> &pmap);
 
-	void test(int argc, char** argv);
+	static void test(int argc, char** argv);
 
 	static string shorten(string s, int length);
 

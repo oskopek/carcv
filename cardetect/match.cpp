@@ -1,5 +1,7 @@
 #include "match.hpp"
 
+#define ERRSTR "ERROR:		"
+
 namespace fs = boost::filesystem;
 using namespace std;
 using namespace cv;
@@ -51,7 +53,7 @@ vector<DMatch> Match::vecGoodMatches(Mat img1, Mat img2,
 {
 	vector<DMatch> matches = vecMatches(img1, img2, descriptors_object, keypoints_object, keypoints_scene);
 
-	  double max_dist = 0; double min_dist = 100;
+	double max_dist = 0; double min_dist = 100;
 
 	  //-- Quick calculation of max and min distances between keypoints
 	  for( int i = 0; i < descriptors_object.rows; i++ )
@@ -60,8 +62,9 @@ vector<DMatch> Match::vecGoodMatches(Mat img1, Mat img2,
 	    if( dist > max_dist ) max_dist = dist;
 	  }
 
-	  printf("-- Max dist : %f \n", max_dist );
-	  printf("-- Min dist : %f \n", min_dist );
+	  //outcommented, produces noise in terminal
+	  //printf("-- Max dist : %f \n", max_dist );
+	  //printf("-- Min dist : %f \n", min_dist );
 
 	  //-- Draw only "good" matches (i.e. whose distance is less than 3*min_dist )
 	  std::vector< DMatch > good_matches;
@@ -161,8 +164,15 @@ vector<Point2f> Match::sceneCornersGoodMatches(Mat img1, Mat img2, bool good) {
 	  }
 
 	  if (obj.size() < 4 || scene.empty()) {
-		  cerr << "Obj: " << obj.size() << "; Scene: " << scene.size() << endl;
-		  return img_matches;
+		  cout << ERRSTR << "No possible Rectangle: Less than 4 corners detected	" << "Obj:	" << obj.size() << "	Scene:	" << scene.size() << endl;
+
+		  //to let the method return something valid, fill a tiny little rectangle:
+		  std::vector<Point2f> scene_corners(4);
+		  scene_corners.push_back(cvPoint(0, 0));
+		  scene_corners.push_back(cvPoint(0, 0));
+		  scene_corners.push_back(cvPoint(0, 0));
+		  scene_corners.push_back(cvPoint(0, 0));
+		  return scene_corners; //img_matches; //out-commented return is invalid
 	  } else {
 	  Mat H = findHomography( obj, scene, CV_RANSAC );
 
