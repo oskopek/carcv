@@ -122,7 +122,7 @@ void CarCV::run(fs::path &imgListPath, int method, CascadeClassifier &cascade) {
 
 	t1 = (double) cvGetTickCount();
 	cout << DEBSTR << "START sortUnique(pos)" << endl;
-	list<list<CarImg> > cars = CarCV::sortUnique(posCarImgList, cascade, 0.9);
+	list<list<CarImg> > cars = CarCV::sortUnique(posCarImgList, cascade, 0.8);
 	cout << DEBSTR << "END saveUnique(pos)" << endl;
 	t2 = (double) cvGetTickCount() - t1;
 	cout << "TIME:		" << (t2/(double)tickspersecond) << "s" << endl;
@@ -261,7 +261,7 @@ list<list<CarImg> > CarCV::sortUnique(list<CarImg> &posCarImgList, CascadeClassi
 
 				Mat curCarMat = curCar->getImg();
 
-				const double prob = Det::probability(sortingCarMat, curCarMat, cascade, scale);
+				const double prob = Det::probability(sortingCarMat, curCarMat, cascade, 85, 90);
 
 				//add the car obj and probability of sorted car being the same as cur object to the map
 				probability.insert(std::pair<CarImg, double>(*curCar, prob));

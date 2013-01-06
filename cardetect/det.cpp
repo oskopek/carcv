@@ -1,5 +1,7 @@
 #include "det.hpp"
-//#include "match.hpp" //for outcommented run and testCropping
+#include "match.hpp"
+
+#include <cmath>
 
 #define RESET_COLOR "\e[m"
 #define MAKE_RED "\e[31m"
@@ -257,16 +259,80 @@ vector<Rect> Det::detect(Mat &img, CascadeClassifier &cascade, double scale)
 
 /*
  * Returns probability that the detected object in  imga = imgb
- * with CascadeClassifier cascade and double scale
+ * with CascadeClassifier cascade and int scaleHI, scaleLO
  * probability is from range <0, 1>
  */
-double Det::probability(Mat &imga, Mat &imgb, CascadeClassifier &cascade, const double scale) { //todo: implemnt according to whiteboard
+double Det::probability(Mat &imga, Mat &imgb, CascadeClassifier &cascade, const int scaleLO, const int scaleHI) { //todo: implemnt according to whiteboard
+	//not needed:
+	/*int random = rand() % 100;
+	double prob = (double) random/100;*/
 
-	int random = rand() % 100;
-	double prob = (double) random/100;
+	int probTrue = 0;
+	//int probFalse = 0; //not needed
+	int counterAll = 0;
+
+
+	double dscale = (double) scaleLO/100;
+
+	//
+	int scale = 1;
+	vector<Rect> imgaObj = detect(imga, cascade, scale);
+	vector<Rect> imgbObj = detect(imgb, cascade, scale);
+
+	Rect detectedA = imgaObj.front();
+	Rect detectedB = imgbObj.front();
+	//
+
+	Mat cropped;
+	RotatedRect sceneCornersRect;
+	vector<Point2f> scene_corners;
+	//
+	for (int i=scaleLO; i < scaleHI; i++) {
+		cropped = Det::crop(imga, detectedA,dscale);
+		scene_corners = Match::sceneCornersGoodMatches(cropped, imgb, true);
+		sceneCornersRect = minAreaRect(scene_corners);
+
+		Size2f sizeSCR = Size_<float>(sceneCornersRect.size);
+		Size2f sizeCropped = Size_<float>((float) cropped.cols, (float) cropped.rows);
+
+		if(Det::evaluatef(sizeSCR.area(), sizeCropped.area())) {
+			probTrue++;
+			//cout << "TRUE:	"<< "SizeSCR=" << sizeSCR.area() << "	;SizeCropped=" << sizeCropped.area() << endl;
+		} else {
+			//probFalse++; //not needed
+			//cout << "FALSE:	"<< "SizeSCR=" << sizeSCR.area() << "	;SizeCropped=" << sizeCropped.area() << endl;
+		}
+
+		counterAll++;
+	}
+
+	dscale = (double) scaleLO/100;
+	for (int i=scaleLO; i < scaleHI; i++) {
+		cropped = Det::crop(imgb, detectedB,dscale);
+		scene_corners = Match::sceneCornersGoodMatches(cropped, imga, true);
+		sceneCornersRect = minAreaRect(scene_corners);
+
+		Size2f sizeSCR = Size_<float>(sceneCornersRect.size);
+		Size2f sizeCropped = Size_<float>((float) cropped.cols, (float) cropped.rows);
+
+		if(Det::evaluatef(sizeSCR.area(), sizeCropped.area())) {
+			probTrue++;
+			//cout << "TRUE:	"<< "SizeSCR=" << sizeSCR.area() << "	;SizeCropped=" << sizeCropped.area() << endl;
+		} else {
+			//probFalse++; //not needed
+			//cout << "FALSE:	" << "SizeSCR=" << sizeSCR.area() << "	;SizeCropped=" << sizeCropped.area() << endl;
+		}
+
+		counterAll++;
+	}
+
+	double dProbTrue = (double) probTrue;
+	//double dProbFalse = (double) probFalse; //not needed
+	double prob = (double) dProbTrue/counterAll;
+
+	cout << "Prob=" << prob << "	;ProbTrue=" << dProbTrue << "	;CounterAll=" << counterAll << endl;
+
 	return prob;
-
-
 }
 
 /*
@@ -443,3 +509,16 @@ void Det::testCropping(Mat &forcrop, Mat &comp, CascadeClassifier &cascade, doub
 	return;
 }
 */
+
+bool Det::evaluatef(const float a, const float b) {
+	float absA = fabsf(a);
+	float absB = fabsf(b);
+	float absdiff = absA > absB ? absA-absB : absB-absA ;
+
+	if (absdiff < 1000) {
+		return true;
+	}
+	else {
+		return false;
+	}
+}

@@ -143,9 +143,12 @@ vector<Point2f> Match::sceneCornersGoodMatches(Mat img1, Mat img2, bool good) {
 		good_matches = vecMatches(img1, img2, descriptors_object, keypoints_object, keypoints_scene);
 	}
 	  Mat img_matches;
-	  drawMatches( img_object, keypoints_object, img_scene, keypoints_scene,
-	               good_matches, img_matches, Scalar::all(-1), Scalar::all(-1),
-	               vector<char>(), DrawMatchesFlags::NOT_DRAW_SINGLE_POINTS );
+	  drawMatches(img_object, keypoints_object,
+			  	  img_scene, keypoints_scene,
+			  	  good_matches, img_matches,
+			  	  Scalar::all(-1), Scalar::all(-1),
+			  	  vector<char>(), DrawMatchesFlags::NOT_DRAW_SINGLE_POINTS );
+
 	  //-- Localize the object
 	  std::vector<Point2f> obj;
 	  std::vector<Point2f> scene;
@@ -176,7 +179,7 @@ vector<Point2f> Match::sceneCornersGoodMatches(Mat img1, Mat img2, bool good) {
 	  }
 }
 
-bool Match::match(fs::path path1, fs::path path2)
+double Match::match(fs::path path1, fs::path path2)
 {
 	Mat img1 = imread(path1.generic_string());
 	Mat img2 = imread(path2.generic_string());
@@ -185,15 +188,15 @@ bool Match::match(fs::path path1, fs::path path2)
 
 //TODO: complete SURF FLANN MATCHER AND TEMPLATE MATCHER AND SSNR (GPU) MATCHER
 
-bool Match::match(string path1, string path2)
+double Match::match(string path1, string path2)
 {
 	fs::path path1p = path1;
 	fs::path path2p = path2;
 	return match(path1p, path2p);
 }
 
-bool Match::match(Mat img1, Mat img2) {
-	return true;
+double Match::match(Mat img1, Mat img2) {
+	return 1;
 }
 
 bool Match::templateMatch(Mat img, Mat templ, int match_method)

@@ -19,12 +19,12 @@ namespace fs = boost::filesystem;
  */
 class Match {
 public:
-	vector<DMatch> vecMatches(Mat img1, Mat img2, Mat &descriptors_object, vector<KeyPoint> &keypoints_object, vector<KeyPoint> &keypoints_scene);
-	bool match(fs::path path1, fs::path path2);
-	bool match(string path1, string path2);
-	bool match(Mat img1, Mat img2);
-	vector<DMatch> vecGoodMatches(Mat img1, Mat img2, Mat &descriptors_object, vector<KeyPoint> &keypoints_object, vector<KeyPoint> &keypoints_scene);
-	Mat matGoodMatches(Mat img1, Mat img2, bool good);
-	bool templateMatch(Mat img, Mat templ, int match_method);
-	vector<Point2f> sceneCornersGoodMatches(Mat img1, Mat img2, bool good);
+	static vector<DMatch> vecMatches(Mat img1, Mat img2, Mat &descriptors_object, vector<KeyPoint> &keypoints_object, vector<KeyPoint> &keypoints_scene);
+	static double match(fs::path path1, fs::path path2);
+	static double match(string path1, string path2);
+	static double match(Mat img1, Mat img2);
+	static vector<DMatch> vecGoodMatches(Mat img1, Mat img2, Mat &descriptors_object, vector<KeyPoint> &keypoints_object, vector<KeyPoint> &keypoints_scene);
+	static Mat matGoodMatches(Mat img1, Mat img2, bool good);
+	static bool templateMatch(Mat img, Mat templ, int match_method);
+	static vector<Point2f> sceneCornersGoodMatches(Mat img1, Mat img2, bool good);
 };

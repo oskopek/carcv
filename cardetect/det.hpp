@@ -21,7 +21,7 @@ public:
 	static int countDetected(Mat &img, CascadeClassifier &cascade, double scale);
 	void detectAndDraw(Mat &img, CascadeClassifier &cascade, double scale, string windowName);
 	static vector<Rect> detect(Mat &img, CascadeClassifier& cascade, double scale);
-	static double probability(Mat &imga, Mat &imgb, CascadeClassifier &cascade, const double scale);
+	static double probability(Mat &imga, Mat &imgb, CascadeClassifier &cascade, const int scaleLO, const int scaleHI);
 	static Mat detectMat(Mat &img, CascadeClassifier &cascade, double scale);
 	static bool isDetected(Mat &img, CascadeClassifier &cascade, double scale);
 	static Mat crop(Mat &img, Rect &roi, double &scale);
@@ -29,4 +29,5 @@ public:
 	static Point2d center(Rect r);
 	static Rect scaleRect(Rect roi, double scale);
 	void testCropping(Mat &crop, Mat &comp, CascadeClassifier &cascade, double &scale);
+	static bool evaluatef(const float a, const float b);
 };
