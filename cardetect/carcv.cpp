@@ -2,6 +2,7 @@
 #include "det.hpp"
 
 #include <boost/lexical_cast.hpp>
+#include <cmath> //todo:temp
 
 #define DEBSTR "DEBUG:		"
 
@@ -71,7 +72,8 @@ void CarCV::run(fs::path &imgListPath, int method, CascadeClassifier &cascade) {
 	cout << "TIME:		" << (t2/(double)tickspersecond) << "s" << endl;
 	cout << endl;
 
-	/* //printing lists
+	//printing lists
+	/*
 	cout << endl << endl << endl;
 	cout << "-------------------------------------------------" << endl;
 	cout << "POSITIVE IMAGES" << endl;
@@ -93,7 +95,8 @@ void CarCV::run(fs::path &imgListPath, int method, CascadeClassifier &cascade) {
 
 		index++;
 	}
-	*/ //printing lists
+	*/
+	//printing lists
 
 
 	fs::path carsDir = "cars";
@@ -115,14 +118,13 @@ void CarCV::run(fs::path &imgListPath, int method, CascadeClassifier &cascade) {
 	t2 = (double) cvGetTickCount() - t1;
 	cout << "TIME:		" << (t2/(double)tickspersecond) << "s" << endl;
 	cout << endl;
-
 	//testing saving
 
-
+	//tested up to here
 
 	t1 = (double) cvGetTickCount();
 	cout << DEBSTR << "START sortUnique(pos)" << endl;
-	list<list<CarImg> > cars = CarCV::sortUnique(posCarImgList, cascade);
+	list<list<CarImg> > cars = CarCV::sortUnique(posCarImgList, cascade, 0.6);
 	cout << DEBSTR << "END saveUnique(pos)" << endl;
 	t2 = (double) cvGetTickCount() - t1;
 	cout << "TIME:		" << (t2/(double)tickspersecond) << "s" << endl;
@@ -143,11 +145,13 @@ void CarCV::run(fs::path &imgListPath, int method, CascadeClassifier &cascade) {
 			cout << "[" << indexi << ":" << indexj << "]	 " << (*j).getPath() << endl;
 			indexj++;
 		}
+		indexj = 0;
 		indexi++;
 	}
 	//printing lists
 
 
+	return;
 
 	t1 = (double) cvGetTickCount();
 	cout << DEBSTR << "START saveCars()" << endl;
@@ -158,15 +162,15 @@ void CarCV::run(fs::path &imgListPath, int method, CascadeClassifier &cascade) {
 	cout << endl;
 
 
-	list<CarImg> carlist;
+	list<CarImg> * carlist;
 	const int carsListSize = cars.size();
 	double speed;
 
 	t1 = (double) cvGetTickCount();
 	cout << DEBSTR << "START calcSpeed()" << endl;
 	for (int i = 0; i < carsListSize; i++) {
-		carlist = CarCV::atList(cars, i);
-		speed = CarCV::calcSpeed(carlist, CCV_SP_FROMALLFILES);
+		carlist = CarCV::atList(&cars, i);
+		speed = CarCV::calcSpeed(*carlist, CCV_SP_FROMALLFILES);
 		cout << "Car speed: " << speed << "km/h" << endl;
 	}
 	cout << DEBSTR << "END calcSpeed()" << endl;
@@ -189,21 +193,23 @@ list<CarImg> CarCV::detect_sortPOS_AND_NEG(list<CarImg> &imgList, CascadeClassif
 
 	fs::path cPath = (*imgList.begin()).getPath();
 	Mat cMat;
-	CarImg cImg(cPath, cMat);
+	CarImg *cImg;
+
+
 
 	const int listSize = imgList.size();
 	for (int i = 0; i < listSize; i++) {
-		cImg = CarCV::atList(imgList, i);
-		cPath = cImg.getPath();
-		cMat = cImg.getImg();
+		cImg = CarCV::atList(&imgList, i);
+		cPath = cImg->getPath();
+		cMat = cImg->getImg();
 
 		cout << DEBSTR << "Sorting image:	" << cPath.generic_string() << "--->";
 		if (Det::isDetected(cMat, cascade, scale)) {
 			cout << "POSITIVE" << endl;
-			posList.push_back(cImg); //maybe .clone()?
+			posList.push_back(*cImg); //maybe .clone()?
 		} else {
 			cout << "NEGATIVE" << endl;
-			negList->push_back(cImg); //maybe .clone()?
+			negList->push_back(*cImg); //maybe .clone()?
 		}
 	}
 
@@ -214,7 +220,7 @@ list<CarImg> CarCV::detect_sortPOS_AND_NEG(list<CarImg> &imgList, CascadeClassif
  * Sort images from posImgList into unique car subdirectiories of carsDir
  * Uses <sarcasm> Ondrej Skopek Sort Algorithm (OSSA) </sarcasm>
  */
-list<list<CarImg> > CarCV::sortUnique(list<CarImg> &posCarImgList, CascadeClassifier &cascade) { //TODO: test implementation of super algorithm 3000
+list<list<CarImg> > CarCV::sortUnique(list<CarImg> &posCarImgList, CascadeClassifier &cascade, const double PROBABILITYCONST) { //TODO: test implementation of super algorithm 3000
 
 
 	map<CarImg, double> probability; //flushed at every iteration over posImgList
@@ -228,60 +234,88 @@ list<list<CarImg> > CarCV::sortUnique(list<CarImg> &posCarImgList, CascadeClassi
 	for (int i = 0; i < posCarImgListSize; i++) { //iterate over posImgList
 		probability.clear();
 		carProbabilty.clear();
-		const CarImg sortingCar = CarCV::atList(posCarImgList, i);
-		Mat sortingCarMat = sortingCar.getImg();
+		const CarImg *sortingCar = CarCV::atList(&posCarImgList, i);
+		Mat sortingCarMat = sortingCar->getImg();
 
-		if(cars.size() == i) { //input a new list, to prevent errors of not enough space
+		if(cars.size() == i) { //input a new list, to prevent errors of not enough space, clear old unused lines
+			/*for(list<list<CarImg> >::iterator iter = cars.end(); (*iter).empty(); i--) { //todo: removes empty lines off the end of list
+				cars.remove(*iter);
+			}*/
 			list<CarImg> nullLine;
+			cars.remove(nullLine);
 			cars.push_back(nullLine);
 		}
 
-		cout << "i=" << i << ";carssize=" << cars.size() << endl;
+		//cout << "i=" << i << ";carssize=" << cars.size() << endl;
 
 		if (i == 0 && cars.size() == 1) { //first iteration
-			CarCV::atList(cars, 0).push_back(sortingCar);
+			CarCV::atList(&cars, 0)->push_back(*sortingCar);
 			continue;
 		}
 
-		cout << "Size of cars line(" << i << "): " << CarCV::atList(cars, 0).size() << endl;
+		//cout << "Size of cars line(" << i << "): " << CarCV::atList(&cars, 0)->size() << endl;
 
 		for (int j = 0; j < cars.size(); j++) { //iterate over the main list of cars
-			cout << "j=" << j << endl;
+			//cout << "j=" << j << endl;
 			int k;
-			list<CarImg> curList = CarCV::atList(cars, j);
+			list<CarImg> * curList = CarCV::atList(&cars, j);
 
-			const int carsjSize = curList.size();
-			cout << "carsjSize=" << carsjSize << endl;
+			const int carsjSize = curList->size();
+			//cout << "carsjSize=" << carsjSize << endl;
 			for (k = 0; k < carsjSize; k++) {
-				cout << "k=" << k << endl;
-				const CarImg curCar = CarCV::atList(curList, k);
+				//cout << "k=" << k << endl;
+				const CarImg * curCar = CarCV::atList(curList, k);
 
-				Mat curCarMat = curCar.getImg();
+				Mat curCarMat = curCar->getImg();
 
-				const double prob = Det::probability(sortingCarMat, curCarMat, cascade, scale); //input from detection algorithm here
+				const double prob = Det::probability(sortingCarMat, curCarMat, cascade, scale); //todo: input from detection algorithm here
 
-				probability.insert(std::pair<CarImg, double>(curCar, prob));
-				cout << DEBSTR << i << "-" << j << "-" << k << "-" << curCar.toString() << ";prob=" << prob << endl;
+				probability.insert(std::pair<CarImg, double>(*curCar, prob));
+				cout << DEBSTR << i << "-" << j << "-" << k << "-" << curCar->toString() << ";prob=" << prob << endl;
 			}
 		}
 
-		int carsSize = cars.size();
+		const int carsSize = cars.size();
 		for (int l = 0; l < carsSize; l++) {
-			double prob;
+			list<CarImg> * lineL = CarCV::atList(&cars, l);
+			double prob = 0;
 			int m;
-			const int carslSize = CarCV::atList(cars, l).size();
+
+			const int carslSize = lineL->size();
+			//cout << "carslSize" << carslSize << endl;
+
 			for (m = 0; m < carslSize; m++) {
-				list<CarImg> li = CarCV::atList(cars, l);
-				CarImg t = CarCV::atList(li, m);
-				prob += CarCV::atMap(probability, t);
+				CarImg * t = CarCV::atList(lineL, m);
+
+				double d = *CarCV::atMap(&probability, *t);
+				//cout << "Car[" << l << "," << m << "]=" << CarCV::atList(lineL, m)->toString() << endl;
+
+				/*if (!isfinite(d)) {
+					cout << "NAN: 		" << l << ", " << m << ";prob=" << d << "/" << carslSize << endl;
+				}
+				else {
+					prob += d;
+					cout << "NOTNAN:	" << l << ", " << m << ";prob=" << d << "/" << carslSize << endl;
+				}*/
+				prob += d;
 			}
-			prob /= CarCV::atList(cars, l).size();
+			double n = (double) carslSize;
+			prob =  prob / n;
 			carProbabilty.push_back(prob);
 		}
 
 		int carProbId = CarCV::findMaxIndex(carProbabilty);
-		CarCV::atList(cars, carProbId).push_back(sortingCar);
-		cout << DEBSTR << "Pushing back to " << carProbId << ", with prob=" << CarCV::atList(carProbabilty, carProbId)  << ": " << sortingCar.toString() << endl;
+		double maxCarProb = *CarCV::atList(&carProbabilty, carProbId);
+
+		if (maxCarProb>=PROBABILITYCONST) { //if found a decent match
+			CarCV::atList(&cars, carProbId)->push_back(*sortingCar);
+			cout << DEBSTR << "Pushing back to " << carProbId << ", with prob=" << maxCarProb  << ": " << sortingCar->toString() << endl;
+		}
+		else {
+			CarCV::atList(&cars, cars.size()-1)->push_back(*sortingCar);
+			cout << DEBSTR << "Pushing back to " << carProbId << ", with prob=" << maxCarProb  << ": " << sortingCar->toString() << endl;
+		}
+
 	}
 
 	return cars;
@@ -380,11 +414,11 @@ void CarCV::saveCars(list<list<CarImg> > cars, fs::path carsDir) { //tested, sho
 
 	fs::path::iterator iterate;
 	fs::path temp;
-	list<CarImg> line;
+	list<CarImg> *line;
 
 	int carsSize = cars.size();
 	for (int i = 0; i < carsSize; i++) {
-		line = CarCV::atList(cars, i);
+		line = CarCV::atList(&cars, i);
 
 		//this gets the "car" prefix from the name of carsDir, "cars"
 		iterate = carsDir.end();
@@ -392,7 +426,7 @@ void CarCV::saveCars(list<list<CarImg> > cars, fs::path carsDir) { //tested, sho
 		string cDirName = (*iterate).generic_string();
 		string linePrefix = CarCV::shorten(cDirName, cDirName.size()-1);
 
-		int lineSize = line.size();
+		int lineSize = line->size();
 		string number;
 		if (i < 10) {
 			number = "000"+boost::lexical_cast<string>(i);
@@ -410,20 +444,21 @@ void CarCV::saveCars(list<list<CarImg> > cars, fs::path carsDir) { //tested, sho
 				fs::create_directory(temp);
 		}
 
-		list<CarImg>::iterator lineIt = line.begin();
+		list<CarImg>::iterator lineIt = line->begin();
 		for (int j = 0; j < lineSize; j++) {
-			string thisFilename = CarCV::atList(line, j).getPath().filename().generic_string();
+			string thisFilename = CarCV::atList(line, j)->getPath().filename().generic_string();
 
 			fs::path thisPath = temp/thisFilename;
 
-			CarImg backupImg = CarCV::atList(line, j);
-			CarImg c = backupImg;
+			CarImg *backupImg = CarCV::atList(line, j);
+			CarImg c = *backupImg;
 			c.setPath(thisPath);
-			line = CarCV::replaceObj(line, backupImg, c, j);
+
+			*line = CarCV::replaceObj(*line, *backupImg, c, j); //replaces line with replaced line
 		}
 
-		CarCV::saveCarImgList(line);
-		cout << DEBSTR << "SaveCarImgList	" << "Line: " << i << ";Size=" << line.size() << endl;
+		CarCV::saveCarImgList(*line);
+		cout << DEBSTR << "SaveCarImgList	" << "Line: " << i << ";Size=" << line->size() << endl;
 	}
 
 
@@ -551,17 +586,17 @@ list<string> CarCV::parseList(fs::path &plist) { //tested, should work
  * If index is out of bounds, should return *tlist.end(), but returns rather unexpected results
  */
 template <class T>
-T CarCV::atList(list<T> &tlist, int index) { //
+T * CarCV::atList(list<T> *tlist, int index) { //
 
-	typename list<T>::iterator tlistI = tlist.begin();
+	typename list<T>::iterator tlistI = tlist->begin();
 
-	for (int i = 0; tlistI != tlist.end();i++) {
+	for (int i = 0; tlistI != tlist->end();i++) {
 			if (i == index) {
-				return *tlistI;
+				return &(*tlistI);
 			}
 			tlistI++;
 		}
-	return *tlist.end();//*--tlistI; was used for returning the last element anyway
+	return &(*tlist->end());//*--tlistI; was used for returning the last element anyway
 }
 
 /*
@@ -585,19 +620,19 @@ int CarCV::listSize(list<P> &plist) { //useless, use plist.size()
  * If index is not found in map, returns (*tmap.end()).second
  */
 template <class K, class V>
-V CarCV::atMap(map<K, V> &tmap, K index) { //tested, works
+V * CarCV::atMap(map<K, V> *tmap, K index) { //tested, works
 
-	typename map<K, V>::iterator tmapI = tmap.begin();
-	typename map<K, V>::iterator searching = tmap.find(index);
+	typename map<K, V>::iterator tmapI = tmap->begin();
+	typename map<K, V>::iterator searching = tmap->find(index);
 
 
-	for (int i = 0; tmapI != tmap.end();i++) {
+	for (int i = 0; tmapI != tmap->end();i++) {
 			if (tmapI == searching) {
-				return (*tmapI).second;
+				return &(*tmapI).second;
 			}
 			tmapI++;
 		}
-	return (*tmap.end()).second;
+	return &(*tmap->end()).second;
 }
 
 /*
@@ -616,14 +651,15 @@ int CarCV::mapSize(map<K, V> &pmap) { //useless, use pmap.size()
 }
 
 template <class T>
-list<T> CarCV::replaceObj(list<T> &list, T &replaceObj, T &withObj, int index) {
-	typename std::list<T>::iterator lineIte = list.begin();
+list<T> CarCV::replaceObj(list<T> list, T replaceObj, T withObj, int index) {
+	typename std::list<T> replaced = list;
+	typename std::list<T>::iterator lineIte = replaced.begin();
 
 	for (int i = 0; i != index; i++) {
 		lineIte++;
 	}
 
-	const int lineSize = list.size();
+	const int lineSize = replaced.size();
 	if (lineSize > 1) {
 		typename std::list<T>::iterator bIt = lineIte;
 		typename std::list<T>::iterator eIt = lineIte;
@@ -634,8 +670,7 @@ list<T> CarCV::replaceObj(list<T> &list, T &replaceObj, T &withObj, int index) {
 	else {
 		replace(list.begin(), list.end(), replaceObj, withObj);
 	}
-
-	return list;
+	return replaced;
 }
 
 void grabKVparams(char **argv) { //just for testing reference, erase later
@@ -698,10 +733,10 @@ void CarCV::test(int argc, char** argv) {
 	//CarCV::saveCars(cars, carDir);
 
 	list<list<CarImg> > set = CarCV::loadCars(carDir);
-	list<CarImg> loaded = CarCV::atList(set, atoi(argv[6]));
+	list<CarImg> *loaded = CarCV::atList(&set, atoi(argv[6]));
 
 	cvNamedWindow("Images");
-	for(list<CarImg>::iterator i = loaded.begin(); i != loaded.end(); i++) {
+	for(list<CarImg>::iterator i = loaded->begin(); i != loaded->end(); i++) {
 		imshow("Images", (*i).getImg());
 		waitKey(0);
 	}

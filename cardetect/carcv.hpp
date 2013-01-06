@@ -33,7 +33,7 @@ public:
 	/*
 	 * Supply a list of positive images, and a dir where to place cars
 	 */
-	static list<list<CarImg> > sortUnique(list<CarImg> &posCarImgList, CascadeClassifier &cascade);
+	static list<list<CarImg> > sortUnique(list<CarImg> &posCarImgList, CascadeClassifier &cascade, const double PROBABILITYCONST);
 
 	static double calcSpeed(list<CarImg> clist, int speed_method);
 
@@ -42,13 +42,13 @@ public:
 	static int findMaxIndex(list<double> &mlist);
 
 	template <class T>
-	static T atList(list<T> &tlist, int index);
+	static T * atList(list<T> *tlist, int index);
 
 	template <class P>
 	static int listSize(list<P> &plist);
 
 	template <class K, class V>
-	static V atMap(map<K, V> &tmap, K index);
+	static V * atMap(map<K, V> *tmap, K index);
 
 	template <class K, class V>
 	static int mapSize(map<K, V> &pmap);
@@ -58,7 +58,7 @@ public:
 	static string shorten(string s, int length);
 
 	template <class T>
-	static list<T> replaceObj(list<T> &list, T &replaceObj, T &withObj, int index);
+	static list<T> replaceObj(list<T> list, T replaceObj, T withObj, int index);
 
 private:
 
