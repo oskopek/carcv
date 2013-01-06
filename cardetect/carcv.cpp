@@ -128,6 +128,25 @@ void CarCV::run(fs::path &imgListPath, int method, CascadeClassifier &cascade) {
 	cout << "TIME:		" << (t2/(double)tickspersecond) << "s" << endl;
 	cout << endl;
 
+	//printing lists
+
+	cout << endl << endl << endl;
+	cout << "-------------------------------------------------" << endl;
+	cout << "CARS" << endl;
+	cout << "-------------------------------------------------" << endl;
+	int indexi = 0;
+	int indexj = 0;
+	list<CarImg> line;
+	for (list<list<CarImg> >::iterator i = cars.begin(); i != cars.end(); i++) {
+		line = *i;
+		for (list<CarImg>::iterator j = line.begin(); j != line.end(); j++){
+			cout << "[" << indexi << ":" << indexj << "]	 " << (*j).getPath() << endl;
+			indexj++;
+		}
+		indexi++;
+	}
+	//printing lists
+
 
 
 	t1 = (double) cvGetTickCount();
@@ -150,7 +169,7 @@ void CarCV::run(fs::path &imgListPath, int method, CascadeClassifier &cascade) {
 		speed = CarCV::calcSpeed(carlist, CCV_SP_FROMALLFILES);
 		cout << "Car speed: " << speed << "km/h" << endl;
 	}
-	cout << DEBSTR << "END saveCars()" << endl;
+	cout << DEBSTR << "END calcSpeed()" << endl;
 	t2 = (double) cvGetTickCount() - t1;
 	cout << "TIME:		" << (t2/(double)tickspersecond) << "s" << endl;
 	cout << endl;
@@ -203,37 +222,46 @@ list<list<CarImg> > CarCV::sortUnique(list<CarImg> &posCarImgList, CascadeClassi
 	list<list<CarImg> > cars; //sorted list
 
 	list<double> carProbabilty; //result probabilities for every potential unique car
+	CarImg tempCar;
 
-	for (int i = 0; i < CarCV::listSize(posCarImgList); i++) { //iterate over posImgList
+	const int posCarImgListSize = posCarImgList.size();
+	for (int i = 0; i < posCarImgListSize; i++) { //iterate over posImgList
 		probability.clear();
 		carProbabilty.clear();
 		const CarImg sortingCar = CarCV::atList(posCarImgList, i);
+		Mat sortingCarMat = sortingCar.getImg();
+
+		if(cars.size() == i) { //input a new list, to prevent errors of not enough space
+			list<CarImg> nullLine;
+			cars.push_back(nullLine);
+		}
+
 		cout << "i=" << i << ";carssize=" << cars.size() << endl;
 
-		if (i == 0 && cars.size() == 0) { //first iteration
-			cout << "First iter" << endl;
-			CarCV::atList(cars, 0).push_back(CarCV::atList(posCarImgList, i)); //todo: crashes here
-			cout << "First iter" << endl;
+		if (i == 0 && cars.size() == 1) { //first iteration
+			CarCV::atList(cars, 0).push_back(sortingCar);
 			continue;
 		}
 
-		for (int j = 0; j < CarCV::listSize(cars); j++) { //iterate over the main list of cars
+		cout << "Size of cars line(" << i << "): " << CarCV::atList(cars, 0).size() << endl;
+
+		for (int j = 0; j < cars.size(); j++) { //iterate over the main list of cars
 			cout << "j=" << j << endl;
 			int k;
+			list<CarImg> curList = CarCV::atList(cars, j);
 
-			const int carsjSize = CarCV::atList(cars, j).size();
+			const int carsjSize = curList.size();
+			cout << "carsjSize=" << carsjSize << endl;
 			for (k = 0; k < carsjSize; k++) {
 				cout << "k=" << k << endl;
-				list<CarImg> curList = CarCV::atList(cars, j);
 				const CarImg curCar = CarCV::atList(curList, k);
 
-				Mat sortingCarMat = sortingCar.getImg();
 				Mat curCarMat = curCar.getImg();
 
 				const double prob = Det::probability(sortingCarMat, curCarMat, cascade, scale); //input from detection algorithm here
 
 				probability.insert(std::pair<CarImg, double>(curCar, prob));
-				cout << DEBSTR << curCar.toString() << ";prob=" << prob << endl;
+				cout << DEBSTR << i << "-" << j << "-" << k << "-" << curCar.toString() << ";prob=" << prob << endl;
 			}
 		}
 
@@ -252,7 +280,8 @@ list<list<CarImg> > CarCV::sortUnique(list<CarImg> &posCarImgList, CascadeClassi
 		}
 
 		int carProbId = CarCV::findMaxIndex(carProbabilty);
-		CarCV::atList(cars, carProbId).push_back(CarCV::atList(posCarImgList, i));
+		CarCV::atList(cars, carProbId).push_back(sortingCar);
+		cout << DEBSTR << "Pushing back to " << carProbId << ", with prob=" << CarCV::atList(carProbabilty, carProbId)  << ": " << sortingCar.toString() << endl;
 	}
 
 	return cars;
@@ -364,7 +393,16 @@ void CarCV::saveCars(list<list<CarImg> > cars, fs::path carsDir) { //tested, sho
 		string linePrefix = CarCV::shorten(cDirName, cDirName.size()-1);
 
 		int lineSize = line.size();
-		string number = boost::lexical_cast<string>(i);
+		string number;
+		if (i < 10) {
+			number = "000"+boost::lexical_cast<string>(i);
+		} else if (i < 100) {
+			number = "00"+boost::lexical_cast<string>(i);
+		} else if (i < 1000) {
+			number = "0"+boost::lexical_cast<string>(i);
+		} else {
+			number = boost::lexical_cast<string>(i);
+		}
 		temp = fs::path(cDirName+"/"+linePrefix+number);
 		temp = fs::absolute(temp);
 
@@ -385,6 +423,7 @@ void CarCV::saveCars(list<list<CarImg> > cars, fs::path carsDir) { //tested, sho
 		}
 
 		CarCV::saveCarImgList(line);
+		cout << DEBSTR << "SaveCarImgList	" << "Line: " << i << ";Size=" << line.size() << endl;
 	}
 
 
