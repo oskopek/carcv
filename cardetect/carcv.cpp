@@ -2,7 +2,6 @@
 #include "det.hpp"
 
 #include <boost/lexical_cast.hpp>
-#include <cmath> //todo:temp
 
 #define DEBSTR "DEBUG:		"
 
@@ -101,7 +100,7 @@ void CarCV::run(fs::path &imgListPath, int method, CascadeClassifier &cascade) {
 
 	fs::path carsDir = "cars";
 
-	//testing saveing - should actually be uncommented in a production run, but I wanna  save time
+	//saveing
 
 	t1 = (double) cvGetTickCount();
 	cout << DEBSTR << "START saveCarImgList(pos)" << endl;
@@ -118,13 +117,12 @@ void CarCV::run(fs::path &imgListPath, int method, CascadeClassifier &cascade) {
 	t2 = (double) cvGetTickCount() - t1;
 	cout << "TIME:		" << (t2/(double)tickspersecond) << "s" << endl;
 	cout << endl;
-	//testing saving
 
 	//tested up to here
 
 	t1 = (double) cvGetTickCount();
 	cout << DEBSTR << "START sortUnique(pos)" << endl;
-	list<list<CarImg> > cars = CarCV::sortUnique(posCarImgList, cascade, 0.6);
+	list<list<CarImg> > cars = CarCV::sortUnique(posCarImgList, cascade, 0.9);
 	cout << DEBSTR << "END saveUnique(pos)" << endl;
 	t2 = (double) cvGetTickCount() - t1;
 	cout << "TIME:		" << (t2/(double)tickspersecond) << "s" << endl;
@@ -151,8 +149,6 @@ void CarCV::run(fs::path &imgListPath, int method, CascadeClassifier &cascade) {
 	//printing lists
 
 
-	return;
-
 	t1 = (double) cvGetTickCount();
 	cout << DEBSTR << "START saveCars()" << endl;
 	CarCV::saveCars(cars, carsDir);
@@ -160,6 +156,8 @@ void CarCV::run(fs::path &imgListPath, int method, CascadeClassifier &cascade) {
 	t2 = (double) cvGetTickCount() - t1;
 	cout << "TIME:		" << (t2/(double)tickspersecond) << "s" << endl;
 	cout << endl;
+
+	return;
 
 
 	list<CarImg> * carlist;
@@ -220,7 +218,7 @@ list<CarImg> CarCV::detect_sortPOS_AND_NEG(list<CarImg> &imgList, CascadeClassif
  * Sort images from posImgList into unique car subdirectiories of carsDir
  * Uses <sarcasm> Ondrej Skopek Sort Algorithm (OSSA) </sarcasm>
  */
-list<list<CarImg> > CarCV::sortUnique(list<CarImg> &posCarImgList, CascadeClassifier &cascade, const double PROBABILITYCONST) { //TODO: test implementation of super algorithm 3000
+list<list<CarImg> > CarCV::sortUnique(list<CarImg> &posCarImgList, CascadeClassifier &cascade, const double PROBABILITYCONST) { //tested, works
 
 
 	map<CarImg, double> probability; //flushed at every iteration over posImgList
@@ -237,41 +235,36 @@ list<list<CarImg> > CarCV::sortUnique(list<CarImg> &posCarImgList, CascadeClassi
 		const CarImg *sortingCar = CarCV::atList(&posCarImgList, i);
 		Mat sortingCarMat = sortingCar->getImg();
 
-		if(cars.size() == i) { //input a new list, to prevent errors of not enough space, clear old unused lines
-			/*for(list<list<CarImg> >::iterator iter = cars.end(); (*iter).empty(); i--) { //todo: removes empty lines off the end of list
-				cars.remove(*iter);
-			}*/
+		if(cars.size() == i) { //this prevents array index out of bounds and other errors
 			list<CarImg> nullLine;
-			cars.remove(nullLine);
-			cars.push_back(nullLine);
+			cars.remove(nullLine); //removes empty lines
+			//cars.push_back(nullLine); //adds an empty line if sortedCar doesn't match any already existing car
 		}
 
-		//cout << "i=" << i << ";carssize=" << cars.size() << endl;
-
-		if (i == 0 && cars.size() == 1) { //first iteration
-			CarCV::atList(&cars, 0)->push_back(*sortingCar);
+		if (i == 0 && cars.size() == 0) { //first iteration
+			list<CarImg> newLine;
+			newLine.push_back(*sortingCar);
+			cars.push_back(newLine);
+			cout << "First iteration, push to Car" << i << endl;
 			continue;
 		}
 
-		//cout << "Size of cars line(" << i << "): " << CarCV::atList(&cars, 0)->size() << endl;
+
 
 		for (int j = 0; j < cars.size(); j++) { //iterate over the main list of cars
-			//cout << "j=" << j << endl;
 			int k;
 			list<CarImg> * curList = CarCV::atList(&cars, j);
 
 			const int carsjSize = curList->size();
-			//cout << "carsjSize=" << carsjSize << endl;
 			for (k = 0; k < carsjSize; k++) {
-				//cout << "k=" << k << endl;
 				const CarImg * curCar = CarCV::atList(curList, k);
 
 				Mat curCarMat = curCar->getImg();
 
-				const double prob = Det::probability(sortingCarMat, curCarMat, cascade, scale); //todo: input from detection algorithm here
+				const double prob = Det::probability(sortingCarMat, curCarMat, cascade, scale);
 
+				//add the car obj and probability of sorted car being the same as cur object to the map
 				probability.insert(std::pair<CarImg, double>(*curCar, prob));
-				cout << DEBSTR << i << "-" << j << "-" << k << "-" << curCar->toString() << ";prob=" << prob << endl;
 			}
 		}
 
@@ -282,38 +275,30 @@ list<list<CarImg> > CarCV::sortUnique(list<CarImg> &posCarImgList, CascadeClassi
 			int m;
 
 			const int carslSize = lineL->size();
-			//cout << "carslSize" << carslSize << endl;
-
 			for (m = 0; m < carslSize; m++) {
 				CarImg * t = CarCV::atList(lineL, m);
 
-				double d = *CarCV::atMap(&probability, *t);
-				//cout << "Car[" << l << "," << m << "]=" << CarCV::atList(lineL, m)->toString() << endl;
-
-				/*if (!isfinite(d)) {
-					cout << "NAN: 		" << l << ", " << m << ";prob=" << d << "/" << carslSize << endl;
-				}
-				else {
-					prob += d;
-					cout << "NOTNAN:	" << l << ", " << m << ";prob=" << d << "/" << carslSize << endl;
-				}*/
-				prob += d;
+				prob += (double) *CarCV::atMap(&probability, *t);
 			}
-			double n = (double) carslSize;
-			prob =  prob / n;
+			double count = (double) carslSize;
+			prob =  prob / count; //count the average of given images of a unique car
 			carProbabilty.push_back(prob);
 		}
 
-		int carProbId = CarCV::findMaxIndex(carProbabilty);
-		double maxCarProb = *CarCV::atList(&carProbabilty, carProbId);
+		int carProbId = CarCV::findMaxIndex(carProbabilty); //finds the index with highest probability
+		double maxCarProb = *CarCV::atList(&carProbabilty, carProbId); //and the value
 
 		if (maxCarProb>=PROBABILITYCONST) { //if found a decent match
+			//if decent, add to the existing car
 			CarCV::atList(&cars, carProbId)->push_back(*sortingCar);
-			cout << DEBSTR << "Pushing back to " << carProbId << ", with prob=" << maxCarProb  << ": " << sortingCar->toString() << endl;
+			cout << DEBSTR << ">=Push to: Car" << carProbId << "	with prob=" << maxCarProb  << ":	" << sortingCar->toString() << endl;
 		}
 		else {
-			CarCV::atList(&cars, cars.size()-1)->push_back(*sortingCar);
-			cout << DEBSTR << "Pushing back to " << carProbId << ", with prob=" << maxCarProb  << ": " << sortingCar->toString() << endl;
+			//if not decent enough, add it as a new car
+			list<CarImg> newLine;
+			newLine.push_back(*sortingCar);
+			cars.push_back(newLine);
+			cout << DEBSTR << "< Push to: Car" << cars.size()-1 << "	with prob=" << maxCarProb  << ":	" << sortingCar->toString() << endl;
 		}
 
 	}
