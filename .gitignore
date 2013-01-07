@@ -1,5 +1,6 @@
 build/*
 test/all/
 test/output
+test/test*
 eclipse_proj_copy/CarProject/Debug/
 *~
