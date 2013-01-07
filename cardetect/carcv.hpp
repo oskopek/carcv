@@ -60,6 +60,10 @@ public:
 	template <class T>
 	static list<T> replaceObj(list<T> list, T replaceObj, T withObj, int index);
 
+	static void debugMessage(string message);
+
+	static void errorMessage(string message);
+
 private:
 
 	static void saveCarImgList(list<CarImg> carList);

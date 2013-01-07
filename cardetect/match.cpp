@@ -1,6 +1,5 @@
 #include "match.hpp"
-
-#define ERRSTR "ERROR:		"
+#include "carcv.hpp"
 
 namespace fs = boost::filesystem;
 using namespace std;
@@ -164,7 +163,10 @@ vector<Point2f> Match::sceneCornersGoodMatches(Mat img1, Mat img2, bool good) {
 	  }
 
 	  if (obj.size() < 4 || scene.empty()) {
-		  cout << ERRSTR << "No possible Rectangle: Less than 4 corners detected	" << "Obj:	" << obj.size() << "	Scene:	" << scene.size() << endl;
+		  ostringstream oss;
+		  oss << "No possible Rectangle: Less than 4 corners detected	" << "Obj:	" << obj.size() << "	Scene:	" << scene.size();
+
+		  CarCV::debugMessage(oss.str());
 
 		  //to let the method return something valid, fill a tiny little rectangle:
 		  std::vector<Point2f> scene_corners(4);
