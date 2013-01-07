@@ -503,7 +503,7 @@ bool Det::evaluatef(const float a, const float b) {
 	float absB = fabsf(b);
 	float absdiff = absA > absB ? absA-absB : absB-absA ;
 
-	if (absdiff < 2000) {
+	if (absdiff < 5000) {
 		return true;
 	}
 	else {

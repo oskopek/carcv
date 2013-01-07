@@ -116,7 +116,7 @@ void CarCV::run(fs::path &imgListPath, int method, CascadeClassifier &cascade) {
 
 	t1 = (double) cvGetTickCount();
 	cout << DEBSTR << "START sortUnique(pos)" << endl;
-	list<list<CarImg> > cars = CarCV::sortUnique(posCarImgList, cascade, 0.5);
+	list<list<CarImg> > cars = CarCV::sortUnique(posCarImgList, cascade, 0.2);
 	cout << DEBSTR << "END saveUnique(pos)" << endl;
 	t2 = (double) cvGetTickCount() - t1;
 	cout << "TIME:		" << (t2/(double)tickspersecond) << "s" << endl;
@@ -350,6 +350,7 @@ double CarCV::calcSpeed(list<CarImg> clist, int speed_method) { //TODO: not yet 
 void CarCV::saveCarImgList(list<CarImg> carList) { //tested, works
 	for(list<CarImg>::iterator i = carList.begin(); i != carList.end(); i++) {
 		(*i).save();
+		cout << "Saving: " << i->toString() << endl;
 	}
 
 }
@@ -363,7 +364,6 @@ void CarCV::saveCarImgList(list<CarImg> carList, fs::path carListDir) { //tested
 		fs::create_directory(carListDir);
 	}
 
-	int index = 0;
 	CarImg c;
 	fs::path thisPath;
 	string thisFilename;
@@ -376,8 +376,6 @@ void CarCV::saveCarImgList(list<CarImg> carList, fs::path carListDir) { //tested
 		c.setPath(thisPath);
 
 		c.save();
-
-		index++;
 	}
 
 }
@@ -395,18 +393,18 @@ void CarCV::saveCars(list<list<CarImg> > cars, fs::path carsDir) { //tested, sho
 	fs::path temp;
 	list<CarImg> *line;
 
+	//this gets the "car" prefix from the name of carsDir, "cars"
+	iterate = carsDir.end();
+	iterate--;
+	string cDirName = (*iterate).generic_string();
+	string linePrefix = CarCV::shorten(cDirName, cDirName.size()-1);
+
+	string number;
+
 	int carsSize = cars.size();
 	for (int i = 0; i < carsSize; i++) {
 		line = CarCV::atList(&cars, i);
 
-		//this gets the "car" prefix from the name of carsDir, "cars"
-		iterate = carsDir.end();
-		iterate--;
-		string cDirName = (*iterate).generic_string();
-		string linePrefix = CarCV::shorten(cDirName, cDirName.size()-1);
-
-		int lineSize = line->size();
-		string number;
 		if (i < 10) {
 			number = "000"+boost::lexical_cast<string>(i);
 		} else if (i < 100) {
@@ -416,6 +414,7 @@ void CarCV::saveCars(list<list<CarImg> > cars, fs::path carsDir) { //tested, sho
 		} else {
 			number = boost::lexical_cast<string>(i);
 		}
+
 		temp = fs::path(cDirName+"/"+linePrefix+number);
 		temp = fs::absolute(temp);
 
@@ -423,7 +422,21 @@ void CarCV::saveCars(list<list<CarImg> > cars, fs::path carsDir) { //tested, sho
 				fs::create_directory(temp);
 		}
 
-		list<CarImg>::iterator lineIt = line->begin();
+		int j = 0; //todo: unfinished, either erase, or uncomment
+		for (list<CarImg>::iterator lineIt=line->begin(); lineIt != line->end(); lineIt++) {
+			string thisFilename = lineIt->getPath().filename().generic_string();
+
+			fs::path thisPath = temp/thisFilename;
+
+			CarImg backupImg = *lineIt;
+			CarImg c = backupImg;
+			c.setPath(thisPath);
+
+			*line = CarCV::replaceObj(*line, backupImg, c, j); //replaces line with replaced line
+			j++;
+		}
+
+		/*int lineSize = line->size();
 		for (int j = 0; j < lineSize; j++) {
 			string thisFilename = CarCV::atList(line, j)->getPath().filename().generic_string();
 
@@ -434,7 +447,7 @@ void CarCV::saveCars(list<list<CarImg> > cars, fs::path carsDir) { //tested, sho
 			c.setPath(thisPath);
 
 			*line = CarCV::replaceObj(*line, *backupImg, c, j); //replaces line with replaced line
-		}
+		}*/
 
 		CarCV::saveCarImgList(*line);
 		cout << DEBSTR << "SaveCarImgList	" << "Line: " << i << ";Size=" << line->size() << endl;
