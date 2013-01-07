@@ -423,7 +423,7 @@ void CarCV::saveCars(list<list<CarImg> > cars, fs::path carsDir) { //tested, sho
 		}
 
 
-		if (line->size()<=1) {
+		if (line->size()<=1) { //this catches onesize lists, and replaces them the right way
 			string thisFilename = line->front().getPath().filename().generic_string();
 
 			fs::path thisPath = temp/thisFilename;
@@ -434,7 +434,7 @@ void CarCV::saveCars(list<list<CarImg> > cars, fs::path carsDir) { //tested, sho
 
 			replace(line->begin(), line->end(), backupImg, c);
 		} else {
-			int j = 0; //todo: unfinished, either erase, or uncomment
+			int j = 0;
 			for (list<CarImg>::iterator lineIt=line->begin(); lineIt != line->end(); lineIt++) {
 				string thisFilename = lineIt->getPath().filename().generic_string();
 
@@ -448,19 +448,6 @@ void CarCV::saveCars(list<list<CarImg> > cars, fs::path carsDir) { //tested, sho
 				j++;
 			}
 		}
-
-		/*int lineSize = line->size();
-		for (int j = 0; j < lineSize; j++) {
-			string thisFilename = CarCV::atList(line, j)->getPath().filename().generic_string();
-
-			fs::path thisPath = temp/thisFilename;
-
-			CarImg *backupImg = CarCV::atList(line, j);
-			CarImg c = *backupImg;
-			c.setPath(thisPath);
-
-			*line = CarCV::replaceObj(*line, *backupImg, c, j); //replaces line with replaced line
-		}*/
 
 		CarCV::saveCarImgList(*line);
 		cout << DEBSTR << "SaveCarImgList	" << "Line: " << i << ";Size=" << line->size() << endl;
