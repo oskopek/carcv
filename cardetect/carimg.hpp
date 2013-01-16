@@ -23,6 +23,8 @@ public:
 
 	string toString() const;
 
+	int parseId() const;
+
 
 	//todo override operator< and operator=
 

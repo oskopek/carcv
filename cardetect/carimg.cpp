@@ -88,3 +88,32 @@ string CarImg::toString() const {
 
 	return oss.str();
 }
+
+/*
+ * Returns id in filename of CarImg
+ */
+int CarImg::parseId() const {
+	string thisFilename = getPath().filename().generic_string();
+
+	const char* FNchar = thisFilename.c_str();
+	char IDchar[thisFilename.length()];
+
+	int index = 0;
+	for (int i = 0; i < thisFilename.length(); i++) {
+		if (FNchar[i] == '-') {
+			for (int j = ++i; j < thisFilename.length(); j++) {
+				if (FNchar[j] == '.') {
+					break;
+				}
+
+				IDchar[index] = FNchar[j];
+				index++;
+			}
+			break;
+		}
+	}
+
+	int res = atoi(IDchar);
+
+	return  res;
+}

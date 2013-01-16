@@ -5,6 +5,7 @@
 
 #define DEBSTR "DEBUG:	"
 #define ERRSTR "ERROR:	"
+#define SPEEDCONSTANT 3.6
 
 using namespace std;
 using namespace cv;
@@ -154,6 +155,8 @@ void CarCV::run(fs::path &imgListPath, int method, CascadeClassifier &cascade) {
 
 	return;
 
+	//TODO: pridat detektor ci auto je v mernej oblasti
+
 
 	list<CarImg> * carlist;
 	const int carsListSize = cars.size();
@@ -163,7 +166,7 @@ void CarCV::run(fs::path &imgListPath, int method, CascadeClassifier &cascade) {
 	CarCV::debugMessage("START calcSpeed()");
 	for (int i = 0; i < carsListSize; i++) {
 		carlist = CarCV::atList(&cars, i);
-		speed = CarCV::calcSpeed(*carlist, CCV_SP_FROMALLFILES);
+		speed = CarCV::calcSpeed(*carlist, CCV_SP_FROMALLFILES, 30, 10);
 		cout << "Car speed: " << speed << "km/h" << endl;
 	}
 	CarCV::debugMessage("END calcSpeed()");
@@ -336,11 +339,32 @@ int CarCV::findMaxIndex(list<double> &mlist) { //tested, works
  *
  * speed_method is from enum of same name
  */
-double CarCV::calcSpeed(list<CarImg> clist, int speed_method) { //TODO: not yet implemented
+double CarCV::calcSpeed(list<CarImg> clist, int speed_method, double framerate, double real_measuring_length) {
 	if (speed_method == 1) { //CCV_SP_FROMSORTEDFILES
-		return 1;
+
+		double list_size = clist.size();
+
+		double speed = real_measuring_length * (list_size / framerate) * SPEEDCONSTANT;
+
+		return speed;
 	} else if (speed_method == 2) { //CCV_SP_FROMALLFILES
-		return 2;
+
+		int indexes[clist.front().getPath().filename().generic_string().length()];
+
+		int index = 0;
+		for(list<CarImg>::iterator i = clist.begin(); i != clist.end(); i++) {
+			indexes[index] = (*i).parseId();
+			index++;
+		}
+
+		int maxId = max_element(clist.begin(), clist.end())->parseId();
+		int minId = min_element(clist.begin(), clist.end())->parseId();
+
+		double diff = (double) (maxId - minId);
+
+		double speed = real_measuring_length * (diff / framerate) * SPEEDCONSTANT;
+
+		return speed;
 	}
 	else {
 		int n = speed_method;
@@ -787,3 +811,4 @@ void CarCV::errorMessage(string message) {
 
 	cout << "[" << timestamp << "]" << prefix << message << endl;
 }
+

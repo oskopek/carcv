@@ -35,7 +35,7 @@ public:
 	 */
 	static list<list<CarImg> > sortUnique(list<CarImg> &posCarImgList, CascadeClassifier &cascade, const double PROBABILITYCONST);
 
-	static double calcSpeed(list<CarImg> clist, int speed_method);
+	static double calcSpeed(list<CarImg> clist, int speed_method, double framerate, double real_measuring_length);
 
 	static list<string> parseList(fs::path &list);
 
