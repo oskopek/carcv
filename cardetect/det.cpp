@@ -428,7 +428,7 @@ Point2d Det::center(Rect r) {
 	return p;
 }
 
-bool Det::isInRect(Rect is, Rect in) { //todo: not yet completely tested
+bool Det::isInRect(Rect is, Rect in) { //should work
 	bool inside = false;
 
 	list<Point2d> isBoundary;

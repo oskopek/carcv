@@ -17,14 +17,22 @@ const double scale = 1;
 int main(int argc, char** argv) {
 	cout << "arg1: path of list" << endl;
 	cout << "arg2: cascade.xml path" << endl;
+	cout << "arg3-6: x, y, width, height" << endl;
+
+	double rX = atof(argv[3]);
+	double rY = atof(argv[4]);
+	double rWidth = atof(argv[5]);
+	double rHeight = atof(argv[6]);
+
+	Rect speedBox(rX, rY, rWidth, rHeight);
 
 	CascadeClassifier cascade;
 	cascade.load(argv[2]);
 
 	fs::path listPath(argv[1]);
 
-	//CarCV::run(listPath, CCV_HAAR_SURF, cascade);
-	CarCV::test(argc, argv);
+	CarCV::run(listPath, CCV_HAAR_SURF, cascade, speedBox);
+	//CarCV::test(argc, argv);
 
 	return 0;
 }
@@ -33,7 +41,7 @@ int main(int argc, char** argv) {
  * Main run method
  * method is from enum of same name
  */
-void CarCV::run(fs::path &imgListPath, int method, CascadeClassifier &cascade) {
+void CarCV::run(fs::path &imgListPath, int method, CascadeClassifier &cascade, Rect speedBox) {
 	fs::path posDirPath = "pos"; //load pos dir path
 	fs::path negDirPath = "neg"; //load neg dir path
 
@@ -95,6 +103,7 @@ void CarCV::run(fs::path &imgListPath, int method, CascadeClassifier &cascade) {
 
 
 	fs::path carsDir = "cars";
+	fs::path carsInsideDir = "inside";
 
 	//saveing
 
@@ -153,21 +162,44 @@ void CarCV::run(fs::path &imgListPath, int method, CascadeClassifier &cascade) {
 	cout << "TIME:		" << (t2/(double)tickspersecond) << "s" << endl;
 	cout << endl;
 
-	return;
-
-	//TODO: pridat detektor ci auto je v mernej oblasti
-
 
 	list<CarImg> * carlist;
-	const int carsListSize = cars.size();
+	const int carsSize = cars.size();
+
+	list<list<CarImg> > carsInSpeedBox;
+
+	t1 = (double) cvGetTickCount();
+	CarCV::debugMessage("START isInSpeedBox()");
+
+	for (int i = 0; i < carsSize; i++) {
+		carlist = CarCV::atList(&cars, i);
+
+		carsInSpeedBox.push_back(CarCV::inSpeedBox(*carlist, cascade, speedBox));
+	}
+
+	CarCV::debugMessage("END isInSpeedBox()");
+	t2 = (double) cvGetTickCount() - t1;
+	cout << "TIME:		" << (t2/(double)tickspersecond) << "s" << endl;
+	cout << endl;
+
+	t1 = (double) cvGetTickCount();
+	CarCV::debugMessage("START saveCarsInside()");
+	CarCV::saveCars(carsInSpeedBox, carsInsideDir);
+	CarCV::debugMessage("END saveCarsInside()");
+	t2 = (double) cvGetTickCount() - t1;
+	cout << "TIME:		" << (t2/(double)tickspersecond) << "s" << endl;
+	cout << endl;
+
+
+	const int carsInSpeedBoxSize = carsInSpeedBox.size();
 	double speed;
 
 	t1 = (double) cvGetTickCount();
 	CarCV::debugMessage("START calcSpeed()");
-	for (int i = 0; i < carsListSize; i++) {
-		carlist = CarCV::atList(&cars, i);
+	for (int i = 0; i < carsInSpeedBoxSize; i++) {
+		carlist = CarCV::atList(&carsInSpeedBox, i);
 		speed = CarCV::calcSpeed(*carlist, CCV_SP_FROMALLFILES, 30, 10);
-		cout << "Car speed: " << speed << "km/h" << endl;
+		cout << "Car" << i << " speed:	" << speed << " km/h" << endl;
 	}
 	CarCV::debugMessage("END calcSpeed()");
 	t2 = (double) cvGetTickCount() - t1;
@@ -211,6 +243,33 @@ list<CarImg> CarCV::detect_sortPOS_AND_NEG(list<CarImg> &imgList, CascadeClassif
 	}
 
 	return posList;
+}
+
+/*
+ * Returns only the images where the car is in the given speedBox
+ *
+ * Images should already contain only one car
+ */
+list<CarImg> CarCV::inSpeedBox(list<CarImg> &carLineList, CascadeClassifier &cascade, Rect &speedBox) {
+	list<CarImg> inside;
+	vector<Rect> objects;
+	Mat img;
+	bool isIn;
+
+	for(list<CarImg>::iterator iter = carLineList.begin(); iter != carLineList.end(); iter++) {
+		img = iter->getImg();
+		objects = Det::detect(img, cascade, scale);
+
+		//todo: expand for multiple cars in one image
+		isIn = Det::isInRect(objects.front(), speedBox);
+
+		if (isIn) {
+			inside.push_back(*iter);
+		}
+
+	}
+
+	return inside;
 }
 
 /*
@@ -329,6 +388,9 @@ int CarCV::findMaxIndex(list<double> &mlist) { //tested, works
 	}
 	return index;
 }
+
+
+
 
 
 /*
@@ -771,8 +833,8 @@ void CarCV::test(int argc, char** argv) {
 
 	r1.x = 5;
 	r1.y = 5;
-	r1.width = 5;
-	r1.height = 5;
+	r1.width = 10;
+	r1.height = 10;
 
 	r2.x = 5;
 	r2.y = 5;

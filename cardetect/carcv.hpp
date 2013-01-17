@@ -24,7 +24,7 @@ enum speed_method {CCV_SP_FROMSORTEDFILES = 1, CCV_SP_FROMALLFILES = 2};
 class CarCV {
 public:
 
-	static void run(fs::path &imgListPath, int method, CascadeClassifier &cascade);
+	static void run(fs::path &imgListPath, int method, CascadeClassifier &cascade, Rect speedBox);
 
 	static list<CarImg> detect_sortPOS_AND_NEG(list<CarImg> &imgList, CascadeClassifier &cascade, list<CarImg> *negList);
 
@@ -34,6 +34,8 @@ public:
 	 * Supply a list of positive images, and a dir where to place cars
 	 */
 	static list<list<CarImg> > sortUnique(list<CarImg> &posCarImgList, CascadeClassifier &cascade, const double PROBABILITYCONST);
+
+	static list<CarImg> inSpeedBox(list<CarImg> &carLineList, CascadeClassifier &cascade, Rect &speedBox);
 
 	static double calcSpeed(list<CarImg> clist, int speed_method, double framerate, double real_measuring_length);
 
