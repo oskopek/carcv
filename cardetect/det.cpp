@@ -428,6 +428,82 @@ Point2d Det::center(Rect r) {
 	return p;
 }
 
+bool Det::isInRect(Rect is, Rect in) { //todo: not yet completely tested
+	bool inside = false;
+
+	list<Point2d> isBoundary;
+	list<Point2d> inBoundary;
+	Point2d p;
+
+
+	//is:
+	for(int x = is.x; x < is.x+is.width; x++) {
+		p = Point2d(x, is.y);
+		isBoundary.push_back(p);
+	}
+
+	for(int x = is.x; x < is.x+is.width; x++) {
+		p = Point2d(x, is.y+is.height);
+		isBoundary.push_back(p);
+	}
+
+	for(int y = is.y; y < is.y+is.width; y++) {
+		p = Point2d(is.x, y);
+		isBoundary.push_back(p);
+	}
+
+	for(int y = is.y; y < is.y+is.width; y++) {
+		p = Point2d(is.x+is.width, y);
+		isBoundary.push_back(p);
+	}
+
+
+	//in:
+	for(int x = in.x; x < in.x+in.width; x++) {
+		p = Point2d(x, in.y);
+		inBoundary.push_back(p);
+	}
+
+	for(int x = in.x; x < in.x+in.width; x++) {
+		p = Point2d(x, in.y+in.height);
+		inBoundary.push_back(p);
+	}
+
+	for(int y = in.y; y < in.y+in.width; y++) {
+		p = Point2d(in.x, y);
+		inBoundary.push_back(p);
+	}
+
+	for(int y = in.y; y < in.y+in.width; y++) {
+		p = Point2d(in.x+in.width, y);
+		inBoundary.push_back(p);
+	}
+
+
+	list<Point2d>::iterator temp;
+
+	for (list<Point2d>::iterator i = isBoundary.begin(); i != isBoundary.end(); i++) {
+		temp = find(inBoundary.begin(), inBoundary.end(), *i);
+
+		if (temp != inBoundary.end()) {
+			inside = true;
+			break;
+		}
+	}
+
+	for (list<Point2d>::iterator i = inBoundary.begin(); i != inBoundary.end(); i++) {
+		temp = find(isBoundary.begin(), isBoundary.end(), *i);
+
+		if (temp != isBoundary.end()) {
+			inside = true;
+			break;
+		}
+	}
+
+
+	return inside;
+}
+
 /*
  * Scales the given rect to keep ~ the same center point, just be scaled
  */

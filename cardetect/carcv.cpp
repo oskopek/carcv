@@ -23,8 +23,8 @@ int main(int argc, char** argv) {
 
 	fs::path listPath(argv[1]);
 
-	CarCV::run(listPath, CCV_HAAR_SURF, cascade);
-	//CarCV::test(argc, argv);
+	//CarCV::run(listPath, CCV_HAAR_SURF, cascade);
+	CarCV::test(argc, argv);
 
 	return 0;
 }
@@ -720,7 +720,7 @@ void grabKVparams(char **argv) { //just for testing reference, erase later
 }
 
 void CarCV::test(int argc, char** argv) {
-	fs::path imgPath1(argv[1]);
+	/*fs::path imgPath1(argv[1]);
 	CarImg car1;
 	car1.setPath(fs::absolute(imgPath1));
 	car1.load();
@@ -765,7 +765,35 @@ void CarCV::test(int argc, char** argv) {
 		imshow("Images", (*i).getImg());
 		waitKey(0);
 	}
-	cvDestroyWindow("Images");
+	cvDestroyWindow("Images");*/
+
+	Rect r1, r2;
+
+	r1.x = 5;
+	r1.y = 5;
+	r1.width = 5;
+	r1.height = 5;
+
+	r2.x = 5;
+	r2.y = 5;
+	r2.width = 5;
+	r2.width = 5;
+
+	cout << Det::isInRect(r1, r2) << endl;
+
+	r2.x = 11;
+	r2.y = 11;
+	r2.width = 5;
+	r2.width = 5;
+
+	cout << Det::isInRect(r1, r2) << endl;
+
+	r2.x = 10;
+	r2.y = 10;
+	r2.width = 5;
+	r2.width = 5;
+
+	cout << Det::isInRect(r1, r2) << endl;
 
 }
 

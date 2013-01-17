@@ -30,4 +30,6 @@ public:
 	static Rect scaleRect(Rect roi, double scale);
 	void testCropping(Mat &crop, Mat &comp, CascadeClassifier &cascade, double &scale);
 	static bool evaluatef(const float a, const float b);
+
+	static bool isInRect(Rect is, Rect in);
 };
