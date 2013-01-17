@@ -72,6 +72,7 @@ echo "------DISTRIBUTING"
 echo $DASHES
 #cp -v $basedir/build/carrect/carrect $basedir/test/all/ ##WARNING, edited, should be uncomennted
 cp -v $basedir/build/cardetect/carcv $basedir/test/all/
+cp -v $basedir/build/cardetect/carcv $basedir/test/all/test/
 
 echo
 echo

@@ -169,11 +169,11 @@ vector<Point2f> Match::sceneCornersGoodMatches(Mat img1, Mat img2, bool good) {
 		  CarCV::debugMessage(oss.str());
 
 		  //to let the method return something valid, fill a tiny little rectangle:
-		  std::vector<Point2f> scene_corners(4);
+		  std::vector<Point2f> scene_corners/*(4)*/;
+		  /*scene_corners.push_back(cvPoint(0, 0));
 		  scene_corners.push_back(cvPoint(0, 0));
 		  scene_corners.push_back(cvPoint(0, 0));
-		  scene_corners.push_back(cvPoint(0, 0));
-		  scene_corners.push_back(cvPoint(0, 0));
+		  scene_corners.push_back(cvPoint(0, 0));*/
 		  return scene_corners; //img_matches; //out-commented return is invalid
 	  } else {
 	  Mat H = findHomography( obj, scene, CV_RANSAC );

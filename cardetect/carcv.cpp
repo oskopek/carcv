@@ -190,6 +190,26 @@ void CarCV::run(fs::path &imgListPath, int method, CascadeClassifier &cascade, R
 	cout << "TIME:		" << (t2/(double)tickspersecond) << "s" << endl;
 	cout << endl;
 
+	//printing lists
+
+	cout << endl << endl << endl;
+	cout << "-------------------------------------------------" << endl;
+	cout << "CARS" << endl;
+	cout << "-------------------------------------------------" << endl;
+	indexi = 0;
+	indexj = 0;
+	line.clear();
+	for (list<list<CarImg> >::iterator i = carsInSpeedBox.begin(); i != carsInSpeedBox.end(); i++) {
+		line = *i;
+		for (list<CarImg>::iterator j = line.begin(); j != line.end(); j++){
+			cout << "[" << indexi << ":" << indexj << "]	 " << (*j).getPath() << endl;
+			indexj++;
+		}
+		indexj = 0;
+		indexi++;
+	}
+	//printing lists
+
 
 	const int carsInSpeedBoxSize = carsInSpeedBox.size();
 	double speed;
@@ -411,20 +431,25 @@ double CarCV::calcSpeed(list<CarImg> clist, int speed_method, double framerate, 
 		return speed;
 	} else if (speed_method == 2) { //CCV_SP_FROMALLFILES
 
-		int indexes[clist.front().getPath().filename().generic_string().length()];
+		const int indexesLength = clist.front().getPath().filename().generic_string().length();
+
+		vector<int> indexes;
 
 		int index = 0;
 		for(list<CarImg>::iterator i = clist.begin(); i != clist.end(); i++) {
-			indexes[index] = (*i).parseId();
-			index++;
+			indexes.push_back((*i).parseId());
 		}
 
-		int maxId = max_element(clist.begin(), clist.end())->parseId();
-		int minId = min_element(clist.begin(), clist.end())->parseId();
+		int maxId = *max_element(indexes.begin(), indexes.end());
+		int minId = *min_element(indexes.begin(), indexes.end());
 
-		double diff = (double) (maxId - minId);
+		cout << "maxId=" << maxId << ";minId=" << minId << endl;
+
+		double diff = abs((double) (maxId - minId));
 
 		double speed = real_measuring_length * (diff / framerate) * SPEEDCONSTANT;
+
+		cout << speed << "=" << real_measuring_length << "*(" << diff << "/" << framerate << ")*" << SPEEDCONSTANT << endl;
 
 		return speed;
 	}
