@@ -34,8 +34,8 @@ void CarCV::help()
     "   \n\n"
     "example call:\n"
     "./carcv --cascade=\"haarcascade_cars.xml\" --scale=1 --list=list.txt --method=DETECTSORT+SORTUNIQUE\n\n"
-    "During execution:\n\tHit any key to quit.\n"
-    "\tUsing OpenCV version " << CV_VERSION << "\n" << endl;
+    /*"During execution:\n\tHit any key to quit.\n"
+    "\tUsing OpenCV version " << CV_VERSION << "\n"*/ << endl;
 }
 
 string cascadeName = "/home/odenkos/soc/car_project/test/current.xml";
