@@ -29,13 +29,13 @@ void Det::help()
     "\tUsing OpenCV version " << CV_VERSION << "\n" << endl;
 }
 
-string cascadeName = "/home/odenkos/recttest.xml";
+/*string cascadeName = "/home/odenkos/recttest.xml";
 string methodName = "DETECTDEMO";
 string posdir = "pos";
 string negdir = "neg";
 string one, two;
 
-string windowName = "result";
+string windowName = "result";*/
 
 const static Scalar colors[] =  { 	CV_RGB(0,0,255),
 									CV_RGB(0,128,255),
@@ -287,7 +287,7 @@ double Det::probability(Mat &imga, Mat &imgb, CascadeClassifier &cascade, const 
 		cropped = Det::crop(imga, detectedA,dscale);
 		scene_corners = Match::sceneCornersGoodMatches(cropped, imgb, true);
 
-		if(scene_corners.empty()) {
+		if(scene_corners.empty()) { //todo: works?
 			CarCV::debugMessage("SCENE_CORNERS EMPTY");
 			counterAll++;
 			continue;
@@ -311,7 +311,7 @@ double Det::probability(Mat &imga, Mat &imgb, CascadeClassifier &cascade, const 
 		cropped = Det::crop(imgb, detectedB,dscale);
 		scene_corners = Match::sceneCornersGoodMatches(cropped, imga, true);
 
-		if(scene_corners.empty()) {
+		if(scene_corners.empty()) { //todo: works?
 			CarCV::debugMessage("SCENE_CORNERS EMPTY");
 			counterAll++;
 			continue;

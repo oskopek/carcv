@@ -12,10 +12,55 @@ using namespace cv;
 
 namespace fs = boost::filesystem;
 
+
+
+void CarCV::help()
+{
+    cout << "\nThis program demonstrates the cascade recognizer. Now you can use Haar or LBP features.\n"
+    "This classifier can recognize many kinds of rigid objects, once the appropriate classifier is trained.\n"
+    "It's most known use is for cars.\n"
+    "Usage:\n"
+    "./carcv [--cascade=<cascade_path> this is the primary trained classifier such as cars]\n"
+    //"   [--nested-cascade[=nested_cascade_path this an optional secondary classifier such as headlights]]\n"
+    "   [--scale=<image scale greater or equal to 1, try 1.3 for example> DO NOT EDIT, KEEP scale=1!]\n"
+    //"   [--try-flip]\n"
+    "   [--method=<DETECTSORT+SORTUNIQUE+INSIDE+SPEED+> choose one or any combination, with +]"
+    "   [--speedbox=<x+y+width+height+> of Speed Box Rectangle (needed for method INSIDE)]"
+    "	[--list=<list_path> path to list of images for given method(s)]"
+    "   \n\n"
+    "example call:\n"
+    "./carcv --cascade=\"haarcascade_cars.xml\" --scale=1 --list=list.txt --method=DETECTSORT+SORTUNIQUE\n\n"
+    "During execution:\n\tHit any key to quit.\n"
+    "\tUsing OpenCV version " << CV_VERSION << "\n" << endl;
+}
+
+string cascadeName = "/home/odenkos/soc/car_project/test/current.xml";
+fs::path cascadePath = fs::absolute(cascadeName);
+
+string listName = "./list.txt";
+fs::path listPath = fs::absolute(listName);
+
+string methodName = "DETECT";
+string speedBoxStr = "0+0+0+0";
+
+string posdir = "pos";
+fs::path posDirPath = fs::absolute(posdir);
+
+string negdir = "neg";
+fs::path negDirPath = fs::absolute(negdir);
+
+string cardir = "cars";
+fs::path carDirPath = fs::absolute(cardir);
+
+string insidedir = "inside";
+fs::path insideDirPath = fs::absolute(insidedir);
+
 const double scale = 1;
 
+
+
 int main(int argc, char** argv) {
-	cout << "arg1: path of list" << endl;
+	/*cout << "arg1: path of list" << endl;
 	cout << "arg2: cascade.xml path" << endl;
 	cout << "arg3-6: x, y, width, height" << endl;
 
@@ -29,12 +74,105 @@ int main(int argc, char** argv) {
 	CascadeClassifier cascade;
 	cascade.load(argv[2]);
 
-	fs::path listPath(argv[1]);
+	fs::path listPath(argv[1]);*/
 
-	CarCV::run(listPath, CCV_HAAR_SURF, cascade, speedBox);
+	//CarCV::run(listPath, CCV_HAAR_SURF, cascade, speedBox);
 	//CarCV::test(argc, argv);
+	return CarCV::starter(argc, argv);
+}
 
-	return 0;
+int CarCV::starter(int argc, char** argv) {
+	const string scaleOpt = "--scale=";
+	size_t scaleOptLen = scaleOpt.length();
+
+	const string cascadeOpt = "--cascade=";
+	size_t cascadeOptLen = cascadeOpt.length();
+
+	const string methodOpt = "--method=";
+	size_t methodOptLen = methodOpt.length();
+
+	const string listOpt = "--list=";
+	size_t listOptLen = listOpt.length();
+
+	const string speedBoxOpt = "--speedbox=";
+	size_t speedBoxOptLen = speedBoxOpt.length();
+
+	string inputName;
+
+
+
+	CarCV::help();
+
+	Rect speedBox;
+	CascadeClassifier cascade;
+	double scale = 1;
+
+	    for( int i = 1; i < argc; i++ )
+	    {
+	        cout << "Processing " << i << " " <<  argv[i] << endl;
+	        if( cascadeOpt.compare( 0, cascadeOptLen, argv[i], cascadeOptLen ) == 0 )
+	        {
+	            cascadeName.assign( argv[i] + cascadeOptLen );
+	            cascadePath = fs::absolute(fs::path(cascadeName));
+	            cout << "  from which we have cascade=" << cascadePath.c_str() << endl;
+	        }
+	        else if( scaleOpt.compare( 0, scaleOptLen, argv[i], scaleOptLen ) == 0 )
+	        {
+	            if( !sscanf( argv[i] + scaleOpt.length(), "%lf", &scale ) || scale < 1 )
+	                scale = 1;
+	            cout << " from which we read scale = " << scale << endl;
+	        }
+	        else if( methodOpt.compare( 0, methodOptLen, argv[i], methodOptLen ) == 0 )
+	        {
+	        	methodName.assign( argv[i] + methodOptLen );
+	        	cout << "  from which we have method=" << methodName << endl;
+	        }
+	        else if( speedBoxOpt.compare( 0, speedBoxOptLen, argv[i], speedBoxOptLen ) == 0 )
+	        {
+	        	speedBoxStr.assign( argv[i] + speedBoxOptLen );
+	        	double dimensions[4];
+	        	int index = 0;
+	        	ostringstream oss;
+	        	for (string::iterator i = speedBoxStr.begin(); i != speedBoxStr.end(); i++) {
+	        		if(*i == '+') {
+	        			dimensions[index] = atof(oss.str().c_str());
+		        		index++;
+		        		oss.str("");
+		        		continue;
+	        		}
+	        		oss << *i;
+	        	}
+
+	        	double x = dimensions[0];
+	        	double y = dimensions[1];
+	        	double width = dimensions[2];
+	        	double height = dimensions[3];
+
+	        	speedBox = Rect(x, y, width, height);
+
+	        	cout << "  from which we have speedbox=" << x << "," << y << "," << width << "," << height << endl;
+	        }
+	        else if( listOpt.compare( 0, listOptLen, argv[i], listOptLen ) == 0 )
+	        {
+	        	listName.assign( argv[i] + listOptLen );
+	        	listPath = fs::absolute(fs::path(listName));
+	        	cout << "  from which we have list=" << listPath.c_str() << endl;
+	        }
+	        else if( argv[i][0] == '-' )
+	        {
+	            cerr << "WARNING: Unknown option %s" << argv[i] << endl;
+	        }
+	        else
+	            inputName.assign( argv[i] );
+	    }
+
+	    if( !cascade.load( cascadeName ) )
+	    {
+	        cerr << "ERROR: Could not load classifier cascade" << endl;
+	        help();
+	        return -1;
+	    }
+	    cout << "Finished Loading" << endl;
 }
 
 /*
