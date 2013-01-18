@@ -356,6 +356,7 @@ int CarCV::starter(int argc, char** argv) {
 
 		for (int i = 0; i < carsSize; i++) {
 			carlist = CarCV::atList(&cars, i);
+			carlist->sort();
 
 			carsInSpeedBox.push_back(CarCV::inSpeedBox(*carlist, cascade, speedBox));
 		}
@@ -377,7 +378,7 @@ int CarCV::starter(int argc, char** argv) {
 
 		cout << endl << endl << endl;
 		cout << "-------------------------------------------------" << endl;
-		cout << "CARS" << endl;
+		cout << "INSIDE CARS" << endl;
 		cout << "-------------------------------------------------" << endl;
 		int indexi = 0;
 		int indexj = 0;
@@ -392,6 +393,8 @@ int CarCV::starter(int argc, char** argv) {
 			indexi++;
 		}
 		//printing lists
+
+		cout << endl << endl << endl;
 
 		}
 
@@ -409,6 +412,7 @@ int CarCV::starter(int argc, char** argv) {
 		CarCV::debugMessage("START calcSpeed()");
 		for (int i = 0; i < carsInSpeedBoxSize; i++) {
 			carlist = CarCV::atList(&carsInSpeedBox, i);
+
 			speed = CarCV::calcSpeed(*carlist, CCV_SP_FROMALLFILES, 30, 10);
 			cout << "Car" << i << " speed:	" << speed << " km/h" << endl;
 		}
@@ -656,6 +660,7 @@ list<CarImg> CarCV::detect_sortPOS_AND_NEG(list<CarImg> &imgList, CascadeClassif
 		CarCV::debugMessage("Sorting image:	" + cPath.generic_string() + "--->" + result);
 	}
 
+	posList.sort();
 	return posList;
 }
 
@@ -683,6 +688,7 @@ list<CarImg> CarCV::inSpeedBox(list<CarImg> &carLineList, CascadeClassifier &cas
 
 	}
 
+	inside.sort();
 	return inside;
 }
 
@@ -779,6 +785,7 @@ list<list<CarImg> > CarCV::sortUnique(list<CarImg> &posCarImgList, CascadeClassi
 
 	}
 
+	cars.sort();
 	return cars;
 }
 
@@ -837,13 +844,13 @@ double CarCV::calcSpeed(list<CarImg> clist, int speed_method, double framerate, 
 		int maxId = *max_element(indexes.begin(), indexes.end());
 		int minId = *min_element(indexes.begin(), indexes.end());
 
-		cout << "maxId=" << maxId << ";minId=" << minId << endl;
+		//cout << "maxId=" << maxId << ";minId=" << minId << endl;
 
 		double diff = abs((double) (maxId - minId));
 
 		double speed = real_measuring_length * (diff / framerate) * SPEEDCONSTANT;
 
-		cout << speed << "=" << real_measuring_length << "*(" << diff << "/" << framerate << ")*" << SPEEDCONSTANT << endl;
+		//cout << speed << "=" << real_measuring_length << "*(" << diff << "/" << framerate << ")*" << SPEEDCONSTANT << endl;
 
 		return speed;
 	}
@@ -1006,12 +1013,14 @@ list<list<CarImg> > CarCV::loadCars(fs::path carsDir) { //tested, should work, n
 		currentPath = fs::absolute((*dIt));
 
 		list<CarImg> line = CarCV::loadCarImgList(currentPath);
+		line.sort();
 
 		carsList.push_front(line);
 
 		dIt++;
 	}
 
+	carsList.sort();
 	return carsList;
 }
 
@@ -1037,6 +1046,7 @@ list<CarImg> CarCV::loadCarImgList(fs::path carDir) { //tested, works
 		dIt++;
 	}
 
+	carImgList.sort();
 	return carImgList;
 }
 
@@ -1061,6 +1071,7 @@ list<CarImg> CarCV::loadCarImgList(list<string> carList) { //tested, works
 		it++;
 	}
 
+	carImgList.sort();
 	return carImgList;
 }
 

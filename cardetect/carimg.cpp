@@ -33,7 +33,13 @@ Mat CarImg::getImg() const
 }
 
 bool CarImg::operator<(const CarImg &car) const {
-	return (this->hashCode() < car.hashCode());
+	int compare = this->getPath().generic_string().compare(car.getPath().generic_string());
+
+	if (compare < 0) {
+		return true;
+	} else {
+		return false;
+	}
 }
 
 bool CarImg::operator==(const CarImg &car) const {
@@ -45,15 +51,18 @@ bool CarImg::operator==(const CarImg &car) const {
  */
 long CarImg::hashCode() const
 {
+	const long prime = 7;
+
 	long res = 0;
 
 	char c;
+
 	const char* pathc = this->getPath().c_str();
 	const int length = strlen(pathc);
 
 	for (int i = 0; i < length; i++) {
 		c = pathc[i];
-		res += (c*5);
+		res += (c*prime);
 	}
 
 	return res;
