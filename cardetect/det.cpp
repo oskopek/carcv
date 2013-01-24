@@ -287,7 +287,7 @@ double Det::probability(Mat &imga, Mat &imgb, CascadeClassifier &cascade, const 
 		cropped = Det::crop(imga, detectedA,dscale);
 		scene_corners = Match::sceneCornersGoodMatches(cropped, imgb, true);
 
-		if(scene_corners.empty()) { //todo: works?
+		if(scene_corners.empty()) {
 			CarCV::debugMessage("SCENE_CORNERS EMPTY");
 			counterAll++;
 			continue;
