@@ -107,7 +107,7 @@ int CarCV::starter(int argc, char** argv) {
 	const string negDirOpt = "--negdir=";
 	size_t negDirOptLen = negDirOpt.length();
 
-	const string carDirOpt = "--carsdir=";
+	const string carDirOpt = "--cardir=";
 	size_t carDirOptLen = carDirOpt.length();
 
 	const string insideDirOpt = "--insidedir=";
