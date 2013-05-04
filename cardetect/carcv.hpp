@@ -7,19 +7,17 @@ using namespace std;
 using namespace cv;
 
 /*
- * CCV_HAAR_SURF = use Viola-Jones detection and match it with SURF
- * CCV_HAAR_TMPLMATCH = use Viola-Jones detection and match it with template matching
+ * HAAR_SURF = use Viola-Jones detection and match it with SURF
+ * HAAR_TMPLMATCH = use Viola-Jones detection and match it with template matching
  */
-enum method {CCV_HAAR_SURF = 1, CCV_HAAR_TMPLMATCH = 2};
+enum method {HAAR_SURF = 1, HAAR_TMPLMATCH = 2};
 
 /*
- * CCV_SP_FROMSORTEDFILES=Uses only the current car dir, calculates the range
- * of file ids where the car is in speedrectangle and calculate number of frames / framerate
+ * SP_ID_DIFF=Difference of biggest frame id - smallest frame id in given list, divided by framerate
  *
- * CCV_SP_FROMALLFILES=Uses the whole all dir to find images of the given car, calculates the range
- * of file ids where the car is in speedrectangle and calculate number of frames / framerate
+ * SP_SUM=Count frames in given list, divided by framerate
  */
-enum speed_method {CCV_SP_FROMSORTEDFILES = 1, CCV_SP_FROMALLFILES = 2};
+enum speed_method {SP_ID_DIFF = 1, SP_SUM = 2};
 
 class CarCV {
 public:

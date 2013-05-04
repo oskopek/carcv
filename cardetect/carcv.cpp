@@ -616,7 +616,7 @@ void CarCV::run(fs::path &imgListPath, int method, CascadeClassifier &cascade, R
 	CarCV::debugMessage("START calcSpeed()");
 	for (int i = 0; i < carsInSpeedBoxSize; i++) {
 		carlist = CarCV::atList(&carsInSpeedBox, i);
-		speed = CarCV::calcSpeed(*carlist, CCV_SP_FROMALLFILES, 30, 10);
+		speed = CarCV::calcSpeed(*carlist, SP_ID_DIFF, 30, 10);
 		cout << "Car" << i << " speed:	" << speed << " km/h" << endl;
 	}
 	CarCV::debugMessage("END calcSpeed()");
@@ -823,14 +823,14 @@ int CarCV::findMaxIndex(list<double> &mlist) { //tested, works
  * speed_method is from enum of same name
  */
 double CarCV::calcSpeed(list<CarImg> clist, int speed_method, double framerate, double real_measuring_length) {
-	if (speed_method == 1) { //CCV_SP_FROMSORTEDFILES
+	if (speed_method == 1) { //SP_FROMSORTEDFILES
 
 		double list_size = clist.size();
 
 		double speed = real_measuring_length * (list_size / framerate) * SPEED_CONVERSION_CONST;
 
 		return speed;
-	} else if (speed_method == 2) { //CCV_SP_FROMALLFILES
+	} else if (speed_method == 2) { //SP_FROMALLFILES
 
 		const int indexesLength = clist.front().getPath().filename().generic_string().length();
 
