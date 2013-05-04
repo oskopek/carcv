@@ -136,7 +136,7 @@ int CarCV::starter(int argc, char** argv) {
 	        {
 	            if( !sscanf( argv[i] + scaleOpt.length(), "%lf", &scale ) || scale < 1 )
 	                scale = 1;
-	            cout << " from which we read scale = " << scale << endl;
+	            cout << " from which we have scale = " << scale << endl;
 	        }
 	        else if( methodOpt.compare( 0, methodOptLen, argv[i], methodOptLen ) == 0 )
 	        {

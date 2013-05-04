@@ -179,13 +179,14 @@ int Det::run(int argc, const char** argv)
                 		if( c == 27 || c == 'q' || c == 'Q' )
                 			break;
                 	} else if(methodName == "DETECTDRAWDEMOFAST") {
-                		if(isDetected(image, cascade, scale)) {
+                		
                 			detectAndDraw(image, cascade, scale, windowName);
-                			char c = waitKey(0);
+                			char c = waitKey(15);
                 			if( c == 27 || c == 'q' || c == 'Q' ) {
                 				break;
                 			}
-                		}
+					//waitKey(10);
+                		
                 	} else if (methodName == "DETECTMATCHDEMO") {
                 		if (!one.empty()) {
                 			two = buf;
