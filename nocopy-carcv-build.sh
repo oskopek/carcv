@@ -35,16 +35,16 @@ echo $DASHES
 cd $basedir
 mkdir -v build
 
-echo
-echo
-echo
-echo $DASHES
-echo "-------COPYING SOURCE FILES OVER"
-echo $DASHES
-cd $basedir
-cd cardetect
-rm -rfv *.cpp *.hpp
-cp -v /home/odenkos/c_workspace/CarProject/cardetect/* .
+#echo
+#echo
+#echo
+#echo $DASHES
+#echo "-------COPYING SOURCE FILES OVER"
+#echo $DASHES
+#cd $basedir
+#cd cardetect
+#rm -rfv *.cpp *.hpp
+#cp -v /home/odenkos/c_workspace/CarProject/cardetect/* .
 
 echo
 echo
@@ -62,7 +62,7 @@ echo
 echo $DASHES
 echo "-------RUNNING MAKE"
 echo $DASHES
-make all
+make carcv
 
 echo
 echo

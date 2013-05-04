@@ -62,7 +62,7 @@ echo
 echo $DASHES
 echo "-------RUNNING MAKE"
 echo $DASHES
-make all
+make carcv
 
 echo
 echo

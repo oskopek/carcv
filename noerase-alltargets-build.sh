@@ -7,24 +7,24 @@ echo $DASHES
 echo "Build script by odenkos"
 echo $DASHES
 echo
-echo "WARNING: Will recursively erase any \"build\" dir in directory: ${PWD}"
-echo
-echo "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"
-read -p "!!!ARE YOU SURE YOU WANT TO DO THIS? [Y/N]: " ans_yn
-case "$ans_yn" in
-    [Yy]|[Yy][Ee][Ss]) echo "Removing \"${PWD}/build\" ...";;
+#echo "WARNING: Will recursively erase any \"build\" dir in directory: ${PWD}"
+#echo
+#echo "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"
+#read -p "!!!ARE YOU SURE YOU WANT TO DO THIS? [Y/N]: " ans_yn
+#case "$ans_yn" in
+#    [Yy]|[Yy][Ee][Ss]) echo "Removing \"${PWD}/build\" ...";;
+#
+#    *) exit 3;;
+#esac
 
-    *) exit 3;;
-esac
-
-echo
-echo
-echo
-echo $DASHES
-echo "-------REMOVING BUILD DIR"
-echo $DASHES
-cd $basedir
-rm -rfv  build/
+#echo
+#echo
+#echo
+#echo $DASHES
+#echo "-------REMOVING BUILD DIR"
+#echo $DASHES
+#cd $basedir
+#rm -rfv  build/
 
 echo
 echo
@@ -62,7 +62,7 @@ echo
 echo $DASHES
 echo "-------RUNNING MAKE"
 echo $DASHES
-make carcv                     ##WARNING, edited, should be all
+make all
 
 echo
 echo
