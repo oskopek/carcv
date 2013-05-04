@@ -31,9 +31,9 @@ public:
 	/*
 	static CarImg load(fs::path &fromPath);
 	static CarImg load(string &filename);
-	*/
+	 */
 
-//temp outcommented, cause of struct comparision see ^ todo: private:
+	//temp outcommented, cause of struct comparision see ^ todo: private:
 	CarImg();
 	fs::path path;
 	Mat img;

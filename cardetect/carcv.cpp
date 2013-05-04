@@ -16,25 +16,25 @@ namespace fs = boost::filesystem;
 
 void CarCV::help()
 {
-    cout << "\nThis program demonstrates the cascade recognizer. Now you can use Haar or LBP features.\n"
-    "This classifier can recognize many kinds of rigid objects, once the appropriate classifier is trained.\n"
-    "It's most known use is for cars.\n"
-    "Usage:\n"
-    "./carcv [--cascade=<cascade_path> this is the primary trained classifier such as cars]\n"
-    //"   [--nested-cascade[=nested_cascade_path this an optional secondary classifier such as headlights]]\n"
-    "   [--scale=<image scale greater or equal to 1, try 1.3 for example> DO NOT EDIT, KEEP scale=1!]\n"
-    //"   [--try-flip]\n"
-    "   [--method=<DETECTSORT+SORTUNIQUE+INSIDE+SPEED+> choose one or any combination, with +]\n"
-    "   [--speedbox=<x+y+width+height+> of Speed Box Rectangle (needed for method INSIDE)]\n"
-    "	[--list=<list_path> path to list of images for given method(s)]\n"
-    "   [--posdir=<pos_dir> path where to put positive images]\n"
-    "   [--negdir=<neg_dir> path where to put negative images]\n"
-	"   [--cardir=<car_dir> path where to put unique car images]\n"
-    "   [--insidedir=<inside_dir> path where to put car images which are inside the SpeedBox]\n"
-    "   \n\n"
-    "example call:\n"
-    "./carcv --cascade=\"haarcascade_cars.xml\" --scale=1 --list=list.txt --method=DETECTSORT+SORTUNIQUE\n\n"
-    /*"During execution:\n\tHit any key to quit.\n"
+	cout << "\nThis program demonstrates the cascade recognizer. Now you can use Haar or LBP features.\n"
+			"This classifier can recognize many kinds of rigid objects, once the appropriate classifier is trained.\n"
+			"It's most known use is for cars.\n"
+			"Usage:\n"
+			"./carcv [--cascade=<cascade_path> this is the primary trained classifier such as cars]\n"
+			//"   [--nested-cascade[=nested_cascade_path this an optional secondary classifier such as headlights]]\n"
+			"   [--scale=<image scale greater or equal to 1, try 1.3 for example> DO NOT EDIT, KEEP scale=1!]\n"
+			//"   [--try-flip]\n"
+			"   [--method=<DETECTSORT+SORTUNIQUE+INSIDE+SPEED+> choose one or any combination, with +]\n"
+			"   [--speedbox=<x+y+width+height+> of Speed Box Rectangle (needed for method INSIDE)]\n"
+			"	[--list=<list_path> path to list of images for given method(s)]\n"
+			"   [--posdir=<pos_dir> path where to put positive images]\n"
+			"   [--negdir=<neg_dir> path where to put negative images]\n"
+			"   [--cardir=<car_dir> path where to put unique car images]\n"
+			"   [--insidedir=<inside_dir> path where to put car images which are inside the SpeedBox]\n"
+			"   \n\n"
+			"example call:\n"
+			"./carcv --cascade=\"haarcascade_cars.xml\" --scale=1 --list=list.txt --method=DETECTSORT+SORTUNIQUE\n\n"
+			/*"During execution:\n\tHit any key to quit.\n"
     "\tUsing OpenCV version " << CV_VERSION << "\n"*/ << endl;
 }
 
@@ -123,108 +123,108 @@ int CarCV::starter(int argc, char** argv) {
 	CascadeClassifier cascade;
 	double scale = 1;
 
-	    for( int i = 1; i < argc; i++ )
-	    {
-	        cout << "Processing " << i << " " <<  argv[i] << endl;
-	        if( cascadeOpt.compare( 0, cascadeOptLen, argv[i], cascadeOptLen ) == 0 )
-	        {
-	            cascadeName.assign( argv[i] + cascadeOptLen );
-	            cascadePath = fs::absolute(fs::path(cascadeName));
-	            cout << "  from which we have cascade=" << cascadePath.c_str() << endl;
-	        }
-	        else if( scaleOpt.compare( 0, scaleOptLen, argv[i], scaleOptLen ) == 0 )
-	        {
-	            if( !sscanf( argv[i] + scaleOpt.length(), "%lf", &scale ) || scale < 1 )
-	                scale = 1;
-	            cout << " from which we read scale = " << scale << endl;
-	        }
-	        else if( methodOpt.compare( 0, methodOptLen, argv[i], methodOptLen ) == 0 )
-	        {
-	        	methodName.assign( argv[i] + methodOptLen );
-	        	cout << "  from which we have method=" << methodName << endl;
-	        }
-	        else if( speedBoxOpt.compare( 0, speedBoxOptLen, argv[i], speedBoxOptLen ) == 0 )
-	        {
-	        	speedBoxStr.assign( argv[i] + speedBoxOptLen );
-	        	double dimensions[4];
-	        	int index = 0;
-	        	ostringstream oss;
-	        	for (string::iterator i = speedBoxStr.begin(); i != speedBoxStr.end(); i++) {
-	        		if(*i == '+') {
-	        			dimensions[index] = atof(oss.str().c_str());
-		        		index++;
-		        		oss.str("");
-		        		continue;
-	        		}
-	        		oss << *i;
-	        	}
-
-	        	double x = dimensions[0];
-	        	double y = dimensions[1];
-	        	double width = dimensions[2];
-	        	double height = dimensions[3];
-
-	        	speedBox = Rect(x, y, width, height);
-
-	        	cout << "  from which we have speedbox=" << x << "," << y << "," << width << "," << height << endl;
-	        }
-	        else if( listOpt.compare( 0, listOptLen, argv[i], listOptLen ) == 0 )
-	        {
-	        	listName.assign( argv[i] + listOptLen );
-	        	listPath = fs::absolute(fs::path(listName));
-	        	cout << "  from which we have list=" << listPath.c_str() << endl;
-	        }
-	        else if( posDirOpt.compare( 0, posDirOptLen, argv[i], posDirOptLen ) == 0 )
-	        {
-	        	posdir.assign( argv[i] + posDirOptLen );
-	        	posDirPath = fs::absolute(fs::path(posdir));
-	        	cout << "  from which we have posdir=" << posDirPath.c_str() << endl;
-	        }
-	        else if( negDirOpt.compare( 0, negDirOptLen, argv[i], negDirOptLen ) == 0 )
-	        {
-	        	negdir.assign( argv[i] + negDirOptLen );
-	        	negDirPath = fs::absolute(fs::path(negdir));
-	        	cout << "  from which we have negdir=" << negDirPath.c_str() << endl;
-	        }
-	        else if( carDirOpt.compare( 0, carDirOptLen, argv[i], carDirOptLen ) == 0 )
-	        {
-	        	cardir.assign( argv[i] + carDirOptLen );
-	        	carDirPath = fs::absolute(fs::path(cardir));
-	        	cout << "  from which we have cardir=" << carDirPath.c_str() << endl;
-	        }
-	        else if( insideDirOpt.compare( 0, insideDirOptLen, argv[i], insideDirOptLen ) == 0 )
-	        {
-	        	insidedir.assign( argv[i] + insideDirOptLen );
-	        	insideDirPath = fs::absolute(fs::path(insidedir));
-	        	cout << "  from which we have insidedir=" << insideDirPath.c_str() << endl;
-	        }
-	        else if( argv[i][0] == '-' )
-	        {
-	            cerr << "WARNING: Unknown option %s" << argv[i] << endl;
-	        }
-	        else
-	            inputName.assign( argv[i] );
-	    }
-
-	    if( !cascade.load( cascadeName ) )
-	    {
-	        cerr << "ERROR: Could not load classifier cascade" << endl;
-	        help();
-	        return -1;
-	    }
-
-	    cout << endl << endl << endl;
-	    CarCV::debugMessage("LOADING FINISHED");
-
-
-	    ////////////////////////////////////////////////////////////
-
-		double t1, t2, Tstart, Tend;
-		double tickspersecond=cvGetTickFrequency() * 1.0e6;
-		Tstart = (double) cvGetTickCount();
-
-		if(methodName.find("DETECTSORT")!=string::npos)
+	for( int i = 1; i < argc; i++ )
+	{
+		cout << "Processing " << i << " " <<  argv[i] << endl;
+		if( cascadeOpt.compare( 0, cascadeOptLen, argv[i], cascadeOptLen ) == 0 )
 		{
+			cascadeName.assign( argv[i] + cascadeOptLen );
+			cascadePath = fs::absolute(fs::path(cascadeName));
+			cout << "  from which we have cascade=" << cascadePath.c_str() << endl;
+		}
+		else if( scaleOpt.compare( 0, scaleOptLen, argv[i], scaleOptLen ) == 0 )
+		{
+			if( !sscanf( argv[i] + scaleOpt.length(), "%lf", &scale ) || scale < 1 )
+				scale = 1;
+			cout << " from which we read scale = " << scale << endl;
+		}
+		else if( methodOpt.compare( 0, methodOptLen, argv[i], methodOptLen ) == 0 )
+		{
+			methodName.assign( argv[i] + methodOptLen );
+			cout << "  from which we have method=" << methodName << endl;
+		}
+		else if( speedBoxOpt.compare( 0, speedBoxOptLen, argv[i], speedBoxOptLen ) == 0 )
+		{
+			speedBoxStr.assign( argv[i] + speedBoxOptLen );
+			double dimensions[4];
+			int index = 0;
+			ostringstream oss;
+			for (string::iterator i = speedBoxStr.begin(); i != speedBoxStr.end(); i++) {
+				if(*i == '+') {
+					dimensions[index] = atof(oss.str().c_str());
+					index++;
+					oss.str("");
+					continue;
+				}
+				oss << *i;
+			}
+
+			double x = dimensions[0];
+			double y = dimensions[1];
+			double width = dimensions[2];
+			double height = dimensions[3];
+
+			speedBox = Rect(x, y, width, height);
+
+			cout << "  from which we have speedbox=" << x << "," << y << "," << width << "," << height << endl;
+		}
+		else if( listOpt.compare( 0, listOptLen, argv[i], listOptLen ) == 0 )
+		{
+			listName.assign( argv[i] + listOptLen );
+			listPath = fs::absolute(fs::path(listName));
+			cout << "  from which we have list=" << listPath.c_str() << endl;
+		}
+		else if( posDirOpt.compare( 0, posDirOptLen, argv[i], posDirOptLen ) == 0 )
+		{
+			posdir.assign( argv[i] + posDirOptLen );
+			posDirPath = fs::absolute(fs::path(posdir));
+			cout << "  from which we have posdir=" << posDirPath.c_str() << endl;
+		}
+		else if( negDirOpt.compare( 0, negDirOptLen, argv[i], negDirOptLen ) == 0 )
+		{
+			negdir.assign( argv[i] + negDirOptLen );
+			negDirPath = fs::absolute(fs::path(negdir));
+			cout << "  from which we have negdir=" << negDirPath.c_str() << endl;
+		}
+		else if( carDirOpt.compare( 0, carDirOptLen, argv[i], carDirOptLen ) == 0 )
+		{
+			cardir.assign( argv[i] + carDirOptLen );
+			carDirPath = fs::absolute(fs::path(cardir));
+			cout << "  from which we have cardir=" << carDirPath.c_str() << endl;
+		}
+		else if( insideDirOpt.compare( 0, insideDirOptLen, argv[i], insideDirOptLen ) == 0 )
+		{
+			insidedir.assign( argv[i] + insideDirOptLen );
+			insideDirPath = fs::absolute(fs::path(insidedir));
+			cout << "  from which we have insidedir=" << insideDirPath.c_str() << endl;
+		}
+		else if( argv[i][0] == '-' )
+		{
+			cerr << "WARNING: Unknown option %s" << argv[i] << endl;
+		}
+		else
+			inputName.assign( argv[i] );
+	}
+
+	if( !cascade.load( cascadeName ) )
+	{
+		cerr << "ERROR: Could not load classifier cascade" << endl;
+		help();
+		return -1;
+	}
+
+	cout << endl << endl << endl;
+	CarCV::debugMessage("LOADING FINISHED");
+
+
+	////////////////////////////////////////////////////////////
+
+	double t1, t2, Tstart, Tend;
+	double tickspersecond=cvGetTickFrequency() * 1.0e6;
+	Tstart = (double) cvGetTickCount();
+
+	if(methodName.find("DETECTSORT")!=string::npos)
+	{
 
 		t1 = (double) cvGetTickCount();
 		CarCV::debugMessage("START parseList()");
@@ -275,30 +275,30 @@ int CarCV::starter(int argc, char** argv) {
 
 			index++;
 		}
-		*/
+		 */
 		//printing lists
 
 		//saveing
-	t1 = (double) cvGetTickCount();
-	CarCV::debugMessage("START saveCarImgList(pos)");
-	CarCV::saveCarImgList(posCarImgList, posDirPath);
-	CarCV::debugMessage("END saveCarImgList(pos)");
-	t2 = (double) cvGetTickCount() - t1;
-	cout << "TIME:		" << (t2/(double)tickspersecond) << "s" << endl;
-	cout << endl;
+		t1 = (double) cvGetTickCount();
+		CarCV::debugMessage("START saveCarImgList(pos)");
+		CarCV::saveCarImgList(posCarImgList, posDirPath);
+		CarCV::debugMessage("END saveCarImgList(pos)");
+		t2 = (double) cvGetTickCount() - t1;
+		cout << "TIME:		" << (t2/(double)tickspersecond) << "s" << endl;
+		cout << endl;
 
-	t1 = (double) cvGetTickCount();
-	CarCV::debugMessage("START saveCarImgList(neg)");
-	CarCV::saveCarImgList(negList, negDirPath);
-	CarCV::debugMessage("END saveCarImgList(neg)");
-	t2 = (double) cvGetTickCount() - t1;
-	cout << "TIME:		" << (t2/(double)tickspersecond) << "s" << endl;
-	cout << endl;
+		t1 = (double) cvGetTickCount();
+		CarCV::debugMessage("START saveCarImgList(neg)");
+		CarCV::saveCarImgList(negList, negDirPath);
+		CarCV::debugMessage("END saveCarImgList(neg)");
+		t2 = (double) cvGetTickCount() - t1;
+		cout << "TIME:		" << (t2/(double)tickspersecond) << "s" << endl;
+		cout << endl;
 
-		}
+	}
 
-		if(methodName.find("SORTUNIQUE")!=string::npos)
-		{
+	if(methodName.find("SORTUNIQUE")!=string::npos)
+	{
 
 		list<CarImg> posCarImgList = CarCV::loadCarImgList(posDirPath);
 
@@ -339,10 +339,10 @@ int CarCV::starter(int argc, char** argv) {
 		cout << "TIME:		" << (t2/(double)tickspersecond) << "s" << endl;
 		cout << endl;
 
-		}
+	}
 
-		if(methodName.find("INSIDE") != string::npos)
-		{
+	if(methodName.find("INSIDE") != string::npos)
+	{
 
 		list<list<CarImg> > cars = CarCV::loadCars(carDirPath);
 
@@ -396,10 +396,10 @@ int CarCV::starter(int argc, char** argv) {
 
 		cout << endl << endl << endl;
 
-		}
+	}
 
-		if(methodName.find("SPEED") != string::npos)
-		{
+	if(methodName.find("SPEED") != string::npos)
+	{
 
 		list<list<CarImg> > carsInSpeedBox = CarCV::loadCars(insideDirPath);
 
@@ -421,17 +421,17 @@ int CarCV::starter(int argc, char** argv) {
 		cout << "TIME:		" << (t2/(double)tickspersecond) << "s" << endl;
 		cout << endl;
 
-		}
+	}
 
-		cout << endl << endl;
-		Tend = (double) cvGetTickCount() - Tstart;
-		cout << "TOTALTIME:		" << (Tend/(double)tickspersecond) << "s" << endl;
+	cout << endl << endl;
+	Tend = (double) cvGetTickCount() - Tstart;
+	cout << "TOTALTIME:		" << (Tend/(double)tickspersecond) << "s" << endl;
 
 
 
-		return 0;
+	return 0;
 
-	    ////////////////////////////////////////////////////////////
+	////////////////////////////////////////////////////////////
 
 }
 
@@ -496,7 +496,7 @@ void CarCV::run(fs::path &imgListPath, int method, CascadeClassifier &cascade, R
 
 		index++;
 	}
-	*/
+	 */
 	//printing lists
 
 
@@ -937,7 +937,7 @@ void CarCV::saveCars(list<list<CarImg> > cars, fs::path carsDir) { //tested, sho
 		temp = fs::absolute(temp);
 
 		if (!fs::exists(temp) || !fs::is_directory(temp)) { //if not exists, create it
-				fs::create_directory(temp);
+			fs::create_directory(temp);
 		}
 
 
@@ -1108,11 +1108,11 @@ T * CarCV::atList(list<T> *tlist, int index) { //
 	typename list<T>::iterator tlistI = tlist->begin();
 
 	for (int i = 0; tlistI != tlist->end();i++) {
-			if (i == index) {
-				return &(*tlistI);
-			}
-			tlistI++;
+		if (i == index) {
+			return &(*tlistI);
 		}
+		tlistI++;
+	}
 	return &(*tlist->end());//*--tlistI; was used for returning the last element anyway
 }
 
@@ -1126,8 +1126,8 @@ int CarCV::listSize(list<P> &plist) { //useless, use plist.size()
 	int i;
 
 	for (i = 0; plistI != plist.end();i++) {
-			plistI++;
-		}
+		plistI++;
+	}
 	return i;
 }
 
@@ -1144,11 +1144,11 @@ V * CarCV::atMap(map<K, V> *tmap, K index) { //tested, works
 
 
 	for (int i = 0; tmapI != tmap->end();i++) {
-			if (tmapI == searching) {
-				return &(*tmapI).second;
-			}
-			tmapI++;
+		if (tmapI == searching) {
+			return &(*tmapI).second;
 		}
+		tmapI++;
+	}
 	return &(*tmap->end()).second;
 }
 
@@ -1162,8 +1162,8 @@ int CarCV::mapSize(map<K, V> &pmap) { //useless, use pmap.size()
 	int i;
 
 	for (i = 0; pmapI != pmap.end();i++) {
-			pmapI++;
-		}
+		pmapI++;
+	}
 	return i;
 }
 
@@ -1200,8 +1200,8 @@ void grabKVparams(char **argv) { //just for testing reference, erase later
 			if (i == 0) {
 				key = token;
 			}
-		    istringstream ss(token);
-		    ss >> n;
+			istringstream ss(token);
+			ss >> n;
 
 		}
 		cout << key << endl;

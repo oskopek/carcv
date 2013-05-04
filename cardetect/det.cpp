@@ -13,20 +13,20 @@ namespace fs = boost::filesystem;
 
 void Det::help()
 {
-    cout << "\nThis program demonstrates the cascade recognizer. Now you can use Haar or LBP features.\n"
-    "This classifier can recognize many kinds of rigid objects, once the appropriate classifier is trained.\n"
-    "It's most known use is for cars.\n"
-    "Usage:\n"
-    "./carrect [--cascade=<cascade_path> this is the primary trained classifier such as cars]\n"
-    //"   [--nested-cascade[=nested_cascade_path this an optional secondary classifier such as headlights]]\n"
-    "   [--scale=<image scale greater or equal to 1, try 1.3 for example>]\n"
-    //"   [--try-flip]\n"
-    "   [--method=<DETECTDEMO, DETECTSORTDEMO, DETECTDRAWDEMO>]"
-    "   [list of images]\n\n"
-    "example call:\n"
-    "./carrect --cascade=\"haarcascade_cars.xml\" --scale=1.3 list.txt\n\n"
-    "During execution:\n\tHit any key to quit.\n"
-    "\tUsing OpenCV version " << CV_VERSION << "\n" << endl;
+	cout << "\nThis program demonstrates the cascade recognizer. Now you can use Haar or LBP features.\n"
+			"This classifier can recognize many kinds of rigid objects, once the appropriate classifier is trained.\n"
+			"It's most known use is for cars.\n"
+			"Usage:\n"
+			"./carrect [--cascade=<cascade_path> this is the primary trained classifier such as cars]\n"
+			//"   [--nested-cascade[=nested_cascade_path this an optional secondary classifier such as headlights]]\n"
+			"   [--scale=<image scale greater or equal to 1, try 1.3 for example>]\n"
+			//"   [--try-flip]\n"
+			"   [--method=<DETECTDEMO, DETECTSORTDEMO, DETECTDRAWDEMO>]"
+			"   [list of images]\n\n"
+			"example call:\n"
+			"./carrect --cascade=\"haarcascade_cars.xml\" --scale=1.3 list.txt\n\n"
+			"During execution:\n\tHit any key to quit.\n"
+			"\tUsing OpenCV version " << CV_VERSION << "\n" << endl;
 }
 
 /*string cascadeName = "/home/odenkos/recttest.xml";
@@ -38,13 +38,13 @@ string one, two;
 string windowName = "result";*/
 
 const static Scalar colors[] =  { 	CV_RGB(0,0,255),
-									CV_RGB(0,128,255),
-									CV_RGB(0,255,255),
-									CV_RGB(0,255,0),
-									CV_RGB(255,128,0),
-									CV_RGB(255,255,0),
-									CV_RGB(255,0,0),
-									CV_RGB(255,0,255)};
+		CV_RGB(0,128,255),
+		CV_RGB(0,255,255),
+		CV_RGB(0,255,0),
+		CV_RGB(255,128,0),
+		CV_RGB(255,255,0),
+		CV_RGB(255,0,0),
+		CV_RGB(255,0,255)};
 
 /*int Det::run(int argc, const char** argv)
 {
@@ -151,7 +151,7 @@ const static Scalar colors[] =  { 	CV_RGB(0,0,255),
                                             	c = waitKey(0);
                                             	if( c == 27 || c == 'q' || c == 'Q' )
                                                 	break;
-                		 *\/
+ *\/
                 		int detectedN = countDetected(image, cascade, scale);
                 		string detected = (detectedN > 0 ? "true" : "false");
                 		cout << "|	" << buf << "	|	" << detected << "	|	" << detectedN << "	|" << endl;
@@ -225,7 +225,7 @@ const static Scalar colors[] =  { 	CV_RGB(0,0,255),
     }
     return 0;
 }
-*/
+ */
 
 /*
  * Detect an image with Mat#detect(Mat&, CascadeClassifier&, double)
@@ -233,8 +233,8 @@ const static Scalar colors[] =  { 	CV_RGB(0,0,255),
  */
 void Det::detectAndDraw( Mat& img, CascadeClassifier& cascade, double scale, string windowName)
 {
-    Mat result = detectMat(img, cascade, scale);
-    cv::imshow(windowName, result);
+	Mat result = detectMat(img, cascade, scale);
+	cv::imshow(windowName, result);
 }
 
 /*
@@ -242,20 +242,20 @@ void Det::detectAndDraw( Mat& img, CascadeClassifier& cascade, double scale, str
  */
 vector<Rect> Det::detect(Mat &img, CascadeClassifier &cascade, double scale)
 {
-    vector<Rect> objects;
-    Mat gray, smallImg( cvRound (img.rows/scale), cvRound(img.cols/scale), CV_8UC1 );
+	vector<Rect> objects;
+	Mat gray, smallImg( cvRound (img.rows/scale), cvRound(img.cols/scale), CV_8UC1 );
 
-    cvtColor(img, gray, CV_BGR2GRAY);
-    resize(gray, smallImg, smallImg.size(), 0, 0, INTER_LINEAR);
-    equalizeHist(smallImg, smallImg);
+	cvtColor(img, gray, CV_BGR2GRAY);
+	resize(gray, smallImg, smallImg.size(), 0, 0, INTER_LINEAR);
+	equalizeHist(smallImg, smallImg);
 
-    cascade.detectMultiScale(smallImg, objects,
-    						1.1, 2, 0
-    						//|CV_HAAR_FIND_BIGGEST_OBJECT
-    						//|CV_HAAR_DO_ROUGH_SEARCH
-    						|CV_HAAR_SCALE_IMAGE,
-    						Size(30, 30));
-    return objects;
+	cascade.detectMultiScale(smallImg, objects,
+			1.1, 2, 0
+			//|CV_HAAR_FIND_BIGGEST_OBJECT
+			//|CV_HAAR_DO_ROUGH_SEARCH
+			|CV_HAAR_SCALE_IMAGE,
+			Size(30, 30));
+	return objects;
 }
 
 /*
@@ -348,23 +348,23 @@ Mat Det::detectMat(Mat &img, CascadeClassifier &cascade, double scale) {
 
 	for( vector<Rect>::const_iterator r = objects.begin(); r != objects.end(); r++, i++ )
 	{
-	        Point center;
-	        Scalar color = colors[i%8];
-	        int radius;
+		Point center;
+		Scalar color = colors[i%8];
+		int radius;
 
-	        double aspect_ratio = (double)r->width/r->height;
-	        if( 0.75 < aspect_ratio && aspect_ratio < 1.3 )
-	        {
-	            center.x = cvRound((r->x + r->width*0.5)*scale);
-	            center.y = cvRound((r->y + r->height*0.5)*scale);
-	            radius = cvRound((r->width + r->height)*0.25*scale);
-	            circle( img, center, radius, color, 3, 8, 0 );
-	        }
-	        else {
-	            rectangle( img, cvPoint(cvRound(r->x*scale), cvRound(r->y*scale)),
-	                       cvPoint(cvRound((r->x + r->width-1)*scale), cvRound((r->y + r->height-1)*scale)),
-	                       color, 3, 8, 0);
-	        }
+		double aspect_ratio = (double)r->width/r->height;
+		if( 0.75 < aspect_ratio && aspect_ratio < 1.3 )
+		{
+			center.x = cvRound((r->x + r->width*0.5)*scale);
+			center.y = cvRound((r->y + r->height*0.5)*scale);
+			radius = cvRound((r->width + r->height)*0.25*scale);
+			circle( img, center, radius, color, 3, 8, 0 );
+		}
+		else {
+			rectangle( img, cvPoint(cvRound(r->x*scale), cvRound(r->y*scale)),
+					cvPoint(cvRound((r->x + r->width-1)*scale), cvRound((r->y + r->height-1)*scale)),
+					color, 3, 8, 0);
+		}
 	}
 	return img;
 }
@@ -587,7 +587,7 @@ void Det::testCropping(Mat &forcrop, Mat &comp, CascadeClassifier &cascade, doub
 	cvDestroyAllWindows();
 	return;
 }
-*/
+ */
 
 bool Det::evaluatef(const float a, const float b) {
 	float absA = fabsf(a);
