@@ -5,7 +5,7 @@
 
 #define DEBSTR "DEBUG:	"
 #define ERRSTR "ERROR:	"
-#define SPEEDCONSTANT 3.6
+#define SPEED_CONVERSION_CONST 3.6
 
 using namespace std;
 using namespace cv;
@@ -136,7 +136,7 @@ int CarCV::starter(int argc, char** argv) {
 	        {
 	            if( !sscanf( argv[i] + scaleOpt.length(), "%lf", &scale ) || scale < 1 )
 	                scale = 1;
-	            cout << " from which we have scale = " << scale << endl;
+	            cout << " from which we read scale = " << scale << endl;
 	        }
 	        else if( methodOpt.compare( 0, methodOptLen, argv[i], methodOptLen ) == 0 )
 	        {
@@ -827,7 +827,7 @@ double CarCV::calcSpeed(list<CarImg> clist, int speed_method, double framerate, 
 
 		double list_size = clist.size();
 
-		double speed = real_measuring_length * (list_size / framerate) * SPEEDCONSTANT;
+		double speed = real_measuring_length * (list_size / framerate) * SPEED_CONVERSION_CONST;
 
 		return speed;
 	} else if (speed_method == 2) { //CCV_SP_FROMALLFILES
@@ -848,9 +848,9 @@ double CarCV::calcSpeed(list<CarImg> clist, int speed_method, double framerate, 
 
 		double diff = abs((double) (maxId - minId));
 
-		double speed = real_measuring_length * (diff / framerate) * SPEEDCONSTANT;
+		double speed = real_measuring_length * (diff / framerate) * SPEED_CONVERSION_CONST;
 
-		//cout << speed << "=" << real_measuring_length << "*(" << diff << "/" << framerate << ")*" << SPEEDCONSTANT << endl;
+		//cout << speed << "=" << real_measuring_length << "*(" << diff << "/" << framerate << ")*" << SPEED_CONVERSION_CONST << endl;
 
 		return speed;
 	}
