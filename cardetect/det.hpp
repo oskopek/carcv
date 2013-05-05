@@ -1,3 +1,12 @@
+/*
+ * CarCV - Car recognizing and speed calculating platform
+ *
+ * Authors:
+ * Copyright (C) 2012-2013, Ondrej Skopek
+ *
+ * All rights reserved.
+ */
+
 #include "opencv2/objdetect/objdetect.hpp"
 #include "opencv2/highgui/highgui.hpp"
 #include "opencv2/imgproc/imgproc.hpp"
