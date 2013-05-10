@@ -8,7 +8,7 @@ namespace fs = boost::filesystem;
 /*
  * Save CarImg objects to carDir (USE FOR UNIQUE CARS)
  */
-void CarCV::saveCarImgList(list<CarImg> carList) { //tested, works
+void Tools::saveCarImgList(list<CarImg> carList) { //tested, works
 	for(list<CarImg>::iterator i = carList.begin(); i != carList.end(); i++) {
 		(*i).save();
 		cout << "Saving: " << i->toString() << endl;
@@ -19,7 +19,7 @@ void CarCV::saveCarImgList(list<CarImg> carList) { //tested, works
 /*
  * Save CarImg objects to carDir (USE FOR UNIQUE CARS)
  */
-void CarCV::saveCarImgList(list<CarImg> carList, fs::path carListDir) { //tested, works
+void Tools::saveCarImgList(list<CarImg> carList, fs::path carListDir) { //tested, works
 	carListDir = fs::absolute(carListDir);
 	if (!fs::exists(carListDir) || !fs::is_directory(carListDir)) { //if not exists, create it
 		fs::create_directory(carListDir);
@@ -44,7 +44,7 @@ void CarCV::saveCarImgList(list<CarImg> carList, fs::path carListDir) { //tested
 /**
  * Save list<list<CarImg> > objects to carsDir
  */
-void CarCV::saveCars(list<list<CarImg> > cars, fs::path carsDir) { //tested, should work
+void Tools::saveCars(list<list<CarImg> > cars, fs::path carsDir) { //tested, should work
 	carsDir = fs::absolute(carsDir);
 	if (!fs::exists(carsDir) || !fs::is_directory(carsDir)) { //if not exists, create it
 		fs::create_directory(carsDir);
@@ -58,13 +58,13 @@ void CarCV::saveCars(list<list<CarImg> > cars, fs::path carsDir) { //tested, sho
 	iterate = carsDir.end();
 	iterate--;
 	string cDirName = (*iterate).generic_string();
-	string linePrefix = CarCV::shorten(cDirName, cDirName.size()-1);
+	string linePrefix = Tools::shorten(cDirName, cDirName.size()-1);
 
 	string number;
 
 	int carsSize = cars.size();
 	for (int i = 0; i < carsSize; i++) {
-		line = CarCV::atList(&cars, i);
+		line = Tools::atList(&cars, i);
 
 		if (i < 10) {
 			number = "000"+boost::lexical_cast<string>(i);
@@ -105,16 +105,16 @@ void CarCV::saveCars(list<list<CarImg> > cars, fs::path carsDir) { //tested, sho
 				CarImg c = backupImg;
 				c.setPath(thisPath);
 
-				*line = CarCV::replaceObj(*line, backupImg, c, j); //replaces line with replaced line
+				*line = Tools::replaceObj(*line, backupImg, c, j); //replaces line with replaced line
 				j++;
 			}
 		}
 
-		CarCV::saveCarImgList(*line);
+		Tools::saveCarImgList(*line);
 		ostringstream oss;
 		oss << "SaveCarImgList	" << "Line: " << i << ";Size=" << line->size();
-		CarCV::debugMessage(oss.str());
-		CarCV::debugMessage("Car at 0:		" + line->front().toString());
+		Tools::debugMessage(oss.str());
+		Tools::debugMessage("Car at 0:		" + line->front().toString());
 	}
 
 
@@ -123,7 +123,7 @@ void CarCV::saveCars(list<list<CarImg> > cars, fs::path carsDir) { //tested, sho
 /*
  * int length = length of return shortened sstring
  */
-string CarCV::shorten(string s, int length) {
+string Tools::shorten(string s, int length) {
 	int len = length+1;
 	const char* schar = s.c_str();
 
@@ -145,7 +145,7 @@ string CarCV::shorten(string s, int length) {
  * Load/parse list<CarImg> objects from carsDir
  * WARNING: _DON'T_ expect folder car0 to be have index 0, car1 index 1, etc..
  */
-list<list<CarImg> > CarCV::loadCars(fs::path carsDir) { //tested, should work, nema rovnake poradie! fix?
+list<list<CarImg> > Tools::loadCars(fs::path carsDir) { //tested, should work, nema rovnake poradie! fix?
 	list<list<CarImg> > carsList;
 
 	fs::directory_iterator dIt(carsDir);
@@ -155,7 +155,7 @@ list<list<CarImg> > CarCV::loadCars(fs::path carsDir) { //tested, should work, n
 	while(dIt != dEnd) {
 		currentPath = fs::absolute((*dIt));
 
-		list<CarImg> line = CarCV::loadCarImgList(currentPath);
+		list<CarImg> line = Tools::loadCarImgList(currentPath);
 		line.sort();
 
 		carsList.push_front(line);
@@ -171,7 +171,7 @@ list<list<CarImg> > CarCV::loadCars(fs::path carsDir) { //tested, should work, n
  * Load/parse CarImg objects from carDir
  * Beware of 'boost::filesystem3::filesystem_error':'No such (file) or directory' for parameter carDir
  */
-list<CarImg> CarCV::loadCarImgList(fs::path carDir) { //tested, works
+list<CarImg> Tools::loadCarImgList(fs::path carDir) { //tested, works
 	list<CarImg> carImgList;
 	fs::directory_iterator dIt(carDir);
 	fs::directory_iterator dEnd;
@@ -197,7 +197,7 @@ list<CarImg> CarCV::loadCarImgList(fs::path carDir) { //tested, works
  * Load/parse CarImg objects from carDir
  * Beware of 'boost::filesystem3::filesystem_error':'No such file or (directory)' for parameter carList or any of its contents
  */
-list<CarImg> CarCV::loadCarImgList(list<string> carList) { //tested, works
+list<CarImg> Tools::loadCarImgList(list<string> carList) { //tested, works
 	list<CarImg> carImgList;
 	list<string>::iterator it = carList.begin();
 
@@ -221,7 +221,7 @@ list<CarImg> CarCV::loadCarImgList(list<string> carList) { //tested, works
 /*
  * Parses the input file plist into a list<string>
  */
-list<string> CarCV::parseList(fs::path &plist) { //tested, should work
+list<string> Tools::parseList(fs::path &plist) { //tested, should work
 	list<string> retlist;
 
 	FILE* f = fopen(plist.c_str(), "rt");
@@ -246,7 +246,7 @@ list<string> CarCV::parseList(fs::path &plist) { //tested, should work
  * If index is out of bounds, should return *tlist.end(), but returns rather unexpected results
  */
 template <class T>
-T * CarCV::atList(list<T> *tlist, int index) { //
+T * Tools::atList(list<T> *tlist, int index) { //
 
 	typename list<T>::iterator tlistI = tlist->begin();
 
@@ -264,7 +264,7 @@ T * CarCV::atList(list<T> *tlist, int index) { //
  * Useless: use plist.size()
  */
 template <class P>
-int CarCV::listSize(list<P> &plist) { //useless, use plist.size()
+int Tools::listSize(list<P> &plist) { //useless, use plist.size()
 	typename list<P>::iterator plistI = plist.begin();
 	int i;
 
@@ -280,7 +280,7 @@ int CarCV::listSize(list<P> &plist) { //useless, use plist.size()
  * If index is not found in map, returns (*tmap.end()).second
  */
 template <class K, class V>
-V * CarCV::atMap(map<K, V> *tmap, K index) { //tested, works
+V * Tools::atMap(map<K, V> *tmap, K index) { //tested, works
 
 	typename map<K, V>::iterator tmapI = tmap->begin();
 	typename map<K, V>::iterator searching = tmap->find(index);
@@ -300,7 +300,7 @@ V * CarCV::atMap(map<K, V> *tmap, K index) { //tested, works
  * Useless, use pmap.size()
  */
 template <class K, class V>
-int CarCV::mapSize(map<K, V> &pmap) { //useless, use pmap.size()
+int Tools::mapSize(map<K, V> &pmap) { //useless, use pmap.size()
 	typename map<K, V>::iterator pmapI = pmap.begin();
 	int i;
 
@@ -311,7 +311,7 @@ int CarCV::mapSize(map<K, V> &pmap) { //useless, use pmap.size()
 }
 
 template <class T>
-list<T> CarCV::replaceObj(list<T> list, T replaceObj, T withObj, int index) {
+list<T> Tools::replaceObj(list<T> list, T replaceObj, T withObj, int index) {
 	typename std::list<T> replaced = list;
 	typename std::list<T>::iterator lineIte = replaced.begin();
 
@@ -333,7 +333,7 @@ list<T> CarCV::replaceObj(list<T> list, T replaceObj, T withObj, int index) {
 	return replaced;
 }
 
-void grabKVparams(char **argv) { //just for testing reference, erase later
+/*void grabKVparams(char **argv) { //just for testing reference, erase later
 	for (int i = 1; i <= 5; i++) {
 		istringstream source(argv[i]);
 		string token;
@@ -352,9 +352,9 @@ void grabKVparams(char **argv) { //just for testing reference, erase later
 		// do something with n
 		cout << "----------" << endl;
 	}
-}
+}*/
 
-void CarCV::test(int argc, char** argv) {
+/*void Tools::test(int argc, char** argv) {
 	/*fs::path imgPath1(argv[1]);
 	CarImg car1;
 	car1.setPath(fs::absolute(imgPath1));
@@ -390,17 +390,17 @@ void CarCV::test(int argc, char** argv) {
 	cars.push_front(c1);
 	cars.push_back(c2);
 
-	//CarCV::saveCars(cars, carDir);
+	//Tools::saveCars(cars, carDir);
 
-	list<list<CarImg> > set = CarCV::loadCars(carDir);
-	list<CarImg> *loaded = CarCV::atList(&set, atoi(argv[6]));
+	list<list<CarImg> > set = Tools::loadCars(carDir);
+	list<CarImg> *loaded = Tools::atList(&set, atoi(argv[6]));
 
 	cvNamedWindow("Images");
 	for(list<CarImg>::iterator i = loaded->begin(); i != loaded->end(); i++) {
 		imshow("Images", (*i).getImg());
 		waitKey(0);
 	}
-	cvDestroyWindow("Images");*/
+	cvDestroyWindow("Images");*/ /*
 
 	Rect r1, r2;
 
@@ -430,9 +430,9 @@ void CarCV::test(int argc, char** argv) {
 
 	cout << Det::isInRect(r1, r2) << endl;
 
-}
+}*/
 
-void CarCV::debugMessage(string message) {
+void Tools::debugMessage(string message) {
 	time_t rawtime;
 	struct tm * timeinfo;
 
@@ -454,7 +454,7 @@ void CarCV::debugMessage(string message) {
 	//printf("[%s]%s%s", timestamp.c_str(), prefix.c_str(), message.c_str());
 }
 
-void CarCV::errorMessage(string message) {
+void Tools::errorMessage(string message) {
 	time_t rawtime;
 	struct tm * timeinfo;
 
@@ -481,7 +481,7 @@ void CarCV::errorMessage(string message) {
  * If two are equal, returns the index of the first one
  *
  */
-int CarCV::findMaxIndex(list<double> &mlist) { //tested, works
+int Tools::findMaxIndex(list<double> &mlist) { //tested, works
 	list<double>::iterator mlistI = mlist.begin();
 	double probmax;
 	int index;

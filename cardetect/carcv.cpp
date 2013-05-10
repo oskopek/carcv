@@ -8,8 +8,7 @@
  */
 
 #include "carcv.hpp"
-#include "det.hpp"
-#include "tools.hpp"
+#include "detection.hpp"
 
 #define SPEED_CONVERSION_CONST 3.6
 
@@ -220,7 +219,7 @@ int CarCV::starter(int argc, char** argv) {
 	}
 
 	cout << endl << endl << endl;
-	CarCV::debugMessage("LOADING FINISHED");
+	Tools::debugMessage("LOADING FINISHED");
 
 
 	////////////////////////////////////////////////////////////
@@ -233,17 +232,17 @@ int CarCV::starter(int argc, char** argv) {
 	{
 
 		t1 = (double) cvGetTickCount();
-		CarCV::debugMessage("START parseList()");
-		list<string> strImgList = CarCV::parseList(listPath); //parse image list file to list<string>
-		CarCV::debugMessage("END parseList()");
+		Tools::debugMessage("START parseList()");
+		list<string> strImgList = Tools::parseList(listPath); //parse image list file to list<string>
+		Tools::debugMessage("END parseList()");
 		t2 = (double) cvGetTickCount() - t1;
 		cout << "TIME:		" << (t2/(double)tickspersecond) << "s" << endl;
 		cout << endl;
 
 		t1 = (double) cvGetTickCount();
-		CarCV::debugMessage("START loadCarImgList()");
-		list<CarImg> imgList = CarCV::loadCarImgList(strImgList); //load CarImg objects from the list
-		CarCV::debugMessage("END loadCarImgList()");
+		Tools::debugMessage("START loadCarImgList()");
+		list<CarImg> imgList = Tools::loadCarImgList(strImgList); //load CarImg objects from the list
+		Tools::debugMessage("END loadCarImgList()");
 		t2 = (double) cvGetTickCount() - t1;
 		cout << "TIME:		" << (t2/(double)tickspersecond) << "s" << endl;
 		cout << endl;
@@ -251,9 +250,9 @@ int CarCV::starter(int argc, char** argv) {
 		list<CarImg> negList;
 
 		t1 = (double) cvGetTickCount();
-		CarCV::debugMessage("START detect_sortPOS_AND_NEG()");
+		Tools::debugMessage("START detect_sortPOS_AND_NEG()");
 		list<CarImg> posCarImgList = CarCV::detect_sortPOS_AND_NEG(imgList, cascade, &negList);//detect and sort objects in images of imgList
-		CarCV::debugMessage("END detect_sortPOS_AND_NEG()");
+		Tools::debugMessage("END detect_sortPOS_AND_NEG()");
 		t2 = (double) cvGetTickCount() - t1;
 		cout << "TIME:		" << (t2/(double)tickspersecond) << "s" << endl;
 		cout << endl;
@@ -286,17 +285,17 @@ int CarCV::starter(int argc, char** argv) {
 
 		//saveing
 		t1 = (double) cvGetTickCount();
-		CarCV::debugMessage("START saveCarImgList(pos)");
-		CarCV::saveCarImgList(posCarImgList, posDirPath);
-		CarCV::debugMessage("END saveCarImgList(pos)");
+		Tools::debugMessage("START saveCarImgList(pos)");
+		Tools::saveCarImgList(posCarImgList, posDirPath);
+		Tools::debugMessage("END saveCarImgList(pos)");
 		t2 = (double) cvGetTickCount() - t1;
 		cout << "TIME:		" << (t2/(double)tickspersecond) << "s" << endl;
 		cout << endl;
 
 		t1 = (double) cvGetTickCount();
-		CarCV::debugMessage("START saveCarImgList(neg)");
-		CarCV::saveCarImgList(negList, negDirPath);
-		CarCV::debugMessage("END saveCarImgList(neg)");
+		Tools::debugMessage("START saveCarImgList(neg)");
+		Tools::saveCarImgList(negList, negDirPath);
+		Tools::debugMessage("END saveCarImgList(neg)");
 		t2 = (double) cvGetTickCount() - t1;
 		cout << "TIME:		" << (t2/(double)tickspersecond) << "s" << endl;
 		cout << endl;
@@ -306,12 +305,12 @@ int CarCV::starter(int argc, char** argv) {
 	if(methodName.find("SORTUNIQUE")!=string::npos)
 	{
 
-		list<CarImg> posCarImgList = CarCV::loadCarImgList(posDirPath);
+		list<CarImg> posCarImgList = Tools::loadCarImgList(posDirPath);
 
 		t1 = (double) cvGetTickCount();
-		CarCV::debugMessage("START sortUnique(pos)");
+		Tools::debugMessage("START sortUnique(pos)");
 		list<list<CarImg> > cars = CarCV::sortUnique(posCarImgList, cascade, 0.2);
-		CarCV::debugMessage("END sortUnique(pos)");
+		Tools::debugMessage("END sortUnique(pos)");
 		t2 = (double) cvGetTickCount() - t1;
 		cout << "TIME:		" << (t2/(double)tickspersecond) << "s" << endl;
 		cout << endl;
@@ -338,9 +337,9 @@ int CarCV::starter(int argc, char** argv) {
 
 
 		t1 = (double) cvGetTickCount();
-		CarCV::debugMessage("START saveCars()");
-		CarCV::saveCars(cars, carDirPath);
-		CarCV::debugMessage("END saveCars()");
+		Tools::debugMessage("START saveCars()");
+		Tools::saveCars(cars, carDirPath);
+		Tools::debugMessage("END saveCars()");
 		t2 = (double) cvGetTickCount() - t1;
 		cout << "TIME:		" << (t2/(double)tickspersecond) << "s" << endl;
 		cout << endl;
@@ -350,7 +349,7 @@ int CarCV::starter(int argc, char** argv) {
 	if(methodName.find("INSIDE") != string::npos)
 	{
 
-		list<list<CarImg> > cars = CarCV::loadCars(carDirPath);
+		list<list<CarImg> > cars = Tools::loadCars(carDirPath);
 
 		list<CarImg> * carlist;
 		const int carsSize = cars.size();
@@ -358,24 +357,24 @@ int CarCV::starter(int argc, char** argv) {
 		list<list<CarImg> > carsInSpeedBox;
 
 		t1 = (double) cvGetTickCount();
-		CarCV::debugMessage("START isInSpeedBox()");
+		Tools::debugMessage("START isInSpeedBox()");
 
 		for (int i = 0; i < carsSize; i++) {
-			carlist = CarCV::atList(&cars, i);
+			carlist = Tools::atList(&cars, i);
 			carlist->sort();
 
 			carsInSpeedBox.push_back(CarCV::inSpeedBox(*carlist, cascade, speedBox));
 		}
 
-		CarCV::debugMessage("END isInSpeedBox()");
+		Tools::debugMessage("END isInSpeedBox()");
 		t2 = (double) cvGetTickCount() - t1;
 		cout << "TIME:		" << (t2/(double)tickspersecond) << "s" << endl;
 		cout << endl;
 
 		t1 = (double) cvGetTickCount();
-		CarCV::debugMessage("START saveCarsInside()");
-		CarCV::saveCars(carsInSpeedBox, insideDirPath);
-		CarCV::debugMessage("END saveCarsInside()");
+		Tools::debugMessage("START saveCarsInside()");
+		Tools::saveCars(carsInSpeedBox, insideDirPath);
+		Tools::debugMessage("END saveCarsInside()");
 		t2 = (double) cvGetTickCount() - t1;
 		cout << "TIME:		" << (t2/(double)tickspersecond) << "s" << endl;
 		cout << endl;
@@ -407,7 +406,7 @@ int CarCV::starter(int argc, char** argv) {
 	if(methodName.find("SPEED") != string::npos)
 	{
 
-		list<list<CarImg> > carsInSpeedBox = CarCV::loadCars(insideDirPath);
+		list<list<CarImg> > carsInSpeedBox = Tools::loadCars(insideDirPath);
 
 		list<CarImg> * carlist;
 
@@ -415,14 +414,14 @@ int CarCV::starter(int argc, char** argv) {
 		double speed;
 
 		t1 = (double) cvGetTickCount();
-		CarCV::debugMessage("START calcSpeed()");
+		Tools::debugMessage("START calcSpeed()");
 		for (int i = 0; i < carsInSpeedBoxSize; i++) {
-			carlist = CarCV::atList(&carsInSpeedBox, i);
+			carlist = Tools::atList(&carsInSpeedBox, i);
 
-			speed = CarCV::calcSpeed(*carlist, CCV_SP_FROMALLFILES, 30, 10);
+			speed = CarCV::calcSpeed(*carlist, SP_ID_DIFF, 30, 10);
 			cout << "Car" << i << " speed:	" << speed << " km/h" << endl;
 		}
-		CarCV::debugMessage("END calcSpeed()");
+		Tools::debugMessage("END calcSpeed()");
 		t2 = (double) cvGetTickCount() - t1;
 		cout << "TIME:		" << (t2/(double)tickspersecond) << "s" << endl;
 		cout << endl;
@@ -454,17 +453,17 @@ void CarCV::run(fs::path &imgListPath, int method, CascadeClassifier &cascade, R
 	Tstart = (double) cvGetTickCount();
 
 	t1 = (double) cvGetTickCount();
-	CarCV::debugMessage("START parseList()");
-	list<string> strImgList = CarCV::parseList(imgListPath); //parse image list file to list<string>
-	CarCV::debugMessage("END parseList()");
+	Tools::debugMessage("START parseList()");
+	list<string> strImgList = Tools::parseList(imgListPath); //parse image list file to list<string>
+	Tools::debugMessage("END parseList()");
 	t2 = (double) cvGetTickCount() - t1;
 	cout << "TIME:		" << (t2/(double)tickspersecond) << "s" << endl;
 	cout << endl;
 
 	t1 = (double) cvGetTickCount();
-	CarCV::debugMessage("START loadCarImgList()");
-	list<CarImg> imgList = CarCV::loadCarImgList(strImgList); //load CarImg objects from the list
-	CarCV::debugMessage("END loadCarImgList()");
+	Tools::debugMessage("START loadCarImgList()");
+	list<CarImg> imgList = Tools::loadCarImgList(strImgList); //load CarImg objects from the list
+	Tools::debugMessage("END loadCarImgList()");
 	t2 = (double) cvGetTickCount() - t1;
 	cout << "TIME:		" << (t2/(double)tickspersecond) << "s" << endl;
 	cout << endl;
@@ -472,9 +471,9 @@ void CarCV::run(fs::path &imgListPath, int method, CascadeClassifier &cascade, R
 	list<CarImg> negList;
 
 	t1 = (double) cvGetTickCount();
-	CarCV::debugMessage("START detect_sortPOS_AND_NEG()");
+	Tools::debugMessage("START detect_sortPOS_AND_NEG()");
 	list<CarImg> posCarImgList = CarCV::detect_sortPOS_AND_NEG(imgList, cascade, &negList);//detect and sort objects in images of imgList
-	CarCV::debugMessage("END detect_sortPOS_AND_NEG()");
+	Tools::debugMessage("END detect_sortPOS_AND_NEG()");
 	t2 = (double) cvGetTickCount() - t1;
 	cout << "TIME:		" << (t2/(double)tickspersecond) << "s" << endl;
 	cout << endl;
@@ -512,17 +511,17 @@ void CarCV::run(fs::path &imgListPath, int method, CascadeClassifier &cascade, R
 	//saveing
 
 	t1 = (double) cvGetTickCount();
-	CarCV::debugMessage("START saveCarImgList(pos)");
-	CarCV::saveCarImgList(posCarImgList, posDirPath);
-	CarCV::debugMessage("END saveCarImgList(pos)");
+	Tools::debugMessage("START saveCarImgList(pos)");
+	Tools::saveCarImgList(posCarImgList, posDirPath);
+	Tools::debugMessage("END saveCarImgList(pos)");
 	t2 = (double) cvGetTickCount() - t1;
 	cout << "TIME:		" << (t2/(double)tickspersecond) << "s" << endl;
 	cout << endl;
 
 	t1 = (double) cvGetTickCount();
-	CarCV::debugMessage("START saveCarImgList(neg)");
-	CarCV::saveCarImgList(negList, negDirPath);
-	CarCV::debugMessage("END saveCarImgList(neg)");
+	Tools::debugMessage("START saveCarImgList(neg)");
+	Tools::saveCarImgList(negList, negDirPath);
+	Tools::debugMessage("END saveCarImgList(neg)");
 	t2 = (double) cvGetTickCount() - t1;
 	cout << "TIME:		" << (t2/(double)tickspersecond) << "s" << endl;
 	cout << endl;
@@ -530,9 +529,9 @@ void CarCV::run(fs::path &imgListPath, int method, CascadeClassifier &cascade, R
 	//tested up to here
 
 	t1 = (double) cvGetTickCount();
-	CarCV::debugMessage("START sortUnique(pos)");
+	Tools::debugMessage("START sortUnique(pos)");
 	list<list<CarImg> > cars = CarCV::sortUnique(posCarImgList, cascade, 0.2);
-	CarCV::debugMessage("END saveUnique(pos)");
+	Tools::debugMessage("END saveUnique(pos)");
 	t2 = (double) cvGetTickCount() - t1;
 	cout << "TIME:		" << (t2/(double)tickspersecond) << "s" << endl;
 	cout << endl;
@@ -559,9 +558,9 @@ void CarCV::run(fs::path &imgListPath, int method, CascadeClassifier &cascade, R
 
 
 	t1 = (double) cvGetTickCount();
-	CarCV::debugMessage("START saveCars()");
-	CarCV::saveCars(cars, carsDir);
-	CarCV::debugMessage("END saveCars()");
+	Tools::debugMessage("START saveCars()");
+	Tools::saveCars(cars, carsDir);
+	Tools::debugMessage("END saveCars()");
 	t2 = (double) cvGetTickCount() - t1;
 	cout << "TIME:		" << (t2/(double)tickspersecond) << "s" << endl;
 	cout << endl;
@@ -573,23 +572,23 @@ void CarCV::run(fs::path &imgListPath, int method, CascadeClassifier &cascade, R
 	list<list<CarImg> > carsInSpeedBox;
 
 	t1 = (double) cvGetTickCount();
-	CarCV::debugMessage("START isInSpeedBox()");
+	Tools::debugMessage("START isInSpeedBox()");
 
 	for (int i = 0; i < carsSize; i++) {
-		carlist = CarCV::atList(&cars, i);
+		carlist = Tools::atList(&cars, i);
 
 		carsInSpeedBox.push_back(CarCV::inSpeedBox(*carlist, cascade, speedBox));
 	}
 
-	CarCV::debugMessage("END isInSpeedBox()");
+	Tools::debugMessage("END isInSpeedBox()");
 	t2 = (double) cvGetTickCount() - t1;
 	cout << "TIME:		" << (t2/(double)tickspersecond) << "s" << endl;
 	cout << endl;
 
 	t1 = (double) cvGetTickCount();
-	CarCV::debugMessage("START saveCarsInside()");
-	CarCV::saveCars(carsInSpeedBox, carsInsideDir);
-	CarCV::debugMessage("END saveCarsInside()");
+	Tools::debugMessage("START saveCarsInside()");
+	Tools::saveCars(carsInSpeedBox, carsInsideDir);
+	Tools::debugMessage("END saveCarsInside()");
 	t2 = (double) cvGetTickCount() - t1;
 	cout << "TIME:		" << (t2/(double)tickspersecond) << "s" << endl;
 	cout << endl;
@@ -619,13 +618,13 @@ void CarCV::run(fs::path &imgListPath, int method, CascadeClassifier &cascade, R
 	double speed;
 
 	t1 = (double) cvGetTickCount();
-	CarCV::debugMessage("START calcSpeed()");
+	Tools::debugMessage("START calcSpeed()");
 	for (int i = 0; i < carsInSpeedBoxSize; i++) {
-		carlist = CarCV::atList(&carsInSpeedBox, i);
+		carlist = Tools::atList(&carsInSpeedBox, i);
 		speed = CarCV::calcSpeed(*carlist, SP_ID_DIFF, 30, 10);
 		cout << "Car" << i << " speed:	" << speed << " km/h" << endl;
 	}
-	CarCV::debugMessage("END calcSpeed()");
+	Tools::debugMessage("END calcSpeed()");
 	t2 = (double) cvGetTickCount() - t1;
 	cout << "TIME:		" << (t2/(double)tickspersecond) << "s" << endl;
 	cout << endl;
@@ -651,19 +650,19 @@ list<CarImg> CarCV::detect_sortPOS_AND_NEG(list<CarImg> &imgList, CascadeClassif
 
 	const int listSize = imgList.size();
 	for (int i = 0; i < listSize; i++) {
-		cImg = CarCV::atList(&imgList, i);
+		cImg = Tools::atList(&imgList, i);
 		cPath = cImg->getPath();
 		cMat = cImg->getImg();
 
 		string result;
-		if (Det::isDetected(cMat, cascade, scale)) {
+		if (Detection::isDetected(cMat, cascade, scale)) {
 			result = "POSITIVE";
 			posList.push_back(*cImg); //maybe .clone()?
 		} else {
 			result = "NEGATIVE";
 			negList->push_back(*cImg); //maybe .clone()?
 		}
-		CarCV::debugMessage("Sorting image:	" + cPath.generic_string() + "--->" + result);
+		Tools::debugMessage("Sorting image:	" + cPath.generic_string() + "--->" + result);
 	}
 
 	posList.sort();
@@ -683,10 +682,10 @@ list<CarImg> CarCV::inSpeedBox(list<CarImg> &carLineList, CascadeClassifier &cas
 
 	for(list<CarImg>::iterator iter = carLineList.begin(); iter != carLineList.end(); iter++) {
 		img = iter->getImg();
-		objects = Det::detect(img, cascade, scale);
+		objects = Detection::detect(img, cascade, scale);
 
 		//todo: expand for multiple cars in one image
-		isIn = Det::isInRect(objects.front(), speedBox);
+		isIn = Detection::isInRect(objects.front(), speedBox);
 
 		if (isIn) {
 			inside.push_back(*iter);
@@ -716,7 +715,7 @@ list<list<CarImg> > CarCV::sortUnique(list<CarImg> &posCarImgList, CascadeClassi
 	for (int i = 0; i < posCarImgListSize; i++) { //iterate over posImgList
 		probability.clear();
 		carProbabilty.clear();
-		const CarImg *sortingCar = CarCV::atList(&posCarImgList, i);
+		const CarImg *sortingCar = Tools::atList(&posCarImgList, i);
 		Mat sortingCarMat = sortingCar->getImg();
 
 		if(cars.size() == i) { //this prevents array index out of bounds and other errors
@@ -737,15 +736,15 @@ list<list<CarImg> > CarCV::sortUnique(list<CarImg> &posCarImgList, CascadeClassi
 
 		for (int j = 0; j < cars.size(); j++) { //iterate over the main list of cars
 			int k;
-			list<CarImg> * curList = CarCV::atList(&cars, j);
+			list<CarImg> * curList = Tools::atList(&cars, j);
 
 			const int carsjSize = curList->size();
 			for (k = 0; k < carsjSize; k++) {
-				const CarImg * curCar = CarCV::atList(curList, k);
+				const CarImg * curCar = Tools::atList(curList, k);
 
 				Mat curCarMat = curCar->getImg();
 
-				const double prob = Det::probability(sortingCarMat, curCarMat, cascade, 85, 90);
+				const double prob = Detection::probability(sortingCarMat, curCarMat, cascade, 85, 90);
 
 				//add the car obj and probability of sorted car being the same as cur object to the map
 				probability.insert(std::pair<CarImg, double>(*curCar, prob));
@@ -754,30 +753,30 @@ list<list<CarImg> > CarCV::sortUnique(list<CarImg> &posCarImgList, CascadeClassi
 
 		const int carsSize = cars.size();
 		for (int l = 0; l < carsSize; l++) {
-			list<CarImg> * lineL = CarCV::atList(&cars, l);
+			list<CarImg> * lineL = Tools::atList(&cars, l);
 			double prob = 0;
 			int m;
 
 			const int carslSize = lineL->size();
 			for (m = 0; m < carslSize; m++) {
-				CarImg * t = CarCV::atList(lineL, m);
+				CarImg * t = Tools::atList(lineL, m);
 
-				prob += (double) *CarCV::atMap(&probability, *t);
+				prob += (double) *Tools::atMap(&probability, *t);
 			}
 			double count = (double) carslSize;
 			prob =  prob / count; //count the average of given images of a unique car
 			carProbabilty.push_back(prob);
 		}
 
-		int carProbId = CarCV::findMaxIndex(carProbabilty); //finds the index with highest probability
-		double maxCarProb = *CarCV::atList(&carProbabilty, carProbId); //and the value
+		int carProbId = Tools::findMaxIndex(carProbabilty); //finds the index with highest probability
+		double maxCarProb = *Tools::atList(&carProbabilty, carProbId); //and the value
 
 		if (maxCarProb>=PROBABILITYCONST) { //if found a decent match
 			//if decent, add to the existing car
-			CarCV::atList(&cars, carProbId)->push_back(*sortingCar);
+			Tools::atList(&cars, carProbId)->push_back(*sortingCar);
 			ostringstream oss;
 			oss << i << ">=Push to: Car" << carProbId << "	with prob=" << maxCarProb << ":	" << sortingCar->toString();
-			CarCV::debugMessage(oss.str());
+			Tools::debugMessage(oss.str());
 		}
 		else {
 			//if not decent enough, add it as a new car
@@ -786,7 +785,7 @@ list<list<CarImg> > CarCV::sortUnique(list<CarImg> &posCarImgList, CascadeClassi
 			cars.push_back(newLine);
 			ostringstream oss;
 			oss << i << ">=Push to: Car" << cars.size()-1 << "	with prob=" << maxCarProb << ":	" << sortingCar->toString();
-			CarCV::debugMessage(oss.str());
+			Tools::debugMessage(oss.str());
 		}
 
 	}

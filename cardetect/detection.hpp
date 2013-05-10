@@ -22,7 +22,7 @@ using namespace cv;
 /*
  * Detection class Det
  */
-class Det {
+class Detection {
 public:
 	static void help();
 	int run(int argc, const char** argv);
