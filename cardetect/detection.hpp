@@ -8,14 +8,6 @@
  */
 
 #include "opencv2/objdetect/objdetect.hpp"
-#include "opencv2/highgui/highgui.hpp"
-#include "opencv2/imgproc/imgproc.hpp"
-
-#include <boost/filesystem.hpp>
-
-#include <iostream>
-#include <iterator>
-#include <stdio.h>
 
 using namespace cv;
 

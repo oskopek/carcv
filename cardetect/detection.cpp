@@ -11,6 +11,15 @@
 #include "match.hpp"
 #include "tools.hpp"
 
+#include <iostream>
+#include <iterator>
+#include <stdio.h>
+
+#include <boost/filesystem.hpp>
+
+#include "opencv2/highgui/highgui.hpp"
+#include "opencv2/imgproc/imgproc.hpp"
+
 #include <cmath>
 
 #define RESET_COLOR "\e[m"

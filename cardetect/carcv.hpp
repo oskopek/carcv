@@ -6,8 +6,6 @@
  *
  * All rights reserved.
  */
-
-#include "tools.hpp"
 #include "fileio.hpp"
 
 #include "opencv2/objdetect/objdetect.hpp"
@@ -32,13 +30,7 @@ enum speed_method {SP_ID_DIFF = 1, SP_SUM = 2};
 class CarCV {
 public:
 
-	static void help();
-
-	static void run(fs::path &imgListPath, int method, CascadeClassifier &cascade, Rect speedBox);
-
-	static int starter(int argc, char** argv);
-
-	static list<CarImg> detect_sortPOS_AND_NEG(list<CarImg> &imgList, CascadeClassifier &cascade, list<CarImg> *negList);
+	static list<CarImg> detect_sortPOS_AND_NEG(list<CarImg> &imgList, CascadeClassifier &cascade, list<CarImg> *negList, const double scale);
 
 	//static list<string> sortPOS_AND_NEG(list<string> &imgList, CascadeClassifier &cascade, list<CarImg> *negList); //unimplemented, joined with detect()
 
@@ -47,7 +39,7 @@ public:
 	 */
 	static list<list<CarImg> > sortUnique(list<CarImg> &posCarImgList, CascadeClassifier &cascade, const double PROBABILITYCONST);
 
-	static list<CarImg> inSpeedBox(list<CarImg> &carLineList, CascadeClassifier &cascade, Rect &speedBox);
+	static list<CarImg> inSpeedBox(list<CarImg> &carLineList, CascadeClassifier &cascade, Rect &speedBox, const double scale);
 
 	static double calcSpeed(list<CarImg> clist, int speed_method, double framerate, double real_measuring_length);
 
