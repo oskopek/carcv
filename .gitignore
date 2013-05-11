@@ -2,5 +2,6 @@ build/*
 test/all/
 test/output
 test/test*
+test/current.xml
 eclipse_proj_copy/CarProject/Debug/
 *~
