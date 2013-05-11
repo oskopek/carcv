@@ -3,120 +3,117 @@
 
 #include <opencv2/core/core.hpp>
 
-#define DEBSTR "DEBUG:	"
-#define ERRSTR "ERROR:	"
-
-
 using namespace std;
 using namespace cv;
+
 namespace fs = boost::filesystem;
 
+
 /*
- * IMPORTANT: If method uses templates, has to be
+ * This class contains some static methods that are occasionally used.
+ *
+ * IMPORTANT: If a method uses templates,
+ * the implementation of it has to be in the same physical file as the declaration.
  */
 class Tools {
 public:
-	static list<string> parseList(fs::path &list);
-
-	static int findMaxIndex(list<double> &mlist);
 
 	/*
-	 * Length of plist
-	 * Useless: use plist.size()
+	 * Parses the input file into a list<string>
+	 * Used for converting a file full of image filenames into a list of image filenames,
+	 * to be later loaded, etc..
 	 */
-	template <class P>
-	static int listSize(list<P> &plist) {
-		typename list<P>::iterator plistI = plist.begin();
-			int i;
+	static list<string> parseList(fs::path &l);
 
-			for (i = 0; plistI != plist.end();i++) {
-				plistI++;
-			}
-			return i;
-	};
+
+	/*
+	 * Returns the index of the biggest double in list
+	 * If two doubles are equal, returns the index of the first one
+	 */
+	static int findMaxIndex(list<double> &l);
+
 
 	/*
 	 * Map item at index
-	 * If index is not found in map, returns &(*tmap.end()).second
+	 * If index is not found in map, returns &(*m.end()).second
 	 */
 	template <class K, class V>
-	static V * atMap(map<K, V> *tmap, K &index) {
+	static V * atMap(map<K, V> *m, K &index) {
 
-		typename map<K, V>::iterator tmapI = tmap->begin();
-		typename map<K, V>::iterator searching = tmap->find(index);
+		typename map<K, V>::iterator mapI = m->begin();
+		typename map<K, V>::iterator searching = m->find(index);
 
 
-		for (int i = 0; tmapI != tmap->end();i++) {
-			if (tmapI == searching) {
-				return &(*tmapI).second;
+		for (int i = 0; mapI != m->end();i++) {
+			if (mapI == searching) {
+				return &(*mapI).second;
 			}
-			tmapI++;
+			mapI++;
 		}
-		return &(*tmap->end()).second;
+		return &(*m->end()).second;
 	};
 
 
 	/*
 	 * List item at index
-	 * If index is out of bounds, should return *tlist.end(), but returns rather unexpected results
+	 * If index is out of bounds, should return *l.end(), but returns rather unexpected results
 	 */
 	template <class T>
-	static T * atList(list<T> *tlist, int &index) {
+	static T * atList(list<T> *l, int &index) {
 
-		typename list<T>::iterator tlistI = tlist->begin();
+		typename list<T>::iterator listI = l->begin();
 
-		for (int i = 0; tlistI != tlist->end();i++) {
+		for (int i = 0; listI != l->end();i++) {
 			if (i == index) {
-				return &(*tlistI);
+				return &(*listI);
 			}
-			tlistI++;
+			listI++;
 		}
-		return &(*tlist->end());//*--tlistI; was used for returning the last element anyway
+		return &(*l->end());//*--listI; was used for returning the last element anyway
 	};
+
 
 	/*
-	 * Size of pmap
-	 * Useless, use pmap.size()
+	 * Crops the string to specified length (removes extra trailing characters)
 	 */
-	template <class K, class V>
-	static int mapSize(map<K, V> &pmap) {
-		typename map<K, V>::iterator pmapI = pmap.begin();
-			int i;
-
-			for (i = 0; pmapI != pmap.end();i++) {
-				pmapI++;
-			}
-			return i;
-	};
-
-	static void test(int argc, char** argv);
-
 	static string shorten(string s, int length);
 
+
+	/*
+	 * Replaces object with it's replacement in the list at index
+	 */
 	template <class T>
-	static list<T> replaceObj(list<T> list, T replaceObj, T withObj, int index) {
-		typename std::list<T> replaced = list;
-			typename std::list<T>::iterator lineIte = replaced.begin();
+	static list<T> replaceObj(list<T> l, T replaceObj, T withObj, int index) {
+		typename std::list<T> replaced = l;
+		typename std::list<T>::iterator lineIterator = replaced.begin();
 
-			for (int i = 0; i != index; i++) {
-				lineIte++;
-			}
+		for (int i = 0; i != index; i++) {
+			lineIterator++;
+		}
 
-			const int lineSize = replaced.size();
-			if (lineSize > 1) {
-				typename std::list<T>::iterator bIt = lineIte;
-				typename std::list<T>::iterator eIt = lineIte;
-				bIt--;
-				eIt++;
-				replace(bIt, eIt, replaceObj, withObj);
-			}
-			else {
-				replace(list.begin(), list.end(), replaceObj, withObj);
-			}
-			return replaced;
+		const int lineSize = replaced.size();
+		if (lineSize > 1) {
+			typename std::list<T>::iterator bIterator = lineIterator;
+			typename std::list<T>::iterator eIterator = lineIterator;
+			bIterator--;
+			eIterator++;
+			replace(bIterator, eIterator, replaceObj, withObj);
+		}
+		else {
+			replace(l.begin(), l.end(), replaceObj, withObj);
+		}
+		return replaced;
 	};
 
+
+	/*
+	 * Prints the given message with a debug prefix to cout
+	 */
 	static void debugMessage(string message);
 
+
+	/*
+	 * Prints the given message with an error prefix to cout
+	 */
 	static void errorMessage(string message);
 };
