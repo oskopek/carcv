@@ -1,4 +1,3 @@
-#include <boost/lexical_cast.hpp>
 #include <boost/filesystem.hpp>
 
 #include <opencv2/core/core.hpp>

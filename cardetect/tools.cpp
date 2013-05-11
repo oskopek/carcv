@@ -1,5 +1,7 @@
 #include "tools.hpp"
 
+#include <stdio.h>
+
 #define DEBSTR "DEBUG:	"
 #define ERRSTR "ERROR:	"
 
@@ -100,7 +102,7 @@ void Tools::errorMessage(string message) {
 	}
 	timestamp = timestampC;
 
-	cout << "[" << timestamp << "]" << prefix << message << endl;
+	cerr << "[" << timestamp << "]" << prefix << message << endl;
 }
 
 
