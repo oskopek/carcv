@@ -1,124 +1,9 @@
 #include "tools.hpp"
 
 using namespace std;
-using namespace cv;
-
 namespace fs = boost::filesystem;
 
-/*
- * Save CarImg objects to carDir (USE FOR UNIQUE CARS)
- */
-void Tools::saveCarImgList(list<CarImg> carList) { //tested, works
-	for(list<CarImg>::iterator i = carList.begin(); i != carList.end(); i++) {
-		(*i).save();
-		cout << "Saving: " << i->toString() << endl;
-	}
 
-}
-
-/*
- * Save CarImg objects to carDir (USE FOR UNIQUE CARS)
- */
-void Tools::saveCarImgList(list<CarImg> carList, fs::path carListDir) { //tested, works
-	carListDir = fs::absolute(carListDir);
-	if (!fs::exists(carListDir) || !fs::is_directory(carListDir)) { //if not exists, create it
-		fs::create_directory(carListDir);
-	}
-
-	CarImg c;
-	fs::path thisPath;
-	string thisFilename;
-	for(list<CarImg>::iterator i = carList.begin(); i != carList.end(); i++) {
-		thisFilename = (*i).getPath().filename().generic_string();
-
-		thisPath = carListDir/thisFilename;
-
-		c = *i;
-		c.setPath(thisPath);
-
-		c.save();
-	}
-
-}
-
-/**
- * Save list<list<CarImg> > objects to carsDir
- */
-void Tools::saveCars(list<list<CarImg> > cars, fs::path carsDir) { //tested, should work
-	carsDir = fs::absolute(carsDir);
-	if (!fs::exists(carsDir) || !fs::is_directory(carsDir)) { //if not exists, create it
-		fs::create_directory(carsDir);
-	}
-
-	fs::path::iterator iterate;
-	fs::path temp;
-	list<CarImg> *line;
-
-	//this gets the "car" prefix from the name of carsDir, "cars"
-	iterate = carsDir.end();
-	iterate--;
-	string cDirName = (*iterate).generic_string();
-	string linePrefix = Tools::shorten(cDirName, cDirName.size()-1);
-
-	string number;
-
-	int carsSize = cars.size();
-	for (int i = 0; i < carsSize; i++) {
-		line = Tools::atList(&cars, i);
-
-		if (i < 10) {
-			number = "000"+boost::lexical_cast<string>(i);
-		} else if (i < 100) {
-			number = "00"+boost::lexical_cast<string>(i);
-		} else if (i < 1000) {
-			number = "0"+boost::lexical_cast<string>(i);
-		} else {
-			number = boost::lexical_cast<string>(i);
-		}
-
-		temp = fs::path(cDirName+"/"+linePrefix+number);
-		temp = fs::absolute(temp);
-
-		if (!fs::exists(temp) || !fs::is_directory(temp)) { //if not exists, create it
-			fs::create_directory(temp);
-		}
-
-
-		if (line->size()<=1) { //this catches onesize lists, and replaces them the right way
-			string thisFilename = line->front().getPath().filename().generic_string();
-
-			fs::path thisPath = temp/thisFilename;
-
-			CarImg backupImg = line->front();
-			CarImg c = backupImg;
-			c.setPath(thisPath);
-
-			replace(line->begin(), line->end(), backupImg, c);
-		} else {
-			int j = 0;
-			for (list<CarImg>::iterator lineIt=line->begin(); lineIt != line->end(); lineIt++) {
-				string thisFilename = lineIt->getPath().filename().generic_string();
-
-				fs::path thisPath = temp/thisFilename;
-
-				CarImg backupImg = *lineIt;
-				CarImg c = backupImg;
-				c.setPath(thisPath);
-
-				*line = Tools::replaceObj(*line, backupImg, c, j); //replaces line with replaced line
-				j++;
-			}
-		}
-
-		Tools::saveCarImgList(*line);
-		ostringstream oss;
-		oss << "SaveCarImgList	" << "Line: " << i << ";Size=" << line->size();
-		Tools::debugMessage(oss.str());
-		Tools::debugMessage("Car at 0:		" + line->front().toString());
-	}
-
-
-}
 
 /*
  * int length = length of return shortened sstring
@@ -141,82 +26,7 @@ string Tools::shorten(string s, int length) {
 
 
 
-/*
- * Load/parse list<CarImg> objects from carsDir
- * WARNING: _DON'T_ expect folder car0 to be have index 0, car1 index 1, etc..
- */
-list<list<CarImg> > Tools::loadCars(fs::path carsDir) { //tested, should work, nema rovnake poradie! fix?
-	list<list<CarImg> > carsList;
 
-	fs::directory_iterator dIt(carsDir);
-	fs::directory_iterator dEnd;
-
-	fs::path currentPath;
-	while(dIt != dEnd) {
-		currentPath = fs::absolute((*dIt));
-
-		list<CarImg> line = Tools::loadCarImgList(currentPath);
-		line.sort();
-
-		carsList.push_front(line);
-
-		dIt++;
-	}
-
-	carsList.sort();
-	return carsList;
-}
-
-/*
- * Load/parse CarImg objects from carDir
- * Beware of 'boost::filesystem3::filesystem_error':'No such (file) or directory' for parameter carDir
- */
-list<CarImg> Tools::loadCarImgList(fs::path carDir) { //tested, works
-	list<CarImg> carImgList;
-	fs::directory_iterator dIt(carDir);
-	fs::directory_iterator dEnd;
-
-	fs::path currentPath;
-	while(dIt != dEnd) {
-		currentPath = fs::absolute((*dIt));
-
-		CarImg c;
-		c.setPath(currentPath);
-		c.load();
-
-		carImgList.push_back(c);
-
-		dIt++;
-	}
-
-	carImgList.sort();
-	return carImgList;
-}
-
-/*
- * Load/parse CarImg objects from carDir
- * Beware of 'boost::filesystem3::filesystem_error':'No such file or (directory)' for parameter carList or any of its contents
- */
-list<CarImg> Tools::loadCarImgList(list<string> carList) { //tested, works
-	list<CarImg> carImgList;
-	list<string>::iterator it = carList.begin();
-
-	fs::path currentPath;
-	while(it != carList.end()) {
-		currentPath = fs::absolute((*it));
-
-		CarImg c;
-		c.setPath(currentPath);
-		c.load();
-
-		carImgList.push_back(c);
-
-		it++;
-	}
-
-	carImgList.sort();
-	return carImgList;
-}
 
 /*
  * Parses the input file plist into a list<string>
@@ -241,46 +51,15 @@ list<string> Tools::parseList(fs::path &plist) { //tested, should work
 	return retlist;
 }
 
-/*
- * List item at index
- * If index is out of bounds, should return *tlist.end(), but returns rather unexpected results
- */
-template <class T>
-T * Tools::atList(list<T> *tlist, int index) { //
-
-	typename list<T>::iterator tlistI = tlist->begin();
-
-	for (int i = 0; tlistI != tlist->end();i++) {
-		if (i == index) {
-			return &(*tlistI);
-		}
-		tlistI++;
-	}
-	return &(*tlist->end());//*--tlistI; was used for returning the last element anyway
-}
-
-/*
- * Length of plist
- * Useless: use plist.size()
- */
-template <class P>
-int Tools::listSize(list<P> &plist) { //useless, use plist.size()
-	typename list<P>::iterator plistI = plist.begin();
-	int i;
-
-	for (i = 0; plistI != plist.end();i++) {
-		plistI++;
-	}
-	return i;
-}
 
 
 /*
  * Map item at index
- * If index is not found in map, returns (*tmap.end()).second
+ * If index is not found in map, returns &(*tmap.end()).second
  */
+/*
 template <class K, class V>
-V * Tools::atMap(map<K, V> *tmap, K index) { //tested, works
+V * Tools::atMap(map<K, V> *tmap, K &index) { //tested, works
 
 	typename map<K, V>::iterator tmapI = tmap->begin();
 	typename map<K, V>::iterator searching = tmap->find(index);
@@ -293,14 +72,50 @@ V * Tools::atMap(map<K, V> *tmap, K index) { //tested, works
 		tmapI++;
 	}
 	return &(*tmap->end()).second;
-}
+}*/
+
+/*
+ * List item at index
+ * If index is out of bounds, should return *tlist.end(), but returns rather unexpected results
+ */
+/*
+template <class T>
+T * Tools::atList(list<T> *tlist, int &index) { //
+
+	typename list<T>::iterator tlistI = tlist->begin();
+
+	for (int i = 0; tlistI != tlist->end();i++) {
+		if (i == index) {
+			return &(*tlistI);
+		}
+		tlistI++;
+	}
+	return &(*tlist->end());//*--tlistI; was used for returning the last element anyway
+}*/
+
+
+/*
+ * Length of plist
+ * Useless: use plist.size()
+ */
+/*template <class P>
+int Tools::listSize(list<P> &plist) { //useless, use plist.size()
+	typename list<P>::iterator plistI = plist.begin();
+	int i;
+
+	for (i = 0; plistI != plist.end();i++) {
+		plistI++;
+	}
+	return i;
+}*/
+
 
 /*
  * Size of pmap
  * Useless, use pmap.size()
  */
-template <class K, class V>
-int Tools::mapSize(map<K, V> &pmap) { //useless, use pmap.size()
+/*template <class K, class V>
+int Tools::mapSize(map<K, V> &pmap) {
 	typename map<K, V>::iterator pmapI = pmap.begin();
 	int i;
 
@@ -308,9 +123,9 @@ int Tools::mapSize(map<K, V> &pmap) { //useless, use pmap.size()
 		pmapI++;
 	}
 	return i;
-}
+}*/
 
-template <class T>
+/*
 list<T> Tools::replaceObj(list<T> list, T replaceObj, T withObj, int index) {
 	typename std::list<T> replaced = list;
 	typename std::list<T>::iterator lineIte = replaced.begin();
@@ -331,7 +146,7 @@ list<T> Tools::replaceObj(list<T> list, T replaceObj, T withObj, int index) {
 		replace(list.begin(), list.end(), replaceObj, withObj);
 	}
 	return replaced;
-}
+}*/
 
 /*void grabKVparams(char **argv) { //just for testing reference, erase later
 	for (int i = 1; i <= 5; i++) {

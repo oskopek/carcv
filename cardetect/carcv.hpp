@@ -8,6 +8,7 @@
  */
 
 #include "tools.hpp"
+#include "fileio.hpp"
 
 #include "opencv2/objdetect/objdetect.hpp"
 
