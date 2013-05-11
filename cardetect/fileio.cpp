@@ -1,6 +1,8 @@
 #include "fileio.hpp"
 #include "tools.hpp"
 
+#include <boost/lexical_cast.hpp>
+
 using namespace std;
 using namespace cv;
 

@@ -4,6 +4,8 @@
 #include "opencv2/objdetect/objdetect.hpp"
 #include "opencv2/highgui/highgui.hpp"
 
+#include <boost/lexical_cast.hpp>
+
 using namespace std;
 using namespace cv;
 
@@ -18,20 +20,20 @@ void help()
 			"Usage:\n"
 			"./carcv [--cascade=<cascade_path> this is the primary trained classifier such as cars]\n"
 			//"   [--nested-cascade[=nested_cascade_path this an optional secondary classifier such as headlights]]\n"
-			"   [--scale=<image scale greater or equal to 1, try 1.3 for example> DO NOT EDIT, KEEP scale=1!]\n"
+			"	[--scale=<image scale greater or equal to 1, try 1.3 for example> DO NOT EDIT, KEEP scale=1!]\n"
 			//"   [--try-flip]\n"
-			"   [--method=<DETECTSORT+SORTUNIQUE+INSIDE+SPEED+> choose one or any combination, with +]\n"
-			"   [--speedbox=<x+y+width+height+> of Speed Box Rectangle (needed for method INSIDE)]\n"
+			"   	[--method=<DETECTSORT+SORTUNIQUE+INSIDE+SPEED+> choose one or any combination, with +]\n"
+			"   	[--speedbox=<x+y+width+height+> of Speed Box Rectangle (needed for method INSIDE)]\n"
 			"	[--list=<list_path> path to list of images for given method(s)]\n"
-			"   [--posdir=<pos_dir> path where to put positive images]\n"
-			"   [--negdir=<neg_dir> path where to put negative images]\n"
-			"   [--cardir=<car_dir> path where to put unique car images]\n"
-			"   [--insidedir=<inside_dir> path where to put car images which are inside the SpeedBox]\n"
-			"   \n\n"
-			"example call:\n"
+			"   	[--posdir=<pos_dir> path where to put positive images]\n"
+			"   	[--negdir=<neg_dir> path where to put negative images]\n"
+			"   	[--cardir=<car_dir> path where to put unique car images]\n"
+			"   	[--insidedir=<inside_dir> path where to put car images which are inside the SpeedBox]\n"
+			"\n\n"
+			"Example call:\n"
 			"./carcv --cascade=\"haarcascade_cars.xml\" --scale=1 --list=list.txt --method=DETECTSORT+SORTUNIQUE\n\n"
-			/*"During execution:\n\tHit any key to quit.\n"
-    "\tUsing OpenCV version " << CV_VERSION << "\n"*/ << endl;
+			"During execution:\n\tHit any key to quit.\n"
+    "\tUsing OpenCV version " << CV_VERSION << "\n" << endl;
 }
 
 string cascadeName = "/home/odenkos/soc/car_project/test/current.xml";
@@ -181,9 +183,16 @@ int starter(int argc, char** argv) {
 
 	if( !cascade.load( cascadeName ) )
 	{
-		cerr << "ERROR: Could not load classifier cascade" << endl;
-		help();
-		return -1;
+		Tools::errorMessage("Could not load classifier cascade at path: " + boost::lexical_cast<string>(cascadePath));
+		return 1;
+	}
+	else if(!fs::exists(listPath)) {
+		Tools::errorMessage("List at path: "+ boost::lexical_cast<string>(listPath) + " doesn't exist");
+		return 1;
+	}
+	else if(!fs::is_regular_file(listPath)) {
+		Tools::errorMessage("List at path: " + boost::lexical_cast<string>(listPath) + " isn't a valid file");
+		return 1;
 	}
 
 	cout << endl << endl << endl;
