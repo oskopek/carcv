@@ -9,9 +9,9 @@ using namespace cv;
 namespace fs = boost::filesystem;
 
 /*
- * Save CarImg objects to carDir (USE FOR UNIQUE CARS)
+ * Save CarImg objects to the place their path (USE FOR UNIQUE CARS)
  */
-void FileIO::saveCarImgList(list<CarImg> carList) { //tested, works
+void FileIO::saveCarImgList(list<CarImg> carList) {
 	for(list<CarImg>::iterator i = carList.begin(); i != carList.end(); i++) {
 		(*i).save();
 		cout << "Saving: " << i->toString() << endl;
@@ -22,7 +22,7 @@ void FileIO::saveCarImgList(list<CarImg> carList) { //tested, works
 /*
  * Save CarImg objects to carDir (USE FOR UNIQUE CARS)
  */
-void FileIO::saveCarImgList(list<CarImg> carList, fs::path carListDir) { //tested, works
+void FileIO::saveCarImgList(list<CarImg> carList, fs::path carListDir) {
 	carListDir = fs::absolute(carListDir);
 	if (!fs::exists(carListDir) || !fs::is_directory(carListDir)) { //if not exists, create it
 		fs::create_directory(carListDir);
@@ -44,10 +44,10 @@ void FileIO::saveCarImgList(list<CarImg> carList, fs::path carListDir) { //teste
 
 }
 
-/**
+/*
  * Save list<list<CarImg> > objects to carsDir
  */
-void FileIO::saveCars(list<list<CarImg> > cars, fs::path carsDir) { //tested, should work
+void FileIO::saveCars(list<list<CarImg> > cars, fs::path carsDir) {
 	carsDir = fs::absolute(carsDir);
 	if (!fs::exists(carsDir) || !fs::is_directory(carsDir)) { //if not exists, create it
 		fs::create_directory(carsDir);
@@ -125,9 +125,18 @@ void FileIO::saveCars(list<list<CarImg> > cars, fs::path carsDir) { //tested, sh
 
 /*
  * Load/parse list<CarImg> objects from carsDir
- * WARNING: _DON'T_ expect folder car0 to be have index 0, car1 index 1, etc..
+ * TODO: FIX: WARNING: _DON'T_ expect folder car0 to be have index 0, car1 index 1, etc..
  */
-list<list<CarImg> > FileIO::loadCars(fs::path carsDir) { //tested, should work, nema rovnake poradie! fix?
+list<list<CarImg> > FileIO::loadCars(fs::path carsDir) {
+	if(!fs::exists(carsDir)) {
+			Tools::errorMessage("Directory at path: "+ boost::lexical_cast<string>(carsDir) + " doesn't exist");
+			return list<list<CarImg> >();
+		}
+		else if(!fs::is_directory(carsDir)) {
+			Tools::errorMessage("There is no directory at path: " + boost::lexical_cast<string>(carsDir));
+			return list<list<CarImg> >();
+		}
+
 	list<list<CarImg> > carsList;
 
 	fs::directory_iterator dIt(carsDir);
@@ -151,9 +160,17 @@ list<list<CarImg> > FileIO::loadCars(fs::path carsDir) { //tested, should work, 
 
 /*
  * Load/parse CarImg objects from carDir
- * Beware of 'boost::filesystem3::filesystem_error':'No such (file) or directory' for parameter carDir
  */
-list<CarImg> FileIO::loadCarImgList(fs::path carDir) { //tested, works
+list<CarImg> FileIO::loadCarImgList(fs::path carDir) {
+	if(!fs::exists(carDir)) {
+		Tools::errorMessage("Directory at path: "+ boost::lexical_cast<string>(carDir) + " doesn't exist");
+		return list<CarImg>();
+	}
+	else if(!fs::is_directory(carDir)) {
+		Tools::errorMessage("There is no directory at path: " + boost::lexical_cast<string>(carDir));
+		return list<CarImg>();
+	}
+
 	list<CarImg> carImgList;
 	fs::directory_iterator dIt(carDir);
 	fs::directory_iterator dEnd;
@@ -176,10 +193,9 @@ list<CarImg> FileIO::loadCarImgList(fs::path carDir) { //tested, works
 }
 
 /*
- * Load/parse CarImg objects from carDir
- * Beware of 'boost::filesystem3::filesystem_error':'No such file or (directory)' for parameter carList or any of its contents
+ * Load/parse CarImg objects from paths in carList
  */
-list<CarImg> FileIO::loadCarImgList(list<string> carList) { //tested, works
+list<CarImg> FileIO::loadCarImgList(list<string> carList) {
 	list<CarImg> carImgList;
 	list<string>::iterator it = carList.begin();
 
@@ -187,12 +203,20 @@ list<CarImg> FileIO::loadCarImgList(list<string> carList) { //tested, works
 	while(it != carList.end()) {
 		currentPath = fs::absolute((*it));
 
+		if(!fs::exists(currentPath)) {
+			Tools::errorMessage("CarImg at path: "+ boost::lexical_cast<string>(currentPath) + " doesn't exist - skipping");
+		}
+		else if(!fs::is_regular_file(currentPath)) {
+			Tools::errorMessage("CarImg at path: " + boost::lexical_cast<string>(currentPath) + " isn't a valid file - skipping");
+		}
+		else {
+
 		CarImg c;
 		c.setPath(currentPath);
 		c.load();
 
 		carImgList.push_back(c);
-
+		}
 		it++;
 	}
 
