@@ -39,7 +39,7 @@ void help()
 string cascadeName = "/home/odenkos/soc/car_project/test/current.xml";
 fs::path cascadePath = fs::absolute(cascadeName);
 
-string listName = "./list.txt";
+string listName = "list.txt";
 fs::path listPath = fs::absolute(listName);
 
 string methodName = "DETECTSORT";
@@ -613,23 +613,6 @@ void run(fs::path &imgListPath, int method, CascadeClassifier &cascade, Rect spe
 }
 
 int main(int argc, char** argv) {
-	/*cout << "arg1: path of list" << endl;
-	cout << "arg2: cascade.xml path" << endl;
-	cout << "arg3-6: x, y, width, height" << endl;
 
-	double rX = atof(argv[3]);
-	double rY = atof(argv[4]);
-	double rWidth = atof(argv[5]);
-	double rHeight = atof(argv[6]);
-
-	Rect speedBox(rX, rY, rWidth, rHeight);
-
-	CascadeClassifier cascade;
-	cascade.load(argv[2]);
-
-	fs::path listPath(argv[1]);*/
-
-	//run(listPath, CCV_HAAR_SURF, cascade, speedBox);
-	//test(argc, argv);
 	return starter(argc, argv);
 }
