@@ -22,8 +22,8 @@ list<CarImg> CarCV::detect_sortPOS_AND_NEG(list<CarImg> &imgList, CascadeClassif
 	list<CarImg> posList;
 
 	fs::path cPath = (*imgList.begin()).getPath();
-	Mat cMat;
-	CarImg *cImg;
+	Mat * cMat;
+	CarImg * cImg;
 
 	string s = "me";
 
@@ -32,6 +32,8 @@ list<CarImg> CarCV::detect_sortPOS_AND_NEG(list<CarImg> &imgList, CascadeClassif
 		cImg = Tools::atList(&imgList, i);
 		cPath = cImg->getPath();
 		cMat = cImg->getImg();
+
+		Tools::debugMessage("Ping0");
 
 		string result;
 		if (Detection::isDetected(cMat, cascade, scale)) {
@@ -56,7 +58,7 @@ list<CarImg> CarCV::detect_sortPOS_AND_NEG(list<CarImg> &imgList, CascadeClassif
 list<CarImg> CarCV::inSpeedBox(list<CarImg> &carLineList, CascadeClassifier &cascade, Rect &speedBox, const double scale) {
 	list<CarImg> inside;
 	vector<Rect> objects;
-	Mat img;
+	Mat * img;
 	bool isIn;
 
 	for(list<CarImg>::iterator iter = carLineList.begin(); iter != carLineList.end(); iter++) {
@@ -88,14 +90,14 @@ list<list<CarImg> > CarCV::sortUnique(list<CarImg> &posCarImgList, CascadeClassi
 	list<list<CarImg> > cars; //sorted list
 
 	list<double> carProbabilty; //result probabilities for every potential unique car
-	CarImg tempCar;
+	CarImg * tempCar;
 
 	const int posCarImgListSize = posCarImgList.size();
 	for (int i = 0; i < posCarImgListSize; i++) { //iterate over posImgList
 		probability.clear();
 		carProbabilty.clear();
 		const CarImg *sortingCar = Tools::atList(&posCarImgList, i);
-		Mat sortingCarMat = sortingCar->getImg();
+		Mat * sortingCarMat = sortingCar->getImg();
 
 		if(cars.size() == i) { //this prevents array index out of bounds and other errors
 			list<CarImg> nullLine;
@@ -121,7 +123,7 @@ list<list<CarImg> > CarCV::sortUnique(list<CarImg> &posCarImgList, CascadeClassi
 			for (k = 0; k < carsjSize; k++) {
 				const CarImg * curCar = Tools::atList(curList, k);
 
-				Mat curCarMat = curCar->getImg();
+				Mat * curCarMat = curCar->getImg();
 
 				const double prob = Detection::probability(sortingCarMat, curCarMat, cascade, 85, 90);
 

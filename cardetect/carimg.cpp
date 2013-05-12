@@ -11,10 +11,16 @@
 
 #include "opencv2/highgui/highgui.hpp"
 
-CarImg::CarImg(fs::path &path, Mat &img)
+CarImg::CarImg(fs::path &path, Mat *img)
 {
-	this->path = path;
-	this->img = img;
+	this->setPath(path);
+	this->setImg(img);
+}
+
+CarImg::CarImg(fs::path &path) {
+	this->setPath(path);
+
+	this->load();
 }
 
 CarImg::CarImg() {
@@ -26,17 +32,17 @@ fs::path CarImg::getPath() const
 	return path;
 }
 
-void CarImg::setPath(fs::path newPath)
+void CarImg::setPath(fs::path &path)
 {
-	path = newPath;
+	this->path = path;
 }
 
-void CarImg::setImg(Mat &img)
+void CarImg::setImg(Mat *img)
 {
 	this->img = img;
 }
 
-Mat CarImg::getImg() const
+Mat * CarImg::getImg() const
 {
 	return img;
 }
@@ -78,37 +84,37 @@ long CarImg::hashCode() const
 }
 
 /*
- * It is saved to disk at path this.getPath()
+ * It is saved to disk at path this->getPath()
  * Move this to CarImg
  */
 void CarImg::save() {
-	fs::path p = this->getPath();
-	Mat img = this->getImg();
+	fs::path path = this->getPath();
+	Mat * img = this->getImg();
 
-	imwrite(p.generic_string(), img);
+	imwrite(path.generic_string(), *img);
 }
 
 void CarImg::load() {
-	fs::path p = this->getPath();
+	fs::path * path = &(this->path);
 
-	Mat img = imread(p.generic_string());
+	Mat img = imread(path->generic_string());
 
-	this->setImg(img);
+	this->setImg(&img);
 }
 
 string CarImg::toString() const {
 	string path = this->getPath().generic_string();
-	int rows = this->getImg().rows;
-	int cols = this->getImg().cols;
-	ostringstream oss;
+	int rows = this->getImg()->rows;
+	int cols = this->getImg()->cols;
 
+	ostringstream oss;
 	oss << "CarImg[path=" << path << ", img=" << rows << "x" << cols << "]";
 
 	return oss.str();
 }
 
 /*
- * Returns id in filename of CarImg
+ * Returns the id contained in the filename of CarImg path
  */
 int CarImg::parseId() const {
 	string thisFilename = getPath().filename().generic_string();

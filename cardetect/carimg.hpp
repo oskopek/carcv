@@ -16,11 +16,14 @@ namespace fs = boost::filesystem;
 
 class CarImg {
 public:
-	CarImg(fs::path &path, Mat &img);
+	CarImg(fs::path &path, Mat *img);
+	CarImg(fs::path &path);
+
+
 	fs::path getPath() const;
-	void setPath(fs::path path);
-	void setImg(Mat &img);
-	Mat getImg() const;
+	void setPath(fs::path &path);
+	void setImg(Mat *img);
+	Mat * getImg() const;
 
 	bool operator<(const CarImg &car) const;
 	bool operator==(const CarImg &car) const;
@@ -34,16 +37,12 @@ public:
 
 	int parseId() const;
 
-
-	//todo override operator< and operator=
-
-	/*
-	static CarImg load(fs::path &fromPath);
-	static CarImg load(string &filename);
-	 */
+	CarImg load(fs::path &path);
+	CarImg load(string &filename);
 
 	//temp outcommented, cause of struct comparision see ^ todo: private:
+private:
 	CarImg();
 	fs::path path;
-	Mat img;
+	Mat *img;
 };

@@ -28,7 +28,7 @@ void FileIO::saveCarImgList(list<CarImg> carList, fs::path carListDir) {
 		fs::create_directory(carListDir);
 	}
 
-	CarImg c;
+	CarImg * c;
 	fs::path thisPath;
 	string thisFilename;
 	for(list<CarImg>::iterator i = carList.begin(); i != carList.end(); i++) {
@@ -36,10 +36,10 @@ void FileIO::saveCarImgList(list<CarImg> carList, fs::path carListDir) {
 
 		thisPath = carListDir/thisFilename;
 
-		c = *i;
-		c.setPath(thisPath);
+		c = &(*i);
+		c->setPath(thisPath);
 
-		c.save();
+		c->save();
 	}
 
 }
@@ -179,10 +179,7 @@ list<CarImg> FileIO::loadCarImgList(fs::path carDir) {
 	while(dIt != dEnd) {
 		currentPath = fs::absolute((*dIt));
 
-		CarImg c;
-		c.setPath(currentPath);
-		c.load();
-
+		CarImg c = CarImg(currentPath);
 		carImgList.push_back(c);
 
 		dIt++;
@@ -210,11 +207,7 @@ list<CarImg> FileIO::loadCarImgList(list<string> carList) {
 			Tools::errorMessage("CarImg at path: " + boost::lexical_cast<string>(currentPath) + " isn't a valid file - skipping");
 		}
 		else {
-
-			CarImg c;
-			c.setPath(currentPath);
-			c.load();
-
+			CarImg c = CarImg(currentPath);
 			carImgList.push_back(c);
 		}
 		it++;

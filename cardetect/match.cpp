@@ -14,12 +14,12 @@ namespace fs = boost::filesystem;
 using namespace std;
 using namespace cv;
 
-std::vector<DMatch> Match::vecMatches(Mat img1, Mat img2,
+std::vector<DMatch> Match::vecMatches(Mat * img1, Mat * img2,
 		Mat &descriptors_object, vector<KeyPoint> &keypoints_object,
 		vector<KeyPoint> &keypoints_scene)
 {
-	Mat img_object = img1;
-	Mat img_scene = img2;
+	Mat img_object = *img1;
+	Mat img_scene = *img2;
 
 	/*
 	  if( !img_object.data || !img_scene.data )
@@ -55,7 +55,7 @@ std::vector<DMatch> Match::vecMatches(Mat img1, Mat img2,
 /*
  * Input matches, get a vector of "good" matches
  */
-vector<DMatch> Match::vecGoodMatches(Mat img1, Mat img2,
+vector<DMatch> Match::vecGoodMatches(Mat * img1, Mat * img2,
 		Mat &descriptors_object, vector<KeyPoint> &keypoints_object,
 		vector<KeyPoint> &keypoints_scene)
 {
@@ -86,9 +86,9 @@ vector<DMatch> Match::vecGoodMatches(Mat img1, Mat img2,
 }
 
 
-Mat Match::matGoodMatches(Mat img1, Mat img2, bool good) {
-	Mat img_object = img1;
-	Mat img_scene = img2;
+Mat Match::matGoodMatches(Mat * img1, Mat * img2, bool good) {
+	Mat img_object = *img1;
+	Mat img_scene = *img2;
 	Mat descriptors_object;
 	vector<KeyPoint> keypoints_object, keypoints_scene;
 	vector<DMatch> good_matches;
@@ -141,9 +141,9 @@ Mat Match::matGoodMatches(Mat img1, Mat img2, bool good) {
 	}
 }
 
-vector<Point2f> Match::sceneCornersGoodMatches(Mat img1, Mat img2, bool good) {
-	Mat img_object = img1;
-	Mat img_scene = img2;
+vector<Point2f> Match::sceneCornersGoodMatches(Mat * img1, Mat * img2, bool good) {
+	Mat * img_object = img1;
+	Mat * img_scene = img2;
 	Mat descriptors_object;
 	vector<KeyPoint> keypoints_object, keypoints_scene;
 	vector<DMatch> good_matches;
@@ -153,10 +153,10 @@ vector<Point2f> Match::sceneCornersGoodMatches(Mat img1, Mat img2, bool good) {
 	else {
 		good_matches = vecMatches(img1, img2, descriptors_object, keypoints_object, keypoints_scene);
 	}
-	Mat img_matches;
-	drawMatches(img_object, keypoints_object,
-			img_scene, keypoints_scene,
-			good_matches, img_matches,
+	Mat * img_matches;
+	drawMatches(*img_object, keypoints_object,
+			*img_scene, keypoints_scene,
+			good_matches, *img_matches,
 			Scalar::all(-1), Scalar::all(-1),
 			vector<char>(), DrawMatchesFlags::NOT_DRAW_SINGLE_POINTS );
 
@@ -190,8 +190,8 @@ vector<Point2f> Match::sceneCornersGoodMatches(Mat img1, Mat img2, bool good) {
 
 		//-- Get the corners from the image_1 ( the object to be "detected" )
 		std::vector<Point2f> obj_corners(4);
-		obj_corners[0] = cvPoint(0,0); obj_corners[1] = cvPoint( img_object.cols, 0 );
-		obj_corners[2] = cvPoint( img_object.cols, img_object.rows ); obj_corners[3] = cvPoint( 0, img_object.rows );
+		obj_corners[0] = cvPoint(0,0); obj_corners[1] = cvPoint( img_object->cols, 0 );
+		obj_corners[2] = cvPoint( img_object->cols, img_object->rows ); obj_corners[3] = cvPoint( 0, img_object->rows );
 		std::vector<Point2f> scene_corners(4);
 
 		perspectiveTransform( obj_corners, scene_corners, H);
@@ -204,7 +204,7 @@ double Match::match(fs::path path1, fs::path path2)
 {
 	Mat img1 = imread(path1.generic_string());
 	Mat img2 = imread(path2.generic_string());
-	return match(img1, img2);
+	return match(&img1, &img2);
 }
 
 //TODO: complete SURF FLANN MATCHER AND TEMPLATE MATCHER AND SSNR (GPU) MATCHER
@@ -216,25 +216,25 @@ double Match::match(string path1, string path2)
 	return match(path1p, path2p);
 }
 
-double Match::match(Mat img1, Mat img2) {
+double Match::match(Mat *img1, Mat *img2) {
 	return 1;
 }
 
-bool Match::templateMatch(Mat img, Mat templ, int match_method)
+bool Match::templateMatch(Mat *img, Mat *templ, int match_method)
 {
 	/// Source image to display
 	Mat img_display;
-	img.copyTo( img_display );
+	img->copyTo( img_display );
 	Mat result;
 
 	/// Create the result matrix
-	int result_cols =  img.cols - templ.cols + 1;
-	int result_rows = img.rows - templ.rows + 1;
+	int result_cols =  img->cols - templ->cols + 1;
+	int result_rows = img->rows - templ->rows + 1;
 
 	result.create( result_cols, result_rows, CV_32FC1 );
 
 	/// Do the Matching and Normalize
-	matchTemplate( img, templ, result, match_method );
+	matchTemplate( *img, *templ, result, match_method );
 	normalize( result, result, 0, 1, NORM_MINMAX, -1, Mat() );
 
 	/// Localizing the best match with minMaxLoc
@@ -250,8 +250,8 @@ bool Match::templateMatch(Mat img, Mat templ, int match_method)
 	{ matchLoc = maxLoc; }
 
 	/// Show me what you got
-	rectangle( img_display, matchLoc, Point( matchLoc.x + templ.cols , matchLoc.y + templ.rows ), Scalar::all(0), 2, 8, 0 );
-	rectangle( result, matchLoc, Point( matchLoc.x + templ.cols , matchLoc.y + templ.rows ), Scalar::all(0), 2, 8, 0 );
+	rectangle( img_display, matchLoc, Point( matchLoc.x + templ->cols , matchLoc.y + templ->rows ), Scalar::all(0), 2, 8, 0 );
+	rectangle( result, matchLoc, Point( matchLoc.x + templ->cols , matchLoc.y + templ->rows ), Scalar::all(0), 2, 8, 0 );
 
 	imshow("Image", img_display);
 	imshow("Result", result);

@@ -42,7 +42,7 @@ const static Scalar colors[] =  { 	CV_RGB(0,0,255),
  * Detect an image with Mat#detect(Mat&, CascadeClassifier&, double)
  * an shows it in a window named windowName
  */
-void Detection::detectAndDraw( Mat& img, CascadeClassifier& cascade, double scale, string windowName)
+void Detection::detectAndDraw( Mat * img, CascadeClassifier& cascade, double scale, string windowName)
 {
 	Mat result = detectMat(img, cascade, scale);
 	cv::imshow(windowName, result);
@@ -51,14 +51,16 @@ void Detection::detectAndDraw( Mat& img, CascadeClassifier& cascade, double scal
 /*
  * Detects objects in img and returns a vector of rectangles of object regions
  */
-vector<Rect> Detection::detect(Mat &img, CascadeClassifier &cascade, double scale)
+vector<Rect> Detection::detect(Mat *img, CascadeClassifier &cascade, double scale)
 {
 	vector<Rect> objects;
-	Mat gray, smallImg( cvRound (img.rows/scale), cvRound(img.cols/scale), CV_8UC1 );
+	Mat gray;
+	Mat smallImg( cvRound (img->rows/scale), cvRound(img->cols/scale), CV_8UC1 );
 
-	cvtColor(img, gray, CV_BGR2GRAY);
+	cvtColor(*img, gray, CV_BGR2GRAY);
 	resize(gray, smallImg, smallImg.size(), 0, 0, INTER_LINEAR);
 	equalizeHist(smallImg, smallImg);
+
 
 	cascade.detectMultiScale(smallImg, objects,
 			1.1, 2, 0
@@ -74,7 +76,7 @@ vector<Rect> Detection::detect(Mat &img, CascadeClassifier &cascade, double scal
  * with CascadeClassifier cascade and int scaleHI, scaleLO
  * probability is from range <0, 1>
  */
-double Detection::probability(Mat &imga, Mat &imgb, CascadeClassifier &cascade, const int scaleLO, const int scaleHI) { //implemented according to whiteboard, needs optimization
+double Detection::probability(Mat *imga, Mat *imgb, CascadeClassifier &cascade, const int scaleLO, const int scaleHI) { //implemented according to whiteboard, needs optimization
 
 	int probTrue = 0;
 	int counterAll = 0;
@@ -96,7 +98,7 @@ double Detection::probability(Mat &imga, Mat &imgb, CascadeClassifier &cascade, 
 	//
 	for (int i=scaleLO; i < scaleHI; i++) {
 		cropped = Detection::crop(imga, detectedA,dscale);
-		scene_corners = Match::sceneCornersGoodMatches(cropped, imgb, true);
+		scene_corners = Match::sceneCornersGoodMatches(&cropped, imgb, true);
 
 		if(scene_corners.empty()) {
 			Tools::debugMessage("SCENE_CORNERS EMPTY");
@@ -120,7 +122,7 @@ double Detection::probability(Mat &imga, Mat &imgb, CascadeClassifier &cascade, 
 	dscale = (double) scaleLO/100;
 	for (int i=scaleLO; i < scaleHI; i++) {
 		cropped = Detection::crop(imgb, detectedB,dscale);
-		scene_corners = Match::sceneCornersGoodMatches(cropped, imga, true);
+		scene_corners = Match::sceneCornersGoodMatches(&cropped, imga, true);
 
 		if(scene_corners.empty()) { //todo: works?
 			Tools::debugMessage("SCENE_CORNERS EMPTY");
@@ -152,7 +154,7 @@ double Detection::probability(Mat &imga, Mat &imgb, CascadeClassifier &cascade, 
 /*
  * Detects objects in img, draws rectangles around them and returns the img
  */
-Mat Detection::detectMat(Mat &img, CascadeClassifier &cascade, double scale) {
+Mat Detection::detectMat(Mat *img, CascadeClassifier &cascade, double scale) {
 
 	int i = 0;
 	vector<Rect> objects = detect(img, cascade, scale);
@@ -169,22 +171,22 @@ Mat Detection::detectMat(Mat &img, CascadeClassifier &cascade, double scale) {
 			center.x = cvRound((r->x + r->width*0.5)*scale);
 			center.y = cvRound((r->y + r->height*0.5)*scale);
 			radius = cvRound((r->width + r->height)*0.25*scale);
-			circle( img, center, radius, color, 3, 8, 0 );
+			circle( *img, center, radius, color, 3, 8, 0 );
 		}
 		else {
-			rectangle( img, cvPoint(cvRound(r->x*scale), cvRound(r->y*scale)),
+			rectangle( *img, cvPoint(cvRound(r->x*scale), cvRound(r->y*scale)),
 					cvPoint(cvRound((r->x + r->width-1)*scale), cvRound((r->y + r->height-1)*scale)),
 					color, 3, 8, 0);
 		}
 	}
-	return img;
+	return *img;
 }
 
 /*
  * Returns true if detected object is in img, false if not.
  *
  */
-bool Detection::isDetected(Mat &img, CascadeClassifier &cascade, double scale)
+bool Detection::isDetected(Mat *img, CascadeClassifier &cascade, double scale)
 {
 	return (countDetected(img, cascade, scale) > 0 ? true : false);
 }
@@ -192,7 +194,7 @@ bool Detection::isDetected(Mat &img, CascadeClassifier &cascade, double scale)
 /*
  * Returns the number of detected objects in img
  */
-int Detection::countDetected(Mat &img, CascadeClassifier &cascade, double scale)
+int Detection::countDetected(Mat *img, CascadeClassifier &cascade, double scale)
 {
 	return detect(img, cascade, scale).size();
 }
@@ -200,7 +202,7 @@ int Detection::countDetected(Mat &img, CascadeClassifier &cascade, double scale)
 /*
  * Returns true if successfully sorted
  */
-bool Detection::detectAndSort(Mat &img, CascadeClassifier &cascade, double scale, string posdir, string negdir, string filename)
+bool Detection::detectAndSort(Mat *img, CascadeClassifier &cascade, double scale, string posdir, string negdir, string filename)
 {
 	fs::path filenamePath = filename;
 	//filenamePath = fs::absolute(filenamePath);
@@ -237,9 +239,9 @@ bool Detection::detectAndSort(Mat &img, CascadeClassifier &cascade, double scale
  * Scales the roi and scales it
  * Note!!! scale must be < 1
  */
-Mat Detection::crop(Mat &img, Rect &roi, double &scale) {
+Mat Detection::crop(Mat *img, Rect &roi, double &scale) {
 	Rect scaledROI = scaleRect(roi, scale);
-	Mat ret = img(scaledROI);
+	Mat ret = (*img)(scaledROI);
 	return ret;
 
 }
