@@ -129,13 +129,13 @@ void FileIO::saveCars(list<list<CarImg> > cars, fs::path carsDir) {
  */
 list<list<CarImg> > FileIO::loadCars(fs::path carsDir) {
 	if(!fs::exists(carsDir)) {
-			Tools::errorMessage("Directory at path: "+ boost::lexical_cast<string>(carsDir) + " doesn't exist");
-			return list<list<CarImg> >();
-		}
-		else if(!fs::is_directory(carsDir)) {
-			Tools::errorMessage("There is no directory at path: " + boost::lexical_cast<string>(carsDir));
-			return list<list<CarImg> >();
-		}
+		Tools::errorMessage("Directory at path: "+ boost::lexical_cast<string>(carsDir) + " doesn't exist");
+		return list<list<CarImg> >();
+	}
+	else if(!fs::is_directory(carsDir)) {
+		Tools::errorMessage("There is no directory at path: " + boost::lexical_cast<string>(carsDir));
+		return list<list<CarImg> >();
+	}
 
 	list<list<CarImg> > carsList;
 
@@ -211,11 +211,11 @@ list<CarImg> FileIO::loadCarImgList(list<string> carList) {
 		}
 		else {
 
-		CarImg c;
-		c.setPath(currentPath);
-		c.load();
+			CarImg c;
+			c.setPath(currentPath);
+			c.load();
 
-		carImgList.push_back(c);
+			carImgList.push_back(c);
 		}
 		it++;
 	}
