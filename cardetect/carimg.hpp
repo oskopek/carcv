@@ -40,7 +40,6 @@ public:
 	CarImg load(fs::path &path);
 	CarImg load(string &filename);
 
-	//temp outcommented, cause of struct comparision see ^ todo: private:
 private:
 	CarImg();
 	fs::path path;

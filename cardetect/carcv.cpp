@@ -33,8 +33,6 @@ list<CarImg> CarCV::detect_sortPOS_AND_NEG(list<CarImg> &imgList, CascadeClassif
 		cPath = cImg->getPath();
 		cMat = cImg->getImg();
 
-		Tools::debugMessage("Ping0");
-
 		string result;
 		if (Detection::isDetected(cMat, cascade, scale)) {
 			result = "POSITIVE";
