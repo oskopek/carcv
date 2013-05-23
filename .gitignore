@@ -5,3 +5,4 @@ test/test*
 test/current.xml
 eclipse_proj_copy/CarProject/Debug/
 *~
+default.sh
