@@ -11,7 +11,7 @@
 
 #include "opencv2/highgui/highgui.hpp"
 
-CarImg::CarImg(fs::path &path, Mat *img)
+CarImg::CarImg(fs::path &path, Mat &img)
 {
 	this->setPath(path);
 	this->setImg(img);
@@ -37,14 +37,14 @@ void CarImg::setPath(fs::path &path)
 	this->path = path;
 }
 
-void CarImg::setImg(Mat *img)
+void CarImg::setImg(Mat &img)
 {
 	this->img = img;
 }
 
-Mat * CarImg::getImg() const
+Mat * CarImg::getImg()
 {
-	return img;
+	return &img;
 }
 
 bool CarImg::operator<(const CarImg &car) const {
@@ -99,10 +99,10 @@ void CarImg::load() {
 
 	Mat img = imread(path->generic_string());
 
-	this->setImg(&img);
+	this->setImg(img);
 }
 
-string CarImg::toString() const {
+string CarImg::toString() {
 	string path = this->getPath().generic_string();
 	int rows = this->getImg()->rows;
 	int cols = this->getImg()->cols;

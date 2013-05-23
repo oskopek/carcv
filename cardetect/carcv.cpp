@@ -94,7 +94,7 @@ list<list<CarImg> > CarCV::sortUnique(list<CarImg> &posCarImgList, CascadeClassi
 	for (int i = 0; i < posCarImgListSize; i++) { //iterate over posImgList
 		probability.clear();
 		carProbabilty.clear();
-		const CarImg *sortingCar = Tools::atList(&posCarImgList, i);
+		CarImg *sortingCar = Tools::atList(&posCarImgList, i);
 		Mat * sortingCarMat = sortingCar->getImg();
 
 		if(cars.size() == i) { //this prevents array index out of bounds and other errors
@@ -119,7 +119,7 @@ list<list<CarImg> > CarCV::sortUnique(list<CarImg> &posCarImgList, CascadeClassi
 
 			const int carsjSize = curList->size();
 			for (k = 0; k < carsjSize; k++) {
-				const CarImg * curCar = Tools::atList(curList, k);
+				CarImg * curCar = Tools::atList(curList, k);
 
 				Mat * curCarMat = curCar->getImg();
 

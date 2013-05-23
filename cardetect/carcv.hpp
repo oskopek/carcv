@@ -10,7 +10,6 @@
 
 #include "opencv2/objdetect/objdetect.hpp"
 
-namespace fs = boost::filesystem;
 using namespace std;
 using namespace cv;
 

@@ -16,14 +16,14 @@ namespace fs = boost::filesystem;
 
 class CarImg {
 public:
-	CarImg(fs::path &path, Mat *img);
+	CarImg(fs::path &path, Mat &img);
 	CarImg(fs::path &path);
 
 
 	fs::path getPath() const;
 	void setPath(fs::path &path);
-	void setImg(Mat *img);
-	Mat * getImg() const;
+	void setImg(Mat &img);
+	Mat * getImg();
 
 	bool operator<(const CarImg &car) const;
 	bool operator==(const CarImg &car) const;
@@ -33,7 +33,7 @@ public:
 	void save();
 	void load();
 
-	string toString() const;
+	string toString();
 
 	int parseId() const;
 
@@ -43,5 +43,5 @@ public:
 private:
 	CarImg();
 	fs::path path;
-	Mat *img;
+	Mat img;
 };
