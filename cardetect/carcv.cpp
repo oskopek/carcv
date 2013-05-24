@@ -21,9 +21,9 @@
 list<CarImg> CarCV::detect_sortPOS_AND_NEG(list<CarImg> &imgList, CascadeClassifier &cascade, list<CarImg> *negList, const double scale) {
 	list<CarImg> posList;
 
-	fs::path cPath = (*imgList.begin()).getPath();
-	Mat * cMat;
-	CarImg * cImg;
+	fs::path *cPath = (*imgList.begin()).getPath();
+	Mat *cMat;
+	CarImg *cImg;
 
 	string s = "me";
 
@@ -41,7 +41,7 @@ list<CarImg> CarCV::detect_sortPOS_AND_NEG(list<CarImg> &imgList, CascadeClassif
 			result = "NEGATIVE";
 			negList->push_back(*cImg); //maybe .clone()?
 		}
-		Tools::debugMessage("Sorting image:	" + cPath.generic_string() + "--->" + result);
+		Tools::debugMessage("Sorting image:	" + cPath->generic_string() + "--->" + result);
 	}
 
 	posList.sort();
@@ -191,7 +191,7 @@ double CarCV::calcSpeed(list<CarImg> clist, int speed_method, double framerate, 
 		return speed;
 	} else if (speed_method == 2) { //SP_FROMALLFILES
 
-		const int indexesLength = clist.front().getPath().filename().generic_string().length();
+		const int indexesLength = clist.front().getPath()->filename().generic_string().length();
 
 		vector<int> indexes;
 

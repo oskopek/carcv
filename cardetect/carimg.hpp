@@ -20,10 +20,10 @@ public:
 	CarImg(fs::path &path);
 
 
-	fs::path getPath(void) const;
+	fs::path *getPath(void);
 	void setPath(fs::path &path);
 	void setImg(Mat &img);
-	Mat * getImg(void);
+	Mat *getImg(void);
 
 	bool operator<(const CarImg &car) const;
 	bool operator==(const CarImg &car) const;

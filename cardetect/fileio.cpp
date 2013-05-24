@@ -32,7 +32,7 @@ void FileIO::saveCarImgList(list<CarImg> carList, fs::path carListDir) {
 	fs::path thisPath;
 	string thisFilename;
 	for(list<CarImg>::iterator i = carList.begin(); i != carList.end(); i++) {
-		thisFilename = (*i).getPath().filename().generic_string();
+		thisFilename = (*i).getPath()->filename().generic_string();
 
 		thisPath = carListDir/thisFilename;
 
@@ -88,7 +88,7 @@ void FileIO::saveCars(list<list<CarImg> > cars, fs::path carsDir) {
 
 
 		if (line->size()<=1) { //this catches onesize lists, and replaces them the right way
-			string thisFilename = line->front().getPath().filename().generic_string();
+			string thisFilename = line->front().getPath()->filename().generic_string();
 
 			fs::path thisPath = temp/thisFilename;
 
@@ -100,7 +100,7 @@ void FileIO::saveCars(list<list<CarImg> > cars, fs::path carsDir) {
 		} else {
 			int j = 0;
 			for (list<CarImg>::iterator lineIt=line->begin(); lineIt != line->end(); lineIt++) {
-				string thisFilename = lineIt->getPath().filename().generic_string();
+				string thisFilename = lineIt->getPath()->filename().generic_string();
 
 				fs::path thisPath = temp/thisFilename;
 
