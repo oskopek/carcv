@@ -16,8 +16,6 @@ using namespace cv;
  */
 class Detection {
 public:
-	static void help();
-	int run(int argc, const char** argv);
 	static bool detectAndSort(Mat *img, CascadeClassifier &cascade, double scale, string posdir, string negdir, string filename);
 	static int countDetected(Mat *img, CascadeClassifier &cascade, double scale);
 	void detectAndDraw(Mat *img, CascadeClassifier &cascade, double scale, string windowName);
@@ -31,6 +29,5 @@ public:
 	static Rect scaleRect(Rect roi, double scale);
 	void testCropping(Mat *crop, Mat *comp, CascadeClassifier &cascade, double &scale);
 	static bool evaluatef(const float a, const float b);
-
 	static bool isInRect(Rect is, Rect in);
 };

@@ -20,28 +20,29 @@ public:
 	CarImg(fs::path &path);
 
 
-	fs::path getPath() const;
+	fs::path getPath(void) const;
 	void setPath(fs::path &path);
 	void setImg(Mat &img);
-	Mat * getImg();
+	Mat * getImg(void);
 
 	bool operator<(const CarImg &car) const;
 	bool operator==(const CarImg &car) const;
 
-	long hashCode() const;
+	long hashCode(void) const;
 
-	void save();
-	void load();
+	void save(void);
+	void load(void);
+	void destroy(void);
 
-	string toString();
+	string toString(void);
 
-	int parseId() const;
+	int parseId(void) const;
 
 	CarImg load(fs::path &path);
 	CarImg load(string &filename);
 
 private:
-	CarImg();
+	CarImg(void);
 	fs::path path;
 	Mat img;
 };

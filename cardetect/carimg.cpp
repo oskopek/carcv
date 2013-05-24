@@ -23,11 +23,11 @@ CarImg::CarImg(fs::path &path) {
 	this->load();
 }
 
-CarImg::CarImg() {
+CarImg::CarImg(void) {
 
 }
 
-fs::path CarImg::getPath() const
+fs::path CarImg::getPath(void) const
 {
 	return path;
 }
@@ -42,7 +42,7 @@ void CarImg::setImg(Mat &img)
 	this->img = img;
 }
 
-Mat * CarImg::getImg()
+Mat * CarImg::getImg(void)
 {
 	return &img;
 }
@@ -64,7 +64,7 @@ bool CarImg::operator==(const CarImg &car) const {
 /*
  * Hashes filename and path into a hash
  */
-long CarImg::hashCode() const
+long CarImg::hashCode(void) const
 {
 	const long prime = 7;
 
@@ -87,14 +87,14 @@ long CarImg::hashCode() const
  * It is saved to disk at path this->getPath()
  * Move this to CarImg
  */
-void CarImg::save() {
+void CarImg::save(void) {
 	fs::path path = this->getPath();
-	Mat * img = this->getImg();
+	Mat *img = this->getImg();
 
 	imwrite(path.generic_string(), *img);
 }
 
-void CarImg::load() {
+void CarImg::load(void) {
 	fs::path * path = &(this->path);
 
 	Mat img = imread(path->generic_string());
@@ -102,7 +102,12 @@ void CarImg::load() {
 	this->setImg(img);
 }
 
-string CarImg::toString() {
+void CarImg::destroy(void) {
+	delete this->getImg();
+	delete this;
+}
+
+string CarImg::toString(void) {
 	string path = this->getPath().generic_string();
 	int rows = this->getImg()->rows;
 	int cols = this->getImg()->cols;
@@ -116,7 +121,7 @@ string CarImg::toString() {
 /*
  * Returns the id contained in the filename of CarImg path
  */
-int CarImg::parseId() const {
+int CarImg::parseId(void) const {
 	string thisFilename = getPath().filename().generic_string();
 
 	const char* FNchar = thisFilename.c_str();
