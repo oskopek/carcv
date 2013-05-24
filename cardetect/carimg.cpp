@@ -66,7 +66,7 @@ bool CarImg::operator==(const CarImg &car) const {
  */
 long CarImg::hashCode(void) const
 {
-	const long prime = 7;
+	const long prime = 31;
 
 	long res = 0;
 
@@ -75,9 +75,13 @@ long CarImg::hashCode(void) const
 	const char* pathc = this->getPath().c_str();
 	const int length = strlen(pathc);
 
+
+	const int rows = this->img.rows;
+	const int cols = this->img.cols;
+
 	for (int i = 0; i < length; i++) {
 		c = pathc[i];
-		res += (c*prime);
+		res += (c*prime)+rows+cols;
 	}
 
 	return res;
@@ -107,10 +111,10 @@ void CarImg::destroy(void) {
 	delete this;
 }
 
-string CarImg::toString(void) {
+string CarImg::toString(void) const {
 	string path = this->getPath().generic_string();
-	int rows = this->getImg()->rows;
-	int cols = this->getImg()->cols;
+	const int rows = this->img.rows;
+	const int cols = this->img.cols;
 
 	ostringstream oss;
 	oss << "CarImg[path=" << path << ", img=" << rows << "x" << cols << "]";

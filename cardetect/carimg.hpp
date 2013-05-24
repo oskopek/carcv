@@ -34,7 +34,7 @@ public:
 	void load(void);
 	void destroy(void);
 
-	string toString(void);
+	string toString(void) const;
 
 	int parseId(void) const;
 
