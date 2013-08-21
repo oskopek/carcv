@@ -19,3 +19,4 @@ ENDIF(CMAKE_COMPILER_IS_GNUCXX)
 #List of subdirectories to build
 add_subdirectory(src)
 add_subdirectory(templatematching_test)
+add_subdirectory(cpp_ocr_alpr)
