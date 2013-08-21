@@ -1,6 +1,6 @@
 Try out:
-./alltargets-build.sh
+./scripts/build.sh
 cd test/all
-./carrect --cascade="../t5.xml" --method=DETECTDEMO list
+./carcv --cascade="../../test_tools/t5.xml" --method=DETECTDEMO list
 cd ..
-./countefficiency.sh
+../test_tools/countefficiency.sh
