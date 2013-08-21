@@ -23,5 +23,4 @@ endif()
 
 # add the install targets
 install (TARGETS carcv DESTINATION bin)
-install (FILES "${PROJECT_BINARY_DIR}/*.h"        
-	         DESTINATION include)
+install (FILES carimg.hpp tools.hpp fileio.hpp match.hpp detection.hpp  carcv.hpp DESTINATION include)
