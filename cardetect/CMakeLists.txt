@@ -20,3 +20,8 @@ if(Boost_FOUND)
 	target_link_libraries( carcv ${OpenCV_LIBS} ${Boost_LIBRARIES})
 
 endif()
+
+# add the install targets
+install (TARGETS carcv DESTINATION bin)
+install (FILES "${PROJECT_BINARY_DIR}/*.h"        
+	         DESTINATION include)
