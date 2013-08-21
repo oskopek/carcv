@@ -39,22 +39,11 @@ echo
 echo
 echo
 echo $DASHES
-echo "-------COPYING SOURCE FILES OVER"
-echo $DASHES
-cd $basedir
-cd cardetect
-rm -rfv *.cpp *.hpp
-cp -v /home/odenkos/c_workspace/CarProject/cardetect/* .
-
-echo
-echo
-echo
-echo $DASHES
 echo "-------RUNNING CMAKE"
 echo $DASHES
 cd $basedir
 cd build
-cmake ..
+cmake .. -DCMAKE_INSTALL_PREFIX=./install
 
 echo
 echo
@@ -62,16 +51,24 @@ echo
 echo $DASHES
 echo "-------RUNNING MAKE"
 echo $DASHES
-make all
+make
 
 echo
 echo
 echo
 echo $DASHES
-echo "------DISTRIBUTING"
+echo "-------RUNNING MAKE INSTALL"
 echo $DASHES
-#cp -v $basedir/build/carrect/carrect $basedir/test/all/ ##WARNING, edited, should be uncomennted
-cp -v $basedir/build/cardetect/carcv $basedir/test/all/
+make install
+
+#echo
+#echo
+#echo
+#echo $DASHES
+#echo "------DISTRIBUTING"               ###WARNING if you want to distribute binaries to test places, do so here
+#echo $DASHES
+#cp -v $basedir/build/src/carcv $basedir/test/all/
+#cp -v $basedir/build/cardetect/carcv $HOME/tests/post6/
 
 echo
 echo
