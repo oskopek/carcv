@@ -17,12 +17,5 @@ ENDIF(CMAKE_COMPILER_IS_GNUCXX)
 
 
 #List of subdirectories to build
-#add_subdirectory(src)
-#add_subdirectory(cartest)
-#add_subdirectory(rectangles)
-#add_subdirectory(facedetect)
-add_subdirectory(cardetect)
-#add_subdirectory(example_cardetect)
-#add_subdirectory(carrect)
-#add_subdirectory(templatematching)
-
+add_subdirectory(src)
+add_subdirectory(templatematching_test)
