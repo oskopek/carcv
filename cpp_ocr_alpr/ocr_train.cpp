@@ -75,7 +75,7 @@ int main() {
 		rectangle(img, px, py, color, 2); //draws a rectangle on top of img
 
 		Mat roi;
-		roi = thresh(x+width, y+height); //todo could be reverse (x,y) (y,x), am not sure
+		roi = thresh(boundbox); //todo could be reverse (x,y) (y,x), am not sure
 
 		//resize it to 10x10
 		Mat roismall;
