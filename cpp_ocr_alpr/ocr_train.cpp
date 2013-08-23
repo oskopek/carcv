@@ -16,6 +16,26 @@ using namespace std;
 
 namespace fs = boost::filesystem;
 
+template <class A>
+void saveArray(string arrayName, A array) {
+	FileStorage fst(arrayName + ".yml", FileStorage::WRITE);
+
+	fst << arrayName << array;
+	fst.release();
+
+	return;
+}
+
+template <class A>
+ A loadArray(string arrayName) {
+	 FileStorage fst(arrayName + ".yml", FileStorage::READ);
+
+	 A array;
+	 fst[arrayName] >> array;
+
+	 return array;
+}
+
 int main() {
 
 	//Loads training image with numbers
@@ -98,6 +118,8 @@ int main() {
 	}
 
 	//todo: save arrays to file
+	saveArray("responses", responses);
+	saveArray("samples", samples);
 
 
 	waitKey(0);
