@@ -68,6 +68,7 @@ int main() {
 
 
 	double cntArea;
+	Mat contourMat;
 	for (vector< vector<Point> >::iterator it = contours.begin();
 		 it != contours.end(); ++it ) {
 
@@ -92,7 +93,8 @@ int main() {
 		Point py(x+width, y+height);
 		Scalar color(0, 0, 255); //red
 
-		rectangle(img, px, py, color, 2); //draws a rectangle on top of img
+		img.copyTo(contourMat);
+		rectangle(contourMat, px, py, color, 2); //draws a rectangle on top of img
 
 		Mat roi;
 		roi = thresh(boundbox); //todo could be reverse (x,y) (y,x), am not sure
@@ -102,7 +104,7 @@ int main() {
 		Size_<int> smallSize(10,10);
 		resize(roi, roismall, smallSize);
 
-		imshow("norm", img); //Shows original image
+		imshow("norm", contourMat); //Shows original image
 		int key = waitKey(0);
 
 		if (key==27) { //Esc key

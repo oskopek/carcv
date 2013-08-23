@@ -69,6 +69,7 @@ echo "------DISTRIBUTING"               ###WARNING if you want to distribute bin
 echo $DASHES
 cp -v $basedir/build/install/bin/carcv $basedir/test/
 cp -v $basedir/build/install/bin/ocr_recognizer $basedir/test/
+cp -v $basedir/build/install/bin/ocr_train $basedir/test/
 
 echo
 echo
