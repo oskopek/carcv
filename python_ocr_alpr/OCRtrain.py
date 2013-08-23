@@ -27,13 +27,13 @@ for cnt in contours: #Goes through all contours on picture
 ##            Draws a recangle on original image with point (x,y), and other point
 ##            (x+w,y+h) which is red and has line thick 2 pixels
             roi = thresh[y:y+h,x:x+w] #Makes stable threshold at that rectangle (No other character can interfere with previous one)
-            roismall = cv2.resize(roi,(10,10)) #Resizes it to 10x10 
+            roismall = cv2.resize(roi,(10,10)) #Resizes it to 10x10
             cv2.imshow('norm',img) #Shows new image
             key = cv2.waitKey(0)
 
             if key == 27: #Esc key
-                sys.exit() 
-            elif key in keys: #Key is from range 0-9 and A-Z                
+                sys.exit()
+            elif key in keys: #Key is from range 0-9 and A-Z
                 responses.append(key) #appends the value of the key to responses
                 sample = roismall.reshape((1,100)) #makes a column out of samples
                 samples = np.append(samples,sample,0) #Makes final list of samples
@@ -42,7 +42,7 @@ responses = np.array(responses)
 responses = responses.reshape((responses.size,1))#makes a column out of responses
 print "training complete"
 
-np.savetxt('generalsamples.data',samples) 
+np.savetxt('generalsamples.data',samples)
 np.savetxt('generalresponses.data',responses)
 #Saves samples and responses into datafiles
 
