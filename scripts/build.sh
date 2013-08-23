@@ -4,7 +4,7 @@ basedir=$(pwd)
 
 
 echo $DASHES
-echo "Build script by odenkos"
+echo "Build script by oskopek"
 echo $DASHES
 echo
 echo "WARNING: Will recursively erase any \"build\" dir in directory: ${PWD}"
@@ -61,14 +61,14 @@ echo "-------RUNNING MAKE INSTALL"
 echo $DASHES
 make install
 
-#echo
-#echo
-#echo
-#echo $DASHES
-#echo "------DISTRIBUTING"               ###WARNING if you want to distribute binaries to test places, do so here
-#echo $DASHES
-#cp -v $basedir/build/src/carcv $basedir/test/all/
-#cp -v $basedir/build/cardetect/carcv $HOME/tests/post6/
+echo
+echo
+echo
+echo $DASHES
+echo "------DISTRIBUTING"               ###WARNING if you want to distribute binaries to test places, do so here
+echo $DASHES
+cp -v $basedir/build/install/bin/carcv $basedir/test/
+cp -v $basedir/build/install/bin/ocr_recognizer $basedir/test/
 
 echo
 echo
