@@ -10,67 +10,46 @@
 #include <fstream>
 #include <cstdlib>
 
+#include "ocr_train.hpp"
+
 using namespace cv;
 using namespace std;
 
 namespace fs = boost::filesystem;
 
-vector< vector <double> > load2DNumbers(string filename) { //obosolete
-	ifstream dataIn;
-	string line = "";
 
-	dataIn.open(filename.c_str());
+Mat vector2Mat1D(vector<int> vec) {
+	Mat result;
 
 
-	vector< vector<double> > numbers;
-	while (getline(dataIn, line)) {
-
-
-		//numbers.push_back(strtod(line.c_str(), NULL));
-	}
-
-	return numbers;
+	return result;
 }
 
-vector<double> loadNumbers(string filename) { //obsolete
-	ifstream dataIn;
-	string line = "";
-
-	dataIn.open(filename.c_str());
+Mat vecotr2Mat2D(vector< vector<int> > vec) {
+	Mat result;
 
 
-	vector<double> numbers;
-	while (getline(dataIn, line)) {
-		numbers.push_back(strtod(line.c_str(), NULL));
-	}
-
-	return numbers;
+	return result;
 }
-
-
-
 
 int main() {
 
-	// training part
-	/*
-	vector< vector<double> > samples = load2DNumbers("samples.data");
-	vector<double> responses = loadNumbers("responses.data");
+	//1. training
 
-	for (int i = 0; i < samples.size(); i++) {
-		cout << "Element at " << i << ": " << samples.at(i) << endl;
-	}
+	string samples_str = "samples";
+	string responses_str = "responses";
+	vector<int> responses = loadArray< vector<int> >(responses_str);
+	vector< vector<int> > samples = loadArray<vector < vector<int> > >(samples_str);
 
-	cout << endl << endl;
+	//todo: convert vector to Mat
 
-	for (int i = 0; i < responses.size(); i++) {
-		cout << "Element at " << i << ": " << responses.at(i) << endl;
-	}
-	*/
+
 
 	CvKNearest kn_model = CvKNearest();
 	//kn_model.train();
 
+
+	//2. testing
 
 	return 0;
 

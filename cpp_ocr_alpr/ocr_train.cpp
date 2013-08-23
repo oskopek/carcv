@@ -11,30 +11,12 @@
 #include <fstream>
 #include <cstdlib>
 
+#include "ocr_train.hpp"
+
 using namespace cv;
 using namespace std;
 
 namespace fs = boost::filesystem;
-
-template <class A>
-void saveArray(string arrayName, A array) {
-	FileStorage fst(arrayName + ".yml", FileStorage::WRITE);
-
-	fst << arrayName << array;
-	fst.release();
-
-	return;
-}
-
-template <class A>
- A loadArray(string arrayName) {
-	 FileStorage fst(arrayName + ".yml", FileStorage::READ);
-
-	 A array;
-	 fst[arrayName] >> array;
-
-	 return array;
-}
 
 int main() {
 
@@ -120,8 +102,10 @@ int main() {
 	}
 
 	//todo: save arrays to file
-	saveArray("responses", responses);
-	saveArray("samples", samples);
+	string samples_str = "samples";
+	string responses_str = "responses";
+	saveArray(responses_str, responses);
+	saveArray(samples_str, samples);
 
 
 	waitKey(0);
