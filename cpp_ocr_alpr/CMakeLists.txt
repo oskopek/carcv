@@ -11,19 +11,19 @@ if(Boost_FOUND)
 	link_directories( ${CARCV_BINARY_DIR} )
 
 	#Add executables, with sources...
+	add_executable( ocr_train ocr_train.cpp ocr_train.hpp )
 	add_executable( ocr_recognizer ocr_recognizer.cpp )
-	add_executable( ocr_train ocr_train.cpp )
 	add_executable( surf surf.cpp)
 
 	#Link with libraries OpenCV
 	# all OpenCV libs
 	# boost: filesystem, system
-	target_link_libraries( ocr_recognizer ${OpenCV_LIBS} ${Boost_LIBRARIES} )
 	target_link_libraries( ocr_train ${OpenCV_LIBS} ${Boost_LIBRARIES} )
+	target_link_libraries( ocr_recognizer ${OpenCV_LIBS} ${Boost_LIBRARIES} )
 	target_link_libraries( surf ${OpenCV_LIBS} ${Boost_LIBRARIES} )
 
 endif()
 
 # add the install targets
-install( TARGETS ocr_recognizer ocr_train surf DESTINATION bin )
+install( TARGETS ocr_train ocr_recognizer surf DESTINATION bin )
 #install( FILES ocr_recognizer.hpp ocr_train.hpp surf.hpp DESTINATION include )
