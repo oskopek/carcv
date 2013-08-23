@@ -21,13 +21,29 @@ namespace fs = boost::filesystem;
 Mat vector2Mat1D(vector<int> vec) {
 	Mat result;
 
+	Mat_<int> templ = Mat_<int>(vec.size(),1);
+
+	for(vector<int>::iterator i = vec.begin(); i != vec.end(); ++i) {
+		templ << *i;
+	}
+
+	result = (templ);
 
 	return result;
 }
 
-Mat vecotr2Mat2D(vector< vector<int> > vec) {
+Mat vector2Mat2D(vector< vector<int> > vec) {
 	Mat result;
 
+	Mat_<int> templ = Mat_<int>(vec.at(0).size(),2); //todo: vec.at(0).size() remove this hack
+
+	for(vector< vector<int> >::iterator i = vec.begin(); i != vec.end(); ++i) {
+		for(vector<int>::iterator j = (*i).begin(); j != (*i).end(); ++j) {
+			templ << *j;
+		}
+	}
+
+	result = (templ);
 
 	return result;
 }
@@ -41,12 +57,13 @@ int main() {
 	vector<int> responses = loadArray< vector<int> >(responses_str);
 	vector< vector<int> > samples = loadArray<vector < vector<int> > >(samples_str);
 
-	//todo: convert vector to Mat
+	//test: convert vector to Mat
+	Mat samples_mat = vector2Mat2D(samples);
+	Mat responses_mat = vector2Mat1D(responses);
 
-
-
+	//train
 	CvKNearest kn_model = CvKNearest();
-	//kn_model.train();
+	kn_model.train(samples_mat, responses_mat);
 
 
 	//2. testing
