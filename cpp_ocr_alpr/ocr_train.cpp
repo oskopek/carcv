@@ -112,6 +112,9 @@ int main() {
 	saveArray(responses_str, responses);
 	saveArray(samples_str, samples);
 
+	cout << "Samples: " << samples.size() << endl;
+	cout << "Responses: " << responses.size() << endl;
+
 
 	waitKey(0);
 	destroyAllWindows();
