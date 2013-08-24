@@ -44,9 +44,8 @@ int main() {
 	findContours(thresh, contours, hierarchy, CV_RETR_LIST, CV_CHAIN_APPROX_SIMPLE);
 
 	//Prepare arrays
-	vector< vector<int> > samples;
-	//Mat samples;
-	vector<int> responses;
+	vector< vector<float> > samples;
+	vector<float> responses;
 
 
 	double cntArea;
@@ -88,13 +87,14 @@ int main() {
 
 		imshow("norm", contourMat); //Shows original image
 		int key = waitKey(0);
-		
+
 		key -= 0x100000; //hack: fixes keyboard number mapping
 
 		if (key==27) { //Esc key
-			return 0;
+			//return 0;
+			break; // only breaks, to save partial progress atleast
 		}
-		else if (key > 48 && key < 150) { // 48-57 keys are numbers from 0-9 and from 65 to 90 A-Z characters
+		else if (key >= 48 && key <= 90) { // 48-57 keys are numbers from 0-9 and from 65 to 90 A-Z characters
 			responses.push_back(key);
 			Mat sample;
 			sample = roismall.reshape(0,1);//.t();

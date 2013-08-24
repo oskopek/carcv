@@ -12,7 +12,7 @@ if(Boost_FOUND)
 
 	#Add executables, with sources...
 	add_executable( ocr_train ocr_train.cpp ocr_train.hpp )
-	add_executable( ocr_recognizer ocr_recognizer.cpp )
+	add_executable( ocr_recognizer ocr_recognizer.cpp ocr_recognizer.hpp )
 	add_executable( surf surf.cpp)
 
 	#Link with libraries OpenCV
@@ -26,4 +26,4 @@ endif()
 
 # add the install targets
 install( TARGETS ocr_train ocr_recognizer surf DESTINATION bin )
-#install( FILES ocr_recognizer.hpp ocr_train.hpp surf.hpp DESTINATION include )
+install( FILES ocr_recognizer.hpp ocr_train.hpp surf.hpp DESTINATION include )
