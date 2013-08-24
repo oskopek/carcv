@@ -88,6 +88,8 @@ int main() {
 
 		imshow("norm", contourMat); //Shows original image
 		int key = waitKey(0);
+		
+		key -= 0x100000; //hack: fixes keyboard number mapping
 
 		if (key==27) { //Esc key
 			return 0;
@@ -97,6 +99,9 @@ int main() {
 			Mat sample;
 			sample = roismall.reshape(0,1);//.t();
 			samples.push_back(sample);
+		}
+		else {
+			cout << endl <<  "Error: Invalid key " << key << " pressed!!! Press keys on standard keyboard" << endl << endl;
 		}
 
 	}
