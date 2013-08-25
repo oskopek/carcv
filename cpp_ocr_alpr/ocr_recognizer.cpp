@@ -29,7 +29,7 @@ int main() {
 	string samples_str = "samples";
 	string responses_str = "responses";
 	vector<float> responses = loadArray< vector<float> >(responses_str);
-	vector< vector<float> > samples = load2DArray< vector< vector<float> > >(samples_str);
+	vector< vector<float> > samples = load2DArray<float>(samples_str);
 
 	cout << "Samples: " << samples.size() << endl;
 	cout << "Responses: " << responses.size() << endl;
