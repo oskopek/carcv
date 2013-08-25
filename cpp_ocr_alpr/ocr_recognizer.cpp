@@ -35,15 +35,17 @@ int main() {
 	cout << "Responses: " << responses.size() << endl;
 
 	//test: convert vector to Mat
-	Mat samples_mat = vector2Mat2D(samples);
-	Mat responses_mat = vector2Mat1D(responses);
+	Mat_<float> samples_mat = vector2Mat2D(samples);
+	Mat_<float> responses_mat = vector2Mat1D(responses);
+
+	cout << "Samples_mat: " << samples_mat.size() << endl;
+	cout << "Responses_mat: " << responses_mat.size() << endl;
 
 	//train
 	CvKNearest kn_model = CvKNearest();
 	kn_model.train(samples_mat, responses_mat);
 
 	//2. testing
-
 	//Loads test image with numbers
 	Mat img = imread("test.jpg");
 	Mat img_original;
@@ -58,7 +60,7 @@ int main() {
 	adaptiveThreshold(gray, thresh, 255, 1, 1, 11, 2);
 
 	//Output
-	Mat out;
+	Mat out(img.size(), CV_32F, Scalar(0, 1));
 
 	//Find contours
 	vector<vector<Point> > contours;
@@ -99,13 +101,18 @@ int main() {
 
 		//resize it to 10x10
 		Mat roismall;
-		Size_<int> smallSize(10,10);
+		Size_<float> smallSize(100,1); //todo: make sure no data is getting lost
 		resize(roi, roismall, smallSize);
+
+		//convert to float:
+		roismall.convertTo(roismall, CV_32F);
 
 		//todo ""  roismall = roismall.reshape((1,100))
 		//roismall = np.float32(roismall)
 
-		Mat results, neighborResponses, dist;
+		Mat_<float> results, neighborResponses, dist;
+
+		//cout << "Roismall_mat: " << roismall.size() << endl;
 
 		float retval = kn_model.find_nearest(roismall, 1, results, neighborResponses, dist);
 		float number_res = results.at<float>(0,0);
@@ -116,9 +123,14 @@ int main() {
 		putText(out, str_result, start_point, 0, 1, color);
 	}
 
+	namedWindow("img");
+	namedWindow("out");
 	imshow("img", img);
 	imshow("out", out);
 
+	waitKey(0);
+
+	destroyAllWindows();
 	return 0;
 
 }
