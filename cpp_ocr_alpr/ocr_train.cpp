@@ -110,7 +110,7 @@ int main() {
 	string samples_str = "samples";
 	string responses_str = "responses";
 	saveArray(responses_str, responses);
-	saveArray(samples_str, samples);
+	save2DArray(samples_str, samples);
 
 	cout << "Samples: " << samples.size() << endl;
 	cout << "Responses: " << responses.size() << endl;

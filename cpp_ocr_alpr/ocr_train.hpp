@@ -1,4 +1,5 @@
 #include <opencv2/core/core.hpp>
+#include <boost/lexical_cast.hpp>
 
 #include <iostream>
 #include <vector>
@@ -32,12 +33,18 @@ template <class A>
 void save2DArray(string &arrayName, vector< vector<A> > array) {
 	FileStorage fst(arrayName + ".yml", FileStorage::WRITE);
 
-	string index;
+	int size = array.size();
 
-	for (int i = 0; i < array.size(); ++i) {
-		index = i;
+	fst  << arrayName << size; //writes size of first level of array
+
+	string index;
+	for (int i = 0; i < size; ++i) {
+		index = boost::lexical_cast<string>(i);
+		cout << arrayName + index << endl;
+
 		fst << arrayName + index << array.at(i);
 	}
+
 	fst.release();
 
 	return;
@@ -50,12 +57,15 @@ vector< vector<A> > load2DArray(string &arrayName) {
 
 	vector< vector<A> > array;
 
+	int size;
+	fst[arrayName] >> size; //reads size of first level
+
 	vector<A> temp;
 	string index;
-
-	for (int i = 0; i < array.size(); ++i) {
-		index = i;
-		fst[arrayName + index] >> temp;
+	for (int i = 0; i < size; ++i) {
+		index = boost::lexical_cast<string>(i);
+		
+		fst[(arrayName + index)] >> temp;
 
 		array.push_back(temp);
 		temp.clear();
