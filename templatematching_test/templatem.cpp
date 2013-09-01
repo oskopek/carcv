@@ -8,8 +8,8 @@ using namespace cv;
 
 /// Global Variables
 Mat img; Mat templ; Mat result;
-char* image_window = "Source Image";
-char* result_window = "Result window";
+string image_window = "Source Image";
+string result_window = "Result window";
 
 int match_method;
 int max_Trackbar = 5;
@@ -25,12 +25,12 @@ int main( int argc, char** argv )
   templ = imread( argv[2], 1 );
 
   /// Create windows
-  namedWindow( image_window, CV_WINDOW_AUTOSIZE );
-  namedWindow( result_window, CV_WINDOW_AUTOSIZE );
+  namedWindow( image_window.c_str(), CV_WINDOW_AUTOSIZE );
+  namedWindow( result_window.c_str(), CV_WINDOW_AUTOSIZE );
 
   /// Create Trackbar
-  char* trackbar_label = "Method: \n 0: SQDIFF \n 1: SQDIFF NORMED \n 2: TM CCORR \n 3: TM CCORR NORMED \n 4: TM COEFF \n 5: TM COEFF NORMED";
-  createTrackbar( trackbar_label, image_window, &match_method, max_Trackbar, MatchingMethod );
+  string trackbar_label = "Method: \n 0: SQDIFF \n 1: SQDIFF NORMED \n 2: TM CCORR \n 3: TM CCORR NORMED \n 4: TM COEFF \n 5: TM COEFF NORMED";
+  createTrackbar( trackbar_label.c_str(), image_window.c_str(), &match_method, max_Trackbar, MatchingMethod );
 
   MatchingMethod( 0, 0 );
 

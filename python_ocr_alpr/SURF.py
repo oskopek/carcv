@@ -53,7 +53,7 @@ for i, descriptor in enumerate(nrows):
     x,y = nkeypoints[i].pt
     center = (int(x),int(y))
     cv2.circle(opencv_needle,center,2,color,-1)
-    
+
 
 cv2.imshow('haystack',opencv_haystack)
 cv2.imshow('needle',opencv_needle)
