@@ -5,6 +5,8 @@ package org.carcv.model;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
 
 import org.apache.commons.lang.builder.EqualsBuilder;
 import org.apache.commons.lang.builder.HashCodeBuilder;
@@ -16,6 +18,10 @@ import org.apache.commons.lang.builder.HashCodeBuilder;
  */
 @Entity
 public class Address implements IAddress {
+	
+	@Id
+	@GeneratedValue
+	private long id;
 	
 	@Column
 	private double latitude;
@@ -189,7 +195,7 @@ public class Address implements IAddress {
 	 */
 	@Override
 	public String toString() {
-		return "Address [latitude()=" + latitude() + ", longitude()="
+		return "Address [id=" + id + ", latitude()=" + latitude() + ", longitude()="
 				+ longitude() + ", city()=" + city() + ", postalcode()="
 				+ postalcode() + ", street()=" + street() + ", streetNumber()="
 				+ streetNumber() + ", country()=" + country()
@@ -291,6 +297,22 @@ public class Address implements IAddress {
 		return new EqualsBuilder().append(other.latitude, latitude).append(other.longitude, longitude).append(other.city, city)
 				.append(other.postalcode, postalcode).append(other.street, street).append(other.country, country).append(other.streetNumber, streetNumber)
 				.append(other.referenceNumber, referenceNumber).isEquals();
+	}
+
+
+	/**
+	 * @return the id
+	 */
+	public long getId() {
+		return id;
+	}
+
+
+	/**
+	 * @param id the id to set
+	 */
+	public void setId(long id) {
+		this.id = id;
 	}
 	
 	
