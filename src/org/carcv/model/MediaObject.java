@@ -38,6 +38,7 @@ public class MediaObject implements Serializable {
 	@Column(name="mediaType")
 	private MediaType mediaType;
 	
+	@SuppressWarnings("unused")
 	private MediaObject() {
 		//hibernate empty
 	}

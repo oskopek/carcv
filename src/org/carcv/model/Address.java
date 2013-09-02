@@ -44,6 +44,7 @@ public class Address implements IAddress {
 	/**
 	 * 
 	 */
+	@SuppressWarnings("unused")
 	private Address() {
 		// hibernate empty constructor
 	}
