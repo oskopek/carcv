@@ -9,10 +9,12 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.validation.constraints.NotNull;
 
 import org.apache.commons.lang.builder.CompareToBuilder;
 import org.apache.commons.lang.builder.EqualsBuilder;
 import org.apache.commons.lang.builder.HashCodeBuilder;
+import org.hibernate.validator.constraints.Range;
 
 /**
  * @author oskopek
@@ -53,12 +55,16 @@ public class Speed implements Serializable, Comparable<Speed> {
 
 	@Id
 	@GeneratedValue
+	@NotNull
 	private long id;
 
 	@Column
+	@NotNull
+	@Range(min=0,message="Speed is less or equal to 0!")
 	private double speed;
 	
 	@Column
+	@NotNull
 	private SpeedUnit unit;
 	
 	/**

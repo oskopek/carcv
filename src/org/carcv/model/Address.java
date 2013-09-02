@@ -9,9 +9,11 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.validation.constraints.NotNull;
 
 import org.apache.commons.lang.builder.EqualsBuilder;
 import org.apache.commons.lang.builder.HashCodeBuilder;
+import org.hibernate.validator.constraints.NotEmpty;
 
 /**
  * A basic getter/setter POJO implementation of IAddress, JPA annotated
@@ -28,30 +30,39 @@ public class Address implements IAddress, Serializable {
 
 	@Id
 	@GeneratedValue
+	@NotNull
 	private long id;
 	
 	@Column
+	@NotNull
 	private double latitude;
 	
 	@Column
+	@NotNull
 	private double longitude;
 	
 	@Column
+	@NotEmpty
 	private String city;
 	
 	@Column
+	@NotEmpty
 	private String postalcode;
 	
 	@Column
+	@NotEmpty
 	private String street;
 	
 	@Column
+	@NotEmpty
 	private String country;
 	
 	@Column
+	@NotNull
 	private int streetNumber;
 	
 	@Column
+	@NotNull
 	private int referenceNumber;
 
 	/**

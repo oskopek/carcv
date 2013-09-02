@@ -9,6 +9,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.validation.constraints.NotNull;
 
 import org.apache.commons.lang.builder.EqualsBuilder;
 import org.apache.commons.lang.builder.HashCodeBuilder;
@@ -31,12 +32,15 @@ public class MediaObject implements Serializable {
 
 	@Id
 	@GeneratedValue
+	@NotNull
 	private long id;
 
 	@Column(name="URL")
+	@NotNull
 	private String URL;
 	
 	@Column(name="mediaType")
+	@NotNull
 	private MediaType mediaType;
 	
 	@SuppressWarnings("unused")
