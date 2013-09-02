@@ -59,5 +59,15 @@
   		<artifactId>junit</artifactId>
   		<version>4.11</version>
   	</dependency>
+  	<dependency>
+  		<groupId>servletapi</groupId>
+  		<artifactId>servlet-api</artifactId>
+  		<version>2.4-20040521</version>
+  	</dependency>
+  	<dependency>
+  		<groupId>ar.com.fdvs</groupId>
+  		<artifactId>DynamicJasper</artifactId>
+  		<version>3.0.13</version>
+  	</dependency>
   </dependencies>
 </project>
