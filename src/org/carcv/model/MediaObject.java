@@ -23,11 +23,12 @@ import org.apache.commons.lang.builder.HashCodeBuilder;
 @Entity
 public class MediaObject implements Serializable {
 
+	
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 1L;
-	
+	private static final long serialVersionUID = -3002993447000570366L;
+
 	@Id
 	@GeneratedValue
 	private long id;

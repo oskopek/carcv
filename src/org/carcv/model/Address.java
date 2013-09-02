@@ -3,6 +3,8 @@
  */
 package org.carcv.model;
 
+import java.io.Serializable;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -17,8 +19,13 @@ import org.apache.commons.lang.builder.HashCodeBuilder;
  *
  */
 @Entity
-public class Address implements IAddress {
+public class Address implements IAddress, Serializable {
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 3193222849089726865L;
+
 	@Id
 	@GeneratedValue
 	private long id;

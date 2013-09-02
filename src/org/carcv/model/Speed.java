@@ -3,11 +3,14 @@
  */
 package org.carcv.model;
 
+import java.io.Serializable;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
+import org.apache.commons.lang.builder.CompareToBuilder;
 import org.apache.commons.lang.builder.EqualsBuilder;
 import org.apache.commons.lang.builder.HashCodeBuilder;
 
@@ -16,7 +19,12 @@ import org.apache.commons.lang.builder.HashCodeBuilder;
  *
  */
 @Entity
-public class Speed {
+public class Speed implements Serializable, Comparable<Speed> {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1816208535143255888L;
 
 	/**
 	 * 
@@ -121,6 +129,11 @@ public class Speed {
 	 */
 	public void setId(long id) {
 		this.id = id;
+	}
+
+	@Override
+	public int compareTo(Speed o) {
+		return new CompareToBuilder().append(speed, o.speed).toComparison();
 	}
 	
 	
