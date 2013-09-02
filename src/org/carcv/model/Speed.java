@@ -31,7 +31,8 @@ public class Speed implements Serializable, Comparable<Speed> {
 	/**
 	 * 
 	 */
-	public Speed() {
+	@SuppressWarnings("unused")
+	private Speed() {
 		//hibernate constructor stub
 	}
 	
