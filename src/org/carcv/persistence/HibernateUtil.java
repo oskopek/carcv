@@ -10,7 +10,7 @@ public class HibernateUtil {
     private static SessionFactory buildSessionFactory() {
         try {
             // Create the SessionFactory from annotations
-            return new AnnotationConfiguration().configure().buildSessionFactory();
+            return new AnnotationConfiguration().configure("/res/hibernate.cfg.xml").buildSessionFactory();
  
         }
         catch (Throwable ex) {
