@@ -3,18 +3,43 @@
  */
 package org.carcv.model;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+
 import org.apache.commons.lang.builder.EqualsBuilder;
 import org.apache.commons.lang.builder.HashCodeBuilder;
 
 /**
+ * A basic getter/setter POJO implementation of IAddress, JPA annotated
  * @author oskopek
  *
  */
+@Entity
 public class Address implements IAddress {
 	
-	private double latitude, longitude;
-	private String city, postalcode, street, country;
-	private int streetNumber, referenceNumber;
+	@Column
+	private double latitude;
+	
+	@Column
+	private double longitude;
+	
+	@Column
+	private String city;
+	
+	@Column
+	private String postalcode;
+	
+	@Column
+	private String street;
+	
+	@Column
+	private String country;
+	
+	@Column
+	private int streetNumber;
+	
+	@Column
+	private int referenceNumber;
 
 	/**
 	 * 
