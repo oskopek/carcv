@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report1" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="6d20a355-4372-4704-9d46-9f6d99f36a53">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="265"/>
+	<subDataset name="dataset1" uuid="cf2f8d64-57a3-4bda-a008-bcaec9b1df27"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="194" splitType="Stretch">
+			<image>
+				<reportElement uuid="bbd3cb90-dd61-4492-a89e-858a8e2087cd" x="0" y="0" width="195" height="194"/>
+				<imageExpression><![CDATA["/home/oskopek/git/carcv_gui/res/reports/OpenCV_Logo_with_text.png"]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement uuid="c6c3bf3e-61ec-4513-b7d7-9e236a0db1be" x="195" y="0" width="360" height="80"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="26" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Výpis z merania rýchlosti]]></text>
+			</staticText>
+			<textField>
+				<reportElement uuid="4d208530-7409-4626-a0ac-ccf7ed87f62a" x="195" y="116" width="154" height="78"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="18"/>
+				</textElement>
+				<textFieldExpression><![CDATA[ID: $F{reportid}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="9fa3ecaf-ec7c-4fe6-8c48-06adae835dfd" x="195" y="80" width="360" height="36"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="20" isItalic="true"/>
+				</textElement>
+				<text><![CDATA[CarCV Car Speed Meter]]></text>
+			</staticText>
+			<textField>
+				<reportElement uuid="4d96387a-a983-471c-bfbc-e371f2f3c41f" x="349" y="116" width="206" height="78"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="18"/>
+				</textElement>
+				<textFieldExpression><![CDATA[Vec: $F{reportname}]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="25" splitType="Stretch"/>
+	</pageHeader>
+	<detail>
+		<band height="371" splitType="Stretch">
+			<textField>
+				<reportElement uuid="ef89776c-0d8f-4daf-855e-2528e9220b8f" x="255" y="1" width="300" height="50"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font size="18"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{date}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="0a997a4f-e9b9-4bcc-af2a-e8d42db81621" x="255" y="51" width="300" height="50"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font size="18"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{time}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="c1d30a32-fad7-4536-a9ca-8baee5d17839" x="255" y="100" width="300" height="50"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font size="18"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{LPNumber}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="dbaf940c-5158-495f-a494-01c7eb07eb02" x="255" y="200" width="300" height="100"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font size="18"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{location}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="746a8348-5d39-498e-ac41-e7499c8b2c28" x="255" y="150" width="300" height="50"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font size="18"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{speed}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="2ffbde14-1e9a-42f9-8032-c23a1cdb36b2" x="255" y="300" width="300" height="50"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font size="18"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{videoURL}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="1d6a055f-6933-4d54-a867-4a9e9ca99f0d" x="65" y="1" width="190" height="50"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font size="18"/>
+				</textElement>
+				<text><![CDATA[Dátum:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="984ca6f7-de90-4e8b-bb05-3434a3b3e8d1" x="65" y="50" width="190" height="50"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font size="18"/>
+				</textElement>
+				<text><![CDATA[Čas:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="3dbeff0f-581b-44e8-b881-6e88732ddaaa" x="65" y="101" width="190" height="50"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font size="18"/>
+				</textElement>
+				<text><![CDATA[Číslo ŠPZ:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="1e9a2dec-c3d3-4fb8-9ee0-aa090be7cc5c" x="65" y="151" width="190" height="50"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font size="18"/>
+				</textElement>
+				<text><![CDATA[Rýchlosť:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="aae5d2ad-c9bc-4b47-b1d1-a5143be1c1a7" x="65" y="300" width="190" height="50"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font size="18"/>
+				</textElement>
+				<text><![CDATA[Odkaz:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="67e6c972-f119-410c-9268-b0df02f9d7b2" x="65" y="201" width="190" height="99"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font size="18"/>
+				</textElement>
+				<text><![CDATA[Miesto:]]></text>
+			</staticText>
+		</band>
+	</detail>
+	<summary>
+		<band height="96" splitType="Stretch">
+			<textField>
+				<reportElement uuid="91a967d4-f4b4-404e-ac1d-4fc9b3b7faf9" x="0" y="46" width="349" height="50"/>
+				<textElement textAlignment="Left" verticalAlignment="Top">
+					<font size="18"/>
+				</textElement>
+				<textFieldExpression><![CDATA[V $F{reportlocation}, dňa $F{reportdate}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement uuid="160b78f6-c289-442b-871d-386eb1b91bf9" x="349" y="35" width="206" height="1"/>
+			</line>
+			<staticText>
+				<reportElement uuid="aec90c26-3f64-404b-a9b7-84dfc459336b" x="349" y="46" width="206" height="50"/>
+				<textElement textAlignment="Center">
+					<font size="18"/>
+				</textElement>
+				<text><![CDATA[Podpis]]></text>
+			</staticText>
+		</band>
+	</summary>
+</jasperReport>
