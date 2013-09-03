@@ -3,6 +3,7 @@
  */
 package org.carcv.reports;
 
+import java.io.File;
 import java.util.Date;
 
 import net.sf.jasperreports.engine.JRException;
@@ -24,7 +25,7 @@ import org.junit.Test;
  *
  */
 public class BasicReportGeneratorTest {
-	
+
 	private static Entry testEntry;
 
 	/**
@@ -32,21 +33,27 @@ public class BasicReportGeneratorTest {
 	 */
 	@BeforeClass
 	public static void setUpBeforeClass() throws Exception {
+		File test_results_dir = new File("./test_results/");
+		if (!test_results_dir.exists() || !test_results_dir.isDirectory()) {
+			test_results_dir.mkdir();
+		}
+		
+		
 		MediaObject preview = new MediaObject("./res/reports/OpenCV_Logo_with_text.png", MediaType.PNG);
-		
+
 		Speed speed = new Speed(80d, SpeedUnit.KPH);
-		
+
 		Address add = new Address("Myjava", "90701", "Jablonská", "Slovakia", 27, 860);
 		ILocation location = add;
-		
+
 		LicencePlate licencePlate = new LicencePlate("MY-077AU", "SK");
-		
+
 		Date timestamp = new Date(System.currentTimeMillis());
-		
+
 		MediaObject video = new MediaObject("test.com/video.h264", MediaType.H264);
-		
+
 		CarData carData = new CarData(speed, location, licencePlate, timestamp, video);
-		
+
 		testEntry = new Entry(carData, preview);
 	}
 
@@ -56,7 +63,7 @@ public class BasicReportGeneratorTest {
 	 */
 	@Test
 	public void testBuildPDFReport() throws JRException {
-			BasicReportGenerator.buildPDFReport(testEntry, "./res/reports/speed_report.jasper", "./test_results/report" + System.currentTimeMillis() + ".pdf", "Myjava", "TestReport");
+		BasicReportGenerator.buildPDFReport(testEntry, "./res/reports/speed_report.jasper", "./test_results/report" + System.currentTimeMillis() + ".pdf", "Myjava", "TestReport");
 	}
 
 }
