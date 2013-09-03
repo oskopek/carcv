@@ -23,7 +23,7 @@
 		<band height="194" splitType="Stretch">
 			<image>
 				<reportElement uuid="f4bbfb8c-f0e6-44e8-b5d9-dcfca46375e0" x="0" y="0" width="195" height="194"/>
-				<imageExpression><![CDATA["./res/reports/OpenCV_Logo_with_text.png"]]></imageExpression>
+				<imageExpression><![CDATA[$P{previewURL}]]></imageExpression>
 			</image>
 			<staticText>
 				<reportElement uuid="8155a777-836e-4785-97da-8bedceda1d94" x="195" y="0" width="360" height="80"/>
