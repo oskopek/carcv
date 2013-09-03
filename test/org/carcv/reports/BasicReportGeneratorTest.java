@@ -61,8 +61,8 @@ public class BasicReportGeneratorTest {
 			BasicReportGenerator.buildPDFReport(testEntry, "./res/reports/speed_report.jasper", "./test_results/report" + System.currentTimeMillis() + ".pdf", "Myjava", "TestReport");
 		}
 		catch (Exception e) {
-			e.printStackTrace();
 			fail("Exception in report build.");
+			e.printStackTrace();
 		}
 	}
 
