@@ -3,8 +3,6 @@
  */
 package org.carcv.reports;
 
-import static org.junit.Assert.*;
-
 import java.util.Date;
 
 import net.sf.jasperreports.engine.JRException;
@@ -34,7 +32,7 @@ public class BasicReportGeneratorTest {
 	 */
 	@BeforeClass
 	public static void setUpBeforeClass() throws Exception {
-		MediaObject preview = new MediaObject("test.com/test.jpeg", MediaType.JPEG);
+		MediaObject preview = new MediaObject("./res/reports/OenCV_Logo_with_text.png", MediaType.PNG);
 		
 		Speed speed = new Speed(80d, SpeedUnit.KPH);
 		
@@ -54,16 +52,11 @@ public class BasicReportGeneratorTest {
 
 	/**
 	 * Test method for {@link org.carcv.reports.BasicReportGenerator#buildPDFReport(org.carcv.model.Entry, java.lang.String, java.lang.String, java.lang.String)}.
+	 * @throws JRException 
 	 */
 	@Test
-	public void testBuildPDFReport() {
-		try {
+	public void testBuildPDFReport() throws JRException {
 			BasicReportGenerator.buildPDFReport(testEntry, "./res/reports/speed_report.jasper", "./test_results/report" + System.currentTimeMillis() + ".pdf", "Myjava", "TestReport");
-		}
-		catch (Exception e) {
-			fail("Exception in report build.");
-			e.printStackTrace();
-		}
 	}
 
 }
