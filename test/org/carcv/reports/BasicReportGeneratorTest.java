@@ -32,7 +32,7 @@ public class BasicReportGeneratorTest {
 	 */
 	@BeforeClass
 	public static void setUpBeforeClass() throws Exception {
-		MediaObject preview = new MediaObject("./res/reports/OenCV_Logo_with_text.png", MediaType.PNG);
+		MediaObject preview = new MediaObject("./res/reports/OpenCV_Logo_with_text.png", MediaType.PNG);
 		
 		Speed speed = new Speed(80d, SpeedUnit.KPH);
 		
