@@ -2,3 +2,4 @@ build/*
 *~
 /build
 /target
+/test_results
