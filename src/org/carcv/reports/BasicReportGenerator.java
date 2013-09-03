@@ -35,6 +35,8 @@ public class BasicReportGenerator {
 	public static void buildPDFReport(Entry e, String templateFilename, String exportToFilename, String reportBuilderLocation, String reportName) {
 			
 		Map<String, Object> values = new HashMap<String, Object>();
+		Map<String, Object> parameters = new HashMap<String, Object>();
+		
 		CarData data = e.getData();
 		
 
@@ -43,10 +45,10 @@ public class BasicReportGenerator {
 		
 		
 		//report
-		values.put("reportid", Long.toString(System.currentTimeMillis()));
-		values.put("reportname", reportName);
-		values.put("reportlocation", reportBuilderLocation);
-		values.put("reportdate", dateFormat.format(new Date(System.currentTimeMillis())));
+		parameters.put("reportid", Long.toString(System.currentTimeMillis()));
+		parameters.put("reportname", reportName);
+		parameters.put("reportlocation", reportBuilderLocation);
+		parameters.put("reportdate", dateFormat.format(new Date(System.currentTimeMillis())));
 		
 		//data
 		IAddress add = (IAddress) data.getLocation();
@@ -54,22 +56,20 @@ public class BasicReportGenerator {
 				+ add.postalcode() + " " + add.city() + "\n"
 				+ add.country();
 		
-		//values.put("id", Long.toString(data.getId()));
-		values.put("date", dateFormat.format(data.getTimestamp()));
-		values.put("location", dataLocation);
-		values.put("LPNumber", data.getLicencePlate().getText());
-		values.put("videoURL", data.getVideo().getURL());
-		values.put("time", timeFormat.format(data.getTimestamp()));
-		values.put("speed", Double.toString(data.getSpeed().getSpeed()) + " " + data.getSpeed().getUnit().toString());
+		//parameters.put("id", Long.toString(data.getId()));
+		parameters.put("date", dateFormat.format(data.getTimestamp()));
+		parameters.put("location", dataLocation);
+		parameters.put("LPNumber", data.getLicencePlate().getText());
+		parameters.put("videoURL", data.getVideo().getURL());
+		parameters.put("time", timeFormat.format(data.getTimestamp()));
+		parameters.put("speed", Double.toString(data.getSpeed().getSpeed()) + " " + data.getSpeed().getUnit().toString());
 		
-		//values.put
+		//parameters.put
 		
 		Collection<Map<String, ?>> mapList = new ArrayList<Map<String, ?>>();
 		mapList.add(values);
 		
 		JRMapCollectionDataSource mapDataSource = new JRMapCollectionDataSource(mapList);
-		
-		Map parameters = new HashMap();
 		
 		
 		try {

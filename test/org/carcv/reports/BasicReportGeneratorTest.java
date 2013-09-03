@@ -38,7 +38,7 @@ public class BasicReportGeneratorTest {
 		
 		Speed speed = new Speed(80d, SpeedUnit.KPH);
 		
-		Address add = new Address("Myjava", "90701", "Jablonská", "Slovakia", 27);
+		Address add = new Address("Myjava", "90701", "Jablonská", "Slovakia", 27, 860);
 		ILocation location = add;
 		
 		LicencePlate licencePlate = new LicencePlate("MY-077AU", "SK");
