@@ -1,5 +1,7 @@
 package org.carcv.persistence;
 
+import java.io.File;
+
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.AnnotationConfiguration;
  
@@ -8,9 +10,14 @@ public class HibernateUtil {
     private static final SessionFactory sessionFactory = buildSessionFactory();
  
     private static SessionFactory buildSessionFactory() {
+    	
+    	return HibernateUtil.buildSessionFactory("/resources/hibernate.cfg.xml");
+    }
+    
+    public static SessionFactory buildSessionFactory(String configureFilename) {
         try {
             // Create the SessionFactory from annotations
-            return new AnnotationConfiguration().configure("/res/hibernate.cfg.xml").buildSessionFactory();
+            return new AnnotationConfiguration().configure(configureFilename).buildSessionFactory();
  
         }
         catch (Throwable ex) {
