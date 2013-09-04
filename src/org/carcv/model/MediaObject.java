@@ -9,6 +9,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
 import org.apache.commons.lang.builder.EqualsBuilder;
@@ -22,6 +23,7 @@ import org.apache.commons.lang.builder.HashCodeBuilder;
  *
  */
 @Entity
+@Table(name="mediaobject")
 public class MediaObject implements Serializable {
 
 	
@@ -30,17 +32,10 @@ public class MediaObject implements Serializable {
 	 */
 	private static final long serialVersionUID = -3002993447000570366L;
 
-	@Id
-	@GeneratedValue
-	@NotNull
 	private long id;
 
-	@Column(name="URL")
-	@NotNull
 	private String URL;
 	
-	@Column(name="mediaType")
-	@NotNull
 	private MediaType mediaType;
 	
 	@SuppressWarnings("unused")
@@ -56,6 +51,10 @@ public class MediaObject implements Serializable {
 	/**
 	 * @return the id
 	 */
+	@Id
+	@GeneratedValue
+	@NotNull
+	@Column(name="id")
 	public long getId() {
 		return id;
 	}
@@ -70,6 +69,8 @@ public class MediaObject implements Serializable {
 	/**
 	 * @return the URL
 	 */
+	@Column(name="URL")
+	@NotNull
 	public String getURL() {
 		return URL;
 	}
@@ -84,6 +85,8 @@ public class MediaObject implements Serializable {
 	/**
 	 * @return the mediaType
 	 */
+	@Column(name="mediatype")
+	@NotNull
 	public MediaType getMediaType() {
 		return mediaType;
 	}

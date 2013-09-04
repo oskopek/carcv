@@ -9,6 +9,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
 import org.apache.commons.lang.builder.CompareToBuilder;
@@ -21,23 +22,18 @@ import org.apache.commons.lang.builder.HashCodeBuilder;
  *
  */
 @Entity
+@Table(name="licenceplate")
 public class LicencePlate implements Serializable, Comparable<LicencePlate> {
 	
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = -2507938473851975932L;
-	
-	@Id
-	@GeneratedValue
-	@NotNull
+
 	private long id;
 
-	@Column
-	@NotNull
 	private String text;
 	
-	@Column
 	private String origin;
 	
 	@SuppressWarnings("unused")
@@ -63,8 +59,28 @@ public class LicencePlate implements Serializable, Comparable<LicencePlate> {
 	}
 
 	/**
+	 * @return the id
+	 */
+	@Id
+	@GeneratedValue
+	@NotNull
+	@Column(name="id")
+	public long getId() {
+		return id;
+	}
+
+	/**
+	 * @param id the id to set
+	 */
+	public void setId(long id) {
+		this.id = id;
+	}
+
+	/**
 	 * @return the text
 	 */
+	@Column(name="text")
+	@NotNull
 	public String getText() {
 		return text;
 	}
@@ -79,6 +95,7 @@ public class LicencePlate implements Serializable, Comparable<LicencePlate> {
 	/**
 	 * @return the origin
 	 */
+	@Column(name="origin")
 	public String getOrigin() {
 		return origin;
 	}

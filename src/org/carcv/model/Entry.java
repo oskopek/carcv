@@ -5,10 +5,12 @@ package org.carcv.model;
 
 import java.io.Serializable;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
+import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
 import org.apache.commons.lang.builder.EqualsBuilder;
@@ -19,6 +21,7 @@ import org.apache.commons.lang.builder.HashCodeBuilder;
  *
  */
 @Entity
+@Table(name="entry")
 public class Entry implements Serializable {
 
 	/**
@@ -26,17 +29,10 @@ public class Entry implements Serializable {
 	 */
 	private static final long serialVersionUID = -6502456443004564945L;
 
-	@Id
-	@GeneratedValue
-	@NotNull
 	private long id;
-	
-	@OneToOne
-	@NotNull
+
 	private CarData data;
 	
-	@OneToOne
-	@NotNull
 	private MediaObject preview;
 
 	/**
@@ -58,8 +54,29 @@ public class Entry implements Serializable {
 
 
 	/**
-	 * @return the data
+	 * @return the id
 	 */
+	@Id
+	@GeneratedValue
+	@NotNull
+	@Column(name="id")
+	public long getId() {
+		return id;
+	}
+
+	/**
+	 * @param id the id to set
+	 */
+	public void setId(long id) {
+		this.id = id;
+	}
+
+	/**
+	 * @return the data
+	 */	
+	@OneToOne
+	@NotNull
+	@Column(name="data")
 	public CarData getData() {
 		return data;
 	}
@@ -74,6 +91,9 @@ public class Entry implements Serializable {
 	/**
 	 * @return the preview
 	 */
+	@OneToOne
+	@NotNull
+	@Column(name="preview")
 	public MediaObject getPreview() {
 		return preview;
 	}

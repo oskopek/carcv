@@ -6,11 +6,13 @@ package org.carcv.model;
 import java.io.Serializable;
 import java.util.Date;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
+import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
 import org.apache.commons.lang.builder.EqualsBuilder;
@@ -22,6 +24,7 @@ import org.apache.commons.lang.builder.HashCodeBuilder;
  *
  */
 @Entity
+@Table(name="cardata")
 public class CarData implements Serializable {
 	
 	/**
@@ -29,29 +32,16 @@ public class CarData implements Serializable {
 	 */
 	private static final long serialVersionUID = -2135634243340403587L;
 
-	@Id
-	@GeneratedValue
-	@NotNull
 	private long id;
 	
-	@ManyToOne
-	@NotNull
 	private Speed speed;
 	
-	@ManyToOne
-	@NotNull
 	private ILocation location;
 	
-	@ManyToOne
-	@NotNull
 	private LicencePlate licencePlate;
 	
-	@OneToOne
-	@NotNull
 	private Date timestamp;
 	
-	@OneToOne
-	@NotNull
 	private MediaObject video;
 	
 	
@@ -84,6 +74,10 @@ public class CarData implements Serializable {
 	/**
 	 * @return the id
 	 */
+	@Id
+	@GeneratedValue
+	@NotNull
+	@Column(name="id")
 	public long getId() {
 		return id;
 	}
@@ -100,6 +94,9 @@ public class CarData implements Serializable {
 	/**
 	 * @return the speed
 	 */
+	@ManyToOne
+	@NotNull
+	@Column(name="speed")
 	public Speed getSpeed() {
 		return speed;
 	}
@@ -116,6 +113,9 @@ public class CarData implements Serializable {
 	/**
 	 * @return the location
 	 */
+	@ManyToOne
+	@NotNull
+	@Column(name="location")
 	public ILocation getLocation() {
 		return location;
 	}
@@ -132,6 +132,9 @@ public class CarData implements Serializable {
 	/**
 	 * @return the licencePlate
 	 */
+	@ManyToOne
+	@NotNull
+	@Column(name="licenceplate")
 	public LicencePlate getLicencePlate() {
 		return licencePlate;
 	}
@@ -148,6 +151,9 @@ public class CarData implements Serializable {
 	/**
 	 * @return the timestamp
 	 */
+	@OneToOne
+	@NotNull
+	@Column(name="timestamp")
 	public Date getTimestamp() {
 		return timestamp;
 	}
@@ -164,6 +170,9 @@ public class CarData implements Serializable {
 	/**
 	 * @return the video
 	 */
+	@OneToOne
+	@NotNull
+	@Column(name="video")
 	public MediaObject getVideo() {
 		return video;
 	}

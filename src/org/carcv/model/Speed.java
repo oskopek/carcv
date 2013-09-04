@@ -9,6 +9,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
 import org.apache.commons.lang.builder.CompareToBuilder;
@@ -21,6 +22,7 @@ import org.hibernate.validator.constraints.Range;
  *
  */
 @Entity
+@Table(name="speed")
 public class Speed implements Serializable, Comparable<Speed> {
 
 	/**
@@ -54,23 +56,18 @@ public class Speed implements Serializable, Comparable<Speed> {
 		this.unit = SpeedUnit.MS;
 	}
 
-	@Id
-	@GeneratedValue
-	@NotNull
 	private long id;
 
-	@Column
-	@NotNull
-	@Range(min=0,message="Speed is less or equal to 0!")
 	private double speed;
 	
-	@Column
-	@NotNull
 	private SpeedUnit unit;
 	
 	/**
 	 * @return the speed
 	 */
+	@Column(name="speed")
+	@NotNull
+	@Range(min=0,message="Speed is less or equal to 0!")
 	public double getSpeed() {
 		return speed;
 	}
@@ -83,6 +80,8 @@ public class Speed implements Serializable, Comparable<Speed> {
 	/**
 	 * @return the unit
 	 */
+	@Column(name="unit")
+	@NotNull
 	public SpeedUnit getUnit() {
 		return unit;
 	}
@@ -127,6 +126,10 @@ public class Speed implements Serializable, Comparable<Speed> {
 	/**
 	 * @return the id
 	 */
+	@Id
+	@GeneratedValue
+	@NotNull
+	@Column(name="id")
 	public long getId() {
 		return id;
 	}
