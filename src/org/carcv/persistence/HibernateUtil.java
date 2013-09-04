@@ -1,7 +1,5 @@
 package org.carcv.persistence;
 
-import java.io.File;
-
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.AnnotationConfiguration;
  

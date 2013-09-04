@@ -76,7 +76,7 @@ public class Entry implements Serializable {
 	 */	
 	@OneToOne
 	@NotNull
-	@Column(name="data")
+	//@Column(name="data")
 	public CarData getData() {
 		return data;
 	}
@@ -93,7 +93,7 @@ public class Entry implements Serializable {
 	 */
 	@OneToOne
 	@NotNull
-	@Column(name="preview")
+	//@Column(name="preview")
 	public MediaObject getPreview() {
 		return preview;
 	}

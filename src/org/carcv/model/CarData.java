@@ -17,6 +17,7 @@ import javax.validation.constraints.NotNull;
 
 import org.apache.commons.lang.builder.EqualsBuilder;
 import org.apache.commons.lang.builder.HashCodeBuilder;
+import org.hibernate.annotations.Type;
 
 /**
  * An expression of Data collected
@@ -36,7 +37,7 @@ public class CarData implements Serializable {
 	
 	private Speed speed;
 	
-	private ILocation location;
+	private Address location;
 	
 	private LicencePlate licencePlate;
 	
@@ -61,7 +62,7 @@ public class CarData implements Serializable {
 	 * @param timestamp
 	 * @param video
 	 */
-	public CarData(Speed speed, ILocation location, LicencePlate licencePlate,
+	public CarData(Speed speed, Address location, LicencePlate licencePlate,
 			Date timestamp, MediaObject video) {
 		this.speed = speed;
 		this.location = location;
@@ -96,7 +97,7 @@ public class CarData implements Serializable {
 	 */
 	@ManyToOne
 	@NotNull
-	@Column(name="speed")
+	//@Column(name="speed")
 	public Speed getSpeed() {
 		return speed;
 	}
@@ -115,8 +116,8 @@ public class CarData implements Serializable {
 	 */
 	@ManyToOne
 	@NotNull
-	@Column(name="location")
-	public ILocation getLocation() {
+	//@Column(name="location")
+	public Address getLocation() {
 		return location;
 	}
 
@@ -124,7 +125,7 @@ public class CarData implements Serializable {
 	/**
 	 * @param location the location to set
 	 */
-	public void setLocation(ILocation location) {
+	public void setLocation(Address location) {
 		this.location = location;
 	}
 
@@ -134,7 +135,7 @@ public class CarData implements Serializable {
 	 */
 	@ManyToOne
 	@NotNull
-	@Column(name="licenceplate")
+	//@Column(name="licenceplate")
 	public LicencePlate getLicencePlate() {
 		return licencePlate;
 	}
@@ -151,9 +152,9 @@ public class CarData implements Serializable {
 	/**
 	 * @return the timestamp
 	 */
-	@OneToOne
 	@NotNull
 	@Column(name="timestamp")
+	//@Type(type="TIMESTAMP")
 	public Date getTimestamp() {
 		return timestamp;
 	}
@@ -172,7 +173,7 @@ public class CarData implements Serializable {
 	 */
 	@OneToOne
 	@NotNull
-	@Column(name="video")
+	//@Column(name="video")
 	public MediaObject getVideo() {
 		return video;
 	}

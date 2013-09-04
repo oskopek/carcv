@@ -5,13 +5,11 @@ package org.carcv.persistence;
 
 import static org.junit.Assert.*;
 
-import java.io.File;
 import java.util.Date;
 
 import org.carcv.model.Address;
 import org.carcv.model.CarData;
 import org.carcv.model.Entry;
-import org.carcv.model.ILocation;
 import org.carcv.model.LicencePlate;
 import org.carcv.model.MediaObject;
 import org.carcv.model.MediaType;
@@ -44,8 +42,7 @@ public class HibernateUtilTest {
 
 		Speed speed = new Speed(80d, SpeedUnit.KPH);
 
-		Address add = new Address("Myjava", "90701", "Jablonská", "Slovakia", 27, 860);
-		ILocation location = add;
+		Address location = new Address("Myjava", "90701", "Jablonská", "Slovakia", 27, 860);
 
 		LicencePlate licencePlate = new LicencePlate("MY-077AU", "SK");
 
