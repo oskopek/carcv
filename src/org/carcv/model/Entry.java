@@ -36,10 +36,9 @@ public class Entry implements Serializable {
 	private MediaObject preview;
 
 	/**
-	 * 
+	 * For EJB
 	 */
-	@SuppressWarnings("unused")
-	private Entry() {
+	public Entry() {
 		//Hibernate stub
 	}
 

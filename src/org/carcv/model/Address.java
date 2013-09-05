@@ -49,10 +49,9 @@ public class Address implements IAddress, Serializable {
 	private int referenceNumber;
 
 	/**
-	 * 
+	 * For EJB
 	 */
-	@SuppressWarnings("unused")
-	private Address() {
+	public Address() {
 		// hibernate empty constructor
 	}
 	

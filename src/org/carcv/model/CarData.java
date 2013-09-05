@@ -17,7 +17,6 @@ import javax.validation.constraints.NotNull;
 
 import org.apache.commons.lang.builder.EqualsBuilder;
 import org.apache.commons.lang.builder.HashCodeBuilder;
-import org.hibernate.annotations.Type;
 
 /**
  * An expression of Data collected
@@ -47,10 +46,9 @@ public class CarData implements Serializable {
 	
 	
 	/**
-	 * 
+	 * For EJB
 	 */
-	@SuppressWarnings("unused")
-	private CarData() {
+	public CarData() {
 		//hibernate stub
 	}
 

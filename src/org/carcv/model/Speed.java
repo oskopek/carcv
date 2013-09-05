@@ -31,10 +31,9 @@ public class Speed implements Serializable, Comparable<Speed> {
 	private static final long serialVersionUID = 1816208535143255888L;
 
 	/**
-	 * 
+	 * For EJB
 	 */
-	@SuppressWarnings("unused")
-	private Speed() {
+	public Speed() {
 		//hibernate constructor stub
 	}
 	

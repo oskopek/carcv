@@ -38,11 +38,19 @@ public class MediaObject implements Serializable {
 	
 	private MediaType mediaType;
 	
-	@SuppressWarnings("unused")
-	private MediaObject() {
+	
+	/**
+	 * For EJB
+	 */
+	public MediaObject() {
 		//hibernate empty
 	}
 	
+	/**
+	 * 
+	 * @param URL
+	 * @param mediaType
+	 */
 	public MediaObject(String URL, MediaType mediaType) {
 		this.URL = URL;
 		this.mediaType = mediaType;
