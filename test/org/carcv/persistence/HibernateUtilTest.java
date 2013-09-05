@@ -36,7 +36,7 @@ public class HibernateUtilTest {
 	@Before
 	public void setUp() throws Exception {
 		
-		testSf = HibernateUtil.buildSessionFactory("/resources/hibernate_unittest.cfg.xml");
+		testSf = HibernateUtil.buildSessionFactory("resources/hibernate_unittest.cfg.xml");
 		
 		MediaObject preview = new MediaObject("./res/reports/OpenCV_Logo_with_text.png", MediaType.PNG);
 

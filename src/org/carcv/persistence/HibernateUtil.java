@@ -9,7 +9,7 @@ public class HibernateUtil {
  
     private static SessionFactory buildSessionFactory() {
     	
-    	return HibernateUtil.buildSessionFactory("/resources/hibernate.cfg.xml");
+    	return HibernateUtil.buildSessionFactory("resources/hibernate.cfg.xml");
     }
     
     public static SessionFactory buildSessionFactory(String configureFilename) {
