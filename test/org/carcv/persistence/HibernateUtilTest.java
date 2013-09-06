@@ -5,6 +5,7 @@ package org.carcv.persistence;
 
 import static org.junit.Assert.*;
 
+import java.net.URL;
 import java.util.Date;
 import java.util.List;
 
@@ -32,15 +33,16 @@ public class HibernateUtilTest {
 
 	SessionFactory testSf;
 	
+	String workspacePath;
+	
 	/**
 	 * @throws java.lang.Exception
 	 */
 	@Before
 	public void setUp() throws Exception {
+		workspacePath = getClass().getResource("/").getPath();
 		
-		testSf = HibernateUtil.buildSessionFactory("/resources/hibernate_unittest.cfg.xml");
-		
-		
+		testSf = HibernateUtil.buildSessionFactory(workspacePath + "resources/hibernate_unittest.cfg.xml");	
 	}
 
 	/**
@@ -59,7 +61,7 @@ public class HibernateUtilTest {
 		tx.setTimeout(5);
 		
 		//Entity code
-		MediaObject preview = new MediaObject("/resources/reports/OpenCV_Logo_with_text.png", MediaType.PNG);
+		MediaObject preview = new MediaObject(workspacePath + "resources/reports/OpenCV_Logo_with_text.png", MediaType.PNG);
 
 		Speed speed = new Speed(80d, SpeedUnit.KPH);
 
