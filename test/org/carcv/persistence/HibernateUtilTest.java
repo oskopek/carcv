@@ -5,8 +5,8 @@ package org.carcv.persistence;
 
 import static org.junit.Assert.*;
 
-import java.net.URL;
 import java.util.Date;
+import java.util.List;
 
 import org.carcv.model.Address;
 import org.carcv.model.CarData;
@@ -16,8 +16,10 @@ import org.carcv.model.MediaObject;
 import org.carcv.model.MediaType;
 import org.carcv.model.Speed;
 import org.carcv.model.SpeedUnit;
+import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -50,12 +52,14 @@ public class HibernateUtilTest {
 	}
 
 	@Test
-	public void test() {
+	public void test() throws InterruptedException {
 		Session session = testSf.openSession();
-		session.beginTransaction();
+		
+		Transaction tx = session.beginTransaction();
+		tx.setTimeout(5);
 		
 		//Entity code
-		MediaObject preview = new MediaObject("./res/reports/OpenCV_Logo_with_text.png", MediaType.PNG);
+		MediaObject preview = new MediaObject("/resources/reports/OpenCV_Logo_with_text.png", MediaType.PNG);
 
 		Speed speed = new Speed(80d, SpeedUnit.KPH);
 
@@ -71,7 +75,6 @@ public class HibernateUtilTest {
 
 		Entry testEntry = new Entry(carData, preview);		
 		//End entity code
-		
 		session.saveOrUpdate(preview);
 		session.saveOrUpdate(speed);
 		session.saveOrUpdate(location);
@@ -82,16 +85,26 @@ public class HibernateUtilTest {
 		
 		System.out.println("Saved");
 		
-		session.getTransaction().commit();
+		tx.commit();
 		System.out.println("Commited");
 		
-		try {
-			Thread.sleep(1000*60);
-		} catch (InterruptedException e) {
-			e.printStackTrace();
-		}
+		long entry_id = testEntry.getId();
+		System.out.println("Id=" + entry_id);
 		
-		assertTrue(session.getTransaction().wasCommitted());
+		assertTrue(tx.wasCommitted());
+		
+		
+		//now retrieve
+		
+		Query query = session.createQuery("from Entry where id = :entryid");
+		query.setParameter("entryid", entry_id);
+		
+		@SuppressWarnings("unchecked")
+		List<Entry> list = query.list();
+		
+		Entry entryFromDB = list.get(0);
+		
+		assertEquals(testEntry, entryFromDB);
 	}
 
 }
