@@ -5,7 +5,6 @@ package org.carcv.persistence;
 
 import static org.junit.Assert.*;
 
-import java.net.URL;
 import java.util.Date;
 import java.util.List;
 
@@ -42,7 +41,7 @@ public class HibernateUtilTest {
 	public void setUp() throws Exception {
 		workspacePath = getClass().getResource("/").getPath();
 		
-		testSf = HibernateUtil.buildSessionFactory(workspacePath + "hibernate_unittest.cfg.xml");	
+		testSf = HibernateUtil.buildSessionFactory(/*workspacePath + "hibernate_unittest.cfg.xml"*/);	
 	}
 
 	/**
@@ -53,8 +52,12 @@ public class HibernateUtilTest {
 		testSf.close();
 	}
 
+	/**
+	 * 
+	 * @throws InterruptedException
+	 */
 	@Test
-	public void test() throws InterruptedException {
+	public void saveAndQueryTest() throws InterruptedException {
 		Session session = testSf.openSession();
 		
 		Transaction tx = session.beginTransaction();
