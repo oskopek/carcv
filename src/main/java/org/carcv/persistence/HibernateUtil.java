@@ -1,45 +1,39 @@
 package org.carcv.persistence;
 
 import org.hibernate.SessionFactory;
-import org.hibernate.cfg.AnnotationConfiguration;
+import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
+import org.hibernate.cfg.Configuration;
+import org.hibernate.service.ServiceRegistry;
  
 public class HibernateUtil {
  
-    private static final SessionFactory sessionFactory = buildSessionFactory();
+    private static SessionFactory sessionFactory;
+    private static ServiceRegistry serviceRegistry;
  
-    public static SessionFactory buildSessionFactory() {
-    	try {
-            // Create the SessionFactory from annotations
-            return new AnnotationConfiguration().configure().buildSessionFactory();
- 
-        }
-        catch (Throwable ex) {
-            // Make sure you log the exception, as it might be swallowed
-            System.err.println("Initial SessionFactory creation failed." + ex);
-            throw new ExceptionInInitializerError(ex);
-        }
+    private static SessionFactory configureSessionFactory() {
+    	Configuration configuration = new Configuration();
+    	configuration.configure();
+    	serviceRegistry = new StandardServiceRegistryBuilder().applySettings(configuration.getProperties()).build();
+    	sessionFactory = configuration.buildSessionFactory(serviceRegistry);
+    	return sessionFactory;
+    	
     }
     
-    public static SessionFactory buildSessionFactory(String configureFilename) {
-        try {
-            // Create the SessionFactory from annotations
-            return new AnnotationConfiguration().configure(configureFilename).buildSessionFactory();
- 
-        }
-        catch (Throwable ex) {
-            // Make sure you log the exception, as it might be swallowed
-            System.err.println("Initial SessionFactory creation failed." + ex);
-            throw new ExceptionInInitializerError(ex);
-        }
+    private static SessionFactory configureSessionFactory(String configureFilename) {
+    	Configuration configuration = new Configuration();
+    	configuration.configure(configureFilename);
+    	serviceRegistry = new StandardServiceRegistryBuilder().applySettings(configuration.getProperties()).build();
+    	sessionFactory = configuration.buildSessionFactory(serviceRegistry);
+    	return sessionFactory;
     }
  
     public static SessionFactory getSessionFactory() {
-        return sessionFactory;
+        return configureSessionFactory();
     }
- 
-    public static void shutdown() {
-    	// Close caches and connection pools
-    	getSessionFactory().close();
+    
+    public static SessionFactory getSessionFactory(String configureFilename) {
+        return configureSessionFactory(configureFilename);
     }
+    
  
 }
