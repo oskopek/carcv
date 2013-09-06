@@ -1,7 +1,5 @@
 package org.carcv.persistence;
 
-import java.net.URL;
-
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.AnnotationConfiguration;
 import org.hibernate.validator.internal.util.privilegedactions.GetClassLoader;
@@ -12,10 +10,10 @@ public class HibernateUtil {
  
     private static SessionFactory buildSessionFactory() {
     	
-    	String workspaceURL = GetClassLoader.fromContext().getClass().getResource("/").getPath();
-    	System.out.println(workspaceURL);
+    	String hibernateCfgXmlFile = GetClassLoader.fromContext().getClass().getResource("/hibernate.cfg.xml").getPath();
+    	System.out.println(hibernateCfgXmlFile);
     	
-    	return HibernateUtil.buildSessionFactory(workspaceURL + "resources/hibernate.cfg.xml");
+    	return HibernateUtil.buildSessionFactory(hibernateCfgXmlFile);
     }
     
     public static SessionFactory buildSessionFactory(String configureFilename) {

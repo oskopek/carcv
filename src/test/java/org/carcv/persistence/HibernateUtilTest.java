@@ -42,7 +42,7 @@ public class HibernateUtilTest {
 	public void setUp() throws Exception {
 		workspacePath = getClass().getResource("/").getPath();
 		
-		testSf = HibernateUtil.buildSessionFactory(workspacePath + "resources/hibernate_unittest.cfg.xml");	
+		testSf = HibernateUtil.buildSessionFactory(workspacePath + "hibernate_unittest.cfg.xml");	
 	}
 
 	/**
@@ -61,7 +61,7 @@ public class HibernateUtilTest {
 		tx.setTimeout(5);
 		
 		//Entity code
-		MediaObject preview = new MediaObject(workspacePath + "resources/reports/OpenCV_Logo_with_text.png", MediaType.PNG);
+		MediaObject preview = new MediaObject(workspacePath + "reports/OpenCV_Logo_with_text.png", MediaType.PNG);
 
 		Speed speed = new Speed(80d, SpeedUnit.KPH);
 

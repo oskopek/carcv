@@ -18,7 +18,6 @@ import org.carcv.model.MediaType;
 import org.carcv.model.Speed;
 import org.carcv.model.SpeedUnit;
 import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
 
 /**
@@ -34,7 +33,7 @@ public class BasicReportGeneratorTest {
 	 */
 	@Before
 	public void setUp() throws Exception {
-		URL previewImgUrl = getClass().getResource("/resources/reports/OpenCV_Logo_with_text.png");
+		URL previewImgUrl = getClass().getResource("/reports/OpenCV_Logo_with_text.png");
 		
 		MediaObject preview = new MediaObject(previewImgUrl.getPath(), MediaType.PNG);
 
@@ -67,7 +66,7 @@ public class BasicReportGeneratorTest {
 		}
 		System.out.println(test_results_dir.getPath());
 		
-		URL templateUrl = this.getClass().getResource("/resources/reports/speed_report.jasper");	
+		URL templateUrl = this.getClass().getResource("/reports/speed_report.jasper");	
 		
 		
 		BasicReportGenerator.buildPDFReport(testEntry, templateUrl.getPath(), testDir.getPath() + "/test_results/report" + System.currentTimeMillis() + ".pdf", "Myjava", "TestReport");
