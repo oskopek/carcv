@@ -5,6 +5,7 @@ package org.carcv.persistence;
 
 import static org.junit.Assert.*;
 
+import java.net.URL;
 import java.util.Date;
 
 import org.carcv.model.Address;
@@ -28,7 +29,6 @@ import org.junit.Test;
 public class HibernateUtilTest {
 
 	SessionFactory testSf;
-	Entry testEntry;
 	
 	/**
 	 * @throws java.lang.Exception
@@ -36,8 +36,25 @@ public class HibernateUtilTest {
 	@Before
 	public void setUp() throws Exception {
 		
-		testSf = HibernateUtil.buildSessionFactory("resources/hibernate_unittest.cfg.xml");
+		testSf = HibernateUtil.buildSessionFactory("/resources/hibernate_unittest.cfg.xml");
 		
+		
+	}
+
+	/**
+	 * @throws java.lang.Exception
+	 */
+	@After
+	public void tearDown() throws Exception {
+		testSf.close();
+	}
+
+	@Test
+	public void test() {
+		Session session = testSf.openSession();
+		session.beginTransaction();
+		
+		//Entity code
 		MediaObject preview = new MediaObject("./res/reports/OpenCV_Logo_with_text.png", MediaType.PNG);
 
 		Speed speed = new Speed(80d, SpeedUnit.KPH);
@@ -52,27 +69,29 @@ public class HibernateUtilTest {
 
 		CarData carData = new CarData(speed, location, licencePlate, timestamp, video);
 
-		testEntry = new Entry(carData, preview);
+		Entry testEntry = new Entry(carData, preview);		
+		//End entity code
 		
-	}
-
-	/**
-	 * @throws java.lang.Exception
-	 */
-	@After
-	public void tearDown() throws Exception {
-		testSf.close();
-	}
-
-	@Test
-	public void test() {
-		Session session = testSf.getCurrentSession();
-		session.beginTransaction();
+		session.saveOrUpdate(preview);
+		session.saveOrUpdate(speed);
+		session.saveOrUpdate(location);
+		session.saveOrUpdate(licencePlate);
+		session.saveOrUpdate(video);
+		session.saveOrUpdate(carData);
+		session.saveOrUpdate(testEntry);
 		
-		session.save(testEntry);
+		System.out.println("Saved");
 		
-		session.getTransaction().commit();		
-		fail("Not yet implemented");
+		session.getTransaction().commit();
+		System.out.println("Commited");
+		
+		try {
+			Thread.sleep(1000*60);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+		
+		assertTrue(session.getTransaction().wasCommitted());
 	}
 
 }
