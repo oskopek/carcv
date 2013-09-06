@@ -105,6 +105,8 @@ public class HibernateUtilTest {
 		Entry entryFromDB = list.get(0);
 		
 		assertEquals(testEntry, entryFromDB);
+		
+		session.close();
 	}
 
 }

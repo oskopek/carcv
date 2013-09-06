@@ -4,6 +4,7 @@
 package org.carcv.reports;
 
 import java.io.File;
+import java.net.URL;
 import java.util.Date;
 
 import net.sf.jasperreports.engine.JRException;
@@ -16,6 +17,7 @@ import org.carcv.model.MediaObject;
 import org.carcv.model.MediaType;
 import org.carcv.model.Speed;
 import org.carcv.model.SpeedUnit;
+import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
@@ -25,20 +27,16 @@ import org.junit.Test;
  */
 public class BasicReportGeneratorTest {
 
-	private static Entry testEntry;
+	private static Entry testEntry = null;
 
 	/**
 	 * @throws java.lang.Exception
 	 */
-	@BeforeClass
-	public static void setUpBeforeClass() throws Exception {
-		File test_results_dir = new File("./test_results/");
-		if (!test_results_dir.exists() || !test_results_dir.isDirectory()) {
-			test_results_dir.mkdir();
-		}
+	@Before
+	public void setUp() throws Exception {
+		URL previewImgUrl = getClass().getResource("/resources/reports/OpenCV_Logo_with_text.png");
 		
-		
-		MediaObject preview = new MediaObject("./res/reports/OpenCV_Logo_with_text.png", MediaType.PNG);
+		MediaObject preview = new MediaObject(previewImgUrl.getPath(), MediaType.PNG);
 
 		Speed speed = new Speed(80d, SpeedUnit.KPH);
 
@@ -61,7 +59,18 @@ public class BasicReportGeneratorTest {
 	 */
 	@Test
 	public void testBuildPDFReport() throws JRException {
-		BasicReportGenerator.buildPDFReport(testEntry, "./res/reports/speed_report.jasper", "./test_results/report" + System.currentTimeMillis() + ".pdf", "Myjava", "TestReport");
+		URL testDir = getClass().getResource("/");
+		
+		File test_results_dir = new File(testDir.getPath() + "/test_results/");
+		if (!test_results_dir.exists() || !test_results_dir.isDirectory()) {
+			test_results_dir.mkdir();
+		}
+		System.out.println(test_results_dir.getPath());
+		
+		URL templateUrl = this.getClass().getResource("/resources/reports/speed_report.jasper");	
+		
+		
+		BasicReportGenerator.buildPDFReport(testEntry, templateUrl.getPath(), testDir.getPath() + "/test_results/report" + System.currentTimeMillis() + ".pdf", "Myjava", "TestReport");
 	}
 
 }
