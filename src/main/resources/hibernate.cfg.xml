@@ -6,7 +6,7 @@
     <session-factory>
         <property name="hibernate.bytecode.use_reflection_optimizer">false</property>
         <property name="hibernate.connection.driver_class">org.hsqldb.jdbcDriver</property>
-        <property name="hibernate.connection.url">jdbc:hsqldb:hsql://localhost</property> <!-- jdbc:hsqldb:file:/opt/db/production_db</property> -->
+        <property name="hibernate.connection.url">jdbc:hsqldb:file:/opt/db/production_db</property> <!-- jdbc:hsqldb:hsql://localhost</property> server style -->
         <property name="hibernate.connection.username">sa</property>
         <property name="hibernate.connection.password"></property>
         <property name="hibernate.dialect">org.hibernate.dialect.HSQLDialect</property>
