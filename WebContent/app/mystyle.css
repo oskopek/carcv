@@ -1,0 +1,15 @@
+body {background-color: #F0F8FF;}
+body {font-size:11px;}
+body {min-width: 960px;min-height:600px}
+body {font-family: Verdana, Geneva, "DejaVu Sans", sans-serif;}
+body {margin-top:0px;margin-left:0px;margin-right:0px}
+body {font-family: serif; font-style: normal; font-variant: normal;}
+#header{position: absolute;top:0px;width:83.85%;height:40px;padding-right:8%;padding-left:8%;padding-top:10px;padding-bottom:10px;border:1px ridge #B0C4DE;background-color: #B0C4DE}
+#center-norm{position: absolute;left:17.5%;top:55px;width:79.7%;height:calc(100%-135px);border-radius:10px;padding:1%;border:5px solid #B0C4DE;background-color: #F0F8FF}
+#center-login{position: absolute;left:40%;bottom:50%;width:20%;border-radius:5px;padding:1%;border:5px solid #B0C4DE;background-color: #F0F8FF}
+#footer{position:fixed;bottom:0px;width:97.7%;padding:1%;height:15px;border:1px ridge #B0C4DE;background-color: #B0C4DE}
+#panel{position:absolute;left:0px;top:55px;width:15%;height:calc(100%-135px);border-radius:10px;padding:1%;border:5px solid #B0C4DE;background-color: #F0F8FF; font-size:12pt;}
+
+
+
+
