@@ -1,20 +1,99 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/javaee" xmlns:web="http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" id="WebApp_ID" version="2.5">
-  <display-name>CarCV</display-name>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns="http://java.sun.com/xml/ns/javaee" xmlns:web="http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
+	id="WebApp_ID" version="2.5">
+	<display-name>CarCV</display-name>
 
-<!-- <servlet>
-    <display-name>RegistrationServlet</display-name>
-    <servlet-name>RegistrationServlet</servlet-name>
-    <servlet-class>sk.themeteors.rcenturies.web.RegistrationServlet</servlet-class>
-  </servlet>
-  
-  <servlet-mapping>
-    <servlet-name>RegistrationServlet</servlet-name>
-    <url-pattern>/app/servlet/RegistrationServlet</url-pattern>
-  </servlet-mapping> -->
-  
-  
-  <welcome-file-list>
-    <welcome-file>/app/index.jsp</welcome-file>
-  </welcome-file-list>
+<!-- <servlet> <display-name>RegistrationServlet</display-name> <servlet-name>RegistrationServlet</servlet-name> 
+		<servlet-class>sk.themeteors.rcenturies.web.RegistrationServlet</servlet-class> 
+		</servlet> <servlet-mapping> <servlet-name>RegistrationServlet</servlet-name> 
+		<url-pattern>/app/servlet/RegistrationServlet</url-pattern> </servlet-mapping> -->
+
+	<security-constraint>
+		<web-resource-collection>
+			<web-resource-name>allowed</web-resource-name>
+			<url-pattern>/resources/*</url-pattern>
+			<http-method>POST</http-method>
+			<http-method>GET</http-method>
+			<http-method>HEAD</http-method>
+			<http-method>PUT</http-method>
+			<http-method>OPTIONS</http-method>
+			<http-method>TRACE</http-method>
+			<http-method>DELETE</http-method>
+		</web-resource-collection>
+	</security-constraint>
+
+	<security-constraint>
+		<display-name>user</display-name>
+		<web-resource-collection>
+			<web-resource-name>user_pages</web-resource-name>
+			<description />
+			<url-pattern>/app/*</url-pattern>
+			<url-pattern>/resources/*</url-pattern>
+			<http-method>POST</http-method>
+			<http-method>GET</http-method>
+			<http-method>HEAD</http-method>
+			<http-method>PUT</http-method>
+			<http-method>OPTIONS</http-method>
+			<http-method>TRACE</http-method>
+			<http-method>DELETE</http-method>
+		</web-resource-collection>
+		<auth-constraint>
+			<description />
+			<role-name>user</role-name>
+		</auth-constraint>
+		<user-data-constraint>
+			<description />
+			<transport-guarantee>NONE</transport-guarantee>
+		</user-data-constraint>
+	</security-constraint>
+
+	<security-constraint>
+		<display-name>admin</display-name>
+		<web-resource-collection>
+			<web-resource-name>admin_pages</web-resource-name>
+			<description />
+			<url-pattern>/app/servlet/admin/*</url-pattern>
+			<url-pattern>/admin/*</url-pattern>
+			<url-pattern>/app/*</url-pattern>
+			<url-pattern>/*</url-pattern>
+			<url-pattern>/resources/*</url-pattern>
+			<http-method>GET</http-method>
+			<http-method>POST</http-method>
+			<http-method>HEAD</http-method>
+			<http-method>PUT</http-method>
+			<http-method>OPTIONS</http-method>
+			<http-method>TRACE</http-method>
+			<http-method>DELETE</http-method>
+		</web-resource-collection>
+		<auth-constraint>
+			<description />
+			<role-name>admin</role-name>
+		</auth-constraint>
+		<user-data-constraint>
+			<description />
+			<transport-guarantee>NONE</transport-guarantee>
+		</user-data-constraint>
+	</security-constraint>
+
+	<login-config>
+		<auth-method>FORM</auth-method>
+		<realm-name>carcv_gui</realm-name>
+		<form-login-config>
+			<form-login-page>/app/login.html</form-login-page>
+			<form-error-page>/app/badLogin.html</form-error-page>
+		</form-login-config>
+	</login-config>
+
+	<security-role>
+		<role-name>admin</role-name>
+	</security-role>
+	<security-role>
+		<role-name>user</role-name>
+	</security-role>
+
+	<welcome-file-list>
+		<welcome-file>/app/index.jsp</welcome-file>
+	</welcome-file-list>
 </web-app>
