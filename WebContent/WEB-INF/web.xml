@@ -81,8 +81,8 @@
 		<auth-method>FORM</auth-method>
 		<realm-name>carcv_gui</realm-name>
 		<form-login-config>
-			<form-login-page>/app/login.html</form-login-page>
-			<form-error-page>/app/badLogin.html</form-error-page>
+			<form-login-page>/app/login.jsp</form-login-page>
+			<form-error-page>/app/badLogin.jsp</form-error-page>
 		</form-login-config>
 	</login-config>
 
