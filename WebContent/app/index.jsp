@@ -19,8 +19,8 @@
 
 <body>
 	<div id="header">
-		<a href="opencv.org"><img
-			src="http://www.khronos.org/assets/uploads/apis/openvx-overview-opencv-logo.png"
+		<a href="http://www.opencv.org"><img
+			src="/resources/opencv-logo.png"
 			width="150"
 			style="border: 0; margin-top: 5px; margin-bottom: 5px; text-align: left; position: relative; top: -10px"
 			alt="OpenCV" /></a>
