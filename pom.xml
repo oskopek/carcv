@@ -27,6 +27,7 @@
 				<configuration>
 					<warSourceDirectory>WebContent</warSourceDirectory>
 					<failOnMissingWebXml>false</failOnMissingWebXml>
+					<outputDirectory>${basedir}/deployments</outputDirectory>
 				</configuration>
 			</plugin>
 			<plugin>
