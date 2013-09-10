@@ -44,7 +44,3 @@
 
 </body>
 </html>
-
-
-
-<!--header: height:5%;http://www.jsk.t.u-tokyo.ac.jp/rsj2011/_images/opencv_logo.png-->
