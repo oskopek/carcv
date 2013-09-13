@@ -62,12 +62,11 @@
 		</table>
 	</div>
 
-
 	<div id="center-norm">
 		<iframe style="width: 99%; height: 98.5%; border: 5px solid #B0C4DE"
-			src="/app/car_page.jsp"></iframe>
+			src="/servlet/CarTableServlet"></iframe>
 	</div>
-
+	
 	<div id="footer"></div>
 
 </body>
