@@ -6,7 +6,7 @@
     <session-factory>
         <property name="hibernate.bytecode.use_reflection_optimizer">false</property>
         <property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>
-		<property name="hibernate.connection.url">jdbc:mysql://$OPENSHIFT_MYSQL_DB_HOST:$OPENSHIFT_MYSQL_DB_PORT/carcv</property>
+		<property name="hibernate.connection.url">jdbc:mysql://127.3.71.130:3306/carcv</property>
         <property name="hibernate.connection.username">carcv</property>
         <property name="hibernate.connection.password">VxALh3m4nbwGNsRb</property>
         <property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>
