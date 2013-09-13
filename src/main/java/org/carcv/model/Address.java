@@ -335,6 +335,16 @@ public class Address implements IAddress, Serializable {
 		this.id = id;
 	}
 	
+	/**
+	 * Prints address in post-format
+	 * @return
+	 */
+	public String print() {
+		return street() + " " + streetNumber() + "/" + referenceNumber() + "\n"
+				+ postalcode() + " " + city() + "\n"
+				+ country();
+	}
+	
 	
 
 }

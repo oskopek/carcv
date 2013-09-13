@@ -50,9 +50,7 @@ public class BasicReportGenerator {
 
 		//data
 		IAddress add = (IAddress) data.getLocation();
-		String dataLocation = add.street() + " " + add.streetNumber() + "/" + add.referenceNumber() + "\n"
-				+ add.postalcode() + " " + add.city() + "\n"
-				+ add.country();
+		String dataLocation = add.print();
 
 		//parameters.put("id", Long.toString(data.getId()));
 		parameters.put("previewURL", e.getPreview().getURL());

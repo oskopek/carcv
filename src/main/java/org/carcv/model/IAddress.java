@@ -45,4 +45,10 @@ public interface IAddress extends ILocation {
 	 * @return House reference number (city-wide)
 	 */
 	public int referenceNumber();
+	
+	/**
+	 * Print address in post-format
+	 * @return
+	 */
+	public String print();
 }
