@@ -38,7 +38,7 @@ public class Address implements IAddress, Serializable {
 	
 	private String city;
 	
-	private String postalcode;
+	private String postalCode;
 	
 	private String street;
 	
@@ -72,7 +72,7 @@ public class Address implements IAddress, Serializable {
 		this.latitude = latitude;
 		this.longitude = longitude;
 		this.city = city;
-		this.postalcode = postalcode;
+		this.postalCode = postalcode;
 		this.street = street;
 		this.country = country;
 		this.streetNumber = streetNumber;
@@ -94,7 +94,7 @@ public class Address implements IAddress, Serializable {
 		this.longitude = 0;
 		
 		this.city = city;
-		this.postalcode = postalcode;
+		this.postalCode = postalcode;
 		this.street = street;
 		this.country = country;
 		this.streetNumber = streetNumber;
@@ -116,7 +116,7 @@ public class Address implements IAddress, Serializable {
 		this.longitude = 0;
 		
 		this.city = city;
-		this.postalcode = postalcode;
+		this.postalCode = postalcode;
 		this.street = street;
 		this.country = country;
 		this.streetNumber = streetNumber;
@@ -131,7 +131,7 @@ public class Address implements IAddress, Serializable {
 	@Override
 	@Column(name="latitude")
 	@NotNull
-	public double latitude() {
+	public double getLatitude() {
 		return latitude;
 	}
 
@@ -141,7 +141,7 @@ public class Address implements IAddress, Serializable {
 	@Override
 	@Column(name="longitude")
 	@NotNull
-	public double longitude() {
+	public double getLongitude() {
 		return longitude;
 	}
 
@@ -151,7 +151,7 @@ public class Address implements IAddress, Serializable {
 	@Override
 	@Column(name="city")
 	@NotEmpty
-	public String city() {
+	public String getCity() {
 		return city;
 	}
 
@@ -161,8 +161,8 @@ public class Address implements IAddress, Serializable {
 	@Override
 	@Column(name="postalcode")
 	@NotEmpty
-	public String postalcode() {
-		return postalcode;
+	public String getPostalCode() {
+		return postalCode;
 	}
 
 	/* (non-Javadoc)
@@ -171,7 +171,7 @@ public class Address implements IAddress, Serializable {
 	@Override
 	@Column(name="street")
 	@NotEmpty
-	public String street() {
+	public String getStreet() {
 		return street;
 	}
 
@@ -181,7 +181,7 @@ public class Address implements IAddress, Serializable {
 	@Override
 	@Column(name="streetNumber")
 	@NotNull
-	public int streetNumber() {
+	public int getStreetNumber() {
 		return streetNumber;
 	}
 
@@ -191,7 +191,7 @@ public class Address implements IAddress, Serializable {
 	@Override
 	@Column(name="country")
 	@NotEmpty
-	public String country() {
+	public String getCountry() {
 		return country;
 	}
 
@@ -201,7 +201,7 @@ public class Address implements IAddress, Serializable {
 	@Override
 	@Column(name="referenceNumber")
 	@NotNull
-	public int referenceNumber() {
+	public int getReferenceNumber() {
 		return referenceNumber;
 	}
 
@@ -211,11 +211,11 @@ public class Address implements IAddress, Serializable {
 	 */
 	@Override
 	public String toString() {
-		return "Address [id=" + id + ", latitude()=" + latitude() + ", longitude()="
-				+ longitude() + ", city()=" + city() + ", postalcode()="
-				+ postalcode() + ", street()=" + street() + ", streetNumber()="
-				+ streetNumber() + ", country()=" + country()
-				+ ", referenceNumber()=" + referenceNumber() + "]";
+		return "Address [id=" + id + ", latitude()=" + getLatitude() + ", longitude()="
+				+ getLongitude() + ", city()=" + getCity() + ", postalcode()="
+				+ getPostalCode() + ", street()=" + getStreet() + ", streetNumber()="
+				+ getStreetNumber() + ", country()=" + getCountry()
+				+ ", referenceNumber()=" + getReferenceNumber() + "]";
 	}
 
 
@@ -246,8 +246,8 @@ public class Address implements IAddress, Serializable {
 	/**
 	 * @param postalcode the postalcode to set
 	 */
-	public void setPostalcode(String postalcode) {
-		this.postalcode = postalcode;
+	public void setPostalCode(String postalcode) {
+		this.postalCode = postalcode;
 	}
 
 
@@ -289,7 +289,7 @@ public class Address implements IAddress, Serializable {
 	@Override
 	public int hashCode() {
 		return new HashCodeBuilder().append(latitude).append(longitude).append(city)
-				.append(postalcode).append(street).append(country).append(streetNumber)
+				.append(postalCode).append(street).append(country).append(streetNumber)
 				.append(referenceNumber).toHashCode();
 	}
 
@@ -311,7 +311,7 @@ public class Address implements IAddress, Serializable {
 		Address other = (Address) obj;
 		
 		return new EqualsBuilder().append(other.latitude, latitude).append(other.longitude, longitude).append(other.city, city)
-				.append(other.postalcode, postalcode).append(other.street, street).append(other.country, country).append(other.streetNumber, streetNumber)
+				.append(other.postalCode, postalCode).append(other.street, street).append(other.country, country).append(other.streetNumber, streetNumber)
 				.append(other.referenceNumber, referenceNumber).isEquals();
 	}
 
@@ -340,9 +340,9 @@ public class Address implements IAddress, Serializable {
 	 * @return
 	 */
 	public String print() {
-		return street() + " " + streetNumber() + "/" + referenceNumber() + "\n"
-				+ postalcode() + " " + city() + "\n"
-				+ country();
+		return getStreet() + " " + getStreetNumber() + "/" + getReferenceNumber() + "\n"
+				+ getPostalCode() + " " + getCity() + "\n"
+				+ getCountry();
 	}
 	
 	

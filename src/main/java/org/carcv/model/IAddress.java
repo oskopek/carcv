@@ -14,37 +14,37 @@ public interface IAddress extends ILocation {
 	 * 
 	 * @return City name
 	 */
-	public String city();
+	public String getCity();
 	
 	/**
 	 * 
 	 * @return Postal Code
 	 */
-	public String postalcode();
+	public String getPostalCode();
 	
 	/**
 	 * 
 	 * @return Street name
 	 */
-	public String street();
+	public String getStreet();
 	
 	/**
 	 * 
 	 * @return Street number (House number)
 	 */
-	public int streetNumber();
+	public int getStreetNumber();
 	
 	/**
 	 * 
 	 * @return Country name
 	 */
-	public String country();
+	public String getCountry();
 	
 	/**
 	 * 
 	 * @return House reference number (city-wide)
 	 */
-	public int referenceNumber();
+	public int getReferenceNumber();
 	
 	/**
 	 * Print address in post-format
