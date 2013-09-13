@@ -99,7 +99,7 @@
   </servlet>
   <servlet-mapping>
     <servlet-name>CarTableServlet</servlet-name>
-    <url-pattern>/app/servlet/CarTableServlet</url-pattern>
+    <url-pattern>/servlet/CarTableServlet</url-pattern>
   </servlet-mapping>
   
 </web-app>
