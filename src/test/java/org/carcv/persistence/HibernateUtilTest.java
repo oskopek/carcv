@@ -85,8 +85,8 @@ public class HibernateUtilTest {
 		session.saveOrUpdate(location);
 		session.saveOrUpdate(licencePlate);
 		session.saveOrUpdate(video);
-		session.saveOrUpdate(carData);
-		session.saveOrUpdate(testEntry);
+		session.save(carData);
+		session.save(testEntry);
 		
 		System.out.println("Saved");
 		
