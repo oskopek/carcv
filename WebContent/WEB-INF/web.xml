@@ -85,26 +85,8 @@
 		<servlet-name>CarTableServlet</servlet-name>
 		<url-pattern>/servlet/CarTableServlet</url-pattern>
 	</servlet-mapping>
-<!-- 
-	<session-config>
-		<tracking-mode>COOKIE</tracking-mode>
-	</session-config>
-
-	<session-config>
-		<cookie-config>
-			<secure>true</secure>
-		</cookie-config>
-	</session-config>
-
-	<session-config>
-		<cookie-config>
-			<http-only>true</http-only>
-		</cookie-config>
-	</session-config>
-
+	
 	<session-config>
 		<session-timeout>15</session-timeout>
 	</session-config>
-    -->
-
 </web-app>
