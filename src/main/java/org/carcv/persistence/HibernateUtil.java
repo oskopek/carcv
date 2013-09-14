@@ -6,6 +6,7 @@ import org.hibernate.SessionFactory;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.cfg.Configuration;
 import org.hibernate.service.ServiceRegistry;
+import org.jboss.logging.Logger;
 
 public class HibernateUtil {
 
@@ -13,8 +14,8 @@ public class HibernateUtil {
 	private static ServiceRegistry serviceRegistry;
 
 	private static SessionFactory configureSessionFactory() {
-		System.err.println(OneToMany.class.getProtectionDomain().getCodeSource().getLocation());
-		System.err.println(org.hibernate.mapping.OneToMany.class.getProtectionDomain().getCodeSource().getLocation());
+		Logger.getLogger(HibernateUtil.class).debug("1 - " + OneToMany.class.getProtectionDomain().getCodeSource().getLocation().toString());
+		Logger.getLogger(HibernateUtil.class).debug("2 - " + org.hibernate.mapping.OneToMany.class.getProtectionDomain().getCodeSource().getLocation());
 		
 		Configuration configuration = new Configuration();
 		configuration.configure();
