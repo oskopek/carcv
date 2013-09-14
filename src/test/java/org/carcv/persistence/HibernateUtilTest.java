@@ -43,7 +43,7 @@ public class HibernateUtilTest {
 		workspacePath = getClass().getResource("/").getPath();
 		assertNotNull(workspacePath);
 		
-		if(System.getenv("OPENSHIFT_MYSQL_DB_HOST")!=null) {
+		if(System.getenv("OPENSHIFT_MYSQL_DB_HOST")!=null) { //if on OpenShift
 			testSf = HibernateUtil.getSessionFactory("hibernate.cfg.xml");
 		} else {
 			testSf = HibernateUtil.getSessionFactory("hibernateHSQLDB.cfg.xml");
