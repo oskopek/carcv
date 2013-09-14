@@ -13,7 +13,7 @@
             <url-pattern>/login/*</url-pattern>
 		</web-resource-collection>
 		<user-data-constraint>
-			<transport-guarantee>NONE</transport-guarantee>
+			<transport-guarantee>CONFIDENTIAL</transport-guarantee>
 		</user-data-constraint>
 	</security-constraint>
 
@@ -23,9 +23,7 @@
 			<web-resource-name>user_pages</web-resource-name>
 			<url-pattern>/*</url-pattern>
 			<url-pattern>/app/*</url-pattern>
-			<url-pattern>/login/*</url-pattern>
 			<url-pattern>/servlet/*</url-pattern>
-			<url-pattern>/resources/*</url-pattern>
 		</web-resource-collection>
 		<auth-constraint>
 			<role-name>user</role-name>
@@ -42,10 +40,6 @@
 			<description></description>
 			<url-pattern>/admin/*</url-pattern>
 			<url-pattern>/admin/servlet/*</url-pattern>
-			<url-pattern>/app/*</url-pattern>
-			<url-pattern>/login/*</url-pattern>
-			<url-pattern>/servlet/*</url-pattern>
-			<url-pattern>/resources/*</url-pattern>
 		</web-resource-collection>
 		<auth-constraint>
 			<role-name>admin</role-name>
