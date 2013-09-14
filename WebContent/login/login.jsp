@@ -29,7 +29,7 @@
 	</div>
 
 	<div id="center-login">
-		<form method="post" target="_top" action="j_security_check">
+		<form method="post" target="_top" action="/j_security_check">
 			Username: <input type="text" name="j_username"><br>
 			Password: <input type="password" name="j_password"><br>
 			<input type="checkbox" name="stay-signed" value="stay-signed">Keep
