@@ -20,16 +20,16 @@
 <body>
 	<div id="header">
 		<a href="http://www.opencv.org" target="_top"><img
-			src="/resources/opencv-logo.png"
-			width="150"
+			src="/resources/opencv-logo.png" width="150"
 			style="border: 0; margin-top: 5px; margin-bottom: 5px; text-align: left; position: relative; top: -10px"
 			alt="OpenCV" /></a>
 		<p
 			style="position: absolute; right: 8%; top: 2%; font-size: 11pt; word-spacing: .5em;">
-			<b> <a href="/" target="_top" style="text-decoration: none">Home</a> <a
-				href="/" target="_top" style="text-decoration: none">Features</a> <a href="/"
-				style="text-decoration: none">Contribute</a> <a href="/" target="_top"
-				style="text-decoration: none; word-spacing: 0em;">Contact us</a>
+			<b> <a href="/" target="_top" style="text-decoration: none">Home</a>
+				<a href="/" target="_top" style="text-decoration: none">Features</a>
+				<a href="/" style="text-decoration: none">Contribute</a> <a href="/"
+				target="_top" style="text-decoration: none; word-spacing: 0em;">Contact
+					us</a>
 			</b>
 		</p>
 	</div>
@@ -66,7 +66,7 @@
 		<iframe style="width: 99%; height: 98.5%; border: 5px solid #B0C4DE"
 			src="/servlet/CarTableServlet"></iframe>
 	</div>
-	
+
 	<div id="footer"></div>
 
 </body>

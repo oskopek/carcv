@@ -99,9 +99,10 @@
 			<http-only>true</http-only>
 		</cookie-config>
 	</session-config>
-	<session-config>
-<session-timeout>15</session-timeout>
-</session-config>
 
-	
+	<session-config>
+		<session-timeout>15</session-timeout>
+	</session-config>
+
+
 </web-app>
