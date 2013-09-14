@@ -1,22 +1,3 @@
-
-    alter table cardata 
-        drop constraint FK_1mmwmtg5huovdu8mt86a2akf9
-
-    alter table cardata 
-        drop constraint FK_994012bbkvn5j2pltr75s4anr
-
-    alter table cardata 
-        drop constraint FK_864eext49yh9ovraaytj6twc1
-
-    alter table cardata 
-        drop constraint FK_kph3s3fumkloeo2cewum7q0w1
-
-    alter table entry 
-        drop constraint FK_lqvihkmhrpp5h6fjuqus6iahp
-
-    alter table entry 
-        drop constraint FK_2jkxkctbl544jojwx6wu8aj2c
-
     drop table address if exists
 
     drop table cardata if exists

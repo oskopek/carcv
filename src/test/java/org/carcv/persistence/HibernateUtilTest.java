@@ -4,6 +4,7 @@
 package org.carcv.persistence;
 
 import static org.junit.Assert.*;
+import static org.junit.Assume.*;
 
 import java.util.Date;
 import java.util.List;
@@ -40,8 +41,10 @@ public class HibernateUtilTest {
 	@Before
 	public void setUp() throws Exception {
 		workspacePath = getClass().getResource("/").getPath();
+		assertNotNull(workspacePath);
 		
-		testSf = HibernateUtil.getSessionFactory("hibernateHSQLDB.cfg.xml");	
+		testSf = HibernateUtil.getSessionFactory("hibernateHSQLDB.cfg.xml");
+		assertNotNull(testSf);
 	}
 
 	/**
@@ -50,6 +53,7 @@ public class HibernateUtilTest {
 	@After
 	public void tearDown() throws Exception {
 		testSf.close();
+		assertTrue(testSf.isClosed());
 	}
 
 	/**
@@ -58,10 +62,16 @@ public class HibernateUtilTest {
 	 */
 	@Test
 	public void saveAndQueryTest() throws InterruptedException {
+		assumeFalse(testSf.isClosed());
+		
 		Session session = testSf.openSession();
+		
+		assertTrue(session.isOpen());
 		
 		Transaction tx = session.beginTransaction();
 		tx.setTimeout(5);
+		
+		assertTrue(tx.isActive());
 		
 		//Entity code
 		MediaObject preview = new MediaObject(workspacePath + "reports/OpenCV_Logo_with_text.png", MediaType.PNG);
@@ -90,13 +100,13 @@ public class HibernateUtilTest {
 		
 		System.out.println("Saved");
 		
-		tx.commit();
+		tx.commit();		
+
+		assertTrue(tx.wasCommitted());
 		System.out.println("Commited");
 		
 		long entry_id = testEntry.getId();
 		System.out.println("Id=" + entry_id);
-		
-		assertTrue(tx.wasCommitted());
 		
 		
 		//now retrieve
@@ -106,12 +116,14 @@ public class HibernateUtilTest {
 		
 		@SuppressWarnings("unchecked")
 		List<Entry> list = query.list();
+		assertFalse(list.isEmpty());
 		
 		Entry entryFromDB = list.get(0);
 		
 		assertEquals(testEntry, entryFromDB);
 		
 		session.close();
+		assertFalse(session.isOpen());
 	}
 
 }
