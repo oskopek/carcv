@@ -4,3 +4,6 @@ build/*
 /build
 /target
 /res
+.settings/
+.classpath
+.project
