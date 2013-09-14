@@ -41,7 +41,7 @@ public class HibernateUtilTest {
 	public void setUp() throws Exception {
 		workspacePath = getClass().getResource("/").getPath();
 		
-		testSf = HibernateUtil.getSessionFactory(/*workspacePath + "hibernate_unittest.cfg.xml"*/);	
+		testSf = HibernateUtil.getSessionFactory("hibernateHSQLDB.cfg.xml");	
 	}
 
 	/**
