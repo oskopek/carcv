@@ -10,6 +10,7 @@
 		<web-resource-collection>
 			<web-resource-name>allowed_pages</web-resource-name>
 			<url-pattern>/resources/*</url-pattern>
+            <url-pattern>/login/*</url-pattern>
 		</web-resource-collection>
 		<user-data-constraint>
 			<transport-guarantee>CONFIDENTIAL</transport-guarantee>
