@@ -14,7 +14,7 @@
 <body>
 	<div id="header">
 		<a href="opencv.org" target="_top"><img
-			src="http://www.khronos.org/assets/uploads/apis/openvx-overview-opencv-logo.png"
+			src="/resources/opencv-logo.png"
 			width="150"
 			style="border: 0; margin-top: 5px; margin-bottom: 5px; text-align: left; position: relative; top: -10px"
 			alt="OpenCV" /></a>
@@ -31,14 +31,10 @@
 
 	<div id="center-login">
 		Invalid username or password. <br> Please, <a
-			href="/app/index,jsp" target="_top">try again</a>.
+			href="/app/index.jsp" target="_top">try again</a>.
 	</div>
 
 	<div id="footer"></div>
 
 </body>
 </html>
-
-
-
-<!--header: height:5%;http://www.jsk.t.u-tokyo.ac.jp/rsj2011/_images/opencv_logo.png-->
