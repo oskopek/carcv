@@ -24,11 +24,13 @@
 		</web-resource-collection>
 		<auth-constraint>
 			<role-name>user</role-name>
+			<role-name>admin</role-name>
 		</auth-constraint>
 		<user-data-constraint>
 			<transport-guarantee>NONE</transport-guarantee>
 		</user-data-constraint>
 	</security-constraint>
+	
 	<security-constraint>
 		<display-name>admin</display-name>
 		<web-resource-collection>
@@ -44,6 +46,7 @@
 			<transport-guarantee>NONE</transport-guarantee>
 		</user-data-constraint>
 	</security-constraint>
+	
 	<login-config>
 		<auth-method>FORM</auth-method>
 		<realm-name>carcv_gui</realm-name>
@@ -52,15 +55,18 @@
 			<form-error-page>/login/badLogin.jsp</form-error-page>
 		</form-login-config>
 	</login-config>
+	
 	<security-role>
 		<role-name>admin</role-name>
 	</security-role>
 	<security-role>
 		<role-name>user</role-name>
 	</security-role>
+	
 	<welcome-file-list>
 		<welcome-file>/app/index.jsp</welcome-file>
 	</welcome-file-list>
+	
 	<servlet>
 		<description></description>
 		<display-name>CarTableServlet</display-name>
@@ -71,6 +77,7 @@
 		<servlet-name>CarTableServlet</servlet-name>
 		<url-pattern>/servlet/CarTableServlet</url-pattern>
 	</servlet-mapping>
+	
 	<servlet>
 		<description></description>
 		<display-name>TestServlet</display-name>
@@ -81,11 +88,12 @@
 		<servlet-name>TestServlet</servlet-name>
 		<url-pattern>/servlet/TestServlet</url-pattern>
 	</servlet-mapping>
+	
 	<session-config>
 		<session-timeout>15</session-timeout>
 		<cookie-config>
 			<http-only>true</http-only>
-			<secure>false</secure>
+			<secure>false</secure> <!-- Reenable this w/ https -->
 		</cookie-config>
 		<tracking-mode>COOKIE</tracking-mode>
 	</session-config>
