@@ -40,6 +40,7 @@
 			<web-resource-name>admin_pages</web-resource-name>
 			<description></description>
 			<url-pattern>/admin/*</url-pattern>
+			<url-pattern>/admin/servlet/*</url-pattern>
 			<url-pattern>/app/*</url-pattern>
 			<url-pattern>/login/*</url-pattern>
 			<url-pattern>/servlet/*</url-pattern>
@@ -83,7 +84,7 @@
 		<servlet-name>CarTableServlet</servlet-name>
 		<url-pattern>/servlet/CarTableServlet</url-pattern>
 	</servlet-mapping>
-
+<!-- 
 	<session-config>
 		<tracking-mode>COOKIE</tracking-mode>
 	</session-config>
@@ -103,6 +104,6 @@
 	<session-config>
 		<session-timeout>15</session-timeout>
 	</session-config>
-
+    -->
 
 </web-app>
