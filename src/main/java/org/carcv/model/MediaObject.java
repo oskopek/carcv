@@ -16,17 +16,16 @@ import org.apache.commons.lang.builder.EqualsBuilder;
 import org.apache.commons.lang.builder.HashCodeBuilder;
 
 /**
- * Used for persistence of remote and local files in a database
- * TODO: add local caching of files
+ * Used for persistence of remote and local files in a database TODO: add local
+ * caching of files
  * 
  * @author oskopek
- *
+ * 
  */
 @Entity
-@Table(name="mediaobject")
+@Table(name = "mediaobject")
 public class MediaObject implements Serializable {
 
-	
 	/**
 	 * 
 	 */
@@ -35,17 +34,16 @@ public class MediaObject implements Serializable {
 	private long id;
 
 	private String URL;
-	
+
 	private MediaType mediaType;
-	
-	
+
 	/**
 	 * For EJB
 	 */
 	public MediaObject() {
-		//hibernate empty
+		// hibernate empty
 	}
-	
+
 	/**
 	 * 
 	 * @param URL
@@ -62,13 +60,14 @@ public class MediaObject implements Serializable {
 	@Id
 	@GeneratedValue
 	@NotNull
-	@Column(name="id")
+	@Column(name = "id")
 	public long getId() {
 		return id;
 	}
 
 	/**
-	 * @param id the id to set
+	 * @param id
+	 *            the id to set
 	 */
 	public void setId(long id) {
 		this.id = id;
@@ -77,14 +76,15 @@ public class MediaObject implements Serializable {
 	/**
 	 * @return the URL
 	 */
-	@Column(name="URL")
+	@Column(name = "URL")
 	@NotNull
 	public String getURL() {
 		return URL;
 	}
 
 	/**
-	 * @param URL the URL to set
+	 * @param URL
+	 *            the URL to set
 	 */
 	public void setURL(String URL) {
 		this.URL = URL;
@@ -93,28 +93,34 @@ public class MediaObject implements Serializable {
 	/**
 	 * @return the mediaType
 	 */
-	@Column(name="mediatype")
+	@Column(name = "mediatype")
 	@NotNull
 	public MediaType getMediaType() {
 		return mediaType;
 	}
 
 	/**
-	 * @param mediaType the mediaType to set
+	 * @param mediaType
+	 *            the mediaType to set
 	 */
 	public void setMediaType(MediaType mediaType) {
 		this.mediaType = mediaType;
 	}
-	
-	/* (non-Javadoc)
+
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see java.lang.Object#toString()
 	 */
 	@Override
 	public String toString() {
-		return "MediaObject [id=" + id + ", URL=" + URL + ", mediaType=" + mediaType + "]";
+		return "MediaObject [id=" + id + ", URL=" + URL + ", mediaType="
+				+ mediaType + "]";
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see java.lang.Object#hashCode()
 	 */
 	@Override
@@ -122,16 +128,19 @@ public class MediaObject implements Serializable {
 		return new HashCodeBuilder().append(URL).append(mediaType).toHashCode();
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see java.lang.Object#equals(java.lang.Object)
 	 */
 	@Override
 	public boolean equals(Object o) {
 		if (o instanceof MediaObject) {
 			MediaObject obj = (MediaObject) o;
-			return new EqualsBuilder().append(URL, obj.URL).append(mediaType, obj.mediaType).isEquals();
+			return new EqualsBuilder().append(URL, obj.URL)
+					.append(mediaType, obj.mediaType).isEquals();
 		}
 		return false;
 	}
-	
+
 }

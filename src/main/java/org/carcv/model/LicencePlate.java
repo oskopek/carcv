@@ -18,13 +18,14 @@ import org.apache.commons.lang.builder.HashCodeBuilder;
 
 /**
  * Country of origin and text of a given Licence Plate
+ * 
  * @author oskopek
- *
+ * 
  */
 @Entity
-@Table(name="licenceplate")
+@Table(name = "licenceplate")
 public class LicencePlate implements Serializable, Comparable<LicencePlate> {
-	
+
 	/**
 	 * 
 	 */
@@ -33,12 +34,12 @@ public class LicencePlate implements Serializable, Comparable<LicencePlate> {
 	private long id;
 
 	private String text;
-	
+
 	private String origin;
-	
+
 	@SuppressWarnings("unused")
 	private LicencePlate() {
-		//hibernate stub
+		// hibernate stub
 	}
 
 	/**
@@ -49,7 +50,7 @@ public class LicencePlate implements Serializable, Comparable<LicencePlate> {
 		this.text = text;
 		this.origin = origin;
 	}
-	
+
 	/**
 	 * @param text
 	 */
@@ -64,13 +65,14 @@ public class LicencePlate implements Serializable, Comparable<LicencePlate> {
 	@Id
 	@GeneratedValue
 	@NotNull
-	@Column(name="id")
+	@Column(name = "id")
 	public long getId() {
 		return id;
 	}
 
 	/**
-	 * @param id the id to set
+	 * @param id
+	 *            the id to set
 	 */
 	public void setId(long id) {
 		this.id = id;
@@ -79,14 +81,15 @@ public class LicencePlate implements Serializable, Comparable<LicencePlate> {
 	/**
 	 * @return the text
 	 */
-	@Column(name="text")
+	@Column(name = "text")
 	@NotNull
 	public String getText() {
 		return text;
 	}
 
 	/**
-	 * @param text the text to set
+	 * @param text
+	 *            the text to set
 	 */
 	public void setText(String text) {
 		this.text = text;
@@ -95,19 +98,22 @@ public class LicencePlate implements Serializable, Comparable<LicencePlate> {
 	/**
 	 * @return the origin
 	 */
-	@Column(name="origin")
+	@Column(name = "origin")
 	public String getOrigin() {
 		return origin;
 	}
 
 	/**
-	 * @param origin the origin to set
+	 * @param origin
+	 *            the origin to set
 	 */
 	public void setOrigin(String origin) {
 		this.origin = origin;
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see java.lang.Object#toString()
 	 */
 	@Override
@@ -115,7 +121,9 @@ public class LicencePlate implements Serializable, Comparable<LicencePlate> {
 		return "LicencePlate [text=" + text + ", origin=" + origin + "]";
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see java.lang.Object#hashCode()
 	 */
 	@Override
@@ -123,7 +131,9 @@ public class LicencePlate implements Serializable, Comparable<LicencePlate> {
 		return new HashCodeBuilder().append(text).append(origin).toHashCode();
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see java.lang.Object#equals(java.lang.Object)
 	 */
 	@Override
@@ -138,16 +148,14 @@ public class LicencePlate implements Serializable, Comparable<LicencePlate> {
 			return false;
 		}
 		LicencePlate other = (LicencePlate) obj;
-		return new EqualsBuilder().append(text, other.text).append(origin, other.origin).isEquals();
+		return new EqualsBuilder().append(text, other.text)
+				.append(origin, other.origin).isEquals();
 	}
 
 	@Override
 	public int compareTo(LicencePlate o) {
-		return new CompareToBuilder().append(text, o.text).append(origin, o.origin).toComparison();
+		return new CompareToBuilder().append(text, o.text)
+				.append(origin, o.origin).toComparison();
 	}
-	
-	
-	
-	
 
 }

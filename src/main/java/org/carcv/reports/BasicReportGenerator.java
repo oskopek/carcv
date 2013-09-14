@@ -23,66 +23,69 @@ import org.carcv.model.CarData;
 import org.carcv.model.Entry;
 import org.carcv.model.IAddress;
 
-
 /**
  * @author oskopek
- *
+ * 
  */
 public class BasicReportGenerator {
 
-	public static void buildPDFReport(Entry e, String templateFilename, String exportToFilename, String reportBuilderLocation, String reportName) throws JRException {
+	public static void buildPDFReport(Entry e, String templateFilename,
+			String exportToFilename, String reportBuilderLocation,
+			String reportName) throws JRException {
 
 		Map<String, Object> values = new HashMap<String, Object>();
 		Map<String, Object> parameters = new HashMap<String, Object>();
 
 		CarData data = e.getData();
 
-
-		DateFormat dateFormat = new SimpleDateFormat("dd. MM. yyyy"); 
+		DateFormat dateFormat = new SimpleDateFormat("dd. MM. yyyy");
 		DateFormat timeFormat = new SimpleDateFormat("HH:mm");
 
-
-		//report
+		// report
 		parameters.put("reportid", Long.toString(System.currentTimeMillis()));
 		parameters.put("reportname", reportName);
 		parameters.put("reportlocation", reportBuilderLocation);
-		parameters.put("reportdate", dateFormat.format(new Date(System.currentTimeMillis())));
+		parameters.put("reportdate",
+				dateFormat.format(new Date(System.currentTimeMillis())));
 
-		//data
-		IAddress add = (IAddress) data.getLocation();
+		// data
+		IAddress add = data.getLocation();
 		String dataLocation = add.print();
 
-		//parameters.put("id", Long.toString(data.getId()));
+		// parameters.put("id", Long.toString(data.getId()));
 		parameters.put("previewURL", e.getPreview().getURL());
 		parameters.put("date", dateFormat.format(data.getTimestamp()));
 		parameters.put("location", dataLocation);
 		parameters.put("LPNumber", data.getLicencePlate().getText());
 		parameters.put("videoURL", data.getVideo().getURL());
 		parameters.put("time", timeFormat.format(data.getTimestamp()));
-		parameters.put("speed", Double.toString(data.getSpeed().getSpeed()) + " " + data.getSpeed().getUnit().toString());
+		parameters.put("speed", Double.toString(data.getSpeed().getSpeed())
+				+ " " + data.getSpeed().getUnit().toString());
 
-		//parameters.put
+		// parameters.put
 
 		Collection<Map<String, ?>> mapList = new ArrayList<Map<String, ?>>();
 		mapList.add(values);
 
-		JRMapCollectionDataSource mapDataSource = new JRMapCollectionDataSource(mapList);
+		JRMapCollectionDataSource mapDataSource = new JRMapCollectionDataSource(
+				mapList);
 
+		// compile template - already precompiled
+		// JasperCompileManager.compileReportToFile(templateFilename + ".jrxml",
+		// templateFilename + ".jasper");
 
-		//compile template - already precompiled
-		//JasperCompileManager.compileReportToFile(templateFilename + ".jrxml", templateFilename + ".jasper");
+		// fill with data
+		JasperPrint print = JasperFillManager.fillReport(templateFilename,
+				parameters, mapDataSource);
 
-		//fill with data
-		JasperPrint print = JasperFillManager.fillReport(templateFilename, parameters, mapDataSource);
-
-		//export
+		// export
 		JRExporter exporter = new JRPdfExporter();
 
-		exporter.setParameter(JRExporterParameter.OUTPUT_FILE_NAME, exportToFilename);
+		exporter.setParameter(JRExporterParameter.OUTPUT_FILE_NAME,
+				exportToFilename);
 		exporter.setParameter(JRExporterParameter.JASPER_PRINT, print);
 
 		exporter.exportReport();
-
 
 		return;
 	}

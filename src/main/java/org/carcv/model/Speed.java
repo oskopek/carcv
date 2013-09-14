@@ -19,10 +19,10 @@ import org.hibernate.validator.constraints.Range;
 
 /**
  * @author oskopek
- *
+ * 
  */
 @Entity
-@Table(name="speed")
+@Table(name = "speed")
 public class Speed implements Serializable, Comparable<Speed> {
 
 	/**
@@ -34,9 +34,9 @@ public class Speed implements Serializable, Comparable<Speed> {
 	 * For EJB
 	 */
 	public Speed() {
-		//hibernate constructor stub
+		// hibernate constructor stub
 	}
-	
+
 	/**
 	 * @param speed
 	 * @param unit
@@ -48,6 +48,7 @@ public class Speed implements Serializable, Comparable<Speed> {
 
 	/**
 	 * Default unit = SpeedUnit.MS (meters per second)
+	 * 
 	 * @param speed
 	 */
 	public Speed(double speed) {
@@ -58,53 +59,67 @@ public class Speed implements Serializable, Comparable<Speed> {
 	private long id;
 
 	private double speed;
-	
+
 	private SpeedUnit unit;
-	
+
 	/**
 	 * @return the speed
 	 */
-	@Column(name="speed")
+	@Column(name = "speed")
 	@NotNull
-	@Range(min=0,message="Speed is less or equal to 0!")
+	@Range(min = 0, message = "Speed is less or equal to 0!")
 	public double getSpeed() {
 		return speed;
 	}
+
 	/**
-	 * @param speed the speed to set
+	 * @param speed
+	 *            the speed to set
 	 */
 	public void setSpeed(double speed) {
 		this.speed = speed;
 	}
+
 	/**
 	 * @return the unit
 	 */
-	@Column(name="unit")
+	@Column(name = "unit")
 	@NotNull
 	public SpeedUnit getUnit() {
 		return unit;
 	}
+
 	/**
-	 * @param unit the unit to set
+	 * @param unit
+	 *            the unit to set
 	 */
 	public void setUnit(SpeedUnit unit) {
 		this.unit = unit;
 	}
-	/* (non-Javadoc)
+
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see java.lang.Object#toString()
 	 */
 	@Override
 	public String toString() {
 		return "Speed [speed=" + speed + ", unit=" + unit + "]";
 	}
-	/* (non-Javadoc)
+
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see java.lang.Object#hashCode()
 	 */
 	@Override
 	public int hashCode() {
 		return new HashCodeBuilder().append(speed).append(unit).toHashCode();
 	}
-	/* (non-Javadoc)
+
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see java.lang.Object#equals(java.lang.Object)
 	 */
 	@Override
@@ -128,13 +143,14 @@ public class Speed implements Serializable, Comparable<Speed> {
 	@Id
 	@GeneratedValue
 	@NotNull
-	@Column(name="id")
+	@Column(name = "id")
 	public long getId() {
 		return id;
 	}
 
 	/**
-	 * @param id the id to set
+	 * @param id
+	 *            the id to set
 	 */
 	public void setId(long id) {
 		this.id = id;
@@ -144,7 +160,5 @@ public class Speed implements Serializable, Comparable<Speed> {
 	public int compareTo(Speed o) {
 		return new CompareToBuilder().append(speed, o.speed).toComparison();
 	}
-	
-	
 
 }

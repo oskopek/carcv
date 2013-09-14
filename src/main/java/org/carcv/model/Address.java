@@ -18,13 +18,14 @@ import org.hibernate.validator.constraints.NotEmpty;
 
 /**
  * A basic getter/setter POJO implementation of IAddress, JPA annotated
+ * 
  * @author oskopek
- *
+ * 
  */
 @Entity
-@Table(name="address")
+@Table(name = "address")
 public class Address implements IAddress, Serializable {
-	
+
 	/**
 	 * 
 	 */
@@ -33,19 +34,19 @@ public class Address implements IAddress, Serializable {
 	private long id;
 
 	private double latitude;
-	
+
 	private double longitude;
-	
+
 	private String city;
-	
+
 	private String postalCode;
-	
+
 	private String street;
-	
+
 	private String country;
-	
+
 	private int streetNumber;
-	
+
 	private int referenceNumber;
 
 	/**
@@ -54,7 +55,6 @@ public class Address implements IAddress, Serializable {
 	public Address() {
 		// hibernate empty constructor
 	}
-	
 
 	/**
 	 * @param latitude
@@ -79,7 +79,6 @@ public class Address implements IAddress, Serializable {
 		this.referenceNumber = referenceNumber;
 	}
 
-
 	/**
 	 * @param city
 	 * @param postalcode
@@ -92,7 +91,7 @@ public class Address implements IAddress, Serializable {
 			String country, int streetNumber, int referenceNumber) {
 		this.latitude = 0;
 		this.longitude = 0;
-		
+
 		this.city = city;
 		this.postalCode = postalcode;
 		this.street = street;
@@ -100,8 +99,6 @@ public class Address implements IAddress, Serializable {
 		this.streetNumber = streetNumber;
 		this.referenceNumber = referenceNumber;
 	}
-
-	
 
 	/**
 	 * @param city
@@ -114,187 +111,206 @@ public class Address implements IAddress, Serializable {
 			String country, int streetNumber) {
 		this.latitude = 0;
 		this.longitude = 0;
-		
+
 		this.city = city;
 		this.postalCode = postalcode;
 		this.street = street;
 		this.country = country;
 		this.streetNumber = streetNumber;
-		
+
 		this.referenceNumber = 0;
 	}
 
-
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see org.carcv.model.ILocation#latitude()
 	 */
 	@Override
-	@Column(name="latitude")
+	@Column(name = "latitude")
 	@NotNull
 	public double getLatitude() {
 		return latitude;
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see org.carcv.model.ILocation#longitude()
 	 */
 	@Override
-	@Column(name="longitude")
+	@Column(name = "longitude")
 	@NotNull
 	public double getLongitude() {
 		return longitude;
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see org.carcv.model.IAddress#city()
 	 */
 	@Override
-	@Column(name="city")
+	@Column(name = "city")
 	@NotEmpty
 	public String getCity() {
 		return city;
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see org.carcv.model.IAddress#postalcode()
 	 */
 	@Override
-	@Column(name="postalcode")
+	@Column(name = "postalcode")
 	@NotEmpty
 	public String getPostalCode() {
 		return postalCode;
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see org.carcv.model.IAddress#street()
 	 */
 	@Override
-	@Column(name="street")
+	@Column(name = "street")
 	@NotEmpty
 	public String getStreet() {
 		return street;
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see org.carcv.model.IAddress#streetNumber()
 	 */
 	@Override
-	@Column(name="streetNumber")
+	@Column(name = "streetNumber")
 	@NotNull
 	public int getStreetNumber() {
 		return streetNumber;
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see org.carcv.model.IAddress#country()
 	 */
 	@Override
-	@Column(name="country")
+	@Column(name = "country")
 	@NotEmpty
 	public String getCountry() {
 		return country;
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see org.carcv.model.IAddress#referenceNumber()
 	 */
 	@Override
-	@Column(name="referenceNumber")
+	@Column(name = "referenceNumber")
 	@NotNull
 	public int getReferenceNumber() {
 		return referenceNumber;
 	}
 
-
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see java.lang.Object#toString()
 	 */
 	@Override
 	public String toString() {
-		return "Address [id=" + id + ", latitude()=" + getLatitude() + ", longitude()="
-				+ getLongitude() + ", city()=" + getCity() + ", postalcode()="
-				+ getPostalCode() + ", street()=" + getStreet() + ", streetNumber()="
-				+ getStreetNumber() + ", country()=" + getCountry()
-				+ ", referenceNumber()=" + getReferenceNumber() + "]";
+		return "Address [id=" + id + ", latitude()=" + getLatitude()
+				+ ", longitude()=" + getLongitude() + ", city()=" + getCity()
+				+ ", postalcode()=" + getPostalCode() + ", street()="
+				+ getStreet() + ", streetNumber()=" + getStreetNumber()
+				+ ", country()=" + getCountry() + ", referenceNumber()="
+				+ getReferenceNumber() + "]";
 	}
 
-
 	/**
-	 * @param latitude the latitude to set
+	 * @param latitude
+	 *            the latitude to set
 	 */
 	public void setLatitude(double latitude) {
 		this.latitude = latitude;
 	}
 
-
 	/**
-	 * @param longitude the longitude to set
+	 * @param longitude
+	 *            the longitude to set
 	 */
 	public void setLongitude(double longitude) {
 		this.longitude = longitude;
 	}
 
-
 	/**
-	 * @param city the city to set
+	 * @param city
+	 *            the city to set
 	 */
 	public void setCity(String city) {
 		this.city = city;
 	}
 
-
 	/**
-	 * @param postalcode the postalcode to set
+	 * @param postalcode
+	 *            the postalcode to set
 	 */
 	public void setPostalCode(String postalcode) {
 		this.postalCode = postalcode;
 	}
 
-
 	/**
-	 * @param street the street to set
+	 * @param street
+	 *            the street to set
 	 */
 	public void setStreet(String street) {
 		this.street = street;
 	}
 
-
 	/**
-	 * @param country the country to set
+	 * @param country
+	 *            the country to set
 	 */
 	public void setCountry(String country) {
 		this.country = country;
 	}
 
-
 	/**
-	 * @param streetNumber the streetNumber to set
+	 * @param streetNumber
+	 *            the streetNumber to set
 	 */
 	public void setStreetNumber(int streetNumber) {
 		this.streetNumber = streetNumber;
 	}
 
-
 	/**
-	 * @param referenceNumber the referenceNumber to set
+	 * @param referenceNumber
+	 *            the referenceNumber to set
 	 */
 	public void setReferenceNumber(int referenceNumber) {
 		this.referenceNumber = referenceNumber;
 	}
 
-
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see java.lang.Object#hashCode()
 	 */
 	@Override
 	public int hashCode() {
-		return new HashCodeBuilder().append(latitude).append(longitude).append(city)
-				.append(postalCode).append(street).append(country).append(streetNumber)
-				.append(referenceNumber).toHashCode();
+		return new HashCodeBuilder().append(latitude).append(longitude)
+				.append(city).append(postalCode).append(street).append(country)
+				.append(streetNumber).append(referenceNumber).toHashCode();
 	}
 
-
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see java.lang.Object#equals(java.lang.Object)
 	 */
 	@Override
@@ -309,12 +325,14 @@ public class Address implements IAddress, Serializable {
 			return false;
 		}
 		Address other = (Address) obj;
-		
-		return new EqualsBuilder().append(other.latitude, latitude).append(other.longitude, longitude).append(other.city, city)
-				.append(other.postalCode, postalCode).append(other.street, street).append(other.country, country).append(other.streetNumber, streetNumber)
+
+		return new EqualsBuilder().append(other.latitude, latitude)
+				.append(other.longitude, longitude).append(other.city, city)
+				.append(other.postalCode, postalCode)
+				.append(other.street, street).append(other.country, country)
+				.append(other.streetNumber, streetNumber)
 				.append(other.referenceNumber, referenceNumber).isEquals();
 	}
-
 
 	/**
 	 * @return the id
@@ -322,29 +340,29 @@ public class Address implements IAddress, Serializable {
 	@Id
 	@GeneratedValue
 	@NotNull
-	@Column(name="id")
+	@Column(name = "id")
 	public long getId() {
 		return id;
 	}
 
-
 	/**
-	 * @param id the id to set
+	 * @param id
+	 *            the id to set
 	 */
 	public void setId(long id) {
 		this.id = id;
 	}
-	
+
 	/**
 	 * Prints address in post-format
+	 * 
 	 * @return
 	 */
+	@Override
 	public String print() {
-		return getStreet() + " " + getStreetNumber() + "/" + getReferenceNumber() + "\n"
-				+ getPostalCode() + " " + getCity() + "\n"
-				+ getCountry();
+		return getStreet() + " " + getStreetNumber() + "/"
+				+ getReferenceNumber() + "\n" + getPostalCode() + " "
+				+ getCity() + "\n" + getCountry();
 	}
-	
-	
 
 }

@@ -20,38 +20,37 @@ import org.apache.commons.lang.builder.HashCodeBuilder;
 
 /**
  * An expression of Data collected
+ * 
  * @author oskopek
- *
+ * 
  */
 @Entity
-@Table(name="cardata")
+@Table(name = "cardata")
 public class CarData implements Serializable {
-	
+
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = -2135634243340403587L;
 
 	private long id;
-	
+
 	private Speed speed;
-	
+
 	private Address location;
-	
+
 	private LicencePlate licencePlate;
-	
+
 	private Date timestamp;
-	
+
 	private MediaObject video;
-	
-	
+
 	/**
 	 * For EJB
 	 */
 	public CarData() {
-		//hibernate stub
+		// hibernate stub
 	}
-
 
 	/**
 	 * @param speed
@@ -69,144 +68,142 @@ public class CarData implements Serializable {
 		this.video = video;
 	}
 
-
 	/**
 	 * @return the id
 	 */
 	@Id
 	@GeneratedValue
 	@NotNull
-	@Column(name="id")
+	@Column(name = "id")
 	public long getId() {
 		return id;
 	}
 
-
 	/**
-	 * @param id the id to set
+	 * @param id
+	 *            the id to set
 	 */
 	public void setId(long id) {
 		this.id = id;
 	}
-
 
 	/**
 	 * @return the speed
 	 */
 	@ManyToOne
 	@NotNull
-	//@Column(name="speed")
+	// @Column(name="speed")
 	public Speed getSpeed() {
 		return speed;
 	}
 
-
 	/**
-	 * @param speed the speed to set
+	 * @param speed
+	 *            the speed to set
 	 */
 	public void setSpeed(Speed speed) {
 		this.speed = speed;
 	}
-
 
 	/**
 	 * @return the location
 	 */
 	@ManyToOne
 	@NotNull
-	//@Column(name="location")
+	// @Column(name="location")
 	public Address getLocation() {
 		return location;
 	}
 
-
 	/**
-	 * @param location the location to set
+	 * @param location
+	 *            the location to set
 	 */
 	public void setLocation(Address location) {
 		this.location = location;
 	}
-
 
 	/**
 	 * @return the licencePlate
 	 */
 	@ManyToOne
 	@NotNull
-	//@Column(name="licenceplate")
+	// @Column(name="licenceplate")
 	public LicencePlate getLicencePlate() {
 		return licencePlate;
 	}
 
-
 	/**
-	 * @param licencePlate the licencePlate to set
+	 * @param licencePlate
+	 *            the licencePlate to set
 	 */
 	public void setLicencePlate(LicencePlate licencePlate) {
 		this.licencePlate = licencePlate;
 	}
 
-
 	/**
 	 * @return the timestamp
 	 */
 	@NotNull
-	@Column(name="timestamp")
-	//@Type(type="TIMESTAMP")
+	@Column(name = "timestamp")
+	// @Type(type="TIMESTAMP")
 	public Date getTimestamp() {
 		return timestamp;
 	}
 
-
 	/**
-	 * @param timestamp the timestamp to set
+	 * @param timestamp
+	 *            the timestamp to set
 	 */
 	public void setTimestamp(Date timestamp) {
 		this.timestamp = timestamp;
 	}
-
 
 	/**
 	 * @return the video
 	 */
 	@OneToOne
 	@NotNull
-	//@Column(name="video")
+	// @Column(name="video")
 	public MediaObject getVideo() {
 		return video;
 	}
 
-
 	/**
-	 * @param video the video to set
+	 * @param video
+	 *            the video to set
 	 */
 	public void setVideo(MediaObject video) {
 		this.video = video;
 	}
 
-
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see java.lang.Object#toString()
 	 */
 	@Override
 	public String toString() {
-		return "CarData [id=" + id + ", speed=" + speed + ", location=" + location
-				+ ", licencePlate=" + licencePlate + ", timestamp=" + timestamp
-				+ ", video=" + video + "]";
+		return "CarData [id=" + id + ", speed=" + speed + ", location="
+				+ location + ", licencePlate=" + licencePlate + ", timestamp="
+				+ timestamp + ", video=" + video + "]";
 	}
 
-
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see java.lang.Object#hashCode()
 	 */
 	@Override
 	public int hashCode() {
-		return new HashCodeBuilder().append(speed).append(location).append(licencePlate)
-				.append(timestamp).append(video).toHashCode();
+		return new HashCodeBuilder().append(speed).append(location)
+				.append(licencePlate).append(timestamp).append(video)
+				.toHashCode();
 	}
 
-
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see java.lang.Object#equals(java.lang.Object)
 	 */
 	@Override
@@ -221,14 +218,12 @@ public class CarData implements Serializable {
 			return false;
 		}
 		CarData other = (CarData) obj;
-		
-		return new EqualsBuilder().append(speed, other.speed).append(location, other.location)
-				.append(licencePlate, other.licencePlate).append(timestamp, other.timestamp)
-				.append(video, other.video).isEquals();
+
+		return new EqualsBuilder().append(speed, other.speed)
+				.append(location, other.location)
+				.append(licencePlate, other.licencePlate)
+				.append(timestamp, other.timestamp).append(video, other.video)
+				.isEquals();
 	}
-	
-	
-	
-	
 
 }

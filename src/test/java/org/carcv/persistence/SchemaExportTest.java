@@ -3,9 +3,10 @@
  */
 package org.carcv.persistence;
 
-import static org.junit.Assert.*;
+import static org.hamcrest.core.IsEqual.equalTo;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertThat;
 
-import static org.hamcrest.core.IsEqual.*;
 import org.hibernate.cfg.Configuration;
 import org.hibernate.tool.hbm2ddl.SchemaExport;
 import org.hibernate.tool.hbm2ddl.Target;
@@ -15,10 +16,10 @@ import org.junit.Test;
 
 /**
  * @author oskopek
- *
+ * 
  */
 public class SchemaExportTest {
-	
+
 	String workspacePath;
 
 	/**
@@ -39,20 +40,21 @@ public class SchemaExportTest {
 
 	@Test
 	public void schemaExportTest() throws Exception {
-		Configuration cfg = new Configuration();		
+		Configuration cfg = new Configuration();
 		cfg.configure("hibernate.cfg.xml");
 		assertNotNull(cfg);
-		
+
 		SchemaExport export = new SchemaExport(cfg);
 		assertNotNull(export);
-		
+
 		export.setFormat(true);
-		export.setOutputFile(workspacePath + "import.sql." + System.currentTimeMillis());
+		export.setOutputFile(workspacePath + "import.sql."
+				+ System.currentTimeMillis());
 		export.create(Target.SCRIPT);
-		
+
 		Integer size = export.getExceptions().size();
 		Integer expected = 0;
-		assertThat(size, equalTo(expected));		
+		assertThat(size, equalTo(expected));
 	}
 
 }

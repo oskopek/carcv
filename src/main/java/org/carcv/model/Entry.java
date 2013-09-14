@@ -18,10 +18,10 @@ import org.apache.commons.lang.builder.HashCodeBuilder;
 
 /**
  * @author oskopek
- *
+ * 
  */
 @Entity
-@Table(name="entry")
+@Table(name = "entry")
 public class Entry implements Serializable {
 
 	/**
@@ -32,14 +32,14 @@ public class Entry implements Serializable {
 	private long id;
 
 	private CarData data;
-	
+
 	private MediaObject preview;
 
 	/**
 	 * For EJB
 	 */
 	public Entry() {
-		//Hibernate stub
+		// Hibernate stub
 	}
 
 	/**
@@ -51,20 +51,20 @@ public class Entry implements Serializable {
 		this.preview = preview;
 	}
 
-
 	/**
 	 * @return the id
 	 */
 	@Id
 	@GeneratedValue
 	@NotNull
-	@Column(name="id")
+	@Column(name = "id")
 	public long getId() {
 		return id;
 	}
 
 	/**
-	 * @param id the id to set
+	 * @param id
+	 *            the id to set
 	 */
 	public void setId(long id) {
 		this.id = id;
@@ -72,16 +72,17 @@ public class Entry implements Serializable {
 
 	/**
 	 * @return the data
-	 */	
+	 */
 	@OneToOne
 	@NotNull
-	//@Column(name="data")
+	// @Column(name="data")
 	public CarData getData() {
 		return data;
 	}
 
 	/**
-	 * @param data the data to set
+	 * @param data
+	 *            the data to set
 	 */
 	public void setData(CarData data) {
 		this.data = data;
@@ -92,27 +93,33 @@ public class Entry implements Serializable {
 	 */
 	@OneToOne
 	@NotNull
-	//@Column(name="preview")
+	// @Column(name="preview")
 	public MediaObject getPreview() {
 		return preview;
 	}
 
 	/**
-	 * @param preview the preview to set
+	 * @param preview
+	 *            the preview to set
 	 */
 	public void setPreview(MediaObject preview) {
 		this.preview = preview;
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see java.lang.Object#toString()
 	 */
 	@Override
 	public String toString() {
-		return "Entry [id=" + id + "data=" + data + ", preview=" + preview + "]";
+		return "Entry [id=" + id + "data=" + data + ", preview=" + preview
+				+ "]";
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see java.lang.Object#hashCode()
 	 */
 	@Override
@@ -120,7 +127,9 @@ public class Entry implements Serializable {
 		return new HashCodeBuilder().append(data).append(preview).toHashCode();
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see java.lang.Object#equals(java.lang.Object)
 	 */
 	@Override
@@ -135,9 +144,8 @@ public class Entry implements Serializable {
 			return false;
 		}
 		Entry other = (Entry) obj;
-		return new EqualsBuilder().append(data, other.data).append(preview, other.preview).isEquals();
+		return new EqualsBuilder().append(data, other.data)
+				.append(preview, other.preview).isEquals();
 	}
-	
-	
 
 }

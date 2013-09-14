@@ -32,6 +32,7 @@ public class CarTableServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
 	 *      response)
 	 */
+	@Override
 	protected void doGet(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
 
@@ -95,7 +96,8 @@ public class CarTableServlet extends HttpServlet {
 			out.write("<td>" + date + "\n" + time + "</td>");
 			out.write("<td>" + licencePlate + "</td>");
 			out.write("<td>" + location + "</td>");
-			out.write("<td><a href=\"" + videoURL + "\" target=\"_top\">View video</a></td>");
+			out.write("<td><a href=\"" + videoURL
+					+ "\" target=\"_top\">View video</a></td>");
 			out.write("<td><a href=\"" + previewURL
 					+ "\" target=\"_top\">View pictures</a></td>");
 			out.write("<td><a href=\"" + "/servlet/GenerateReport"
@@ -112,6 +114,7 @@ public class CarTableServlet extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
 	 *      response)
 	 */
+	@Override
 	protected void doPost(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
 		doGet(request, response);
