@@ -10,8 +10,6 @@
 		<web-resource-collection>
 			<web-resource-name>allowed_pages</web-resource-name>
 			<url-pattern>/resources/*</url-pattern>
-            <url-pattern>/login/*</url-pattern>
-            <url-pattern>/j_security_check</url-pattern>
 		</web-resource-collection>
 		<user-data-constraint>
 			<transport-guarantee>NONE</transport-guarantee>
@@ -22,12 +20,11 @@
 		<display-name>user</display-name>
 		<web-resource-collection>
 			<web-resource-name>user_pages</web-resource-name>
-			<url-pattern>/*</url-pattern>
 			<url-pattern>/app/*</url-pattern>
 			<url-pattern>/servlet/*</url-pattern>
 		</web-resource-collection>
 		<auth-constraint>
-		    <role-name>admin</role-name>
+		    <!--  <role-name>admin</role-name> -->
 			<role-name>user</role-name>
 		</auth-constraint>
 		<user-data-constraint>
