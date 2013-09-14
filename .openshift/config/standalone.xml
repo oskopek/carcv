@@ -501,7 +501,7 @@
         </subsystem>
         <subsystem xmlns="urn:jboss:domain:web:1.1" default-virtual-server="default-host" native="false">
             <!-- <connector name="http" protocol="HTTP/1.1" scheme="http" socket-binding="http"/> -->
-            <connector name="http" protocol="HTTP/1.1" scheme="http" socket-binding="http" proxy-name="${OPENSHIFT_GEAR_DNS}" proxy-port="443" secure="true"/>
+            <connector name="http" protocol="HTTP/1.1" scheme="http" socket-binding="http" proxy-name="${env.OPENSHIFT_GEAR_DNS}" proxy-port="443" secure="true"/>
             <virtual-server name="default-host" enable-welcome-root="false">
                 <alias name="localhost"/>
             </virtual-server>
