@@ -30,9 +30,9 @@
 			<td>12.5.1973</td>
 			<td>(D) - 38</td>
 			<td>Munchen</td>
-			<td><a href="/">View video</a></td>
-			<td><a href="/">View pictures</a></td>
-			<td><a href="/">Generate report</a></td>
+			<td><a href="/" target="_top">View video</a></td>
+			<td><a href="/" target="_top">View pictures</a></td>
+			<td><a href="/" target="_top">Generate report</a></td>
 		</tr>
 	</table>
 </body>

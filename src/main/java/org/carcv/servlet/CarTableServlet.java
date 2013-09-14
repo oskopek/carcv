@@ -95,11 +95,11 @@ public class CarTableServlet extends HttpServlet {
 			out.write("<td>" + date + "\n" + time + "</td>");
 			out.write("<td>" + licencePlate + "</td>");
 			out.write("<td>" + location + "</td>");
-			out.write("<td><a href=\"" + videoURL + "\">View video</a></td>");
+			out.write("<td><a href=\"" + videoURL + "\" target=\"_top\">View video</a></td>");
 			out.write("<td><a href=\"" + previewURL
-					+ "\">View pictures</a></td>");
+					+ "\" target=\"_top\">View pictures</a></td>");
 			out.write("<td><a href=\"" + "/servlet/GenerateReport"
-					+ "\">Generate report</a></td>");
+					+ "\" target=\"_top\">Generate report</a></td>");
 			out.write("</tr>");
 		}
 

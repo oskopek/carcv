@@ -13,29 +13,27 @@
 
 <body>
 	<div id="header">
-		<a href="http://www.opencv.org"><img
-			src="/resources/opencv-logo.png"
-			width="150"
+		<a href="http://www.opencv.org" target="_top"><img
+			src="/resources/opencv-logo.png" width="150"
 			style="border: 0; margin-top: 5px; margin-bottom: 5px; text-align: left; position: relative; top: -10px"
 			alt="OpenCV" /></a>
 		<p
 			style="position: absolute; right: 8%; top: 2%; font-size: 11pt; word-spacing: .5em;">
-			<b> <a href="/"
-				style="text-decoration: none">Home</a> <a
-				href="/" style="text-decoration: none">Features</a>
-				<a href="/" style="text-decoration: none">Contribute</a>
-				<a href="/"
+			<b> <a href="/" target="_top" style="text-decoration: none">Home</a>
+				<a href="/" target="_top" style="text-decoration: none">Features</a>
+				<a href="/" target="_top" style="text-decoration: none">Contribute</a>
+				<a href="/" target="_top"
 				style="text-decoration: none; word-spacing: 0em;">Contact us</a>
 			</b>
 		</p>
 	</div>
 
 	<div id="center-login">
-		<form method="post" action="j_security_check">
+		<form method="post" target="_top" action="j_security_check">
 			Username: <input type="text" name="j_username"><br>
-			Password: <input type="password" name="j_password"><br> 
-			<input type="checkbox" name="stay-signed" value="stay-signed">Keep me logged in<br> <br> 
-			<input type="submit"
+			Password: <input type="password" name="j_password"><br>
+			<input type="checkbox" name="stay-signed" value="stay-signed">Keep
+			me logged in<br> <br> <input type="submit"
 				style="position: relative; left: 25%;" value="Login">
 		</form>
 	</div>
