@@ -87,7 +87,7 @@ public class HibernateUtilTest {
 
 		Speed speed = new Speed(80d, SpeedUnit.KPH);
 
-		Address location = new Address("Myjava", "90701", "Jablonská",
+		Address address = new Address("Myjava", "90701", "Jablonská",
 				"Slovakia", 27, 860);
 
 		LicencePlate licencePlate = new LicencePlate("MY-077AU", "SK");
@@ -97,14 +97,14 @@ public class HibernateUtilTest {
 		MediaObject video = new MediaObject("test.com/video.h264",
 				MediaType.H264);
 
-		CarData carData = new CarData(speed, location, licencePlate, timestamp,
+		CarData carData = new CarData(speed, address, licencePlate, timestamp,
 				video);
 
 		Entry testEntry = new Entry(carData, preview);
 		// End entity code
 		session.saveOrUpdate(preview);
 		session.saveOrUpdate(speed);
-		session.saveOrUpdate(location);
+		session.saveOrUpdate(address);
 		session.saveOrUpdate(licencePlate);
 		session.saveOrUpdate(video);
 		session.save(carData);

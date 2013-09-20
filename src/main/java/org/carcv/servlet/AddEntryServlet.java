@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.carcv.beans.EntryBean;
+import org.carcv.beans.*;
 import org.carcv.model.Address;
 import org.carcv.model.CarData;
 import org.carcv.model.Entry;
@@ -28,7 +28,19 @@ public class AddEntryServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
 	@EJB
-	private EntryBean bean;
+	private AddressBean addressBean;
+	@EJB
+	private CarDataBean carDataBean;
+	@EJB
+	private LicencePlateBean licencePlateBean;
+	@EJB
+	private MediaObjectBean mediaObjectBean;
+	@EJB
+	private SpeedBean speedBean;
+	@EJB
+	private EntryBean entryBean;
+	
+	
        
     /**
      * @see HttpServlet#HttpServlet()
@@ -53,7 +65,7 @@ public class AddEntryServlet extends HttpServlet {
 
     			Speed speed = new Speed(80d, SpeedUnit.KPH);
 
-    			Address location = new Address("Myjava", "90701", "Jablonská",
+    			Address address = new Address("Myjava", "90701", "Jablonská",
     					"Slovakia", 27, 860);
 
     			LicencePlate licencePlate = new LicencePlate("MY-077AU", "SK");
@@ -63,15 +75,20 @@ public class AddEntryServlet extends HttpServlet {
     			MediaObject video = new MediaObject("test.com/video.h264",
     					MediaType.H264);
 
-    			CarData carData = new CarData(speed, location, licencePlate, timestamp,
+    			CarData carData = new CarData(speed, address, licencePlate, timestamp,
     					video);
 
     			Entry testEntry = new Entry(carData, preview);
     			
     			// End entity code
     			out.println(testEntry.toString());
-
-    			bean.create(testEntry);
+    			
+    			addressBean.create(address);
+    			licencePlateBean.create(licencePlate);
+    			mediaObjectBean.create(preview);
+    			speedBean.create(speed);
+    			carDataBean.create(carData);
+    			entryBean.create(testEntry);
 
     			out.println("Saved");
     			out.println(testEntry.toString());
@@ -80,7 +97,7 @@ public class AddEntryServlet extends HttpServlet {
     			out.println("Id=" + entry_id);
 
     			// now retrieve
-    			out.println(bean.findById(entry_id).toString());
+    			out.println(entryBean.findById(entry_id).toString());
 
 	}
 
