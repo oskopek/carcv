@@ -6,13 +6,11 @@ package org.carcv.model;
 import java.io.Serializable;
 import java.util.Date;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
-import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
 import org.apache.commons.lang.builder.EqualsBuilder;
@@ -25,7 +23,7 @@ import org.apache.commons.lang.builder.HashCodeBuilder;
  * 
  */
 @Entity
-@Table(name = "cardata")
+//@Table(name = "cardata")
 public class CarData implements Serializable {
 
 	/**
@@ -74,7 +72,7 @@ public class CarData implements Serializable {
 	@Id
 	@GeneratedValue
 	@NotNull
-	@Column(name = "id")
+	//@Column(name = "id")
 	public long getId() {
 		return id;
 	}
@@ -92,7 +90,7 @@ public class CarData implements Serializable {
 	 */
 	@ManyToOne
 	@NotNull
-	// @Column(name="speed")
+	//@Column(name="speed")
 	public Speed getSpeed() {
 		return speed;
 	}
@@ -110,7 +108,7 @@ public class CarData implements Serializable {
 	 */
 	@ManyToOne
 	@NotNull
-	// @Column(name="location")
+	//@Column(name="location")
 	public Address getLocation() {
 		return location;
 	}
@@ -128,7 +126,7 @@ public class CarData implements Serializable {
 	 */
 	@ManyToOne
 	@NotNull
-	// @Column(name="licenceplate")
+	//@Column(name="licenceplate")
 	public LicencePlate getLicencePlate() {
 		return licencePlate;
 	}
@@ -145,8 +143,8 @@ public class CarData implements Serializable {
 	 * @return the timestamp
 	 */
 	@NotNull
-	@Column(name = "timestamp")
-	// @Type(type="TIMESTAMP")
+	//@Column(name = "timestamp")
+	//@Type(type="TIMESTAMP")
 	public Date getTimestamp() {
 		return timestamp;
 	}
@@ -164,7 +162,7 @@ public class CarData implements Serializable {
 	 */
 	@OneToOne
 	@NotNull
-	// @Column(name="video")
+	//@Column(name="video")
 	public MediaObject getVideo() {
 		return video;
 	}

@@ -28,13 +28,13 @@ public class MediaObjectBean {
 	}
 	
 	public MediaObject findById(long id) {
-		return (MediaObject) em.createQuery("select mo from mediaobject mo where mo.id = :identifier")
+		return (MediaObject) em.createQuery("select mo from MediaObject mo where mo.id = :identifier")
 				.setParameter("idenitifier", id).getSingleResult();
 	}
 	
 	@SuppressWarnings("unchecked")
 	public List<MediaObject> getAll() {
-		return em.createQuery("select mo from mediaobject mo")
+		return em.createQuery("select mo from MediaObject mo")
 				.getResultList();
 	}
 }

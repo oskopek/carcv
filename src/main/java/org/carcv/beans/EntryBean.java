@@ -28,13 +28,13 @@ public class EntryBean {
 	}
 	
 	public Entry findById(long id) {
-		return (Entry) em.createQuery("select e from entry r where r.id = :identifier")
+		return (Entry) em.createQuery("select e from Entry r where r.id = :identifier")
 				.setParameter("idenitifier", id).getSingleResult();
 	}
 	
 	@SuppressWarnings("unchecked")
 	public List<Entry> getAll() {
-		return em.createQuery("select e from entry e")
+		return em.createQuery("select e from Entry e")
 				.getResultList();
 	}
 }

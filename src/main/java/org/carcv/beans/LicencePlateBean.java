@@ -28,13 +28,13 @@ public class LicencePlateBean {
 	}
 	
 	public LicencePlate findById(long id) {
-		return (LicencePlate) em.createQuery("select lp from licenceplate lp where lp.id = :identifier")
+		return (LicencePlate) em.createQuery("select lp from LicencePlate lp where lp.id = :identifier")
 				.setParameter("idenitifier", id).getSingleResult();
 	}
 	
 	@SuppressWarnings("unchecked")
 	public List<LicencePlate> getAll() {
-		return em.createQuery("select lp from licenceplate lp")
+		return em.createQuery("select lp from LicencePlate lp")
 				.getResultList();
 	}
 }

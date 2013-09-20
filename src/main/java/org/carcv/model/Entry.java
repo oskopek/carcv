@@ -5,12 +5,10 @@ package org.carcv.model;
 
 import java.io.Serializable;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
-import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
 import org.apache.commons.lang.builder.EqualsBuilder;
@@ -21,7 +19,7 @@ import org.apache.commons.lang.builder.HashCodeBuilder;
  * 
  */
 @Entity
-@Table(name = "entry")
+//@Table(name = "entry")
 public class Entry implements Serializable {
 
 	/**
@@ -57,7 +55,7 @@ public class Entry implements Serializable {
 	@Id
 	@GeneratedValue
 	@NotNull
-	@Column(name = "id")
+	//@Column(name = "id")
 	public long getId() {
 		return id;
 	}
@@ -75,7 +73,7 @@ public class Entry implements Serializable {
 	 */
 	@OneToOne
 	@NotNull
-	// @Column(name="data")
+	//@Column(name="data")
 	public CarData getData() {
 		return data;
 	}
@@ -93,7 +91,7 @@ public class Entry implements Serializable {
 	 */
 	@OneToOne
 	@NotNull
-	// @Column(name="preview")
+	//@Column(name="preview")
 	public MediaObject getPreview() {
 		return preview;
 	}

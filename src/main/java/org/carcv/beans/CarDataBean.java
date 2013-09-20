@@ -24,13 +24,13 @@ public class CarDataBean {
 	}
 	
 	public CarData findById(long id) {
-		return (CarData) em.createQuery("select cd from cardata cd where cd.id = :identifier")
+		return (CarData) em.createQuery("select cd from CarData cd where cd.id = :identifier")
 				.setParameter("idenitifier", id).getSingleResult();
 	}
 	
 	@SuppressWarnings("unchecked")
 	public List<CarData> getAll() {
-		return em.createQuery("select cd from cardata cd")
+		return em.createQuery("select cd from CarData cd")
 				.getResultList();
 	}
 

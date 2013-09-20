@@ -28,13 +28,13 @@ public class AddressBean {
 	}
 	
 	public Address findById(long id) {
-		return (Address) em.createQuery("select a from address a where a.id = :identifier")
+		return (Address) em.createQuery("select a from Address a where a.id = :identifier")
 				.setParameter("idenitifier", id).getSingleResult();
 	}
 	
 	@SuppressWarnings("unchecked")
 	public List<Address> getAll() {
-		return em.createQuery("select a from address a")
+		return em.createQuery("select a from Address a")
 				.getResultList();
 	}
 

@@ -26,13 +26,13 @@ public class SpeedBean {
 	}
 	
 	public Speed findById(long id) {
-		return (Speed) em.createQuery("select s from speed s where s.id = :identifier")
+		return (Speed) em.createQuery("select s from Speed s where s.id = :identifier")
 				.setParameter("idenitifier", id).getSingleResult();
 	}
 	
 	@SuppressWarnings("unchecked")
 	public List<Speed> getAll() {
-		return em.createQuery("select s from speed s")
+		return em.createQuery("select s from Speed s")
 				.getResultList();
 	}
 }

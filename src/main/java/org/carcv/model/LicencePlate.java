@@ -5,11 +5,9 @@ package org.carcv.model;
 
 import java.io.Serializable;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
 import org.apache.commons.lang.builder.CompareToBuilder;
@@ -23,7 +21,7 @@ import org.apache.commons.lang.builder.HashCodeBuilder;
  * 
  */
 @Entity
-@Table(name = "licenceplate")
+//@Table(name = "licenceplate")
 public class LicencePlate implements Serializable, Comparable<LicencePlate> {
 
 	/**
@@ -64,7 +62,7 @@ public class LicencePlate implements Serializable, Comparable<LicencePlate> {
 	@Id
 	@GeneratedValue
 	@NotNull
-	@Column(name = "id")
+	//@Column(name = "id")
 	public long getId() {
 		return id;
 	}
@@ -80,7 +78,7 @@ public class LicencePlate implements Serializable, Comparable<LicencePlate> {
 	/**
 	 * @return the text
 	 */
-	@Column(name = "text")
+	//@Column(name = "text")
 	@NotNull
 	public String getText() {
 		return text;
@@ -97,7 +95,7 @@ public class LicencePlate implements Serializable, Comparable<LicencePlate> {
 	/**
 	 * @return the origin
 	 */
-	@Column(name = "origin")
+	//@Column(name = "origin")
 	public String getOrigin() {
 		return origin;
 	}

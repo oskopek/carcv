@@ -5,11 +5,9 @@ package org.carcv.model;
 
 import java.io.Serializable;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
 import org.apache.commons.lang.builder.EqualsBuilder;
@@ -23,7 +21,7 @@ import org.apache.commons.lang.builder.HashCodeBuilder;
  * 
  */
 @Entity
-@Table(name = "mediaobject")
+//@Table(name = "mediaobject")
 public class MediaObject implements Serializable {
 
 	/**
@@ -60,7 +58,7 @@ public class MediaObject implements Serializable {
 	@Id
 	@GeneratedValue
 	@NotNull
-	@Column(name = "id")
+	//@Column(name = "id")
 	public long getId() {
 		return id;
 	}
@@ -76,7 +74,7 @@ public class MediaObject implements Serializable {
 	/**
 	 * @return the URL
 	 */
-	@Column(name = "URL")
+	//@Column(name = "URL")
 	@NotNull
 	public String getURL() {
 		return URL;
@@ -93,7 +91,7 @@ public class MediaObject implements Serializable {
 	/**
 	 * @return the mediaType
 	 */
-	@Column(name = "mediatype")
+	//@Column(name = "mediatype")
 	@NotNull
 	public MediaType getMediaType() {
 		return mediaType;

@@ -5,11 +5,9 @@ package org.carcv.model;
 
 import java.io.Serializable;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
 import org.apache.commons.lang.builder.EqualsBuilder;
@@ -22,7 +20,7 @@ import org.apache.commons.lang.builder.HashCodeBuilder;
  * 
  */
 @Entity
-@Table(name = "address")
+//@Table(name = "address")
 public class Address implements IAddress, Serializable {
 
 	/**
@@ -126,7 +124,7 @@ public class Address implements IAddress, Serializable {
 	 * @see org.carcv.model.ILocation#latitude()
 	 */
 	@Override
-	@Column(name = "latitude")
+	//@Column(name = "latitude")
 	@NotNull
 	public double getLatitude() {
 		return latitude;
@@ -138,7 +136,7 @@ public class Address implements IAddress, Serializable {
 	 * @see org.carcv.model.ILocation#longitude()
 	 */
 	@Override
-	@Column(name = "longitude")
+	//@Column(name = "longitude")
 	@NotNull
 	public double getLongitude() {
 		return longitude;
@@ -150,7 +148,7 @@ public class Address implements IAddress, Serializable {
 	 * @see org.carcv.model.IAddress#city()
 	 */
 	@Override
-	@Column(name = "city")
+	//@Column(name = "city")
 	@NotNull
 	public String getCity() {
 		return city;
@@ -162,7 +160,7 @@ public class Address implements IAddress, Serializable {
 	 * @see org.carcv.model.IAddress#postalcode()
 	 */
 	@Override
-	@Column(name = "postalcode")
+	//@Column(name = "postalcode")
 	@NotNull
 	public String getPostalCode() {
 		return postalCode;
@@ -174,7 +172,7 @@ public class Address implements IAddress, Serializable {
 	 * @see org.carcv.model.IAddress#street()
 	 */
 	@Override
-	@Column(name = "street")
+	//@Column(name = "street")
 	@NotNull
 	public String getStreet() {
 		return street;
@@ -186,7 +184,7 @@ public class Address implements IAddress, Serializable {
 	 * @see org.carcv.model.IAddress#streetNumber()
 	 */
 	@Override
-	@Column(name = "streetNumber")
+	//@Column(name = "streetNumber")
 	@NotNull
 	public int getStreetNumber() {
 		return streetNumber;
@@ -198,7 +196,7 @@ public class Address implements IAddress, Serializable {
 	 * @see org.carcv.model.IAddress#country()
 	 */
 	@Override
-	@Column(name = "country")
+	//@Column(name = "country")
 	@NotNull
 	public String getCountry() {
 		return country;
@@ -210,7 +208,7 @@ public class Address implements IAddress, Serializable {
 	 * @see org.carcv.model.IAddress#referenceNumber()
 	 */
 	@Override
-	@Column(name = "referenceNumber")
+	//@Column(name = "referenceNumber")
 	@NotNull
 	public int getReferenceNumber() {
 		return referenceNumber;
@@ -339,7 +337,7 @@ public class Address implements IAddress, Serializable {
 	@Id
 	@GeneratedValue
 	@NotNull
-	@Column(name = "id")
+	//@Column(name = "id")
 	public long getId() {
 		return id;
 	}

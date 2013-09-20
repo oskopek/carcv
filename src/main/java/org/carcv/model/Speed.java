@@ -5,11 +5,9 @@ package org.carcv.model;
 
 import java.io.Serializable;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
 import org.apache.commons.lang.builder.CompareToBuilder;
@@ -21,7 +19,7 @@ import org.apache.commons.lang.builder.HashCodeBuilder;
  * 
  */
 @Entity
-@Table(name = "speed")
+//@Table(name = "speed")
 public class Speed implements Serializable, Comparable<Speed> {
 
 	/**
@@ -64,7 +62,7 @@ public class Speed implements Serializable, Comparable<Speed> {
 	/**
 	 * @return the speed
 	 */
-	@Column(name = "speed")
+	//@Column(name = "speed")
 	@NotNull
 	//@Range(min = 0, message = "Speed is less or equal to 0!")
 	public double getSpeed() {
@@ -82,7 +80,7 @@ public class Speed implements Serializable, Comparable<Speed> {
 	/**
 	 * @return the unit
 	 */
-	@Column(name = "unit")
+	//@Column(name = "unit")
 	@NotNull
 	public SpeedUnit getUnit() {
 		return unit;
@@ -142,7 +140,7 @@ public class Speed implements Serializable, Comparable<Speed> {
 	@Id
 	@GeneratedValue
 	@NotNull
-	@Column(name = "id")
+	//@Column(name = "id")
 	public long getId() {
 		return id;
 	}
