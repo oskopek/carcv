@@ -5,6 +5,7 @@ package org.carcv.beans;
 
 import java.util.List;
 
+import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
@@ -14,6 +15,7 @@ import org.carcv.model.MediaObject;
  * @author oskopek
  *
  */
+@Stateless
 public class MediaObjectBean {
 
 	@PersistenceContext
