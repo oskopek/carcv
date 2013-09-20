@@ -111,7 +111,7 @@ public class Entry implements Serializable {
 	 */
 	@Override
 	public String toString() {
-		return "Entry [id=" + id + "data=" + data + ", preview=" + preview
+		return "Entry [id=" + id + ", data=" + data + ", preview=" + preview
 				+ "]";
 	}
 
