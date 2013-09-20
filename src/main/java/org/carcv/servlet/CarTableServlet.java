@@ -80,7 +80,7 @@ public class CarTableServlet extends HttpServlet {
 			date = dateFormat.format(e.getData().getTimestamp());
 			time = timeFormat.format(e.getData().getTimestamp());
 			licencePlate = e.getData().getLicencePlate().getOrigin() + " - "
-					+ e.getData().getLicencePlate().getOrigin();
+					+ e.getData().getLicencePlate().getText();
 			location = e.getData().getLocation().toString();
 			videoURL = e.getData().getVideo().getURL();
 			previewURL = e.getPreview().getURL();
