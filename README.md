@@ -15,4 +15,3 @@ Old Setup for eclipse project:
 
 To build, run: mvn package (optional: -DskipTests)
 To clean, run: mvn clean
-
