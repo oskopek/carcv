@@ -15,7 +15,6 @@ import javax.validation.constraints.NotNull;
 import org.apache.commons.lang.builder.CompareToBuilder;
 import org.apache.commons.lang.builder.EqualsBuilder;
 import org.apache.commons.lang.builder.HashCodeBuilder;
-import org.hibernate.validator.constraints.Range;
 
 /**
  * @author oskopek
@@ -67,7 +66,7 @@ public class Speed implements Serializable, Comparable<Speed> {
 	 */
 	@Column(name = "speed")
 	@NotNull
-	@Range(min = 0, message = "Speed is less or equal to 0!")
+	//@Range(min = 0, message = "Speed is less or equal to 0!")
 	public double getSpeed() {
 		return speed;
 	}

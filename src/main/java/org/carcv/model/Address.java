@@ -14,7 +14,6 @@ import javax.validation.constraints.NotNull;
 
 import org.apache.commons.lang.builder.EqualsBuilder;
 import org.apache.commons.lang.builder.HashCodeBuilder;
-import org.hibernate.validator.constraints.NotEmpty;
 
 /**
  * A basic getter/setter POJO implementation of IAddress, JPA annotated
@@ -152,7 +151,7 @@ public class Address implements IAddress, Serializable {
 	 */
 	@Override
 	@Column(name = "city")
-	@NotEmpty
+	@NotNull
 	public String getCity() {
 		return city;
 	}
@@ -164,7 +163,7 @@ public class Address implements IAddress, Serializable {
 	 */
 	@Override
 	@Column(name = "postalcode")
-	@NotEmpty
+	@NotNull
 	public String getPostalCode() {
 		return postalCode;
 	}
@@ -176,7 +175,7 @@ public class Address implements IAddress, Serializable {
 	 */
 	@Override
 	@Column(name = "street")
-	@NotEmpty
+	@NotNull
 	public String getStreet() {
 		return street;
 	}
@@ -200,7 +199,7 @@ public class Address implements IAddress, Serializable {
 	 */
 	@Override
 	@Column(name = "country")
-	@NotEmpty
+	@NotNull
 	public String getCountry() {
 		return country;
 	}
