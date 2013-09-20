@@ -39,10 +39,10 @@ public class TestServlet extends HttpServlet {
 	       out.println("Query returned: " + mo.toString());
 	       */
 	       
-	       MediaObject mo = bean.findById(1);
+	       MediaObject mo = bean.findById(m1.getId());
 	       out.println("Query returned: " + mo.toString());
 	       
-	       mo = bean.findById(2);
+	       mo = bean.findById(m2.getId());
 	       out.println("Query returned: " + mo.toString());
 	       
 	       List<MediaObject> moList = bean.getAll();
