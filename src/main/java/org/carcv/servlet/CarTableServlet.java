@@ -43,32 +43,33 @@ public class CarTableServlet extends HttpServlet {
 		
 		ArrayList<Entry> entries = (ArrayList<Entry>) bean.getAll();
 
-		// write page
+		//write page
+		response.setContentType("text/html");
 		PrintWriter out = response.getWriter();
 
-		out.write("<!DOCTYPE html>");
-		out.write("<html>");
-		out.write("<head>");
-		out.write("<meta charset=\"UTF-8\">");
-		out.write("<title>Car database</title>");
-		out.write("<style type=\"text/css\">");
-		out.write("#table {");
-		out.write("	text-align: center;");
-		out.write("}");
-		out.write("</style>");
-		out.write("</head>");
+		out.println("<!DOCTYPE html>");
+		out.println("<html>");
+		out.println("<head>");
+		out.println("<meta charset=\"UTF-8\">");
+		out.println("<title>Car database</title>");
+		out.println("<style type=\"text/css\">");
+		out.println("#table {");
+		out.println("	text-align: center;");
+		out.println("}");
+		out.println("</style>");
+		out.println("</head>");
 
-		out.write("<body>");
-		out.write("<table style=\"border: 1px solid #C0C0C0;\">");
-		out.write("<tr>");
-		out.write("<th style=\"width: 160px; height: 15px; background-color: #B0C4DE;\">Car preview</th>");
-		out.write("<th style=\"width: 10%; height: 15px; background-color: #B0C4DE;\">Date</th>");
-		out.write("<th style=\"width: 15%; height: 15px; background-color: #B0C4DE;\">Licence plate</th>");
-		out.write("<th style=\"width: 20%; height: 15px; background-color: #B0C4DE;\">Location</th>");
-		out.write("<th style=\"width: 20%; height: 15px; background-color: #B0C4DE;\">Video</th>");
-		out.write("<th style=\"width: 20%; height: 15px; background-color: #B0C4DE;\">Pictures</th>");
-		out.write("<th style=\"width: 15%; height: 15px; background-color: #B0C4DE;\">Report</th>");
-		out.write("</tr>");
+		out.println("<body>");
+		out.println("<table style=\"border: 1px solid #C0C0C0;\">");
+		out.println("<tr>");
+		out.println("<th style=\"width: 160px; height: 15px; background-color: #B0C4DE;\">Car preview</th>");
+		out.println("<th style=\"width: 10%; height: 15px; background-color: #B0C4DE;\">Date</th>");
+		out.println("<th style=\"width: 15%; height: 15px; background-color: #B0C4DE;\">Licence plate</th>");
+		out.println("<th style=\"width: 20%; height: 15px; background-color: #B0C4DE;\">Location</th>");
+		out.println("<th style=\"width: 20%; height: 15px; background-color: #B0C4DE;\">Video</th>");
+		out.println("<th style=\"width: 20%; height: 15px; background-color: #B0C4DE;\">Pictures</th>");
+		out.println("<th style=\"width: 15%; height: 15px; background-color: #B0C4DE;\">Report</th>");
+		out.println("</tr>");
 
 		DateFormat dateFormat = new SimpleDateFormat("dd. MM. yyyy");
 		DateFormat timeFormat = new SimpleDateFormat("HH:mm");
@@ -90,25 +91,25 @@ public class CarTableServlet extends HttpServlet {
 			previewURL = e.getPreview().getURL();
 
 			// write
-			out.write("<tr>");
-			out.write("<td style=\"\"><img");
-			out.write("src=\"" + previewURL + "\"");
-			out.write("style=\"border: 2px\" width=\"150\" alt=\"Car\"></td>");
-			out.write("<td>" + date + "\n" + time + "</td>");
-			out.write("<td>" + licencePlate + "</td>");
-			out.write("<td>" + location + "</td>");
-			out.write("<td><a href=\"" + videoURL
+			out.println("<tr>");
+			out.println("<td style=\"\"><img");
+			out.println("src=\"" + previewURL + "\"");
+			out.println("style=\"border: 2px\" width=\"150\" alt=\"Car\"></td>");
+			out.println("<td>" + date + "\n" + time + "</td>");
+			out.println("<td>" + licencePlate + "</td>");
+			out.println("<td>" + location + "</td>");
+			out.println("<td><a href=\"" + videoURL
 					+ "\" target=\"_top\">View video</a></td>");
-			out.write("<td><a href=\"" + previewURL
+			out.println("<td><a href=\"" + previewURL
 					+ "\" target=\"_top\">View pictures</a></td>");
-			out.write("<td><a href=\"" + "/servlet/GenerateReport"
+			out.println("<td><a href=\"" + "/servlet/GenerateReport"
 					+ "\" target=\"_top\">Generate report</a></td>");
-			out.write("</tr>");
+			out.println("</tr>");
 		}
 
-		out.write("</table>");
-		out.write("</body>");
-		out.write("</html>");
+		out.println("</table>");
+		out.println("</body>");
+		out.println("</html>");
 	}
 
 	/**
