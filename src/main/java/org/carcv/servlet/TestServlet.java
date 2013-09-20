@@ -18,7 +18,7 @@ import org.carcv.model.MediaType;
 /**
  * Servlet implementation class TestServlet
  */
-@WebServlet("/servlet/TestServlet")
+@WebServlet("/test/TestServlet")
 public class TestServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
