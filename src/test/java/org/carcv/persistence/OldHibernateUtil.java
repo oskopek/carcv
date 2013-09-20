@@ -5,6 +5,11 @@ import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.cfg.Configuration;
 import org.hibernate.service.ServiceRegistry;
 
+/**
+ * @deprecated use beans directly
+ * @author oskopek
+ *
+ */
 public class OldHibernateUtil {
 
 	private static SessionFactory sessionFactory;
