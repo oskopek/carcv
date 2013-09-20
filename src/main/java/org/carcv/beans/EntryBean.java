@@ -28,7 +28,7 @@ public class EntryBean {
 	}
 	
 	public Entry findById(long id) {
-		return (Entry) em.createQuery("select e from Entry r where r.id = :id")
+		return (Entry) em.createQuery("select e from Entry e where e.id = :id")
 				.setParameter("id", id).getSingleResult();
 	}
 	
