@@ -59,7 +59,7 @@
   <welcome-file-list>
     <welcome-file>/app/index.jsp</welcome-file>
   </welcome-file-list>
-  <servlet>
+  <!-- <servlet>
     <description></description>
     <display-name>CarTableServlet</display-name>
     <servlet-name>CarTableServlet</servlet-name>
@@ -78,7 +78,7 @@
   <servlet-mapping>
     <servlet-name>TestServlet</servlet-name>
     <url-pattern>/servlet/TestServlet</url-pattern>
-  </servlet-mapping>
+  </servlet-mapping> -->
   <session-config>
     <session-timeout>15</session-timeout>
     <cookie-config>
