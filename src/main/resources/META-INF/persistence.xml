@@ -4,7 +4,7 @@
    <!--
    <jta-data-source>java:/DefaultDS</jta-data-source>
    -->
-   <jta-data-source>java:/MySqlDS</jta-data-source>
+   <jta-data-source>java:jboss/datasources/MySqlDS</jta-data-source>
    <properties>
        <!--
        <property name="hibernate.dialect" value="org.hibernate.dialect.HSQLDialect"/>
