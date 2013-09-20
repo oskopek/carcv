@@ -48,9 +48,9 @@ public class HibernateUtilTest {
 
 		if (System.getenv("OPENSHIFT_MYSQL_DB_HOST") != null) { // if on
 																// OpenShift
-			testSf = HibernateUtil.getSessionFactory("hibernate.cfg.xml");
+			testSf = OldHibernateUtil.getSessionFactory("hibernate.cfg.xml");
 		} else {
-			testSf = HibernateUtil.getSessionFactory("hibernateHSQLDB.cfg.xml");
+			testSf = OldHibernateUtil.getSessionFactory("hibernateHSQLDB.cfg.xml");
 		}
 		assertNotNull(testSf);
 	}

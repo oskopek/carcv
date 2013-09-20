@@ -6,20 +6,25 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
+import javax.ejb.EJB;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.carcv.beans.EntryBean;
 import org.carcv.model.Entry;
-import org.carcv.persistence.HibernateUtil;
-import org.hibernate.Session;
 
 /**
  * Servlet implementation class CarTableServlet
  */
+@WebServlet("/servlet/CarTableServlet")
 public class CarTableServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+	
+	@EJB
+	private EntryBean bean;
 
 	/**
 	 * @see HttpServlet#HttpServlet()
@@ -35,12 +40,8 @@ public class CarTableServlet extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
-
-		Session session = HibernateUtil.getSessionFactory().openSession();
-
-		@SuppressWarnings("unchecked")
-		ArrayList<Entry> entries = (ArrayList<Entry>) session.createQuery(
-				"from Entry").list();
+		
+		ArrayList<Entry> entries = (ArrayList<Entry>) bean.getAll();
 
 		// write page
 		PrintWriter out = response.getWriter();
