@@ -85,7 +85,7 @@ public class AddEntryServlet extends HttpServlet {
     			
     			addressBean.create(address);
     			licencePlateBean.create(licencePlate);
-    			mediaObjectBean.create(preview);
+    			mediaObjectBean.create(preview, video);
     			speedBean.create(speed);
     			carDataBean.create(carData);
     			entryBean.create(testEntry);
