@@ -37,8 +37,7 @@ public class LicencePlate implements Serializable, Comparable<LicencePlate> {
 
 	private String origin;
 
-	@SuppressWarnings("unused")
-	private LicencePlate() {
+	public LicencePlate() {
 		// hibernate stub
 	}
 
