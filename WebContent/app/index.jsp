@@ -55,7 +55,7 @@
 						administration</a><br></td>
 			</tr>
 			<tr>
-				<td><a href="/" target="_top"
+				<td><a href="/servlet/LogoutServlet" target="_top"
 					style="position: absolute; left: 35%; text-decoration: none">Log
 						out</a><br></td>
 			</tr>

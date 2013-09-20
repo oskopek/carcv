@@ -46,7 +46,7 @@ public class CarTableServlet extends HttpServlet {
 		out.println("<html>");
 		out.println("<head>");
 		out.println("<meta charset=\"UTF-8\">");
-		out.println("<title>Car database</title>");
+		out.println("<title>CarCV - Car Table</title>");
 		out.println("<style type=\"text/css\">");
 		out.println("#table {");
 		out.println("	text-align: center;");

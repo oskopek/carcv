@@ -2,7 +2,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Car database</title>
+<title>CarCV - Car Table</title>
 <style type="text/css">
 #table {
 	text-align: center;

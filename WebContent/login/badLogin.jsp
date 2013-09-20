@@ -7,7 +7,7 @@
 <link rel="icon"
 	href="http://upload.wikimedia.org/wikipedia/commons/f/f0/Car_with_Driver-Silhouette.svg"
 	type="image/ico">
-<title>CarCV Login</title>
+<title>CarCV - Login</title>
 <link rel="stylesheet" type="text/css" href="/resources/mystyle.css">
 </head>
 
