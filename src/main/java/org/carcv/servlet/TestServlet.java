@@ -2,6 +2,7 @@ package org.carcv.servlet;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.List;
 
 import javax.ejb.EJB;
 import javax.servlet.ServletException;
@@ -34,14 +35,19 @@ public class TestServlet extends HttpServlet {
 	       bean.create(m1, m2);
 	       out.println("Created and persisted " + m1.toString() + ", and " + m2.toString());
 	 
-	       MediaObject mo = bean.findById(0);
+	       /* mo = bean.findById(0);
+	       out.println("Query returned: " + mo.toString());
+	       */
+	       
+	       MediaObject mo = bean.findById(1);
 	       out.println("Query returned: " + mo.toString());
 	       
-	       bean.findById(1);
+	       mo = bean.findById(2);
 	       out.println("Query returned: " + mo.toString());
 	       
-	       bean.findById(2);
-	       out.println("Query returned: " + mo.toString());
+	       List<MediaObject> moList = bean.getAll();
+	       out.println();
+	       out.println("List:\n " + moList.toString());
 	   }
 
 	/**
