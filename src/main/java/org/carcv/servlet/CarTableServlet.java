@@ -32,13 +32,8 @@ public class CarTableServlet extends HttpServlet {
 	public CarTableServlet() {
 		super();
 	}
-
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
-	 *      response)
-	 */
-	@Override
-	protected void doGet(HttpServletRequest request,
+	
+	protected void processRequest(HttpServletRequest request, 
 			HttpServletResponse response) throws ServletException, IOException {
 		
 		ArrayList<Entry> entries = (ArrayList<Entry>) bean.getAll();
@@ -113,13 +108,23 @@ public class CarTableServlet extends HttpServlet {
 	}
 
 	/**
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
+	 *      response)
+	 */
+	@Override
+	protected void doGet(HttpServletRequest request,
+			HttpServletResponse response) throws ServletException, IOException {
+		processRequest(request, response);
+	}
+
+	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
 	 *      response)
 	 */
 	@Override
 	protected void doPost(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
-		doGet(request, response);
+		processRequest(request, response);
 	}
 
 }
