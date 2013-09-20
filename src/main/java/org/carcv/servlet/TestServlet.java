@@ -24,13 +24,12 @@ public class TestServlet extends HttpServlet {
 	 @EJB
 	 private MediaObjectBean bean;
 	 
-	   protected void processRequest(HttpServletRequest request,
-	                                 HttpServletResponse response)
+	   protected void processRequest(HttpServletRequest request, HttpServletResponse response)
 	                  throws ServletException, IOException {
 	       PrintWriter out = response.getWriter();
 	       
-	       MediaObject m1 = new MediaObject("", MediaType.H264);
-	       MediaObject m2 = new MediaObject("", MediaType.JPEG);
+	       MediaObject m1 = new MediaObject("http://test.com/test.h264", MediaType.H264);
+	       MediaObject m2 = new MediaObject("http://test.com/test.jpeg", MediaType.JPEG);
 	       
 	       bean.create(m1, m2);
 	       out.println("Created and persisted " + m1.toString() + ", and " + m2.toString());
