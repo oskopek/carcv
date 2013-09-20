@@ -24,8 +24,8 @@ public class CarDataBean {
 	}
 	
 	public CarData findById(long id) {
-		return (CarData) em.createQuery("select cd from CarData cd where cd.id = :identifier")
-				.setParameter("idenitifier", id).getSingleResult();
+		return (CarData) em.createQuery("select cd from CarData cd where cd.id = :id")
+				.setParameter("id", id).getSingleResult();
 	}
 	
 	@SuppressWarnings("unchecked")

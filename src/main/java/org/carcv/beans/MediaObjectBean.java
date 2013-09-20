@@ -28,8 +28,8 @@ public class MediaObjectBean {
 	}
 	
 	public MediaObject findById(long id) {
-		return (MediaObject) em.createQuery("select mo from MediaObject mo where mo.id = :identifier")
-				.setParameter("idenitifier", id).getSingleResult();
+		return (MediaObject) em.createQuery("select mo from MediaObject mo where mo.id = :id")
+				.setParameter("id", id).getSingleResult();
 	}
 	
 	@SuppressWarnings("unchecked")

@@ -28,8 +28,8 @@ public class AddressBean {
 	}
 	
 	public Address findById(long id) {
-		return (Address) em.createQuery("select a from Address a where a.id = :identifier")
-				.setParameter("idenitifier", id).getSingleResult();
+		return (Address) em.createQuery("select a from Address a where a.id = :id")
+				.setParameter("id", id).getSingleResult();
 	}
 	
 	@SuppressWarnings("unchecked")

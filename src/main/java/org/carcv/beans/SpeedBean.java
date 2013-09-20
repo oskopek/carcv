@@ -26,8 +26,8 @@ public class SpeedBean {
 	}
 	
 	public Speed findById(long id) {
-		return (Speed) em.createQuery("select s from Speed s where s.id = :identifier")
-				.setParameter("idenitifier", id).getSingleResult();
+		return (Speed) em.createQuery("select s from Speed s where s.id = :id")
+				.setParameter("id", id).getSingleResult();
 	}
 	
 	@SuppressWarnings("unchecked")

@@ -28,8 +28,8 @@ public class EntryBean {
 	}
 	
 	public Entry findById(long id) {
-		return (Entry) em.createQuery("select e from Entry r where r.id = :identifier")
-				.setParameter("idenitifier", id).getSingleResult();
+		return (Entry) em.createQuery("select e from Entry r where r.id = :id")
+				.setParameter("id", id).getSingleResult();
 	}
 	
 	@SuppressWarnings("unchecked")

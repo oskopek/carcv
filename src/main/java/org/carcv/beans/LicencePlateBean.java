@@ -28,8 +28,8 @@ public class LicencePlateBean {
 	}
 	
 	public LicencePlate findById(long id) {
-		return (LicencePlate) em.createQuery("select lp from LicencePlate lp where lp.id = :identifier")
-				.setParameter("idenitifier", id).getSingleResult();
+		return (LicencePlate) em.createQuery("select lp from LicencePlate lp where lp.id = :id")
+				.setParameter("id", id).getSingleResult();
 	}
 	
 	@SuppressWarnings("unchecked")
