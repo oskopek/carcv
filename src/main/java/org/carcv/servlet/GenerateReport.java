@@ -57,11 +57,16 @@ public class GenerateReport extends HttpServlet {
 		URL templateUrl = this.getClass().getResource(
 				"/reports/speed_report.jasper");
 		
+		File templateFile = new File(templateUrl.getFile());
+		
+		
 		System.out.println("reports template: " + templateUrl.getPath());
+		System.out.println("reports template: " + templateUrl.getFile());
+		System.out.println("reports template: file: " + templateFile.getAbsolutePath());
 
 		BasicReportGenerator.buildPDFReport(
 				entry,
-				templateUrl.getPath(),
+				templateUrl.getFile(),
 				testDir + "/test_results/report"
 						+ System.currentTimeMillis() + ".pdf", "Myjava",
 				"TestReport");
