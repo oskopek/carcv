@@ -30,71 +30,10 @@ import org.carcv.model.IAddress;
  * 
  */
 public class BasicReportGenerator {
-
-	public static void buildPDFReport(Entry e, String templateFilename,
-			String exportToFilename, String reportBuilderLocation,
-			String reportName) throws JRException {
-
-		Map<String, Object> values = new HashMap<String, Object>();
-		Map<String, Object> parameters = new HashMap<String, Object>();
-
-		CarData data = e.getData();
-
-		DateFormat dateFormat = new SimpleDateFormat("dd. MM. yyyy");
-		DateFormat timeFormat = new SimpleDateFormat("HH:mm");
-
-		// report
-		parameters.put("reportid", Long.toString(System.currentTimeMillis()));
-		parameters.put("reportname", reportName);
-		parameters.put("reportlocation", reportBuilderLocation);
-		parameters.put("reportdate",
-				dateFormat.format(new Date(System.currentTimeMillis())));
-
-		// data
-		IAddress add = data.getLocation();
-		String dataLocation = add.print();
-
-		// parameters.put("id", Long.toString(data.getId()));
-		parameters.put("previewURL", e.getPreview().getURL());
-		parameters.put("date", dateFormat.format(data.getTimestamp()));
-		parameters.put("location", dataLocation);
-		parameters.put("LPNumber", data.getLicencePlate().getText());
-		parameters.put("videoURL", data.getVideo().getURL());
-		parameters.put("time", timeFormat.format(data.getTimestamp()));
-		parameters.put("speed", Double.toString(data.getSpeed().getSpeed())
-				+ " " + data.getSpeed().getUnit().toString());
-
-		// parameters.put
-
-		Collection<Map<String, ?>> mapList = new ArrayList<Map<String, ?>>();
-		mapList.add(values);
-
-		JRMapCollectionDataSource mapDataSource = new JRMapCollectionDataSource(
-				mapList);
-
-		// compile template - already precompiled
-		// JasperCompileManager.compileReportToFile(templateFilename + ".jrxml",
-		// templateFilename + ".jasper");
-
-		// fill with data
-		JasperPrint print = JasperFillManager.fillReport(templateFilename,
-				parameters, mapDataSource);
-
-		// export
-		JRExporter exporter = new JRPdfExporter();
-
-		exporter.setParameter(JRExporterParameter.OUTPUT_FILE_NAME,
-				exportToFilename);
-		exporter.setParameter(JRExporterParameter.JASPER_PRINT, print);
-
-		exporter.exportReport();
-
-		return;
-	}
 	
-	public void buildPDFReportStream(Entry e, String templateFilename,
-			String exportToFilename,
-			OutputStream out,
+	JasperPrint filledReportPrint;
+	
+	public BasicReportGenerator(Entry e, String templateFilename,
 			String reportBuilderLocation,
 			String reportName) throws JRException {
 		
@@ -139,26 +78,36 @@ public class BasicReportGenerator {
 		// JasperCompileManager.compileReportToFile(templateFilename + ".jrxml",
 		// templateFilename + ".jasper");
 
-		// fill with data
-		String templateResource = getClass().getResource(templateFilename).toString();
-		System.out.println(templateFilename);
-		System.out.println(templateResource);
-		
+		// fill with data		
 		InputStream templateInputStream = getClass().getResourceAsStream(templateFilename);
 		
-		JasperPrint print = JasperFillManager.fillReport(templateInputStream,
+		filledReportPrint = JasperFillManager.fillReport(templateInputStream,
 				parameters, mapDataSource);
 		
-		// export
+	}
+
+	public void exportFile(String filename) throws JRException {
 		JRExporter exporter = new JRPdfExporter();
 
-		exporter.setParameter(JRExporterParameter.JASPER_PRINT, print);
-		exporter.setParameter(JRExporterParameter.OUTPUT_FILE_NAME, exportToFilename);
-		exporter.setParameter(JRExporterParameter.OUTPUT_STREAM, out);
+		exporter.setParameter(JRExporterParameter.OUTPUT_FILE_NAME,
+				filename);
+		exporter.setParameter(JRExporterParameter.JASPER_PRINT, filledReportPrint);
 
 		exporter.exportReport();
 
 		return;
+	}
+	
+	public void exportStream(String filename,
+			OutputStream out) throws JRException {
+		
+		JRExporter exporter = new JRPdfExporter();
+
+		exporter.setParameter(JRExporterParameter.JASPER_PRINT, filledReportPrint);
+		exporter.setParameter(JRExporterParameter.OUTPUT_FILE_NAME, filename);
+		exporter.setParameter(JRExporterParameter.OUTPUT_STREAM, out);
+
+		exporter.exportReport();
 	}
 
 }

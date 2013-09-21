@@ -35,9 +35,10 @@ public class GenerateReport extends HttpServlet {
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, JRException {
     	response.setContentType("application/pdf");
-		String fileName = "report"
+		String filename = "report"
 				+ System.currentTimeMillis() + ".pdf";
     	
+		//If you want it to be downloadable, enable next line:
     	//response.setHeader("Content-Disposition", "attachment; filename=" + fileName);
     	
     	//generate
@@ -45,9 +46,9 @@ public class GenerateReport extends HttpServlet {
     	
     	Entry entry = entryBean.findById(entryId);
 		
-    	BasicReportGenerator brg = new BasicReportGenerator();
+    	BasicReportGenerator brg = new BasicReportGenerator(entry, "reports/speed_report.jasper", "Myjava", "TestReport");
     	
-		brg.buildPDFReportStream(entry, "speed_report.jasper", fileName, response.getOutputStream(), "Myjava", "TestReport");
+		brg.exportStream(filename, response.getOutputStream());
 		
 		
 		

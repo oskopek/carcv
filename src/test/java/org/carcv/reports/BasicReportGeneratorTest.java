@@ -17,7 +17,7 @@ import org.carcv.model.MediaObject;
 import org.carcv.model.MediaType;
 import org.carcv.model.Speed;
 import org.carcv.model.SpeedUnit;
-import org.junit.Before;
+import org.junit.BeforeClass;
 import org.junit.Test;
 
 /**
@@ -31,12 +31,9 @@ public class BasicReportGeneratorTest {
 	/**
 	 * @throws java.lang.Exception
 	 */
-	@Before
-	public void setUp() throws Exception {
-		URL previewImgUrl = getClass().getResource(
-				"/reports/OpenCV_Logo_with_text.png");
-
-		MediaObject preview = new MediaObject(previewImgUrl.getPath(),
+	@BeforeClass
+	public static void setUpBeforeClass() throws Exception {
+		MediaObject preview = new MediaObject("reports/OpenCV_Logo_with_text.png",
 				MediaType.PNG);
 
 		Speed speed = new Speed(80d, SpeedUnit.KPH);
@@ -48,7 +45,7 @@ public class BasicReportGeneratorTest {
 
 		Date timestamp = new Date(System.currentTimeMillis());
 
-		MediaObject video = new MediaObject("test.com/video.h264",
+		MediaObject video = new MediaObject("http://test.com/video.h264",
 				MediaType.H264);
 
 		CarData carData = new CarData(speed, location, licencePlate, timestamp,
@@ -72,17 +69,17 @@ public class BasicReportGeneratorTest {
 		if (!test_results_dir.exists() || !test_results_dir.isDirectory()) {
 			test_results_dir.mkdir();
 		}
-		System.out.println(test_results_dir.getPath());
+		System.out.println("OutDir: " + test_results_dir.getPath());
 
-		URL templateUrl = this.getClass().getResource(
-				"/reports/speed_report.jasper");
-
-		BasicReportGenerator.buildPDFReport(
+		String filename = testDir.getPath() + "/test_results/report"
+				+ System.currentTimeMillis() + ".pdf";
+		
+		BasicReportGenerator brg = new BasicReportGenerator(
 				testEntry,
-				templateUrl.getPath(),
-				testDir.getPath() + "/test_results/report"
-						+ System.currentTimeMillis() + ".pdf", "Myjava",
+				"/reports/speed_report.jasper", "Myjava",
 				"TestReport");
+		
+		brg.exportFile(filename);
 	}
 
 }
