@@ -14,8 +14,7 @@ import org.apache.commons.lang.builder.EqualsBuilder;
 import org.apache.commons.lang.builder.HashCodeBuilder;
 
 /**
- * Used for persistence of remote and local files in a database TODO: add local
- * caching of files
+ * Used for persistence of remote and local files in a database TODO: add local caching of files
  * 
  * @author oskopek
  * 
