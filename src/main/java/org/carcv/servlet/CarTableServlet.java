@@ -97,7 +97,7 @@ public class CarTableServlet extends HttpServlet {
 					+ "\" target=\"_top\">View video</a></td>");
 			out.println("<td><a href=\"" + previewURL
 					+ "\" target=\"_top\">View pictures</a></td>");
-			out.println("<td><a href=\"" + "/servlet/GenerateReport"
+			out.println("<td><a href=\"" + "/servlet/GenerateReport?entry_id=" + e.getId()
 					+ "\" target=\"_top\">Generate report</a></td>");
 			out.println("</tr>");
 		}
