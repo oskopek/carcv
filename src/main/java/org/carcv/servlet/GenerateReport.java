@@ -41,12 +41,12 @@ public class GenerateReport extends HttpServlet {
     	Entry entry = entryBean.findById(entryId);
     	
     	//need this to load the image from disk
-    	URL previewImgUrl = getClass().getResource(entry.getPreview().getURL());
+    	URL previewImgUrl = getClass().getClassLoader().getResource(entry.getPreview().getURL());
 
 		entry.getPreview().setURL(previewImgUrl.getPath());
 		
 		//generate
-		URL testDir = this.getClass().getResource("/");
+		URL testDir = this.getClass().getClassLoader().getResource("/");
 
 		File test_results_dir = new File(testDir.getPath() + "/test_results/");
 		if (!test_results_dir.exists() || !test_results_dir.isDirectory()) {
@@ -54,7 +54,7 @@ public class GenerateReport extends HttpServlet {
 		}
 		System.out.println("results dir: " + test_results_dir.getPath());
 
-		URL templateUrl = this.getClass().getResource(
+		URL templateUrl = this.getClass().getClassLoader().getResource(
 				"/reports/speed_report.jasper");
 		
 		File templateFile = new File(templateUrl.getFile());
