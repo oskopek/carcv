@@ -92,7 +92,8 @@
 			<datasources>
 				<datasource jndi-name="java:jboss/datasources/ExampleDS"
 					enabled="true" use-java-context="true" pool-name="H2DS">
-					<connection-url>jdbc:h2:${jboss.server.data.dir}/test;DB_CLOSE_DELAY=-1</connection-url>
+					<connection-url>jdbc:h2:${jboss.server.data.dir}/test;DB_CLOSE_DELAY=-1
+					</connection-url>
 					<driver>h2</driver>
 					<security>
 						<user-name>sa</user-name>
@@ -101,14 +102,15 @@
 				</datasource>
 				<datasource jndi-name="java:jboss/datasources/MysqlDS"
 					enabled="${mysql.enabled}" use-java-context="true" pool-name="MysqlDS"
-					use-ccm="true" useUnicode="true" connectionCollation="utf8_general_ci" characterSetResults="utf8">
-					<connection-url>jdbc:mysql://${env.OPENSHIFT_MYSQL_DB_HOST}:${env.OPENSHIFT_MYSQL_DB_PORT}/${env.OPENSHIFT_APP_NAME}</connection-url>
+					use-ccm="true" useUnicode="true" connectionCollation="utf8_general_ci"
+					characterSetResults="utf8">
+					<connection-url>jdbc:mysql://${env.OPENSHIFT_MYSQL_DB_HOST}:${env.OPENSHIFT_MYSQL_DB_PORT}/${env.OPENSHIFT_APP_NAME}
+					</connection-url>
 					<driver>mysql</driver>
 					<security>
 						<user-name>${env.OPENSHIFT_MYSQL_DB_USERNAME}</user-name>
 						<password>${env.OPENSHIFT_MYSQL_DB_PASSWORD}</password>
 					</security>
-					<
 					<validation>
 						<check-valid-connection-sql>SELECT 1</check-valid-connection-sql>
 						<background-validation>true</background-validation>
@@ -120,7 +122,8 @@
 				<datasource jndi-name="java:jboss/datasources/PostgreSQLDS"
 					enabled="${postgresql.enabled}" use-java-context="true" pool-name="PostgreSQLDS"
 					use-ccm="true">
-					<connection-url>jdbc:postgresql://${env.OPENSHIFT_POSTGRESQL_DB_HOST}:${env.OPENSHIFT_POSTGRESQL_DB_PORT}/${env.OPENSHIFT_APP_NAME}</connection-url>
+					<connection-url>jdbc:postgresql://${env.OPENSHIFT_POSTGRESQL_DB_HOST}:${env.OPENSHIFT_POSTGRESQL_DB_PORT}/${env.OPENSHIFT_APP_NAME}
+					</connection-url>
 					<driver>postgresql</driver>
 					<security>
 						<user-name>${env.OPENSHIFT_POSTGRESQL_DB_USERNAME}</user-name>
@@ -136,13 +139,16 @@
 				</datasource>
 				<drivers>
 					<driver name="h2" module="com.h2database.h2">
-						<xa-datasource-class>org.h2.jdbcx.JdbcDataSource</xa-datasource-class>
+						<xa-datasource-class>org.h2.jdbcx.JdbcDataSource
+						</xa-datasource-class>
 					</driver>
 					<driver name="mysql" module="com.mysql.jdbc">
-						<xa-datasource-class>com.mysql.jdbc.jdbc2.optional.MysqlXADataSource</xa-datasource-class>
+						<xa-datasource-class>com.mysql.jdbc.jdbc2.optional.MysqlXADataSource
+						</xa-datasource-class>
 					</driver>
 					<driver name="postgresql" module="org.postgresql.jdbc">
-						<xa-datasource-class>org.postgresql.xa.PGXADataSource</xa-datasource-class>
+						<xa-datasource-class>org.postgresql.xa.PGXADataSource
+						</xa-datasource-class>
 					</driver>
 				</drivers>
 			</datasources>
@@ -297,8 +303,10 @@
 			<stack name="tcp">
 				<transport type="TCP" socket-binding="jgroups-tcp">
 					<property name="external_addr">${env.OPENSHIFT_GEAR_DNS}</property>
-					<property name="external_port">${env.OPENSHIFT_JBOSSAS_CLUSTER_PROXY_PORT}</property>
-					<property name="bind_port">${env.OPENSHIFT_JBOSSAS_CLUSTER_PORT}</property>
+					<property name="external_port">${env.OPENSHIFT_JBOSSAS_CLUSTER_PROXY_PORT}
+					</property>
+					<property name="bind_port">${env.OPENSHIFT_JBOSSAS_CLUSTER_PORT}
+					</property>
 					<property name="bind_addr">${env.OPENSHIFT_JBOSSAS_IP}</property>
 					<property name="defer_client_bind_addr">true</property>
 				</transport>
@@ -349,8 +357,10 @@
 				<journal-file-size>102400</journal-file-size>
 				<journal-min-files>2</journal-min-files>
 
-				<thread-pool-max-size>${messaging.thread.pool.max.size}</thread-pool-max-size>
-				<scheduled-thread-pool-max-size>${messaging.scheduled.thread.pool.max.size}</scheduled-thread-pool-max-size>
+				<thread-pool-max-size>${messaging.thread.pool.max.size}
+				</thread-pool-max-size>
+				<scheduled-thread-pool-max-size>${messaging.scheduled.thread.pool.max.size}
+				</scheduled-thread-pool-max-size>
 
 				<connectors>
 					<netty-connector name="netty" socket-binding="messaging" />
@@ -392,7 +402,8 @@
 						<redelivery-delay>0</redelivery-delay>
 						<max-size-bytes>10485760</max-size-bytes>
 						<address-full-policy>BLOCK</address-full-policy>
-						<message-counter-history-day-limit>10</message-counter-history-day-limit>
+						<message-counter-history-day-limit>10
+						</message-counter-history-day-limit>
 						<redistribution-delay>1000</redistribution-delay>
 					</address-setting>
 				</address-settings>
