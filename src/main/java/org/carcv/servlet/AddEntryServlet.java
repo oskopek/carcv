@@ -61,7 +61,7 @@ public class AddEntryServlet extends HttpServlet {
     			PrintWriter out = response.getWriter();
     	
     			// Entity code
-    			MediaObject preview = new MediaObject("/reports/OpenCV_Logo_with_text.png", MediaType.PNG);
+    			MediaObject preview = new MediaObject("reports/OpenCV_Logo_with_text.png", MediaType.PNG);
 
     			Speed speed = new Speed(80d, SpeedUnit.KPH);
 
@@ -72,7 +72,7 @@ public class AddEntryServlet extends HttpServlet {
 
     			Date timestamp = new Date(System.currentTimeMillis());
 
-    			MediaObject video = new MediaObject("test.com/video.h264",
+    			MediaObject video = new MediaObject("http://test.com/video.h264",
     					MediaType.H264);
 
     			CarData carData = new CarData(speed, address, licencePlate, timestamp,
