@@ -40,7 +40,7 @@ public class GenerateReport extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, JRException {
     	response.setContentType("text/html");
     	PrintWriter out = response.getWriter();
-    	out.println("<html><head><title>CarCV - Download Report</title></head> <body>");
+    	System.out.println("<html><head><title>CarCV - Download Report</title></head> <body>");
     	
     	ServletContext context = getServletContext();
     	
@@ -51,16 +51,18 @@ public class GenerateReport extends HttpServlet {
     	//need this to load the image from disk
     	URL previewImgUrl = context.getResource(entry.getPreview().getURL());
 
-		entry.getPreview().setURL(previewImgUrl.getPath());
+		//temp entry.getPreview().setURL(previewImgUrl.getPath());
 		
 		//generate
 		URL testDir = context.getResource("/");
+		
+		System.out.println("testDir " + testDir.getFile() + testDir.getPath());
 
 		File test_results_dir = new File(testDir.getPath() + "/test_results/");
 		if (!test_results_dir.exists() || !test_results_dir.isDirectory()) {
 			test_results_dir.mkdir();
 		}
-		out.println("results dir: " + test_results_dir.getPath());
+		System.out.println("results dir: " + test_results_dir.getPath());
 
 		URL templateUrl = context.getResource(
 				"/reports/speed_report.jasper");
@@ -68,17 +70,17 @@ public class GenerateReport extends HttpServlet {
 		File templateFile = new File(templateUrl.getFile());
 		
 		
-		out.println("reports template: " + templateUrl.getPath());
-		out.println("reports template: " + templateUrl.getFile());
-		out.println("reports template: file: " + templateFile.getAbsolutePath());
+		System.out.println("reports template: " + templateUrl.getPath());
+		System.out.println("reports template: " + templateUrl.getFile());
+		System.out.println("reports template: file: " + templateFile.getAbsolutePath());
 
 		String filePath = testDir + "/test_results/report"
 				+ System.currentTimeMillis() + ".pdf";
 		
 		BasicReportGenerator.buildPDFReport(entry, templateUrl.getFile(), filePath, "Myjava", "TestReport");
 		
-		out.println("<a href=" + filePath + "> Download here </a>");
-		out.println("</body></html>");
+		System.out.println("<a href=" + filePath + "> Download here </a>");
+		System.out.println("</body></html>");
 		
 		
 	}
