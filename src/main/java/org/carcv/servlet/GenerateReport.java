@@ -46,7 +46,7 @@ public class GenerateReport extends HttpServlet {
     	
     	Entry entry = entryBean.findById(entryId);
 		
-    	BasicReportGenerator brg = new BasicReportGenerator(entry, "reports/speed_report.jasper", "Myjava", "TestReport");
+    	BasicReportGenerator brg = new BasicReportGenerator(entry, "/reports/speed_report.jasper", "Myjava", "TestReport");
     	
 		brg.exportStream(filename, response.getOutputStream());
 		
