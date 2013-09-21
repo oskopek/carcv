@@ -46,21 +46,23 @@ public class GenerateReport extends HttpServlet {
 		entry.getPreview().setURL(previewImgUrl.getPath());
 		
 		//generate
-		URL testDir = getClass().getResource("/");
+		URL testDir = this.getClass().getResource("/");
 
 		File test_results_dir = new File(testDir.getPath() + "/test_results/");
 		if (!test_results_dir.exists() || !test_results_dir.isDirectory()) {
 			test_results_dir.mkdir();
 		}
-		System.out.println(test_results_dir.getPath());
+		System.out.println("results dir: " + test_results_dir.getPath());
 
 		URL templateUrl = this.getClass().getResource(
 				"/reports/speed_report.jasper");
+		
+		System.out.println("reports template: " + templateUrl.getPath());
 
 		BasicReportGenerator.buildPDFReport(
 				entry,
 				templateUrl.getPath(),
-				testDir.getPath() + "/test_results/report"
+				testDir + "/test_results/report"
 						+ System.currentTimeMillis() + ".pdf", "Myjava",
 				"TestReport");
 	}
