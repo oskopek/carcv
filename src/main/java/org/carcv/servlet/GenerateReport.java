@@ -2,9 +2,11 @@ package org.carcv.servlet;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.net.URL;
 
 import javax.ejb.EJB;
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -36,40 +38,49 @@ public class GenerateReport extends HttpServlet {
     }
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, JRException {
+    	response.setCharacterEncoding("text/html");
+    	PrintWriter out = response.getWriter();
+    	out.println("<html><head><title>CarCV - Download Report</title></head> <body>");
+    	
+    	ServletContext context = getServletContext();
+    	
     	long entryId = Long.parseLong(request.getParameter("entry_id"));
     	
     	Entry entry = entryBean.findById(entryId);
     	
     	//need this to load the image from disk
-    	URL previewImgUrl = getClass().getClassLoader().getResource(entry.getPreview().getURL());
+    	URL previewImgUrl = context.getResource(entry.getPreview().getURL());
 
 		entry.getPreview().setURL(previewImgUrl.getPath());
 		
 		//generate
-		URL testDir = this.getClass().getClassLoader().getResource("/");
+		URL testDir = context.getResource("/");
 
 		File test_results_dir = new File(testDir.getPath() + "/test_results/");
 		if (!test_results_dir.exists() || !test_results_dir.isDirectory()) {
 			test_results_dir.mkdir();
 		}
-		System.out.println("results dir: " + test_results_dir.getPath());
+		out.println("results dir: " + test_results_dir.getPath());
 
-		URL templateUrl = this.getClass().getClassLoader().getResource(
+		URL templateUrl = context.getResource(
 				"/reports/speed_report.jasper");
 		
 		File templateFile = new File(templateUrl.getFile());
 		
 		
-		System.out.println("reports template: " + templateUrl.getPath());
-		System.out.println("reports template: " + templateUrl.getFile());
-		System.out.println("reports template: file: " + templateFile.getAbsolutePath());
+		out.println("reports template: " + templateUrl.getPath());
+		out.println("reports template: " + templateUrl.getFile());
+		out.println("reports template: file: " + templateFile.getAbsolutePath());
 
-		BasicReportGenerator.buildPDFReport(
-				entry,
-				templateUrl.getFile(),
-				testDir + "/test_results/report"
-						+ System.currentTimeMillis() + ".pdf", "Myjava",
-				"TestReport");
+		String filePath = testDir + "/test_results/report"
+				+ System.currentTimeMillis() + ".pdf";
+		
+		BasicReportGenerator.buildPDFReport(entry, templateUrl.getFile(), filePath, "Myjava", "TestReport");
+		
+		out.println("<a href=" + filePath + "> Download here </a>");
+		out.println("</body></html>");
+		
+		
 	}
     
 	/**
