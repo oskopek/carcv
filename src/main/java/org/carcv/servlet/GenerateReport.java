@@ -38,7 +38,7 @@ public class GenerateReport extends HttpServlet {
     }
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, JRException {
-    	response.setCharacterEncoding("text/html");
+    	response.setContentType("text/html");
     	PrintWriter out = response.getWriter();
     	out.println("<html><head><title>CarCV - Download Report</title></head> <body>");
     	
