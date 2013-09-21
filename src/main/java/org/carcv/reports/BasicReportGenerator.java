@@ -3,6 +3,7 @@
  */
 package org.carcv.reports;
 
+import java.io.InputStream;
 import java.io.OutputStream;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -139,11 +140,13 @@ public class BasicReportGenerator {
 		// templateFilename + ".jasper");
 
 		// fill with data
-		String templateResource = getClass().getResource(templateFilename).getFile();
+		String templateResource = getClass().getResource(templateFilename).toString();
 		System.out.println(templateFilename);
 		System.out.println(templateResource);
 		
-		JasperPrint print = JasperFillManager.fillReport(templateResource,
+		InputStream templateInputStream = getClass().getResourceAsStream(templateFilename);
+		
+		JasperPrint print = JasperFillManager.fillReport(templateInputStream,
 				parameters, mapDataSource);
 		
 		// export

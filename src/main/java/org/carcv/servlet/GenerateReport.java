@@ -38,14 +38,12 @@ public class GenerateReport extends HttpServlet {
 		String fileName = "report"
 				+ System.currentTimeMillis() + ".pdf";
     	
-    	response.setHeader("Content-Disposition", "attachment; filename=" + fileName);
+    	//response.setHeader("Content-Disposition", "attachment; filename=" + fileName);
     	
     	//generate
     	long entryId = Long.parseLong(request.getParameter("entry_id"));
     	
     	Entry entry = entryBean.findById(entryId);
-    	
-    	System.out.println("DEBUG:\t" + entry.toString()); //debug
 		
     	BasicReportGenerator brg = new BasicReportGenerator();
     	
