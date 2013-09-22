@@ -1,5 +1,4 @@
-build/*
-test/*
-*~
+build/
+test/
 /cmake
 default.sh

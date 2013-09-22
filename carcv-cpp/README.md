@@ -8,7 +8,6 @@ Building
 --------
 
 1. Install packages: 
-
-`fedora: ` cmake opencv-devel make boost-devel boost-system boost-filesystem
+*fedora*: `cmake opencv-devel make boost-devel boost-system boost-filesystem gcc-c++`
 
 2. Run mvn exec:exec
