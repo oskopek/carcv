@@ -9,5 +9,6 @@
   	<module>carcv-javaanpr</module>
   	<module>carcv-gui</module>
   	<module>carcv-core</module>
+  	<module>carcv-cpp</module>
   </modules>
 </project>
