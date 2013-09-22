@@ -8,4 +8,8 @@
   <groupId>org.carcv.core</groupId>
   <artifactId>carcv-core</artifactId>
   <name>CarCV Core</name>
+  <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    </properties>
+  
 </project>
