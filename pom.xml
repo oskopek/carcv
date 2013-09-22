@@ -6,7 +6,7 @@
   <packaging>pom</packaging>
   <name>CarCV</name>
   <modules>
-  	<module>javaanpr</module>
+  	<module>carcv-javaanpr</module>
   	<module>carcv-gui</module>
   	<module>carcv-core</module>
   </modules>
