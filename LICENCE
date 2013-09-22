@@ -1,0 +1,11 @@
+CarCV - Car recognizing and speed calculating platform
+Copyright (C) 2012-2013, Ondrej Skopek
+
+All rights reserved.
+
+All authors are printed in the AUTHORS file.
+Authors of individual modules are listed in the AUTHORS file of a given module.
+
+This licence is applicable on all files in this directory or any subdirectories.
+
+Used libraries: check each subdirectory/module for a LICENCE file.

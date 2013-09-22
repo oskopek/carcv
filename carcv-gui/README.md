@@ -15,16 +15,6 @@ Setup for eclipse project:
 7. In facets, enable Java 1.7, JavaScript, Dynamic Web Module 3.1
 8. Hack away!
 
-Old Setup for eclipse project:
-
-1. Run: mvn eclipse:eclipse
-
-3. In eclipse, select: File > Import > Existing projects into workspace > path/to/carcv_gui > select project: carcv_gui
-
-4. Enjoy!
-
-
-
 To build, run: mvn clean package (optional: -DskipTests)
 
 To clean, run: mvn clean
