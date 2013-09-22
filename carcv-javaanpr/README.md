@@ -2,9 +2,9 @@
 
 Copyright (C) 2012-2013, Ondrej Skopek
 All rights reserved.
-All licencing issues are addressed in file LICENCE.
+All licensing issues are addressed in file LICENCE.
 
 ## JavaANPR
 Copyright (C) 2006-2007 Ondrej Martinsky. All rights reserved
 
-Details of licencing for JavaANPR are in the file LICENCE.
+Details of licensing for JavaANPR are in the file LICENCE.
