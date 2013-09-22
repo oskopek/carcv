@@ -1,1 +1,4 @@
 .directory
+.~
+*.war
+target/
