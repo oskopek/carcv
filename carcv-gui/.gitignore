@@ -1,0 +1,12 @@
+*.war
+build/*
+*~
+/build
+/target
+/res
+.settings/
+.classpath
+.project
+target
+.settings/*
+!.settings/.jsdtscope
