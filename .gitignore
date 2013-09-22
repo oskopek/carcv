@@ -2,3 +2,6 @@
 .~
 *.war
 target/
+.project
+.classpath
+.cproject
