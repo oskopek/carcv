@@ -6,12 +6,6 @@
 	<version>master</version>
 	<packaging>pom</packaging>
 	<name>CarCV</name>
-	<modules>
-		<module>carcv-javaanpr</module>
-		<module>carcv-core</module>
-		<module>carcv-webapp</module>
-		<!-- <module>carcv-cpp</module> -->
-	</modules>
 
 	<profiles>
 		<profile>
@@ -52,6 +46,59 @@
 					</plugin>
 				</plugins>
 			</build>
+		</profile>
+
+		<profile>
+			<id>cpp</id>
+
+			<modules>
+				<module>carcv-cpp</module>
+			</modules>
+
+		</profile>
+
+		<profile>
+			<id>full</id>
+			<modules>
+				<module>carcv-javaanpr</module>
+				<module>carcv-core</module>
+				<module>carcv-webapp</module>
+				<module>carcv-cpp</module>
+			</modules>
+
+			<!-- TODO: this may cause trouble because of reactor build order -->
+			<build>
+				<plugins>
+					<plugin>
+						<artifactId>maven-clean-plugin</artifactId>
+						<version>2.5</version>
+						<configuration>
+							<followSymLinks>false</followSymLinks>
+							<filesets>
+								<fileset>
+									<directory>deployments</directory>
+								</fileset>
+							</filesets>
+						</configuration>
+						<executions>
+							<execution>
+								<id>default-clean</id>
+								<phase>clean</phase>
+								<goals>
+									<goal>clean</goal>
+								</goals>
+							</execution>
+						</executions>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+		<profile>
+		<id>core</id>
+		<modules>
+		<module>carcv-core</module>
+		<module>carcv-javaanpr</module>
+		</modules>
 		</profile>
 	</profiles>
 
