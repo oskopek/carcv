@@ -21,31 +21,12 @@
 				<module>carcv-webapp</module>
 			</modules>
 			<!-- TODO: this may cause trouble because of reactor build order -->
-			<build>
-				<plugins>
-					<plugin>
-						<artifactId>maven-clean-plugin</artifactId>
-						<version>2.5</version>
-						<configuration>
-							<followSymLinks>false</followSymLinks>
-							<filesets>
-								<fileset>
-									<directory>deployments</directory>
-								</fileset>
-							</filesets>
-						</configuration>
-						<executions>
-							<execution>
-								<id>default-clean</id>
-								<phase>clean</phase>
-								<goals>
-									<goal>clean</goal>
-								</goals>
-							</execution>
-						</executions>
-					</plugin>
-				</plugins>
-			</build>
+			<!-- <build> <plugins> <plugin> <artifactId>maven-clean-plugin</artifactId> 
+				<version>2.5</version> <configuration> <followSymLinks>false</followSymLinks> 
+				<filesets> <fileset> <directory>deployments</directory> </fileset> </filesets> 
+				</configuration> <executions> <execution> <id>default-clean</id> <phase>clean</phase> 
+				<goals> <goal>clean</goal> </goals> </execution> </executions> </plugin> 
+				</plugins> </build> -->
 		</profile>
 
 		<profile>
@@ -65,40 +46,13 @@
 				<module>carcv-webapp</module>
 				<module>carcv-cpp</module>
 			</modules>
-
-			<!-- TODO: this may cause trouble because of reactor build order -->
-			<build>
-				<plugins>
-					<plugin>
-						<artifactId>maven-clean-plugin</artifactId>
-						<version>2.5</version>
-						<configuration>
-							<followSymLinks>false</followSymLinks>
-							<filesets>
-								<fileset>
-									<directory>deployments</directory>
-								</fileset>
-							</filesets>
-						</configuration>
-						<executions>
-							<execution>
-								<id>default-clean</id>
-								<phase>clean</phase>
-								<goals>
-									<goal>clean</goal>
-								</goals>
-							</execution>
-						</executions>
-					</plugin>
-				</plugins>
-			</build>
 		</profile>
 		<profile>
-		<id>core</id>
-		<modules>
-		<module>carcv-core</module>
-		<module>carcv-javaanpr</module>
-		</modules>
+			<id>core</id>
+			<modules>
+				<module>carcv-core</module>
+				<module>carcv-javaanpr</module>
+			</modules>
 		</profile>
 	</profiles>
 
