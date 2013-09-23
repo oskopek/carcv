@@ -7,7 +7,7 @@
   <name>CarCV</name>
   <modules>
   	<module>carcv-javaanpr</module>
-  	<module>carcv-gui</module>
+  	<module>carcv-webapp</module>
   	<module>carcv-core</module>
   	<module>carcv-cpp</module>
   </modules>
@@ -20,7 +20,7 @@
      <!-- http://maven.apache.org/guides/mini/guide-building-for-different-environments.html -->
      <id>openshift</id>
         <modules>
-            <module>carcv-gui</module>
+            <module>carcv-webapp</module>
         </modules>
     </profile>
   </profiles>

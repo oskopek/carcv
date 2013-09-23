@@ -2,9 +2,12 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
-	<groupId>org.carcv.gui</groupId>
+	<groupId>org.carcv.webapp</groupId>
 	<packaging>war</packaging>
-	<name>CarCV GUI</name>
+	<name>CarCV WebApp</name>
+    <version>master</version>
+    <artifactId>carcv-webapp</artifactId>
+	
 	<prerequisites>
 		<maven>2.2.1</maven>
 	</prerequisites>
@@ -13,7 +16,7 @@
 	</properties>
 
 	<build>
-		<finalName>ROOT</finalName>
+		<finalName>carcv-webapp</finalName>
 		<sourceDirectory>src/main/java</sourceDirectory>
 		<testSourceDirectory>src/test/java</testSourceDirectory>
 		<plugins>
@@ -82,8 +85,6 @@
 			<scope>provided</scope>
 		</dependency>
 	</dependencies>
-	<version>master</version>
-	<artifactId>carcv-gui</artifactId>
 
 	<profiles>
 		<profile>
@@ -102,8 +103,6 @@
 						<artifactId>maven-war-plugin</artifactId>
 						<version>2.1.1</version>
 						<configuration>
-							<warSourceDirectory>WebContent</warSourceDirectory>
-                            <failOnMissingWebXml>false</failOnMissingWebXml>
                             <outputDirectory>${basedir}/deployments</outputDirectory>
 							<warName>ROOT</warName>
 						</configuration>
