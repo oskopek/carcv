@@ -1,28 +1,58 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-  <modelVersion>4.0.0</modelVersion>
-  <groupId>org.carcv</groupId>
-  <artifactId>carcv</artifactId>
-  <version>master</version>
-  <packaging>pom</packaging>
-  <name>CarCV</name>
-  <modules>
-  	<module>carcv-javaanpr</module>
-  	<module>carcv-webapp</module>
-  	<module>carcv-core</module>
-  	<module>carcv-cpp</module>
-  </modules>
-  
-  <profiles>
-    <profile>
-     <!-- When built in OpenShift the 'openshift' profile will be used when invoking mvn. -->
-     <!-- Use this profile for any OpenShift specific customization your app will need. -->
-     <!-- By default that is to put the resulting archive into the 'deployments' folder. -->
-     <!-- http://maven.apache.org/guides/mini/guide-building-for-different-environments.html -->
-     <id>openshift</id>
-        <modules>
-            <module>carcv-webapp</module>
-        </modules>
-    </profile>
-  </profiles>
-  
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>org.carcv</groupId>
+	<artifactId>carcv</artifactId>
+	<version>master</version>
+	<packaging>pom</packaging>
+	<name>CarCV</name>
+	<modules>
+		<module>carcv-javaanpr</module>
+		<module>carcv-core</module>
+		<module>carcv-webapp</module>
+		<!-- <module>carcv-cpp</module> -->
+	</modules>
+
+	<profiles>
+		<profile>
+			<!-- When built in OpenShift the 'openshift' profile will be used when 
+				invoking mvn. -->
+			<!-- Use this profile for any OpenShift specific customization your app 
+				will need. -->
+			<!-- By default that is to put the resulting archive into the 'deployments' 
+				folder. -->
+			<!-- http://maven.apache.org/guides/mini/guide-building-for-different-environments.html -->
+			<id>openshift</id>
+			<modules>
+				<module>carcv-webapp</module>
+			</modules>
+			<!-- TODO: this may cause trouble because of reactor build order -->
+			<build>
+				<plugins>
+					<plugin>
+						<artifactId>maven-clean-plugin</artifactId>
+						<version>2.5</version>
+						<configuration>
+							<followSymLinks>false</followSymLinks>
+							<filesets>
+								<fileset>
+									<directory>deployments</directory>
+								</fileset>
+							</filesets>
+						</configuration>
+						<executions>
+							<execution>
+								<id>default-clean</id>
+								<phase>clean</phase>
+								<goals>
+									<goal>clean</goal>
+								</goals>
+							</execution>
+						</executions>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+	</profiles>
+
 </project>
