@@ -3,10 +3,10 @@
 <head>
 <meta charset="UTF-8">
 <link rel="SHORTCUT ICON"
-    href="http://upload.wikimedia.org/wikipedia/commons/f/f0/Car_with_Driver-Silhouette.svg">
+	href="http://upload.wikimedia.org/wikipedia/commons/f/f0/Car_with_Driver-Silhouette.svg">
 <link rel="icon"
-    href="http://upload.wikimedia.org/wikipedia/commons/f/f0/Car_with_Driver-Silhouette.svg"
-    type="image/ico">
+	href="http://upload.wikimedia.org/wikipedia/commons/f/f0/Car_with_Driver-Silhouette.svg"
+	type="image/ico">
 <title>CarCV - Login</title>
 <link rel="stylesheet" type="text/css" href="/resources/mystyle.css">
 </head>
@@ -14,8 +14,7 @@
 <body>
 	<div id="header">
 		<a href="opencv.org" target="_top"><img
-			src="/resources/opencv-logo.png"
-			width="150"
+			src="/resources/opencv-logo.png" width="150"
 			style="border: 0; margin-top: 5px; margin-bottom: 5px; text-align: left; position: relative; top: -10px"
 			alt="OpenCV" /></a>
 		<p

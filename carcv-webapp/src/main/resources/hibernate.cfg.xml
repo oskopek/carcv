@@ -3,24 +3,24 @@
 	"-//Hibernate/Hibernate Configuration DTD 3.0//EN"
 	"http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
 <hibernate-configuration>
-    <session-factory>
-        <property name="hibernate.bytecode.use_reflection_optimizer">false</property>
-        <property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>
+	<session-factory>
+		<property name="hibernate.bytecode.use_reflection_optimizer">false</property>
+		<property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>
 		<property name="hibernate.connection.url">jdbc:mysql://127.3.71.130:3306/carcv</property>
-        <property name="hibernate.connection.username">carcv</property>
-        <property name="hibernate.connection.password">VxALh3m4nbwGNsRb</property>
-        <property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>
-        <property name="hibernate.show_sql">true</property>
-        <property name="hibernate.hbm2ddl.auto">create</property>
-        <property name="hibernate.current_session_context_class">thread</property>
-        <!-- <property name="hibernate.hbm2ddl.import_files">import.sql.mysql</property> -->
-        
-        
-        <mapping class="org.carcv.model.Address" />
-        <mapping class="org.carcv.model.CarData" />
-        <mapping class="org.carcv.model.Entry" />
-        <mapping class="org.carcv.model.LicencePlate" />
-        <mapping class="org.carcv.model.MediaObject" />
-        <mapping class="org.carcv.model.Speed" />
-    </session-factory>
+		<property name="hibernate.connection.username">carcv</property>
+		<property name="hibernate.connection.password">VxALh3m4nbwGNsRb</property>
+		<property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>
+		<property name="hibernate.show_sql">true</property>
+		<property name="hibernate.hbm2ddl.auto">create</property>
+		<property name="hibernate.current_session_context_class">thread</property>
+		<!-- <property name="hibernate.hbm2ddl.import_files">import.sql.mysql</property> -->
+
+
+		<mapping class="org.carcv.model.Address" />
+		<mapping class="org.carcv.model.CarData" />
+		<mapping class="org.carcv.model.Entry" />
+		<mapping class="org.carcv.model.LicencePlate" />
+		<mapping class="org.carcv.model.MediaObject" />
+		<mapping class="org.carcv.model.Speed" />
+	</session-factory>
 </hibernate-configuration>
