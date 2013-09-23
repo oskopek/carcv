@@ -1,7 +1,0 @@
-After setting up distribution in scripts/build.sh, try:
-
-./scripts/build.sh
-cd test/all
-./carcv --cascade="../../test_tools/t5.xml" --method=DETECTDEMO list
-cd ..
-../test_tools/countefficiency.sh
