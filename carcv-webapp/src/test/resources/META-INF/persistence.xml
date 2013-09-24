@@ -11,9 +11,11 @@
 			<property name="hibernate.connection.driver_class" value="org.hsqldb.jdbcDriver" />
 			<property name="hibernate.connection.username" value="sa" />
 			<property name="hibernate.connection.password" value="" />
-			<property name="hibernate.connection.url" value="jdbc:hsqldb:mem:carcv" />
+			<property name="hibernate.connection.url" value="jdbc:hsqldb:mem:testdb" />
 			<property name="hibernate.current_session_context_class"
 				value="thread" />
+			<property name="hibernate.bytecode.use_reflection_optimizer" value="false"/>
 		</properties>
+		
 	</persistence-unit>
 </persistence>

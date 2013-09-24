@@ -7,6 +7,7 @@ import static org.junit.Assert.*;
 
 import javax.inject.Inject;
 
+import org.carcv.annotations.IntegrationTest;
 import org.carcv.beans.SpeedBean;
 import org.carcv.model.Speed;
 import org.carcv.model.SpeedUnit;
@@ -19,6 +20,7 @@ import org.jboss.shrinkwrap.api.spec.WebArchive;
 import org.jboss.shrinkwrap.resolver.api.DependencyResolvers;
 import org.jboss.shrinkwrap.resolver.api.maven.MavenDependencyResolver;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 import org.junit.runner.RunWith;
 
 /**
@@ -26,6 +28,7 @@ import org.junit.runner.RunWith;
  *
  */
 @RunWith(Arquillian.class)
+@Category(IntegrationTest.class)
 public class PersistenceTest {
     
       
