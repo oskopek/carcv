@@ -39,7 +39,7 @@
 		</profile>
 
 		<profile>
-			<id>full</id>
+			<id>all</id>
 			<modules>
 				<module>carcv-javaanpr</module>
 				<module>carcv-core</module>
@@ -47,11 +47,19 @@
 				<module>carcv-cpp</module>
 			</modules>
 		</profile>
+
 		<profile>
 			<id>core</id>
 			<modules>
 				<module>carcv-core</module>
 				<module>carcv-javaanpr</module>
+			</modules>
+		</profile>
+
+		<profile>
+			<id>web</id>
+			<modules>
+				<module>carcv-webapp</module>
 			</modules>
 		</profile>
 	</profiles>

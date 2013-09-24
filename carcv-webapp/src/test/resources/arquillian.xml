@@ -6,7 +6,7 @@
     
     <container qualifier="jboss-as-arquillian-container-managed" default="true">
         <configuration>
-        <property name="jbossHome">${basedir}/target/jboss-as-7.1.1.Final</property>
+        <property name="jbossHome">${env.HOME}/dev/jboss/jboss-as-7</property>
         </configuration>
     </container>
  

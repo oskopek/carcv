@@ -39,7 +39,7 @@ public class PersistenceIT {
                 .addAsResource("META-INF/persistence.xml", "META-INF/persistence.xml")
                 .addAsWebInfResource(EmptyAsset.INSTANCE, ArchivePaths.create("beans.xml"))
                 .addAsLibraries(resolver.artifact("org.hibernate:hibernate-core").resolveAsFiles())
-                .addAsLibraries(resolver.artifact("org.hsqldb:hsqldb").resolveAsFiles());
+                .addAsLibraries(resolver.artifact("org.hsqldb:hsqldb:2.3.0").resolveAsFiles());
     }
     
     @Inject
