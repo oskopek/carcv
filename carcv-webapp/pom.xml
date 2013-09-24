@@ -142,21 +142,21 @@
 				</plugins>
 			</build>
 		</profile>
-		
-		
+
+
 		<profile>
 			<id>arquillian-weld-ee-embedded</id>
 			<dependencyManagement>
-        <dependencies>
-            <dependency>
-                <groupId>org.jboss.arquillian</groupId>
-                <artifactId>arquillian-bom</artifactId>
-                <version>1.0.3.Final</version>
-                <scope>import</scope>
-                <type>pom</type>
-            </dependency>
-        </dependencies>
-    </dependencyManagement>
+				<dependencies>
+					<dependency>
+						<groupId>org.jboss.arquillian</groupId>
+						<artifactId>arquillian-bom</artifactId>
+						<version>1.0.3.Final</version>
+						<scope>import</scope>
+						<type>pom</type>
+					</dependency>
+				</dependencies>
+			</dependencyManagement>
 			<dependencies>
 				<dependency>
 					<groupId>org.jboss.spec</groupId>
@@ -185,8 +185,8 @@
 				</dependency>
 			</dependencies>
 		</profile>
-		
-		
+
+
 		<profile>
 			<id>jbossas-embedded-6</id>
 			<dependencies>
