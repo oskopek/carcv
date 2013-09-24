@@ -45,6 +45,10 @@
 					<forceRecheck>true</forceRecheck>
 				</configuration>
 			</plugin>
+			<plugin> <!-- Just upgrade to newer version -->
+				<artifactId>maven-surefire-plugin</artifactId>
+				<version>2.12</version>
+			</plugin>
 		</plugins>
 	</build>
 	<dependencies>
@@ -79,9 +83,16 @@
 			<version>4.3.0.Beta3</version>
 		</dependency>
 		<dependency>
-			<groupId>javax</groupId>
-			<artifactId>javaee-api</artifactId>
-			<version>7.0</version>
+			<groupId>org.jboss.arquillian.junit</groupId>
+			<artifactId>arquillian-junit-container</artifactId>
+			<scope>test</scope>
+			<version>1.1.1.Final</version>
+		</dependency>
+		<dependency>
+			<groupId>org.jboss.spec</groupId>
+			<artifactId>jboss-javaee-6.0</artifactId>
+			<version>1.0.0.Final</version>
+			<type>pom</type>
 			<scope>provided</scope>
 		</dependency>
 	</dependencies>
@@ -131,5 +142,109 @@
 				</plugins>
 			</build>
 		</profile>
+		
+		
+		<profile>
+			<id>arquillian-weld-ee-embedded</id>
+			<dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>org.jboss.arquillian</groupId>
+                <artifactId>arquillian-bom</artifactId>
+                <version>1.0.3.Final</version>
+                <scope>import</scope>
+                <type>pom</type>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+			<dependencies>
+				<dependency>
+					<groupId>org.jboss.spec</groupId>
+					<artifactId>jboss-javaee-6.0</artifactId>
+					<version>1.0.0.Final</version>
+					<type>pom</type>
+					<scope>provided</scope>
+				</dependency>
+				<dependency>
+					<groupId>org.jboss.arquillian.container</groupId>
+					<artifactId>arquillian-weld-ee-embedded-1.1</artifactId>
+					<version>1.0.0.CR3</version>
+					<scope>test</scope>
+				</dependency>
+				<dependency>
+					<groupId>org.jboss.weld</groupId>
+					<artifactId>weld-core</artifactId>
+					<version>1.1.5.Final</version>
+					<scope>test</scope>
+				</dependency>
+				<dependency>
+					<groupId>org.slf4j</groupId>
+					<artifactId>slf4j-simple</artifactId>
+					<version>1.6.4</version>
+					<scope>test</scope>
+				</dependency>
+			</dependencies>
+		</profile>
+		
+		
+		<profile>
+			<id>jbossas-embedded-6</id>
+			<dependencies>
+				<dependency>
+					<groupId>org.jboss.arquillian.container</groupId>
+					<artifactId>arquillian-jbossas-embedded-6</artifactId>
+					<version>1.0.0-SNAPSHOT</version>
+				</dependency>
+				<dependency>
+					<groupId>org.jboss.jbossas</groupId>
+					<artifactId>jboss-as-depchain</artifactId>
+					<version>6.0.0.Final</version>
+					<type>pom</type>
+				</dependency>
+			</dependencies>
+			<dependencyManagement>
+				<dependencies>
+					<dependency>
+						<groupId>org.jboss.jbossas</groupId>
+						<artifactId>jboss-as-depchain</artifactId>
+						<version>6.0.0.Final</version>
+						<type>pom</type>
+						<scope>import</scope>
+					</dependency>
+				</dependencies>
+			</dependencyManagement>
+			<build>
+				<plugins>
+					<plugin>
+						<artifactId>maven-surefire-plugin</artifactId>
+						<configuration>
+							<additionalClasspathElements>
+								<additionalClasspathElement>${env.JBOSS_HOME}/client/jbossws-native-client.jar</additionalClasspathElement>
+								<!-- Because jbossweb.sar contains shared web.xml, which must be 
+									visible from same CL as TomcatDeployer.class.getClassLoader -->
+								<additionalClasspathElement>${env.JBOSS_HOME}/server/default/deploy/jbossweb.sar</additionalClasspathElement>
+							</additionalClasspathElements>
+
+							<redirectTestOutputToFile>true</redirectTestOutputToFile>
+							<trimStackTrace>false</trimStackTrace>
+							<printSummary>true</printSummary>
+							<forkMode>once</forkMode>
+
+							<!-- MaxPermSize Required to bump the space for relective data like 
+								classes, methods, etc. EMB-41. Endorsed required for things like WS support 
+								(EMB-61) -->
+							<argLine>-Xmx512m -XX:MaxPermSize=256m
+								-Djava.net.preferIPv4Stack=true
+								-Djava.util.logging.manager=org.jboss.logmanager.LogManager
+								-Djava.endorsed.dirs=${env.JBOSS_HOME}/lib/endorsed
+								-Djboss.home=${env.JBOSS_HOME}
+								-Djboss.boot.server.log.dir=${env.JBOSS_HOME}</argLine>
+						</configuration>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+
+
 	</profiles>
 </project>
