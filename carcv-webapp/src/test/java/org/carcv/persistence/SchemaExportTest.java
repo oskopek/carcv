@@ -50,8 +50,7 @@ public class SchemaExportTest {
 		export.setFormat(true);
 		export.setOutputFile(workspacePath + "import.sql."
 				+ System.currentTimeMillis());
-		export.create(Target.SCRIPT);
-
+		export.create(Target.NONE);
 		Integer size = export.getExceptions().size();
 		Integer expected = 0;
 		assertThat(size, equalTo(expected));
