@@ -28,19 +28,18 @@ import org.junit.runner.RunWith;
 @RunWith(Arquillian.class)
 public class PersistenceTest {
     
-    private static MavenDependencyResolver resolver = DependencyResolvers.use(MavenDependencyResolver.class).loadMetadataFromPom("pom.xml");  
+      
 
     @Deployment
     public static WebArchive createDeployment() {
-        WebArchive testWAR = ShrinkWrap.create(WebArchive.class, "test.war")
+        MavenDependencyResolver resolver = DependencyResolvers.use(MavenDependencyResolver.class).loadMetadataFromPom("pom.xml");
+        
+        return ShrinkWrap.create(WebArchive.class, "test.war")
                 .addClasses(Speed.class, SpeedBean.class, SpeedUnit.class)
                 .addAsResource("META-INF/persistence.xml", "META-INF/persistence.xml")
                 .addAsWebInfResource(EmptyAsset.INSTANCE, ArchivePaths.create("beans.xml"))
                 .addAsLibraries(resolver.artifact("org.hibernate:hibernate-core").resolveAsFiles())
                 .addAsLibraries(resolver.artifact("org.hsqldb:hsqldb").resolveAsFiles());
-        
-        System.out.println(testWAR.toString(true));
-        return testWAR;
     }
     
     @Inject
