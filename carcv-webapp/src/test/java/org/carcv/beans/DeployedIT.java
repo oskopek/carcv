@@ -1,17 +1,14 @@
 /**
  * 
  */
-package org.carcv.persistence;
-
+package org.carcv.beans;
 import static org.junit.Assert.*;
 
 import java.io.File;
 
-import javax.ejb.EJB;
+import javax.inject.Inject;
 
 import org.carcv.beans.SpeedBean;
-import org.carcv.model.Speed;
-import org.carcv.model.SpeedUnit;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
@@ -24,7 +21,7 @@ import org.junit.runner.RunWith;
  *
  */
 @RunWith(Arquillian.class)
-public class PersistenceIT {
+public class DeployedIT {
     
       
 
@@ -47,20 +44,12 @@ public class PersistenceIT {
         return testArchive;
     }
     
-    @EJB
+    @Inject
     private SpeedBean speedBean;
     
     @Test
-    public void speedBeanPersistenceTest() {
-        Speed s1 = new Speed(80.2, SpeedUnit.KPH);
-        
-        
-        speedBean.create(s1);
-        Speed s2 = speedBean.getAll().get(0);
-        
-        assertEquals(s1, s2);
-        
-        
+    public void speedBeanTest() {
+        assertNotNull(speedBean);
     }
 
 }
