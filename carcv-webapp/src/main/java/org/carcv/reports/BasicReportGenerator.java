@@ -106,6 +106,7 @@ public class BasicReportGenerator {
 		exporter.setParameter(JRExporterParameter.JASPER_PRINT, filledReportPrint);
 		exporter.setParameter(JRExporterParameter.OUTPUT_FILE_NAME, filename);
 		exporter.setParameter(JRExporterParameter.OUTPUT_STREAM, out);
+		exporter.setParameter(JRExporterParameter.CHARACTER_ENCODING, "UTF-8");
 
 		exporter.exportReport();
 	}
