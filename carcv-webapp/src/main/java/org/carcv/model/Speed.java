@@ -131,7 +131,10 @@ public class Speed implements Serializable, Comparable<Speed> {
 			return false;
 		}
 		Speed other = (Speed) obj;
-		return new EqualsBuilder().append(other.speed, other.unit).isEquals();
+		return new EqualsBuilder()
+		        .append(this.speed, other.speed)
+		        .append(this.unit, other.unit)
+		        .isEquals();
 	}
 
 	/**
