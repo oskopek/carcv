@@ -5,6 +5,9 @@ package org.carcv.persistence;
 
 import static org.junit.Assert.*;
 
+import java.io.File;
+
+import javax.annotation.sql.DataSourceDefinition;
 import javax.inject.Inject;
 
 import org.carcv.beans.SpeedBean;
@@ -12,12 +15,9 @@ import org.carcv.model.Speed;
 import org.carcv.model.SpeedUnit;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
-import org.jboss.shrinkwrap.api.ArchivePaths;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
-import org.jboss.shrinkwrap.api.asset.EmptyAsset;
+import org.jboss.shrinkwrap.api.exporter.ZipExporter;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
-import org.jboss.shrinkwrap.resolver.api.DependencyResolvers;
-import org.jboss.shrinkwrap.resolver.api.maven.MavenDependencyResolver;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
@@ -26,20 +26,25 @@ import org.junit.runner.RunWith;
  *
  */
 @RunWith(Arquillian.class)
+@DataSourceDefinition(className="org.hsqldb.jdbcDriver", databaseName="", name = "")
 public class PersistenceIT {
     
       
 
     @Deployment
     public static WebArchive createDeployment() {
-        MavenDependencyResolver resolver = DependencyResolvers.use(MavenDependencyResolver.class).loadMetadataFromPom("pom.xml");
         
-        return ShrinkWrap.create(WebArchive.class, "test.war")
-                .addClasses(Speed.class, SpeedBean.class, SpeedUnit.class)
-                .addAsResource("META-INF/persistence.xml", "META-INF/persistence.xml")
-                .addAsWebInfResource(EmptyAsset.INSTANCE, ArchivePaths.create("beans.xml"))
-                .addAsLibraries(resolver.artifact("org.hibernate:hibernate-core").resolveAsFiles())
-                .addAsLibraries(resolver.artifact("org.hsqldb:hsqldb:2.3.0").resolveAsFiles());
+        WebArchive testArchive = ShrinkWrap
+                .createFromZipFile(WebArchive.class, new File("target/carcv-webapp.war"));
+        
+        testArchive.delete("WEB-INF/classes/META-INF/persistence.xml");        
+        testArchive.addAsResource("META-INF/test-persistence.xml", "META-INF/persistence.xml");
+        
+        testArchive.addAsResource("arquillian.xml");  
+        
+        testArchive.as(ZipExporter.class).exportTo(new File("target/carcv-webapp-test.war"));
+        
+        return testArchive;
     }
     
     @Inject
