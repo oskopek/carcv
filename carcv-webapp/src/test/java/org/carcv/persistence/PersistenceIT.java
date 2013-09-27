@@ -7,7 +7,6 @@ import static org.junit.Assert.*;
 
 import java.io.File;
 
-import javax.annotation.sql.DataSourceDefinition;
 import javax.inject.Inject;
 
 import org.carcv.beans.SpeedBean;
@@ -26,7 +25,6 @@ import org.junit.runner.RunWith;
  *
  */
 @RunWith(Arquillian.class)
-@DataSourceDefinition(className="org.hsqldb.jdbcDriver", databaseName="", name = "")
 public class PersistenceIT {
     
       
