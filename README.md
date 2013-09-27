@@ -45,3 +45,19 @@ Building
 To *build*, run: mvn clean package (optional: -DskipTests)
 
 To *clean*, run: mvn clean
+
+Integration Tests
+-----------------
+
+In `standalone.xml`
+
+To run integration tests successfully make sure `ExampleDS` datasource is configured correctly
+and add the following to `security-domains`:
+    <security-domain name="carcv_gui" cache-type="default">
+        <authentication>
+            <login-module code="UsersRoles" flag="required">
+                <module-option name="usersProperties" value="users.properties" />
+                <module-option name="rolesProperties" value="roles.properties" />
+            </login-module>
+        </authentication>
+    </security-domain>
