@@ -6,7 +6,7 @@ import static org.junit.Assert.*;
 
 import java.io.File;
 
-import javax.inject.Inject;
+import javax.ejb.EJB;
 
 import org.carcv.beans.SpeedBean;
 import org.jboss.arquillian.container.test.api.Deployment;
@@ -17,6 +17,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 
 /**
+ * Test if the app deploys and EJB CDI Injection works.
  * @author oskopek
  *
  */
@@ -44,7 +45,7 @@ public class DeployedIT {
         return testArchive;
     }
     
-    @Inject
+    @EJB
     private SpeedBean speedBean;
     
     @Test
