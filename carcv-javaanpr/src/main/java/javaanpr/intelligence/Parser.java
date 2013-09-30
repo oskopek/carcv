@@ -68,20 +68,32 @@ for more info about JavaANPR.
 package javaanpr.intelligence;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.Vector;
+
+
+
+
 
 //import org.xml.sax.SAXException;
 import javaanpr.Main;
+import javaanpr.configurator.Configurator;
 import javaanpr.recognizer.CharacterRecognizer.RecognizedChar;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
+
+
+
+import javax.xml.parsers.ParserConfigurationException;
+
 
 //import javax.xml.parsers.ParserConfigurationException;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
+import org.xml.sax.SAXException;
 
 public class Parser {
 	public class PlateForm {
@@ -144,8 +156,12 @@ public class Parser {
 	/** Creates a new instance of Parser */
 	public Parser() throws Exception {
 		plateForms = new Vector<PlateForm>();
-		plateForms = loadFromXml(getClass().getResource(Intelligence.configurator
-				.getPathProperty("intelligence_syntaxDescriptionFile")).getFile());
+		
+		String fileName = Intelligence.configurator
+                .getPathProperty("intelligence_syntaxDescriptionFile");
+		fileName = Configurator.getConfigurator().correctFilepath(fileName);
+		
+		plateForms = loadFromXml(getClass().getResourceAsStream(fileName));
 	}
 
 	public Vector<PlateForm> loadFromXml(String fileName) throws Exception {
@@ -178,6 +194,37 @@ public class Parser {
 		}
 		return plateForms;
 	}
+	
+	public Vector<PlateForm> loadFromXml(InputStream fileName) throws ParserConfigurationException, SAXException, IOException {
+        Vector<PlateForm> plateForms = new Vector<PlateForm>();
+
+        DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+        DocumentBuilder parser = factory.newDocumentBuilder();
+        Document doc = parser.parse(fileName);
+
+        Node structureNode = doc.getDocumentElement();
+        NodeList structureNodeContent = structureNode.getChildNodes();
+        for (int i = 0; i < structureNodeContent.getLength(); i++) {
+            Node typeNode = structureNodeContent.item(i);
+            if (!typeNode.getNodeName().equals("type")) {
+                continue;
+            }
+            PlateForm form = new PlateForm(
+                    ((Element) typeNode).getAttribute("name"));
+            NodeList typeNodeContent = typeNode.getChildNodes();
+            for (int ii = 0; ii < typeNodeContent.getLength(); ii++) {
+                Node charNode = typeNodeContent.item(ii);
+                if (!charNode.getNodeName().equals("char")) {
+                    continue;
+                }
+                String content = ((Element) charNode).getAttribute("content");
+
+                form.addPosition(form.new Position(content.toUpperCase()));
+            }
+            plateForms.add(form);
+        }
+        return plateForms;
+    }
 
 	// //
 	public void unFlagAll() {

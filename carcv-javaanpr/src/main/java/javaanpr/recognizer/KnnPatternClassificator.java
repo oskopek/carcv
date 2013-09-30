@@ -72,7 +72,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Vector;
 
-import javaanpr.configurator.Configurator;
 import javaanpr.imageanalysis.Char;
 import javaanpr.intelligence.Intelligence;
 
