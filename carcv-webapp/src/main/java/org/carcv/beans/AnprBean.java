@@ -3,6 +3,9 @@
  */
 package org.carcv.beans;
 
+import java.io.IOException;
+import java.io.InputStream;
+
 import javaanpr.imageanalysis.CarSnapshot;
 import javaanpr.intelligence.Intelligence;
 
@@ -26,15 +29,15 @@ public class AnprBean {
         }
     }
     
-    public String recognize(String imgPath) {
+    public String recognize(InputStream is) {
         String lp = "";
-        try {
-            lp = intel.recognize(new CarSnapshot(imgPath));
-        } catch (Exception e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-            lp = "N/A";
-        }
+            try {
+                lp = intel.recognize(new CarSnapshot(is));
+            } catch (IOException e) {
+                e.printStackTrace();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         return lp;
     }
     
