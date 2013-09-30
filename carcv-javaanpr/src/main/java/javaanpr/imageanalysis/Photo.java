@@ -204,12 +204,8 @@ public class Photo {
 		return Photo.getHue(image, x, y);
 	}
 
-	public void loadImage(String filepath) throws IOException {
-	        System.out.println(filepath);
-	        
+	public void loadImage(String filepath) throws IOException {	        
 			filepath = Configurator.getConfigurator().correctFilepath(filepath);
-			
-			System.out.println(filepath);
 			
 			InputStream imageIn = getClass().getResourceAsStream(filepath);
 			

@@ -90,12 +90,10 @@ public class KnnPatternClassificator extends CharacterRecognizer {
 			learnVectors.add(null);
 		}
 		
-		System.out.println(path);
-		
 		ArrayList<String> filenames = new ArrayList<>();
 		
 		String footer = path.substring(path.indexOf('_'));
-		System.out.println(footer);
+		
 		String s;
 		for(int i = 0; i < alphaString.length(); i++) {
 		    s = alphaString.charAt(i) + footer + ".jpg";
