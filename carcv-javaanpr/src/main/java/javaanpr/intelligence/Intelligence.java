@@ -69,7 +69,6 @@ package javaanpr.intelligence;
 
 import java.awt.geom.AffineTransform;
 import java.awt.image.BufferedImage;
-import java.io.File;
 //import java.io.IOException;
 import java.util.Vector;
 
@@ -92,7 +91,7 @@ import javaanpr.recognizer.NeuralPatternClassificator;
 public class Intelligence {
 	private long lastProcessDuration = 0; // trvanie posledneho procesu v ms
 
-	public static Configurator configurator = new Configurator(File.separator + "config.xml");
+	public static Configurator configurator = new Configurator("config.xml");
 	public static CharacterRecognizer chrRecog;
 	public static Parser parser;
 	public boolean enableReportGeneration;

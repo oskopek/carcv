@@ -22,6 +22,7 @@ public class LibraryTest {
         
         String spz = intel.recognize(new CarSnapshot(ClassLoader.getSystemClassLoader().getResource("skoda_oct.jpg").getFile()));
         assertEquals("2SU358F", spz); //actually 2SU358F
+        System.out.println(intel.lastProcessDuration());
     }
 
 }
