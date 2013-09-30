@@ -5,6 +5,8 @@ package org.carcv.beans;
 import static org.junit.Assert.*;
 
 import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
 
 import javax.ejb.EJB;
 
@@ -48,9 +50,18 @@ public class AnprBeanIT {
     private AnprBean anprBean;
     
     @Test
-    public void licencePlateNumberRecognitionTest() {
+    public void licencePlateNumberRecognitionTest() throws IOException {
         assertNotNull(anprBean);
-        String licencePlate = anprBean.recognize(getClass().getResource("img/skoda_oct.jpg").getFile());
+
+	String filepath = "img/skoda_oct.jpg";
+	
+	InputStream is = getClass().getResourceAsStream(filepath);
+	
+	if(is==null) {
+	    throw new IOException("Resource doesn't exist: " + filepath);
+	}
+
+        String licencePlate = anprBean.recognize(is);
         assertEquals("2SU3588", licencePlate);
     }
 
