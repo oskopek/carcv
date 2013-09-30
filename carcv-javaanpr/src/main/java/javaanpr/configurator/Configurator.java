@@ -271,7 +271,7 @@ public class Configurator {
 	}
 
 	public void loadConfiguration() throws IOException {
-		loadConfiguration(File.separator + fileName);
+		loadConfiguration(fileName);
 	}
 
 	public void loadConfiguration(String arg_file) throws IOException {
