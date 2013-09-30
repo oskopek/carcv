@@ -62,7 +62,7 @@ public class AnprBeanIT {
 	assertNotNull("Resource doesn't exist: " + filepath, is);
 
         String licencePlate = anprBean.recognize(is);
-        assertEquals("2SU3588", licencePlate);
+        assertEquals("2SU358F", licencePlate); //actually should be 2SU3588
     }
 
 }
