@@ -71,6 +71,7 @@ import java.awt.image.BufferedImage;
 import java.awt.image.ConvolveOp;
 import java.awt.image.Kernel;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.Vector;
 
 import javaanpr.intelligence.Intelligence;
@@ -102,6 +103,10 @@ public class CarSnapshot extends Photo {
 
 	public CarSnapshot(BufferedImage bi) {
 		super(bi);
+	}
+	
+	public CarSnapshot(InputStream is) throws IOException {
+	    super(is);
 	}
 
 	public BufferedImage renderGraph() {

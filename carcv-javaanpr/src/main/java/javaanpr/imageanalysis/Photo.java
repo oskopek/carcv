@@ -101,6 +101,10 @@ public class Photo {
 	public Photo(String filepath) throws IOException {
 		loadImage(filepath);
 	}
+	
+	public Photo(InputStream is) throws IOException {
+	    loadImage(is);
+	}
 
 	@Override
 	public Photo clone() {
@@ -221,6 +225,16 @@ public class Photo {
 			g.dispose();
 			this.image = outimage;
 	}
+	
+	public void loadImage(InputStream is) throws IOException {
+        BufferedImage image = ImageIO.read(is);
+        BufferedImage outimage = new BufferedImage(image.getWidth(),
+                image.getHeight(), BufferedImage.TYPE_INT_RGB);
+        Graphics2D g = outimage.createGraphics();
+        g.drawImage(image, 0, 0, null);
+        g.dispose();
+        this.image = outimage;
+}
 
 	public void saveImage(String filepath) throws IOException {
 		String type = new String(filepath.substring(
