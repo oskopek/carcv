@@ -48,10 +48,10 @@ public class AnprBeanIT {
     private AnprBean anprBean;
     
     @Test
-    public void anprBeanTest() {
+    public void licencePlateNumberRecognitionTest() {
         assertNotNull(anprBean);
-        String s = anprBean.getLicencePlate(getClass().getResource("img/skoda_oct.jpg").getFile());
-        assertEquals("2SU3588", s);
+        String licencePlate = anprBean.recognize(getClass().getResource("img/skoda_oct.jpg").getFile());
+        assertEquals("2SU3588", licencePlate);
     }
 
 }

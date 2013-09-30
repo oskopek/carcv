@@ -26,7 +26,7 @@ public class AnprBean {
         }
     }
     
-    public String getLicencePlate(String imgPath) {
+    public String recognize(String imgPath) {
         String lp = "";
         try {
             lp = intel.recognize(new CarSnapshot(imgPath));
