@@ -20,7 +20,7 @@ public class AnprLibTest {
         Intelligence intel = new Intelligence(false);
         assertNotNull(intel);
         
-        String spz = intel.recognize(new CarSnapshot(ClassLoader.getSystemClassLoader().getResource("img/skoda_oct.jpg").getFile()));
+        String spz = intel.recognize(new CarSnapshot("img/skoda_oct.jpg"));
         assertEquals("2SU358F", spz); //actually 2SU358F
     }
 }

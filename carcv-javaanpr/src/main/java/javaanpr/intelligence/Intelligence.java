@@ -91,7 +91,7 @@ import javaanpr.recognizer.NeuralPatternClassificator;
 public class Intelligence {
 	private long lastProcessDuration = 0; // trvanie posledneho procesu v ms
 
-	public static Configurator configurator = new Configurator("config.xml");
+	public static Configurator configurator = new Configurator();
 	public static CharacterRecognizer chrRecog;
 	public static Parser parser;
 	public boolean enableReportGeneration;

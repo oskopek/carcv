@@ -79,7 +79,9 @@ import java.awt.image.LookupOp;
 import java.awt.image.ShortLookupTable;
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 
+import javaanpr.configurator.Configurator;
 import javaanpr.intelligence.Intelligence;
 
 import javax.imageio.ImageIO;
@@ -199,20 +201,21 @@ public class Photo {
 	}
 
 	public void loadImage(String filepath) throws IOException {
-		try {
-			File source = new File(filepath);
-			BufferedImage image = ImageIO.read(source);
+			filepath = new Configurator().correctFilepath(filepath);
+			
+			InputStream imageIn = getClass().getResourceAsStream(filepath);
+			
+			if(imageIn==null || filepath == null) {
+			    throw new IOException("Failed to load image: " + filepath);
+			}
+			
+			BufferedImage image = ImageIO.read(imageIn);
 			BufferedImage outimage = new BufferedImage(image.getWidth(),
 					image.getHeight(), BufferedImage.TYPE_INT_RGB);
 			Graphics2D g = outimage.createGraphics();
 			g.drawImage(image, 0, 0, null);
 			g.dispose();
 			this.image = outimage;
-		} catch (IOException ex) {
-			throw new IOException(
-					"{Error in image loader} Couldn't read input file "
-							+ filepath);
-		}
 	}
 
 	public void saveImage(String filepath) throws IOException {

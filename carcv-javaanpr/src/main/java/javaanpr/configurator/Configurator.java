@@ -73,6 +73,9 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.net.URL;
+import java.util.InvalidPropertiesFormatException;
 import java.util.Properties;
 
 public class Configurator {
@@ -204,6 +207,16 @@ public class Configurator {
 		setStrProperty("help_file_about", "/help/about.html");
 		setStrProperty("reportgeneratorcss",
 				"/reportgenerator/style.css");
+		
+		
+		String correctedFilename = correctFilepath(fileName);
+		
+		InputStream is = getClass().getResourceAsStream(correctedFilename);
+		
+		loadConfiguration(is);
+		
+		
+		
 	}
 
 	public Configurator(String path) {
@@ -272,9 +285,14 @@ public class Configurator {
 	public void loadConfiguration(String arg_file) {
 		FileInputStream is = null;
         try {
-            is = new FileInputStream(ClassLoader.getSystemClassLoader().getResource(arg_file).getPath());
+            is = new FileInputStream(arg_file);
         } catch (FileNotFoundException e) {
             e.printStackTrace();
+        }
+        
+        if(is == null) {
+            list = null;
+            return;
         }
         
 		try {
@@ -283,6 +301,48 @@ public class Configurator {
             e.printStackTrace();
             list = null;
         }
+	}
+	
+	public void loadConfiguration(InputStream arg_stream) {
+	    if(arg_stream == null) {
+	        list = null;
+            return;
+        }
+	    
+	    try {
+            list.loadFromXML(arg_stream);
+        } catch (InvalidPropertiesFormatException e) {
+            e.printStackTrace();
+            list = null;
+        } catch (IOException e) {
+            e.printStackTrace();
+            list = null;
+        }
+	}
+	
+	public String correctFilepath(String filename) {
+	    String corrected = filename;
+	    
+	    URL f = getClass().getResource(corrected);
+	    if(f != null) {
+	        return corrected;
+	    }
+	    
+	    if (filename.startsWith("/")) {
+	        corrected = filename.substring(1);
+	    } else if(filename.startsWith("./")) {
+	        corrected = filename.substring(2);
+	    } else {
+	        corrected = "/" + filename;
+	    }
+	    
+	    f = getClass().getResource(corrected);
+	    
+	    if(f != null) {
+	        return corrected;
+	    }
+	    
+	    return null;
 	}
 
 }
