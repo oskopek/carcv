@@ -70,6 +70,7 @@ package javaanpr.configurator;
 import java.awt.Color;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.Properties;
@@ -207,13 +208,7 @@ public class Configurator {
 
 	public Configurator(String path) {
 		this();
-		try {
-			loadConfiguration(path);
-		} catch (Exception ex) {
-			System.out.println("Error: Couldn't load configuration file "
-					+ path);
-			System.exit(1);
-		}
+		loadConfiguration(path);
 	}
 
 	public void setConfigurationFileName(String name) {
@@ -270,13 +265,24 @@ public class Configurator {
 		list.storeToXML(os, comment);
 	}
 
-	public void loadConfiguration() throws IOException {
+	public void loadConfiguration() {
 		loadConfiguration(fileName);
 	}
 
-	public void loadConfiguration(String arg_file) throws IOException {
-		FileInputStream is = new FileInputStream(getClass().getResource(arg_file).getPath());
-		list.loadFromXML(is);
+	public void loadConfiguration(String arg_file) {
+		FileInputStream is = null;
+        try {
+            is = new FileInputStream(ClassLoader.getSystemClassLoader().getResource(arg_file).getPath());
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+        
+		try {
+            list.loadFromXML(is);
+        } catch (IOException e) {
+            e.printStackTrace();
+            list = null;
+        }
 	}
 
 }
