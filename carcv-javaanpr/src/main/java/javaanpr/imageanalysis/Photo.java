@@ -201,7 +201,11 @@ public class Photo {
 	}
 
 	public void loadImage(String filepath) throws IOException {
-			filepath = new Configurator().correctFilepath(filepath);
+	        System.out.println(filepath);
+	        
+			filepath = Configurator.getConfigurator().correctFilepath(filepath);
+			
+			System.out.println(filepath);
 			
 			InputStream imageIn = getClass().getResourceAsStream(filepath);
 			

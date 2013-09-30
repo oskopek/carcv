@@ -69,8 +69,7 @@ package javaanpr.recognizer;
 
 import java.io.File;
 import java.io.IOException;
-import java.net.URISyntaxException;
-import java.net.URL;
+import java.util.ArrayList;
 import java.util.Vector;
 
 import javaanpr.configurator.Configurator;
@@ -84,8 +83,6 @@ public class KnnPatternClassificator extends CharacterRecognizer {
 		String path = Intelligence.configurator
 				.getPathProperty("char_learnAlphabetPath");
 		
-		path = new Configurator().correctFilepath(path);
-		
 		String alphaString = "0123456789abcdefghijklmnopqrstuvwxyz";
 
 		// inicializacia vektora na pozadovanu velkost (nulovanie poloziek)
@@ -94,22 +91,20 @@ public class KnnPatternClassificator extends CharacterRecognizer {
 			learnVectors.add(null);
 		}
 		
-		URL folderURL = getClass().getResource(path);
+		System.out.println(path);
 		
-		File folder = null;
-        try {
-            folder = new File(folderURL.toURI());
-        } catch (URISyntaxException e) {
-            e.printStackTrace();
-        }
-        
-        if(!folder.exists()) {
-            throw new IOException("Folder doesn't exist: " + folder);
-        }
+		ArrayList<String> filenames = new ArrayList<>();
 		
+		String footer = path.substring(path.indexOf('_'));
+		System.out.println(footer);
+		String s;
+		for(int i = 0; i < alphaString.length(); i++) {
+		    s = alphaString.charAt(i) + footer + ".jpg";
+		    
+		    filenames.add(s);
+		}
 		
-		
-		for (String fileName : folder.list()) {
+		for (String fileName : filenames) {
 			int alphaPosition = alphaString.indexOf(fileName.toLowerCase()
 					.charAt(0));
 			if (alphaPosition == -1) {

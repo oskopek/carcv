@@ -79,6 +79,9 @@ import java.util.InvalidPropertiesFormatException;
 import java.util.Properties;
 
 public class Configurator {
+    
+    private static Configurator configurator;
+    
 	/* Default name of configuration file */
 	private String fileName = new String("config.xml");
 	/* Configuration file's comment */
@@ -216,7 +219,7 @@ public class Configurator {
 		loadConfiguration(is);
 		
 		
-		
+		Configurator.configurator = this;
 	}
 
 	public Configurator(String path) {
@@ -343,6 +346,10 @@ public class Configurator {
 	    }
 	    
 	    return null;
+	}
+	
+	public static Configurator getConfigurator() {
+	    return Configurator.configurator;
 	}
 
 }
