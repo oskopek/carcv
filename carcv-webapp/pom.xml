@@ -80,6 +80,11 @@
 	</build>
 
 	<dependencies>
+	    <dependency>
+	       <groupId>net.sourceforge.javaanpr</groupId>
+	       <artifactId>carcv-javaanpr</artifactId>
+	       <version>master</version>
+	    </dependency>
 		<dependency>
 			<groupId>commons-lang</groupId>
 			<artifactId>commons-lang</artifactId>
