@@ -5,6 +5,6 @@
           "http://www.jboss.org/j2ee/dtd/jboss-web_5_0.dtd">
 <jboss-web>
 	<!-- Uncomment this element to add security for the application -->
-	<security-domain>java:/jaas/carcv_gui</security-domain>
+	<security-domain>java:/jaas/carcv</security-domain>
 	<context-root>/</context-root>
 </jboss-web>

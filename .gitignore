@@ -7,3 +7,5 @@ target/
 .cproject
 .settings/
 deployments/
+.idea/
+*.iml
