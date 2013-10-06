@@ -34,88 +34,92 @@
 		<extension module="org.jboss.as.weld" />
 	</extensions>
 
-    <management>
-        <management-interfaces>
-            <native-interface>
-                <socket-binding native="management-native"/>
-            </native-interface>
-            <http-interface>
-                <socket-binding http="management-http"/>
-            </http-interface>
-        </management-interfaces>
-    </management>
+	<system-properties>
+		<property name="org.apache.coyote.http11.Http11Protocol.COMPRESSION"
+			value="on" />
+	</system-properties>
 
-    <profile>
-        <subsystem xmlns="urn:jboss:domain:logging:1.1">
-            <!--console-handler name="CONSOLE">
-                <level name="INFO"/>
-                <formatter>
-                    <pattern-formatter pattern="%d{HH:mm:ss,SSS} %-5p [%c] (%t) %s%E%n"/>
-                </formatter>
-            </console-handler-->
-            <periodic-rotating-file-handler name="FILE">
-                <formatter>
-                    <pattern-formatter pattern="%d{yyyy/MM/dd HH:mm:ss,SSS} %-5p [%c] (%t) %s%E%n"/>
-                </formatter>
-                <file relative-to="jboss.server.log.dir" path="server.log"/>
-                <suffix value=".yyyy-MM-dd"/>
-                <append value="true"/>
-            </periodic-rotating-file-handler>
-            <logger category="com.arjuna">
-                <level name="WARN"/>
-            </logger>
-            <logger category="org.apache.tomcat.util.modeler">
-                <level name="WARN"/>
-            </logger>
-            <logger category="sun.rmi">
-                <level name="WARN"/>
-            </logger>
-            <logger category="jacorb">
-                <level name="WARN"/>
-            </logger>
-            <logger category="jacorb.config">
-                <level name="ERROR"/>
-            </logger>
-            <root-logger>
-                <level name="INFO"/>
-                <handlers>
-                    <!--handler name="CONSOLE"/-->
-                    <handler name="FILE"/>
-                </handlers>
-            </root-logger>
-        </subsystem>
-        <subsystem xmlns="urn:jboss:domain:cmp:1.0"/>
-        <subsystem xmlns="urn:jboss:domain:configadmin:1.0"/>
-        <subsystem xmlns="urn:jboss:domain:datasources:1.0">
-            <datasources>
-                <datasource jndi-name="java:jboss/datasources/ExampleDS" enabled="true" use-java-context="true" pool-name="H2DS">
-                    <connection-url>jdbc:h2:${jboss.server.data.dir}/test;DB_CLOSE_DELAY=-1</connection-url>
-                    <driver>h2</driver>
-                    <security>
-                        <user-name>sa</user-name>
-                        <password>sa</password>
-                    </security>
-                </datasource>
-                <datasource jndi-name="java:jboss/datasources/MysqlDS" enabled="${mysql.enabled}" use-java-context="true" pool-name="MysqlDS" use-ccm="true">
-                    <connection-url>jdbc:mysql://${env.OPENSHIFT_MYSQL_DB_HOST}:${env.OPENSHIFT_MYSQL_DB_PORT}/${env.OPENSHIFT_APP_NAME}</connection-url>
-                    <driver>mysql</driver>
-                    <security>
-                      <user-name>${env.OPENSHIFT_MYSQL_DB_USERNAME}</user-name>
-                      <password>${env.OPENSHIFT_MYSQL_DB_PASSWORD}</password>
-                    </security>
-                    <validation>
-                    	<check-valid-connection-sql>SELECT 1</check-valid-connection-sql>
-                    	<background-validation>true</background-validation>
-                	</validation>
-                	<pool>
+	<management>
+		<management-interfaces>
+			<native-interface>
+				<socket-binding native="management-native" />
+			</native-interface>
+			<http-interface>
+				<socket-binding http="management-http" />
+			</http-interface>
+		</management-interfaces>
+	</management>
+
+	<profile>
+		<subsystem xmlns="urn:jboss:domain:logging:1.1">
+			<!--console-handler name="CONSOLE"> <level name="INFO"/> <formatter> <pattern-formatter 
+				pattern="%d{HH:mm:ss,SSS} %-5p [%c] (%t) %s%E%n"/> </formatter> </console-handler -->
+			<periodic-rotating-file-handler name="FILE">
+				<formatter>
+					<pattern-formatter
+						pattern="%d{yyyy/MM/dd HH:mm:ss,SSS} %-5p [%c] (%t) %s%E%n" />
+				</formatter>
+				<file relative-to="jboss.server.log.dir" path="server.log" />
+				<suffix value=".yyyy-MM-dd" />
+				<append value="true" />
+			</periodic-rotating-file-handler>
+			<logger category="com.arjuna">
+				<level name="WARN" />
+			</logger>
+			<logger category="org.apache.tomcat.util.modeler">
+				<level name="WARN" />
+			</logger>
+			<logger category="sun.rmi">
+				<level name="WARN" />
+			</logger>
+			<logger category="jacorb">
+				<level name="WARN" />
+			</logger>
+			<logger category="jacorb.config">
+				<level name="ERROR" />
+			</logger>
+			<root-logger>
+				<level name="INFO" />
+				<handlers>
+					<!--handler name="CONSOLE"/ -->
+					<handler name="FILE" />
+				</handlers>
+			</root-logger>
+		</subsystem>
+		<subsystem xmlns="urn:jboss:domain:cmp:1.0" />
+		<subsystem xmlns="urn:jboss:domain:configadmin:1.0" />
+		<subsystem xmlns="urn:jboss:domain:datasources:1.0">
+			<datasources>
+				<datasource jndi-name="java:jboss/datasources/ExampleDS"
+					enabled="true" use-java-context="true" pool-name="H2DS">
+					<connection-url>jdbc:h2:${jboss.server.data.dir}/test;DB_CLOSE_DELAY=-1</connection-url>
+					<driver>h2</driver>
+					<security>
+						<user-name>sa</user-name>
+						<password>sa</password>
+					</security>
+				</datasource>
+				<datasource jndi-name="java:jboss/datasources/MysqlDS"
+					enabled="${mysql.enabled}" use-java-context="true" pool-name="MysqlDS"
+					use-ccm="true">
+					<connection-url>jdbc:mysql://${env.OPENSHIFT_MYSQL_DB_HOST}:${env.OPENSHIFT_MYSQL_DB_PORT}/${env.OPENSHIFT_APP_NAME}</connection-url>
+					<driver>mysql</driver>
+					<security>
+						<user-name>${env.OPENSHIFT_MYSQL_DB_USERNAME}</user-name>
+						<password>${env.OPENSHIFT_MYSQL_DB_PASSWORD}</password>
+					</security>
+					<validation>
+						<check-valid-connection-sql>SELECT 1</check-valid-connection-sql>
+						<background-validation>true</background-validation>
+					</validation>
+					<pool>
 						<flush-strategy>IdleConnections</flush-strategy>
 					</pool>
 				</datasource>
 				<datasource jndi-name="java:jboss/datasources/PostgreSQLDS"
 					enabled="${postgresql.enabled}" use-java-context="true" pool-name="PostgreSQLDS"
 					use-ccm="true">
-					<connection-url>jdbc:postgresql://${env.OPENSHIFT_POSTGRESQL_DB_HOST}:${env.OPENSHIFT_POSTGRESQL_DB_PORT}/${env.OPENSHIFT_APP_NAME}
-					</connection-url>
+					<connection-url>jdbc:postgresql://${env.OPENSHIFT_POSTGRESQL_DB_HOST}:${env.OPENSHIFT_POSTGRESQL_DB_PORT}/${env.OPENSHIFT_APP_NAME}</connection-url>
 					<driver>postgresql</driver>
 					<security>
 						<user-name>${env.OPENSHIFT_POSTGRESQL_DB_USERNAME}</user-name>
@@ -131,16 +135,13 @@
 				</datasource>
 				<drivers>
 					<driver name="h2" module="com.h2database.h2">
-						<xa-datasource-class>org.h2.jdbcx.JdbcDataSource
-						</xa-datasource-class>
+						<xa-datasource-class>org.h2.jdbcx.JdbcDataSource</xa-datasource-class>
 					</driver>
 					<driver name="mysql" module="com.mysql.jdbc">
-						<xa-datasource-class>com.mysql.jdbc.jdbc2.optional.MysqlXADataSource
-						</xa-datasource-class>
+						<xa-datasource-class>com.mysql.jdbc.jdbc2.optional.MysqlXADataSource</xa-datasource-class>
 					</driver>
 					<driver name="postgresql" module="org.postgresql.jdbc">
-						<xa-datasource-class>org.postgresql.xa.PGXADataSource
-						</xa-datasource-class>
+						<xa-datasource-class>org.postgresql.xa.PGXADataSource</xa-datasource-class>
 					</driver>
 				</drivers>
 			</datasources>
@@ -349,47 +350,24 @@
 				<journal-file-size>102400</journal-file-size>
 				<journal-min-files>2</journal-min-files>
 
-                <connectors>
-                    <netty-connector name="netty" socket-binding="messaging"/>
-                    <netty-connector name="netty-throughput" socket-binding="messaging-throughput">
-                        <param key="batch-delay" value="50"/>
-                    </netty-connector>
-                    <in-vm-connector name="in-vm" server-id="0"/>
-                </connectors>
+				<connectors>
+					<netty-connector name="netty" socket-binding="messaging" />
+					<netty-connector name="netty-throughput"
+						socket-binding="messaging-throughput">
+						<param key="batch-delay" value="50" />
+					</netty-connector>
+					<in-vm-connector name="in-vm" server-id="0" />
+				</connectors>
 
-                <acceptors>
-                    <netty-acceptor name="netty" socket-binding="messaging"/>
-                    <netty-acceptor name="netty-throughput" socket-binding="messaging-throughput">
-                        <param key="batch-delay" value="50"/>
-                        <param key="direct-deliver" value="false"/>
-                    </netty-acceptor>
-                    <in-vm-acceptor name="in-vm" server-id="0"/>
-                </acceptors>
-
-                <!--broadcast-groups>
-                    <broadcast-group name="bg-group1">
-                        <group-address>231.7.7.7</group-address>
-                        <group-port>9876</group-port>
-                        <broadcast-period>5000</broadcast-period>
-                        <connector-ref>
-                            netty
-                        </connector-ref>
-                    </broadcast-group>
-                </broadcast-groups>
-
-				<!--broadcast-groups> <broadcast-group name="bg-group1"> <group-address>231.7.7.7</group-address> 
-					<group-port>9876</group-port> <broadcast-period>5000</broadcast-period> <connector-ref> 
-					netty </connector-ref> </broadcast-group> </broadcast-groups> <discovery-groups> 
-					<discovery-group name="dg-group1"> <group-address>231.7.7.7</group-address> 
-					<group-port>9876</group-port> <refresh-timeout>10000</refresh-timeout> </discovery-group> 
-					</discovery-groups> <cluster-connections> <cluster-connection name="my-cluster"> 
-					<address>jms</address> <connector-ref>netty</connector-ref> <discovery-group-ref 
-					discovery-group-name="dg-group1"/> </cluster-connection> </cluster-connections -->
-
-				<!--security-settings> <security-setting match="#"> <permission type="send" 
-					roles="guest"/> <permission type="consume" roles="guest"/> <permission type="createNonDurableQueue" 
-					roles="guest"/> <permission type="deleteNonDurableQueue" roles="guest"/> 
-					</security-setting> </security-settings -->
+				<acceptors>
+					<netty-acceptor name="netty" socket-binding="messaging" />
+					<netty-acceptor name="netty-throughput"
+						socket-binding="messaging-throughput">
+						<param key="batch-delay" value="50" />
+						<param key="direct-deliver" value="false" />
+					</netty-acceptor>
+					<in-vm-acceptor name="in-vm" server-id="0" />
+				</acceptors>
 
 				<address-settings>
 					<address-setting match="#">
@@ -398,8 +376,7 @@
 						<redelivery-delay>0</redelivery-delay>
 						<max-size-bytes>10485760</max-size-bytes>
 						<address-full-policy>BLOCK</address-full-policy>
-						<message-counter-history-day-limit>10
-						</message-counter-history-day-limit>
+						<message-counter-history-day-limit>10</message-counter-history-day-limit>
 						<redistribution-delay>1000</redistribution-delay>
 					</address-setting>
 				</address-settings>
@@ -472,7 +449,7 @@
 		<subsystem xmlns="urn:jboss:domain:sar:1.0" />
 		<subsystem xmlns="urn:jboss:domain:security:1.1">
 			<security-domains>
-				<security-domain name="carcv_gui" cache-type="default">
+				<security-domain name="carcv" cache-type="default">
 					<authentication>
 						<login-module code="UsersRoles" flag="required">
 							<module-option name="usersProperties" value="users.properties" />
