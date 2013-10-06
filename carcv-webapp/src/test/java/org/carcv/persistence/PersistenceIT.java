@@ -90,6 +90,13 @@ public class PersistenceIT {
         
         // End entity code
         
+        assertNotNull(addressBean);
+        assertNotNull(licencePlateBean);
+        assertNotNull(mediaObjectBean);
+        assertNotNull(speedBean);
+        assertNotNull(carDataBean);
+        assertNotNull(entryBean);
+        
         addressBean.create(address);
         licencePlateBean.create(licencePlate);
         mediaObjectBean.create(preview, video);
