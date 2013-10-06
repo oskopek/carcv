@@ -1,0 +1,11 @@
+.directory
+.~
+*.war
+target/
+.project
+.classpath
+.cproject
+.settings/
+deployments/
+.idea/
+*.iml
