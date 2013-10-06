@@ -49,8 +49,8 @@ public class DeployedIT {
     private SpeedBean speedBean;
     
     @Test
-    public void speedBeanTest() {
-        assertNotNull(speedBean);
+    public void beanInjectionTest() {
+        assertNotNull("Failed to inject EJB speedBean", speedBean);
     }
 
 }
