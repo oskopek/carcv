@@ -25,6 +25,9 @@ For more information, see [the m2eclipse book](http://www.sonatype.com/books/m2e
 Configuring the project with the deprecated maven-eclipse-plugin
 ----------------------------------------------------------------
 
+> NOTE: This way of configuring the project is old and deprecated.
+> Please read the section `Configuring the project with the m2eclipse plugin` above.
+
 The maven-eclipse-plugin plugin is a plugin in Maven for Eclipse.
 This is the old way (of which the development has stopped).
 
