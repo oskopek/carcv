@@ -1,3 +1,4 @@
+<?xml version='1.0' encoding='UTF-8'?>
 <security-domain name="carcv" cache-type="default">
 	<authentication>
 		<login-module code="UsersRoles" flag="required">
