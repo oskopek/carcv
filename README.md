@@ -53,6 +53,7 @@ In `standalone.xml`
 
 To run integration tests successfully make sure `ExampleDS` datasource is configured correctly
 and add the following to `security-domains`:
+```
     <security-domain name="carcv_gui" cache-type="default">
         <authentication>
             <login-module code="UsersRoles" flag="required">
@@ -61,3 +62,4 @@ and add the following to `security-domains`:
             </login-module>
         </authentication>
     </security-domain>
+```
