@@ -1,7 +1,7 @@
 /**
  * 
  */
-package org.carcv.beans;
+package net.sf.javaanpr;
 
 import static org.junit.Assert.*;
 import net.sf.javaanpr.imageanalysis.CarSnapshot;
@@ -13,14 +13,16 @@ import org.junit.Test;
  * @author oskopek
  *
  */
-public class AnprLibTest {
-
+public class LibraryTest {
+    
     @Test
-    public void anprLibTest() throws Exception {
+    public void intelligenceTest() throws Exception {
         Intelligence intel = new Intelligence(false);
         assertNotNull(intel);
         
-        String spz = intel.recognize(new CarSnapshot("img/skoda_oct.jpg"));
-        assertEquals("2SU358F", spz); //actually 2SU358F
+        String spz = intel.recognize(new CarSnapshot("snapshots/test_006.jpg"));
+        assertEquals("RK099AN", spz);
+        //System.out.println(intel.lastProcessDuration());
     }
+
 }

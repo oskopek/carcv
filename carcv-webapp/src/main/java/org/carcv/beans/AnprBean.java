@@ -6,11 +6,11 @@ package org.carcv.beans;
 import java.io.IOException;
 import java.io.InputStream;
 
-import javaanpr.imageanalysis.CarSnapshot;
-import javaanpr.intelligence.Intelligence;
-
 import javax.annotation.PostConstruct;
 import javax.ejb.Stateless;
+
+import net.sf.javaanpr.imageanalysis.CarSnapshot;
+import net.sf.javaanpr.intelligence.Intelligence;
 
 /**
  * @author oskopek
