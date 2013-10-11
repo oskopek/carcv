@@ -20,7 +20,9 @@ public class LibraryTest {
         Intelligence intel = new Intelligence(false);
         assertNotNull(intel);
         
-        String spz = intel.recognize(new CarSnapshot("skoda_oct.jpg"));
+        String spz = intel.recognize(new CarSnapshot("Library_Test.jpg"));
+        String spz2 = intel.recognize(new CarSnapshot("Library_Test2.jpg"));
+        System.out.println(spz);
         assertEquals("2SU358F", spz); //actually 2SU358F
         System.out.println(intel.lastProcessDuration());
     }
