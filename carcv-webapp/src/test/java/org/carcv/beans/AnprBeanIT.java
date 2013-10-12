@@ -52,7 +52,7 @@ public class AnprBeanIT {
     private AnprBean anprBean;
     
     @Test
-    public void licencePlateNumberRecognitionTest() throws IOException {
+    public void licencePlateNumberRecognitionTest() throws IOException, Exception {
         assertNotNull(anprBean);
 
 	String filepath = "/img/skoda_oct.jpg";

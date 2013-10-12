@@ -6,7 +6,11 @@ package org.carcv.beans;
 import java.io.IOException;
 import java.io.InputStream;
 
+import javax.annotation.PostConstruct;
 import javax.ejb.Stateless;
+import javax.xml.parsers.ParserConfigurationException;
+
+import org.xml.sax.SAXException;
 
 import net.sf.javaanpr.imageanalysis.CarSnapshot;
 import net.sf.javaanpr.intelligence.Intelligence;
@@ -18,17 +22,16 @@ import net.sf.javaanpr.intelligence.Intelligence;
 @Stateless
 public class AnprBean {
 	
-    private static Intelligence intel = new Intelligence();
+    private static Intelligence intel;
     
-    public String recognize(InputStream is) {
+    @PostConstruct
+    public void init() throws ParserConfigurationException, SAXException, IOException {
+    	intel = new Intelligence();
+    }
+    
+    public String recognize(InputStream is) throws IOException, Exception {
         String lp = "";
-            try {
-                lp = intel.recognize(new CarSnapshot(is));
-            } catch (IOException e) {
-                e.printStackTrace();
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
+        lp = intel.recognize(new CarSnapshot(is));
         return lp;
     }
     
