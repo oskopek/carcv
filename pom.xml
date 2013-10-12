@@ -19,7 +19,6 @@
 			<id>openshift</id>
 			<modules>
 				<module>carcv-webapp</module>
-				<module>carcv-javaanpr</module>
 			</modules>
 			<!-- TODO: this may cause trouble because of reactor build order -->
 			<!-- <build> <plugins> <plugin> <artifactId>maven-clean-plugin</artifactId> 
@@ -42,7 +41,6 @@
 		<profile>
 			<id>all</id>
 			<modules>
-				<module>carcv-javaanpr</module>
 				<module>carcv-core</module>
 				<module>carcv-webapp</module>
 				<module>carcv-cpp</module>
@@ -53,14 +51,12 @@
 			<id>core</id>
 			<modules>
 				<module>carcv-core</module>
-				<module>carcv-javaanpr</module>
 			</modules>
 		</profile>
 
 		<profile>
 			<id>web</id>
 			<modules>
-				<module>carcv-javaanpr</module>
 				<module>carcv-webapp</module>
 			</modules>
 		</profile>

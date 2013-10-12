@@ -85,9 +85,9 @@
 
 	<dependencies>
 		<dependency>
-			<groupId>net.sourceforge.javaanpr</groupId>
-			<artifactId>carcv-javaanpr</artifactId>
-			<version>master</version>
+			<groupId>net.sf.javaanpr</groupId>
+			<artifactId>javaanpr</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
 		</dependency>
 		<dependency>
 			<groupId>commons-lang</groupId>
