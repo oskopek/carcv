@@ -4,6 +4,9 @@
 package org.carcv.beans;
 
 import static org.junit.Assert.*;
+
+import java.io.IOException;
+
 import net.sf.javaanpr.imageanalysis.CarSnapshot;
 import net.sf.javaanpr.intelligence.Intelligence;
 
@@ -16,8 +19,8 @@ import org.junit.Test;
 public class AnprLibTest {
 
     @Test
-    public void anprLibTest() throws Exception {
-        Intelligence intel = new Intelligence(false);
+    public void anprLibTest() throws IOException, Exception {
+        Intelligence intel = new Intelligence();
         assertNotNull(intel);
         
         String spz = intel.recognize(new CarSnapshot("img/skoda_oct.jpg"));

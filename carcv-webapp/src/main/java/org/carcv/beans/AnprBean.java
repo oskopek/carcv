@@ -6,7 +6,6 @@ package org.carcv.beans;
 import java.io.IOException;
 import java.io.InputStream;
 
-import javax.annotation.PostConstruct;
 import javax.ejb.Stateless;
 
 import net.sf.javaanpr.imageanalysis.CarSnapshot;
@@ -18,16 +17,8 @@ import net.sf.javaanpr.intelligence.Intelligence;
  */
 @Stateless
 public class AnprBean {
-    private static Intelligence intel;
-    
-    @PostConstruct
-    private void init() {
-        try {
-            AnprBean.intel = new Intelligence(false);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
+	
+    private static Intelligence intel = new Intelligence();
     
     public String recognize(InputStream is) {
         String lp = "";
