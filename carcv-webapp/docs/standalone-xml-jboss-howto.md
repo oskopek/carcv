@@ -1,3 +1,5 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
 ##Add this security-domain to the list of security-domains in your standalone.xml to enable JAAS:
 
 ```
