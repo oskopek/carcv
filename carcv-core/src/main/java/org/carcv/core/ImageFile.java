@@ -20,11 +20,9 @@ import javax.imageio.stream.ImageInputStream;
  * @author oskopek
  * 
  */
-public class ImageFile { //TODO finish
+public class ImageFile implements AutoCloseable { //TODO finish
 
     private BufferedImage bufImage;
-
-    //private URI filepath;
 
     private Path filepath;
 
@@ -60,6 +58,11 @@ public class ImageFile { //TODO finish
 
         reader.dispose();
         imageStream.close();
+    }
+
+    @Override
+    public void close() throws Exception {
+        bufImage.flush();
     }
 
 }
