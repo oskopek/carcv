@@ -9,6 +9,8 @@ import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.net.URL;
 import java.nio.file.Path;
+import java.util.Collection;
+import java.util.List;
 
 /**
  * @author oskopek
@@ -18,13 +20,15 @@ public class FileDiscoverer { //TODO: finish
     
     private static FileDiscoverer fileDiscoverer;
     
-    private static Path basedir;
+    private static Path baseDirectory;
+    
+    private List<Path> knownPaths;
 
     /**
      * 
      */
-    public FileDiscoverer(Path basedir) {
-        FileDiscoverer.basedir = basedir;
+    public FileDiscoverer(Path baseDirectory) {
+        FileDiscoverer.setBaseDirectory(baseDirectory);
     }
     
     /**
@@ -78,13 +82,34 @@ public class FileDiscoverer { //TODO: finish
     /**
      * @return the filed
      */
-    public static FileDiscoverer getFileDiscoverer() {
+    final public static FileDiscoverer getFileDiscoverer() {
         if(fileDiscoverer == null) {
             throw new IllegalStateException("Static FileDiscoverer.fileDiscoverer isn't initialized! Use FileDiscoverer.init()");
         }
         return fileDiscoverer;
     }
+
+    /**
+     * @return the baseDirectory
+     */
+    public static Path getBaseDirectory() {
+        return baseDirectory;
+    }
+
+    /**
+     * @param baseDirectory the baseDirectory to set
+     */
+    public static void setBaseDirectory(Path baseDirectory) {
+        FileDiscoverer.baseDirectory = baseDirectory;
+    }
     
     
+    public void discover() { //TODO
+        
+    }
+    
+    public Collection<? extends Path> getNew() {//TODO
+        return knownPaths;        
+    }
 
 }
