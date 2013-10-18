@@ -15,30 +15,33 @@ import java.nio.file.LinkOption;
 import java.nio.file.Path;
 import java.nio.file.SimpleFileVisitor;
 import java.nio.file.attribute.BasicFileAttributes;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
 /**
  * @author oskopek
- *
+ * 
  */
 public class FileDiscoverer extends SimpleFileVisitor<Path> { //TODO: test everything
-    
+
     private static FileDiscoverer fileDiscoverer;
-    
-    private static Path baseDirectory;
-    
+
+    private Path baseDirectory;
+
     private List<Path> knownPaths;
-    
-    private Integer lastGottenId;
+
+    private Integer lastGottenIndex = -1;
 
     /**
      * 
      */
     public FileDiscoverer(Path baseDirectory) {
-        FileDiscoverer.setBaseDirectory(baseDirectory);
+        this.baseDirectory = baseDirectory;
+        this.knownPaths = new ArrayList<>();
+        this.lastGottenIndex = -1;
     }
-    
+
     /**
      * @deprecated use java.nio
      * @param filename
@@ -82,15 +85,16 @@ public class FileDiscoverer extends SimpleFileVisitor<Path> { //TODO: test every
     }
 
     public static void init(Path basedir) {
-        fileDiscoverer =  new FileDiscoverer(basedir);        
+        fileDiscoverer = new FileDiscoverer(basedir);
     }
 
     /**
      * @return the filed
      */
     final public static FileDiscoverer getFileDiscoverer() throws IllegalStateException {
-        if(fileDiscoverer == null) {
-            throw new IllegalStateException("Static FileDiscoverer.fileDiscoverer isn't initialized! Use FileDiscoverer.init()");
+        if (fileDiscoverer == null) {
+            throw new IllegalStateException(
+                    "Static FileDiscoverer.fileDiscoverer isn't initialized! Use FileDiscoverer.init()");
         }
         return fileDiscoverer;
     }
@@ -98,46 +102,52 @@ public class FileDiscoverer extends SimpleFileVisitor<Path> { //TODO: test every
     /**
      * @return the baseDirectory
      */
-    public static Path getBaseDirectory() {
+    public Path getBaseDirectory() {
         return baseDirectory;
     }
 
     /**
-     * @param baseDirectory the baseDirectory to set
+     * @param baseDirectory
+     *            the baseDirectory to set
      */
-    public static void setBaseDirectory(Path baseDirectory) {
-        FileDiscoverer.baseDirectory = baseDirectory;
+    public void setBaseDirectory(Path baseDirectory) {
+        this.baseDirectory = baseDirectory;
     }
-    
-    
+
     public void discover() throws IOException {
         Files.walkFileTree(baseDirectory, this);
     }
-    
-    public Collection<? extends Path> getNew() {
-        if(lastGottenId == null) {
-            return knownPaths;     
-        } else {
-            return knownPaths.subList(lastGottenId+1, knownPaths.size()-1);
-        }  
+
+    public Collection<Path> getNew() {
+        List<Path> newPaths = knownPaths.subList(lastGottenIndex + 1, knownPaths.size());
+        lastGottenIndex = knownPaths.size() - 1;
+        
+        //clone
+        List<Path> result = new ArrayList<>();
+        
+        for(Path p : newPaths) {
+            result.add(p);
+        }
+        
+        return result;
+
     }
-    
+
     @Override
     public FileVisitResult visitFile(Path file, BasicFileAttributes attrs) throws IOException {
-        if(!Files.isRegularFile(file, LinkOption.NOFOLLOW_LINKS)) {
+        if (!Files.isRegularFile(file, LinkOption.NOFOLLOW_LINKS)) {
             System.err.println("DEBUG: Image directory contains a non-regular file!");
             return FileVisitResult.CONTINUE;
         }
-        
-        if(knownPaths.contains(file)) {
+
+        if (knownPaths.contains(file)) {
             return FileVisitResult.CONTINUE;
-        }
-        else {
+        } else {
             ImageFile iFile = new ImageFile(file);
             ImageQueue.getQueue().add(iFile);
             knownPaths.add(file);
             return FileVisitResult.CONTINUE;
         }
     }
-        
+
 }

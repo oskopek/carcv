@@ -6,7 +6,6 @@ package org.carcv.core;
 import static org.junit.Assert.*;
 
 import java.awt.Rectangle;
-import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.nio.file.Files;
