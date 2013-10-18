@@ -15,14 +15,14 @@ import java.util.Queue;
  * Own object similar to ArrayDeque
  * @author oskopek
  *
- */ //TODO: implement intelligent loading
+ */ //TODO: change to extends ArrayDeque
 public class ImageQueue extends AbstractCollection<ImageFile> implements Serializable, Cloneable, Iterable<ImageFile>, Collection<ImageFile>, Deque<ImageFile>, Queue<ImageFile> {
 
     /**
      * 
      */
     private static final long serialVersionUID = -4341878508265409797L;
-
+    
     private static ImageQueue imageQueue;
     
     private ArrayDeque<ImageFile> queue;

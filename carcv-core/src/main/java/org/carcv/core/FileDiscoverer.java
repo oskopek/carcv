@@ -6,9 +6,15 @@ package org.carcv.core;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
+import java.nio.file.FileVisitResult;
+import java.nio.file.Files;
+import java.nio.file.LinkOption;
 import java.nio.file.Path;
+import java.nio.file.SimpleFileVisitor;
+import java.nio.file.attribute.BasicFileAttributes;
 import java.util.Collection;
 import java.util.List;
 
@@ -16,13 +22,15 @@ import java.util.List;
  * @author oskopek
  *
  */
-public class FileDiscoverer { //TODO: finish
+public class FileDiscoverer extends SimpleFileVisitor<Path> { //TODO: finish
     
     private static FileDiscoverer fileDiscoverer;
     
     private static Path baseDirectory;
     
     private List<Path> knownPaths;
+    
+    private Integer lastGottenId;
 
     /**
      * 
@@ -73,11 +81,9 @@ public class FileDiscoverer { //TODO: finish
         return null;
     }
 
-
     public static void init(Path basedir) {
         fileDiscoverer =  new FileDiscoverer(basedir);        
     }
-
 
     /**
      * @return the filed
@@ -104,12 +110,34 @@ public class FileDiscoverer { //TODO: finish
     }
     
     
-    public void discover() { //TODO
-        
+    public void discover() throws IOException {
+        Files.walkFileTree(baseDirectory, this);
     }
     
-    public Collection<? extends Path> getNew() {//TODO
-        return knownPaths;        
+    public Collection<? extends Path> getNew() {
+        if(lastGottenId == null) {
+            return knownPaths;     
+        } else {
+            return knownPaths.subList(lastGottenId+1, knownPaths.size()-1);
+        }  
     }
-
+    
+    @Override
+    public FileVisitResult visitFile(Path file, BasicFileAttributes attrs) throws IOException {
+        if(!Files.isRegularFile(file, LinkOption.NOFOLLOW_LINKS)) {
+            System.err.println("DEBUG: Image directory contains a non-regular file!");
+            return FileVisitResult.CONTINUE;
+        }
+        
+        if(knownPaths.contains(file)) {
+            return FileVisitResult.CONTINUE;
+        }
+        else {
+            ImageFile iFile = new ImageFile(file);
+            ImageQueue.getQueue().add(iFile);
+            knownPaths.add(file);
+            return FileVisitResult.CONTINUE;
+        }
+    }
+        
 }
