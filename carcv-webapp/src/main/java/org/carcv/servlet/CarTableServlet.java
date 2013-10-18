@@ -79,7 +79,7 @@ public class CarTableServlet extends HttpServlet {
 			// initialize
 			date = dateFormat.format(e.getData().getTimestamp());
 			time = timeFormat.format(e.getData().getTimestamp());
-			licencePlate = e.getData().getLicencePlate().getOrigin() + " - "
+			licencePlate = e.getData().getLicencePlate().getOrigin() + ": "
 					+ e.getData().getLicencePlate().getText();
 			location = e.getData().getLocation().print();
 			videoURL = e.getData().getVideo().getURL();
@@ -96,7 +96,7 @@ public class CarTableServlet extends HttpServlet {
 			out.println("<td><a href=\"" + videoURL
 					+ "\" target=\"_top\">View video</a></td>");
 			out.println("<td><a href=\"" + previewURL
-					+ "\" target=\"_top\">View pictures</a></td>");
+					+ "\" target=\"_top\">View preview</a></td>");
 			out.println("<td><a href=\"" + "/servlet/GenerateReport?entry_id=" + e.getId()
 					+ "\" target=\"_top\">Generate report</a></td>");
 			out.println("</tr>");
