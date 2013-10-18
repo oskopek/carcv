@@ -8,7 +8,8 @@ body {
 
 body {
 	min-width: 960px;
-	min-height: 600px
+	min-height: 600px;
+	overflow: hidden;
 }
 
 body {
@@ -18,7 +19,8 @@ body {
 body {
 	margin-top: 0px;
 	margin-left: 0px;
-	margin-right: 0px
+	margin-right: 0px;
+	overflow: hidden;
 }
 
 body {
@@ -37,7 +39,8 @@ body {
 	padding-top: 10px;
 	padding-bottom: 10px;
 	border: 1px ridge #b0c4de;
-	background-color: #b0c4de
+	background-color: #b0c4de;
+	overflow: hidden;
 }
 
 #center-norm {
@@ -49,7 +52,8 @@ body {
 	border-radius: 10px;
 	padding: 1%;
 	border: 5px solid #b0c4de;
-	background-color: #f0f8ff
+	background-color: #f0f8ff;
+	overflow: hidden;
 }
 
 #center-login {
@@ -60,7 +64,8 @@ body {
 	border-radius: 5px;
 	padding: 1%;
 	border: 5px solid #b0c4de;
-	background-color: #f0f8ff
+	background-color: #f0f8ff;
+	overflow: hidden;
 }
 
 #footer {
@@ -70,7 +75,8 @@ body {
 	padding: 1%;
 	height: 15px;
 	border: 1px ridge #b0c4de;
-	background-color: #b0c4de
+	background-color: #b0c4de;
+	overflow: hidden;
 }
 
 #panel {
@@ -83,5 +89,6 @@ body {
 	padding: 1%;
 	border: 5px solid #b0c4de;
 	background-color: #f0f8ff;
-	font-size: 12pt;
+	font-size: 12pt;;
+	overflow: hidden;
 }
