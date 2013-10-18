@@ -29,6 +29,16 @@ body {
 	font-variant: normal;
 }
 
+table {
+    table-layout: fixed;
+}
+
+td {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
 #header {
 	position: absolute;
 	top: 0px;
@@ -50,13 +60,13 @@ body {
 	width: 79.7%;
 	
 	/* Firefox */
-	width: -moz-calc(100% - 135px);
+	height: -moz-calc(100% - 135px);
 	/* WebKit */
-	width: -webkit-calc(100% - 135px);
+	height: -webkit-calc(100% - 135px);
 	/* Opera */
-	width: -o-calc(100% - 135px);
+	height: -o-calc(100% - 135px);
 	/* Standard */
-	width: calc(100% - 135px);
+	height: calc(100% - 135px);
 	
 	border-radius: 10px;
 	padding: 1%;
@@ -95,13 +105,13 @@ body {
 	width: 15%;
 	
 	/* Firefox */
-	width: -moz-calc(100% - 135px);
+	height: -moz-calc(100% - 135px);
 	/* WebKit */
-	width: -webkit-calc(100% - 135px);
+	height: -webkit-calc(100% - 135px);
 	/* Opera */
-	width: -o-calc(100% - 135px);
+	height: -o-calc(100% - 135px);
 	/* Standard */
-	width: calc(100% - 135px);
+	height: calc(100% - 135px);
 	
 	border-radius: 10px;
 	padding: 1%;
