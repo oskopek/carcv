@@ -19,7 +19,7 @@
 
 <body>
 	<div id="header">
-		<a href="http://www.opencv.org" target="_top"><img
+		<a href="/" target="_top"><img
 			src="/resources/opencv-logo.png" width="150"
 			style="border: 0; margin-top: 5px; margin-bottom: 5px; text-align: left; position: relative; top: -10px"
 			alt="OpenCV" /></a>
@@ -51,8 +51,7 @@
 			</tr>
 			<tr>
 				<td><a href="/" target="_top"
-					style="position: absolute; left: 7%; text-decoration: none">Account
-						administration</a><br></td>
+					style="position: absolute; left: 7%; text-decoration: none">Admin</a><br></td>
 			</tr>
 			<tr>
 				<td><a href="/servlet/LogoutServlet" target="_top"

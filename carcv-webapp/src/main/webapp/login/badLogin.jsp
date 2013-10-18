@@ -13,7 +13,7 @@
 
 <body>
 	<div id="header">
-		<a href="opencv.org" target="_top"><img
+		<a href="/" target="_top"><img
 			src="/resources/opencv-logo.png" width="150"
 			style="border: 0; margin-top: 5px; margin-bottom: 5px; text-align: left; position: relative; top: -10px"
 			alt="OpenCV" /></a>
