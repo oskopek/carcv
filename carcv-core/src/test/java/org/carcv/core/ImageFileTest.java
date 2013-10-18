@@ -43,16 +43,17 @@ public class ImageFileTest {
      * @throws java.lang.Exception
      */
     @After
-    public void tearDown() {
+    public void tearDown() {        
         filepath = null;
         file.close();
     }
 
     /**
      * Test method for {@link org.carcv.core.ImageFile#ImageFile(java.nio.file.Path)}.
+     * @throws IOException 
      */
     @Test
-    public void testImageFile() {
+    public void testImageFile() throws IOException {
         
         Path tmpFile = null;
         try {
@@ -68,13 +69,13 @@ public class ImageFileTest {
         
         try {
             iFile.loadImage();
-        } catch (Exception e) {
-            System.err.println(e.getMessage() + " - this is expected");
-            
+        } catch (final Exception e) {
+            //System.err.println(e.getMessage() + " - this is expected");
         }
         
         assertNotNull(iFile);
         assertNull(iFile.getBufImage());
+        assertTrue(Files.deleteIfExists(tmpFile));
     }
 
     /**
@@ -105,9 +106,10 @@ public class ImageFileTest {
 
     /**
      * Test method for {@link org.carcv.core.ImageFile#close()}.
+     * @throws IOException 
      */
     @Test
-    public void testCloseNonLoaded() {
+    public void testCloseNonLoaded() throws IOException {
         Path tmpFile = null;
         try {
             tmpFile = Files.createTempFile("imageFile", ".carcv.jpg");
@@ -124,13 +126,16 @@ public class ImageFileTest {
         assertNotNull(iFile);
         assertNotNull(iFile.getFilepath());
         assertNull(iFile.getBufImage());
+        
+        assertTrue(Files.deleteIfExists(tmpFile));
     }
     
     /**
      * Test method for {@link org.carcv.core.ImageFile#close()}.
+     * @throws IOException 
      */
     @Test
-    public void testCloseLoadedNonExisting() {
+    public void testCloseLoadedNonExisting() throws IOException {
         Path tmpFile = null;
         try {
             tmpFile = Files.createTempFile("imageFile", ".carcv.jpg");
@@ -145,8 +150,8 @@ public class ImageFileTest {
         
         try {
             iFile.loadImage();
-        } catch (Exception e) {
-            System.err.println(e.getMessage() + " - this is expected");
+        } catch (final Exception e) {
+            //System.err.println(e.getMessage() + " - this is expected");
             
         }
         assertNotNull(iFile);
@@ -156,6 +161,8 @@ public class ImageFileTest {
         assertNotNull(iFile);
         assertNotNull(iFile.getFilepath());
         assertNull(iFile.getBufImage());
+        
+        assertTrue(Files.deleteIfExists(tmpFile));
     }
     
     /**
