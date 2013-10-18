@@ -88,7 +88,7 @@ public class FileDiscoverer extends SimpleFileVisitor<Path> { //TODO: test every
     /**
      * @return the filed
      */
-    final public static FileDiscoverer getFileDiscoverer() {
+    final public static FileDiscoverer getFileDiscoverer() throws IllegalStateException {
         if(fileDiscoverer == null) {
             throw new IllegalStateException("Static FileDiscoverer.fileDiscoverer isn't initialized! Use FileDiscoverer.init()");
         }
