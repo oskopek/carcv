@@ -30,8 +30,8 @@
 
 	<div id="center-login">
 		<form method="post" target="_top" action="j_security_check">
-			Username: <input type="text" name="j_username"><br>
-			Password: <input type="password" name="j_password"><br>
+			<p>Username:<input type="text" name="j_username"></p><br>
+			<p>Password: <input type="password" name="j_password"></p><br>
 			<input type="checkbox" name="stay-signed" value="stay-signed">Keep
 			me logged in<br> <br> <input type="submit"
 				style="position: relative; left: 25%;" value="Login">
