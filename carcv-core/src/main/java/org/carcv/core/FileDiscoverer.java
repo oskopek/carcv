@@ -16,30 +16,32 @@ import java.nio.file.Path;
 import java.nio.file.SimpleFileVisitor;
 import java.nio.file.attribute.BasicFileAttributes;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 
 /**
  * @author oskopek
  * 
  */
-public class FileDiscoverer extends SimpleFileVisitor<Path> { //TODO: test everything
+public class FileDiscoverer extends SimpleFileVisitor<Path> {
 
-    private static FileDiscoverer fileDiscoverer;
+    //private static FileDiscoverer fileDiscoverer;
 
-    private Path baseDirectory;
+    final private Path baseDirectory;
 
-    private List<Path> knownPaths;
+    final private List<Path> knownPaths;
+    
+    final private ImageQueue queue;
 
-    private Integer lastGottenIndex = -1;
+    //private Integer lastGottenIndex = -1;
 
     /**
      * 
      */
-    public FileDiscoverer(Path baseDirectory) {
+    public FileDiscoverer(Path baseDirectory, final ImageQueue queue) {
         this.baseDirectory = baseDirectory;
         this.knownPaths = new ArrayList<>();
-        this.lastGottenIndex = -1;
+        //this.lastGottenIndex = -1;
+        this.queue = queue;
     }
 
     /**
@@ -83,14 +85,13 @@ public class FileDiscoverer extends SimpleFileVisitor<Path> { //TODO: test every
         }
         return null;
     }
-
+    
+    /*
     public static void init(Path basedir) {
         fileDiscoverer = new FileDiscoverer(basedir);
     }
 
-    /**
-     * @return the filed
-     */
+    
     final public static FileDiscoverer getFileDiscoverer() throws IllegalStateException {
         if (fileDiscoverer == null) {
             throw new IllegalStateException(
@@ -98,6 +99,7 @@ public class FileDiscoverer extends SimpleFileVisitor<Path> { //TODO: test every
         }
         return fileDiscoverer;
     }
+    */
 
     /**
      * @return the baseDirectory
@@ -106,18 +108,11 @@ public class FileDiscoverer extends SimpleFileVisitor<Path> { //TODO: test every
         return baseDirectory;
     }
 
-    /**
-     * @param baseDirectory
-     *            the baseDirectory to set
-     */
-    public void setBaseDirectory(Path baseDirectory) {
-        this.baseDirectory = baseDirectory;
-    }
-
     public void discover() throws IOException {
         Files.walkFileTree(baseDirectory, this);
     }
 
+    /*
     public Collection<Path> getNew() {
         List<Path> newPaths = knownPaths.subList(lastGottenIndex + 1, knownPaths.size());
         lastGottenIndex = knownPaths.size() - 1;
@@ -131,6 +126,13 @@ public class FileDiscoverer extends SimpleFileVisitor<Path> { //TODO: test every
         
         return result;
 
+    }*/
+
+    /**
+     * @return the queue
+     */
+    public ImageQueue getQueue() {
+        return queue;
     }
 
     @Override
@@ -144,7 +146,7 @@ public class FileDiscoverer extends SimpleFileVisitor<Path> { //TODO: test every
             return FileVisitResult.CONTINUE;
         } else {
             ImageFile iFile = new ImageFile(file);
-            ImageQueue.getQueue().add(iFile);
+            queue.add(iFile);
             knownPaths.add(file);
             return FileVisitResult.CONTINUE;
         }

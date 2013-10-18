@@ -23,7 +23,7 @@ public class ImageQueue extends AbstractCollection<ImageFile> implements Seriali
      */
     private static final long serialVersionUID = -4341878508265409797L;
     
-    private static ImageQueue imageQueue;
+    //private static ImageQueue imageQueue;
     
     private ArrayDeque<ImageFile> queue;
     
@@ -40,6 +40,7 @@ public class ImageQueue extends AbstractCollection<ImageFile> implements Seriali
         queue = new ArrayDeque<>(c);
     }
     
+    /*
     public static ImageQueue getQueue() {
         if(imageQueue == null) {
             imageQueue = new ImageQueue();
@@ -47,7 +48,7 @@ public class ImageQueue extends AbstractCollection<ImageFile> implements Seriali
             
         return ImageQueue.imageQueue;
     }
-    
+    */
     
     @Override
     public void addFirst(ImageFile e) {

@@ -15,7 +15,6 @@ import java.nio.file.attribute.BasicFileAttributes;
 import java.nio.file.attribute.FileAttribute;
 import java.nio.file.attribute.PosixFilePermission;
 import java.nio.file.attribute.PosixFilePermissions;
-import java.util.List;
 import java.util.Set;
 import java.util.TreeSet;
 
@@ -32,6 +31,8 @@ public class FileDiscovererTest {
     Path rootPath;
 
     private FileDiscoverer fileDiscoverer;
+    
+    private ImageQueue queue;
 
     private FileAttribute<Set<PosixFilePermission>> permissions;
 
@@ -40,9 +41,11 @@ public class FileDiscovererTest {
      */
     @Before
     public void setUp() throws Exception {
+        queue = new ImageQueue();
+        
         rootPath = Files.createTempDirectory("fileDiscovererTestDir");
 
-        fileDiscoverer = new FileDiscoverer(rootPath);
+        fileDiscoverer = new FileDiscoverer(rootPath, queue);
 
         TreeSet<PosixFilePermission> permissions = new TreeSet<>();
         PosixFilePermission[] perms = PosixFilePermission.values();
@@ -72,7 +75,7 @@ public class FileDiscovererTest {
      */
     @Test
     public void testFileDiscoverer() {
-        FileDiscoverer d = new FileDiscoverer(rootPath);
+        FileDiscoverer d = new FileDiscoverer(rootPath, queue);
 
         assertNotNull(d);
         assertNotNull(d.getBaseDirectory());
@@ -93,6 +96,7 @@ public class FileDiscovererTest {
     /**
      * Test method for {@link org.carcv.core.FileDiscoverer#getFileDiscoverer()}.
      */
+    /*
     @Test
     public void testGetFileDiscoverer() {
         FileDiscoverer test = null;
@@ -110,6 +114,7 @@ public class FileDiscovererTest {
         assertNotNull(test.getBaseDirectory());
         assertNotNull(FileDiscoverer.getFileDiscoverer());
     }
+    */
 
     /**
      * Test method for {@link org.carcv.core.FileDiscoverer#discover()}.
@@ -119,30 +124,33 @@ public class FileDiscovererTest {
     @Test
     public void testFileDiscovery() throws IOException {
         assertNotNull(fileDiscoverer);
-        System.out.println(rootPath);
+        //System.out.println("FileDiscovery dir: " + rootPath); /* {@link org.carcv.core.FileDiscovererTest#tearDown()} */
 
-        Path newFile = Files.createTempFile(rootPath, "testFileDiscovery", ".carcv.jpg", permissions);
-        assertNotNull(newFile);
-        System.out.println(newFile);
+        Path newFile1 = Files.createTempFile(rootPath, "testFileDiscovery", ".carcv.jpg", permissions);
+        assertNotNull(newFile1);
+        //System.out.println(newFile1); /* {@link org.carcv.core.FileDiscovererTest#tearDown()} */
 
         fileDiscoverer.discover();
 
-        List<Path> newList = (List<Path>) fileDiscoverer.getNew();
-        assertNotNull(newList);
-        assertEquals(1, newList.size());
+        ImageFile newPath1 = queue.poll();
+        assertNotNull(newPath1);
+        assertNotNull(newPath1.getFilepath());
+        assertNull(newPath1.getBufImage());
 
         Path newFile2 = Files.createTempFile(rootPath, "testFileDiscovery", ".carcv.jpg", permissions);
         assertNotNull(newFile2);
-        System.out.println(newFile2);
+        //System.out.println(newFile2);  /* {@link org.carcv.core.FileDiscovererTest#tearDown()} */
 
         fileDiscoverer.discover();
 
-        List<Path> newList2 = (List<Path>) fileDiscoverer.getNew();
-        assertNotNull(newList2);
-        assertEquals(1, newList2.size());
+        ImageFile newPath2 = queue.poll();
+        assertNotNull(newPath2);
+        assertNotNull(newPath2.getFilepath());
+        assertNull(newPath2.getBufImage());
 
-        assertNotEquals(newList, newList2);
-        assertNotEquals(newFile, newFile2);
+        assertNotEquals(newPath1, newPath2);
+        assertNotEquals(newPath1.getFilepath(), newPath2.getFilepath());
+        assertNotEquals(newFile1, newFile2);
     }
 
     private static void deleteDirectory(Path path) throws IOException {
