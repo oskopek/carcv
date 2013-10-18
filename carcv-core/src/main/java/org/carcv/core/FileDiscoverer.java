@@ -22,7 +22,7 @@ import java.util.List;
  * @author oskopek
  *
  */
-public class FileDiscoverer extends SimpleFileVisitor<Path> { //TODO: finish
+public class FileDiscoverer extends SimpleFileVisitor<Path> { //TODO: test everything
     
     private static FileDiscoverer fileDiscoverer;
     
