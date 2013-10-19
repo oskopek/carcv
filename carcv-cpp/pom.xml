@@ -3,8 +3,13 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>org.carcv.cpp</groupId>
 	<artifactId>carcv-cpp</artifactId>
-	<version>master</version>
 	<name>CarCV C++</name>
+
+	<parent>
+		<groupId>org.carcv</groupId>
+		<artifactId>carcv</artifactId>
+		<version>1.0.0.Alpha1-SNAPSHOT</version>
+	</parent>
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>

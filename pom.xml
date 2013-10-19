@@ -3,9 +3,14 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>org.carcv</groupId>
 	<artifactId>carcv</artifactId>
-	<version>master</version>
+	<version>1.0.0.Alpha1-SNAPSHOT</version>
 	<packaging>pom</packaging>
 	<name>CarCV</name>
+
+	<modules>
+		<module>carcv-core</module>
+		<module>carcv-webapp</module>
+	</modules>
 
 	<profiles>
 		<profile>
@@ -20,13 +25,6 @@
 			<modules>
 				<module>carcv-webapp</module>
 			</modules>
-			<!-- TODO: this may cause trouble because of reactor build order -->
-			<!-- <build> <plugins> <plugin> <artifactId>maven-clean-plugin</artifactId> 
-				<version>2.5</version> <configuration> <followSymLinks>false</followSymLinks> 
-				<filesets> <fileset> <directory>deployments</directory> </fileset> </filesets> 
-				</configuration> <executions> <execution> <id>default-clean</id> <phase>clean</phase> 
-				<goals> <goal>clean</goal> </goals> </execution> </executions> </plugin> 
-				</plugins> </build> -->
 		</profile>
 
 		<profile>
@@ -55,7 +53,7 @@
 		</profile>
 
 		<profile>
-			<id>web</id>
+			<id>webapp</id>
 			<modules>
 				<module>carcv-webapp</module>
 			</modules>

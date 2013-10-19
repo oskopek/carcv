@@ -5,8 +5,14 @@
 	<groupId>org.carcv.webapp</groupId>
 	<packaging>war</packaging>
 	<name>CarCV WebApp</name>
-	<version>master</version>
 	<artifactId>carcv-webapp</artifactId>
+
+
+	<parent>
+		<groupId>org.carcv</groupId>
+		<artifactId>carcv</artifactId>
+		<version>1.0.0.Alpha1-SNAPSHOT</version>
+	</parent>
 
 	<prerequisites>
 		<maven>2.2.1</maven>
