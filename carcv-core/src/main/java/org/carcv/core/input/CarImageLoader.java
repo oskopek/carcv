@@ -7,6 +7,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.carcv.core.model.AbstractCarImage;
+
 /**
  * Need to override init method, to initialize <code>discoverer</code> and <code>queue</code>
  * variables
@@ -16,7 +18,7 @@ import java.util.List;
  */
 public abstract class CarImageLoader {
 
-    private Discoverer<ImageQueue<CarImage>> discoverer;
+    private Discoverer<ImageQueue<AbstractCarImage>> discoverer;
 
     /**
      * Doesn't try to discover new elements
@@ -24,11 +26,11 @@ public abstract class CarImageLoader {
      * @return
      * @throws IOException
      */
-    public List<? extends CarImage> getBatch() throws IOException {
+    public List<? extends AbstractCarImage> getBatch() throws IOException {
 
         discoverer.discover();
 
-        List<CarImage> list = new ArrayList<>();
+        List<AbstractCarImage> list = new ArrayList<>();
 
         while (!discoverer.getQueue().isEmpty()) {
             list.add(discoverer.getQueue().poll());
@@ -42,9 +44,9 @@ public abstract class CarImageLoader {
      * 
      * @return
      */
-    public List<? extends CarImage> getBatchNoDiscover() {
+    public List<? extends AbstractCarImage> getBatchNoDiscover() {
 
-        List<CarImage> list = new ArrayList<>();
+        List<AbstractCarImage> list = new ArrayList<>();
 
         while (!discoverer.getQueue().isEmpty()) {
             list.add(discoverer.getQueue().poll());

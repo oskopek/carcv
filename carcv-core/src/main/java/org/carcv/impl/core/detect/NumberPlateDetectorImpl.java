@@ -4,7 +4,7 @@
 package org.carcv.impl.core.detect;
 
 import org.carcv.core.detect.NumberPlateDetector;
-import org.carcv.core.input.CarImage;
+import org.carcv.core.model.AbstractCarImage;
 
 /**
  * @author oskopek
@@ -13,12 +13,12 @@ import org.carcv.core.input.CarImage;
 public class NumberPlateDetectorImpl implements NumberPlateDetector {
 
     @Override
-    public String detect(final CarImage image) {
+    public String detect(final AbstractCarImage image) {
         return detectPlate(image);
     }
 
     @Override
-    public String detectPlate(final CarImage image) {
+    public String detectPlate(final AbstractCarImage image) {
         // TODO number plate detector implementation
         return null;
     }

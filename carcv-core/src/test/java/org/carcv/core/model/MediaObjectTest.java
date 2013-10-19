@@ -7,8 +7,8 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertTrue;
 
-import org.carcv.core.model.MediaObject;
 import org.carcv.core.model.MediaType;
+import org.carcv.impl.core.model.MediaObject;
 import org.junit.Test;
 
 /**
@@ -18,7 +18,7 @@ import org.junit.Test;
 public class MediaObjectTest {
 
 	/**
-	 * Test method for {@link org.carcv.core.model.MediaObject#hashCode()}.
+	 * Test method for {@link org.carcv.impl.core.model.MediaObject#hashCode()}.
 	 */
 	@Test
 	public void testHashCode() {
@@ -35,7 +35,7 @@ public class MediaObjectTest {
 
 	/**
 	 * Test method for
-	 * {@link org.carcv.core.model.MediaObject#equals(java.lang.Object)}.
+	 * {@link org.carcv.impl.core.model.MediaObject#equals(java.lang.Object)}.
 	 */
 	@Test
 	public void testEqualsObject() {
