@@ -1,0 +1,1 @@
+* Fix Entity not found error in all Beans

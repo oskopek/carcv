@@ -8,7 +8,7 @@
 	<parent>
 		<groupId>org.carcv</groupId>
 		<artifactId>carcv</artifactId>
-		<version>${version.carcv}</version>
+		<version>1.0.0.Alpha1-SNAPSHOT</version>
 	</parent>
 
 	<properties>

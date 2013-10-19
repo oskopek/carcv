@@ -3,7 +3,8 @@
  */
 package org.carcv.web.persistence;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 
 import java.io.File;
 import java.util.Date;
@@ -12,12 +13,17 @@ import javax.ejb.EJB;
 
 import org.carcv.core.model.MediaType;
 import org.carcv.core.model.SpeedUnit;
-import org.carcv.impl.core.model.*;
+import org.carcv.impl.core.model.Address;
+import org.carcv.impl.core.model.CarData;
+import org.carcv.impl.core.model.Entry;
+import org.carcv.impl.core.model.MediaObject;
+import org.carcv.impl.core.model.NumberPlate;
+import org.carcv.impl.core.model.Speed;
 import org.carcv.web.beans.AddressBean;
 import org.carcv.web.beans.CarDataBean;
 import org.carcv.web.beans.EntryBean;
-import org.carcv.web.beans.NumberPlateBean;
 import org.carcv.web.beans.MediaObjectBean;
+import org.carcv.web.beans.NumberPlateBean;
 import org.carcv.web.beans.SpeedBean;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
