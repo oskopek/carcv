@@ -53,7 +53,7 @@ public class BasicReportGeneratorTest {
 
 	/**
 	 * Test method for
-	 * {@link org.carcv.web.reports.BasicReportGenerator#buildPDFReport(org.carcv.core.model.Entry, java.lang.String, java.lang.String, java.lang.String)}
+	 * {@link org.carcv.web.reports.BasicReportGenerator#buildPDFReport(org.carcv.impl.core.model.Entry, java.lang.String, java.lang.String, java.lang.String)}
 	 * .
 	 * 
 	 * @throws JRException

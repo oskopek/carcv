@@ -10,13 +10,9 @@ import java.util.Date;
 
 import javax.ejb.EJB;
 
-import org.carcv.core.model.*;
-import org.carcv.impl.core.model.Address;
-import org.carcv.impl.core.model.CarData;
-import org.carcv.impl.core.model.Entry;
-import org.carcv.impl.core.model.MediaObject;
-import org.carcv.impl.core.model.NumberPlate;
-import org.carcv.impl.core.model.Speed;
+import org.carcv.core.model.MediaType;
+import org.carcv.core.model.SpeedUnit;
+import org.carcv.impl.core.model.*;
 import org.carcv.web.beans.AddressBean;
 import org.carcv.web.beans.CarDataBean;
 import org.carcv.web.beans.EntryBean;
