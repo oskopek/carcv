@@ -11,10 +11,16 @@ import java.util.Date;
 import javax.ejb.EJB;
 
 import org.carcv.core.model.*;
+import org.carcv.impl.core.model.Address;
+import org.carcv.impl.core.model.CarData;
+import org.carcv.impl.core.model.Entry;
+import org.carcv.impl.core.model.MediaObject;
+import org.carcv.impl.core.model.NumberPlate;
+import org.carcv.impl.core.model.Speed;
 import org.carcv.web.beans.AddressBean;
 import org.carcv.web.beans.CarDataBean;
 import org.carcv.web.beans.EntryBean;
-import org.carcv.web.beans.LicencePlateBean;
+import org.carcv.web.beans.NumberPlateBean;
 import org.carcv.web.beans.MediaObjectBean;
 import org.carcv.web.beans.SpeedBean;
 import org.jboss.arquillian.container.test.api.Deployment;
@@ -58,7 +64,7 @@ public class PersistenceIT {
     @EJB
     private CarDataBean carDataBean;
     @EJB
-    private LicencePlateBean licencePlateBean;
+    private NumberPlateBean numberPlateBean;
     @EJB
     private MediaObjectBean mediaObjectBean;
     @EJB
@@ -69,46 +75,43 @@ public class PersistenceIT {
     @Test
     public void persistenceTest() {
      // Entity code
-        MediaObject preview = new MediaObject("reports/OpenCV_Logo_with_text.png", MediaType.PNG);
 
         Speed speed = new Speed(80d, SpeedUnit.KPH);
 
         Address address = new Address("Myjava", "90701", "Jablonská",
                 "Slovakia", 27, 860);
 
-        LicencePlate licencePlate = new LicencePlate("MY-077AU", "SK");
+        NumberPlate licencePlate = new NumberPlate("MY-077AU", "SK");
 
         Date timestamp = new Date(System.currentTimeMillis());
 
         MediaObject video = new MediaObject("http://test.com/video.h264",
                 MediaType.H264);
 
-        CarData carData = new CarData(speed, address, licencePlate, timestamp,
-                video);
+        CarData carData = new CarData(speed, address, licencePlate, timestamp);
 
-        Entry entry = new Entry(carData, preview);
+        Entry entry = new Entry(carData, video);
         
         // End entity code
         
         assertNotNull(addressBean);
-        assertNotNull(licencePlateBean);
+        assertNotNull(numberPlateBean);
         assertNotNull(mediaObjectBean);
         assertNotNull(speedBean);
         assertNotNull(carDataBean);
         assertNotNull(entryBean);
         
         addressBean.create(address);
-        licencePlateBean.create(licencePlate);
-        mediaObjectBean.create(preview, video);
+        numberPlateBean.create(licencePlate);
+        mediaObjectBean.create(video);
         speedBean.create(speed);
         carDataBean.create(carData);
         entryBean.create(entry);
         
-        assertEquals(preview, mediaObjectBean.getAll().get(0));
-        assertEquals(video, mediaObjectBean.getAll().get(1));
+        assertEquals(video, mediaObjectBean.getAll().get(0));
         assertEquals(speed, speedBean.getAll().get(0));
         assertEquals(address, addressBean.getAll().get(0));
-        assertEquals(licencePlate, licencePlateBean.getAll().get(0));
+        assertEquals(licencePlate, numberPlateBean.getAll().get(0));
         
         CarData gotCarData = carDataBean.getAll().get(0);
         

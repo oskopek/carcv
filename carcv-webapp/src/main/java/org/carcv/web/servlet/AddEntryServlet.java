@@ -11,13 +11,13 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.carcv.core.model.Address;
-import org.carcv.core.model.CarData;
-import org.carcv.core.model.Entry;
-import org.carcv.core.model.LicencePlate;
-import org.carcv.core.model.MediaObject;
+import org.carcv.impl.core.model.Address;
+import org.carcv.impl.core.model.CarData;
+import org.carcv.impl.core.model.Entry;
+import org.carcv.impl.core.model.NumberPlate;
+import org.carcv.impl.core.model.MediaObject;
 import org.carcv.core.model.MediaType;
-import org.carcv.core.model.Speed;
+import org.carcv.impl.core.model.Speed;
 import org.carcv.core.model.SpeedUnit;
 import org.carcv.web.beans.*;
 /**
@@ -32,7 +32,7 @@ public class AddEntryServlet extends HttpServlet {
 	@EJB
 	private CarDataBean carDataBean;
 	@EJB
-	private LicencePlateBean licencePlateBean;
+	private NumberPlateBean numberPlateBean;
 	@EJB
 	private MediaObjectBean mediaObjectBean;
 	@EJB
@@ -61,31 +61,28 @@ public class AddEntryServlet extends HttpServlet {
     			PrintWriter out = response.getWriter();
     	
     			// Entity code
-    			MediaObject preview = new MediaObject("reports/OpenCV_Logo_with_text.png", MediaType.PNG);
-
     			Speed speed = new Speed(80d, SpeedUnit.KPH);
 
     			Address address = new Address("Myjava", "90701", "Jablonská",
     					"Slovakia", 27, 860);
 
-    			LicencePlate licencePlate = new LicencePlate("MY-077AU", "SK");
+    			NumberPlate licencePlate = new NumberPlate("MY-077AU", "SK");
 
     			Date timestamp = new Date(System.currentTimeMillis());
 
     			MediaObject video = new MediaObject("http://test.com/video.h264",
     					MediaType.H264);
 
-    			CarData carData = new CarData(speed, address, licencePlate, timestamp,
-    					video);
+    			CarData carData = new CarData(speed, address, licencePlate, timestamp);
 
-    			Entry testEntry = new Entry(carData, preview);
+    			Entry testEntry = new Entry(carData, video);
     			
     			// End entity code
     			out.println(testEntry.toString());
     			
     			addressBean.create(address);
-    			licencePlateBean.create(licencePlate);
-    			mediaObjectBean.create(preview, video);
+    			numberPlateBean.create(licencePlate);
+    			mediaObjectBean.create(video);
     			speedBean.create(speed);
     			carDataBean.create(carData);
     			entryBean.create(testEntry);

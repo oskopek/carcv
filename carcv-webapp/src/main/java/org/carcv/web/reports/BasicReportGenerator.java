@@ -21,9 +21,9 @@ import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.data.JRMapCollectionDataSource;
 import net.sf.jasperreports.engine.export.JRPdfExporter;
 
-import org.carcv.core.model.CarData;
-import org.carcv.core.model.Entry;
-import org.carcv.core.model.IAddress;
+import org.carcv.core.model.AbstractAddress;
+import org.carcv.core.model.AbstractCarData;
+import org.carcv.impl.core.model.Entry;
 
 /**
  * @author oskopek
@@ -40,7 +40,7 @@ public class BasicReportGenerator {
 		Map<String, Object> values = new HashMap<String, Object>();
 		Map<String, Object> parameters = new HashMap<String, Object>();
 
-		CarData data = e.getData();
+		AbstractCarData data = e.getCarData();
 
 		DateFormat dateFormat = new SimpleDateFormat("dd. MM. yyyy");
 		DateFormat timeFormat = new SimpleDateFormat("HH:mm");
@@ -53,15 +53,15 @@ public class BasicReportGenerator {
 				dateFormat.format(new Date(System.currentTimeMillis())));
 
 		// data
-		IAddress add = data.getLocation();
+		AbstractAddress add = data.getAddress();
 		String dataLocation = add.print();
 
 		// parameters.put("id", Long.toString(data.getId()));
-		parameters.put("previewURL", e.getPreview().getURL());
+		parameters.put("previewURL", e.getVideo().getURL());
 		parameters.put("date", dateFormat.format(data.getTimestamp()));
 		parameters.put("location", dataLocation);
-		parameters.put("LPNumber", data.getLicencePlate().getText());
-		parameters.put("videoURL", data.getVideo().getURL());
+		parameters.put("LPNumber", data.getNumberPlate().getText());
+		parameters.put("videoURL", e.getVideo().getURL());
 		parameters.put("time", timeFormat.format(data.getTimestamp()));
 		parameters.put("speed", Double.toString(data.getSpeed().getSpeed())
 				+ " " + data.getSpeed().getUnit().toString());

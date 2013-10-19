@@ -9,32 +9,32 @@ import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
-import org.carcv.core.model.LicencePlate;
+import org.carcv.impl.core.model.NumberPlate;
 
 /**
  * @author oskopek
  *
  */
 @Stateless
-public class LicencePlateBean {
+public class NumberPlateBean {
 
 	@PersistenceContext
 	private EntityManager em;
 	
-	public void create(LicencePlate...licenceplates) {
-		for(LicencePlate lp : licenceplates) {
+	public void create(NumberPlate...licenceplates) {
+		for(NumberPlate lp : licenceplates) {
 			em.persist(lp);
 		}
 	}
 	
-	public LicencePlate findById(long id) {
-		return (LicencePlate) em.createQuery("select lp from LicencePlate lp where lp.id = :id")
+	public NumberPlate findById(long id) {
+		return (NumberPlate) em.createQuery("select lp from NumberPlate lp where lp.id = :id")
 				.setParameter("id", id).getSingleResult();
 	}
 	
 	@SuppressWarnings("unchecked")
-	public List<LicencePlate> getAll() {
-		return em.createQuery("select lp from LicencePlate lp")
+	public List<NumberPlate> getAll() {
+		return em.createQuery("select lp from NumberPlate lp")
 				.getResultList();
 	}
 }

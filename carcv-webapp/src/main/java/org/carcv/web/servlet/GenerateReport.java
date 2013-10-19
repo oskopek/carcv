@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import net.sf.jasperreports.engine.JRException;
 
-import org.carcv.core.model.Entry;
+import org.carcv.impl.core.model.Entry;
 import org.carcv.web.beans.EntryBean;
 import org.carcv.web.reports.BasicReportGenerator;
 

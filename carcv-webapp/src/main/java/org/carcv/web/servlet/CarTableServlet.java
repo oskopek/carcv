@@ -13,7 +13,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.carcv.core.model.Entry;
+import org.carcv.impl.core.model.Entry;
 import org.carcv.web.beans.EntryBean;
 
 /**
@@ -77,13 +77,13 @@ public class CarTableServlet extends HttpServlet {
 
 		for (Entry e : entries) {
 			// initialize
-			date = dateFormat.format(e.getData().getTimestamp());
-			time = timeFormat.format(e.getData().getTimestamp());
-			licencePlate = e.getData().getLicencePlate().getOrigin() + ": "
-					+ e.getData().getLicencePlate().getText();
-			location = e.getData().getLocation().print();
-			videoURL = e.getData().getVideo().getURL();
-			previewURL = e.getPreview().getURL();
+			date = dateFormat.format(e.getCarData().getTimestamp());
+			time = timeFormat.format(e.getCarData().getTimestamp());
+			licencePlate = e.getCarData().getNumberPlate().getOrigin() + ": "
+					+ e.getCarData().getNumberPlate().getText();
+			location = e.getCarData().getAddress().print();
+			videoURL = e.getVideo().getURL();
+			previewURL = e.getVideo().getURL();
 
 			// write
 			out.println("<tr>");

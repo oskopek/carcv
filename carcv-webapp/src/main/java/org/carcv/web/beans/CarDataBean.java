@@ -6,7 +6,7 @@ import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
-import org.carcv.core.model.CarData;
+import org.carcv.impl.core.model.CarData;
 
 /**
  * Session Bean implementation class CarDataBean

@@ -9,13 +9,13 @@ import java.util.Date;
 
 import net.sf.jasperreports.engine.JRException;
 
-import org.carcv.core.model.Address;
-import org.carcv.core.model.CarData;
-import org.carcv.core.model.Entry;
-import org.carcv.core.model.LicencePlate;
-import org.carcv.core.model.MediaObject;
+import org.carcv.impl.core.model.Address;
+import org.carcv.impl.core.model.CarData;
+import org.carcv.impl.core.model.Entry;
+import org.carcv.impl.core.model.NumberPlate;
+import org.carcv.impl.core.model.MediaObject;
 import org.carcv.core.model.MediaType;
-import org.carcv.core.model.Speed;
+import org.carcv.impl.core.model.Speed;
 import org.carcv.core.model.SpeedUnit;
 import org.carcv.web.reports.BasicReportGenerator;
 import org.junit.BeforeClass;
@@ -34,25 +34,21 @@ public class BasicReportGeneratorTest {
 	 */
 	@BeforeClass
 	public static void setUpBeforeClass() throws Exception {
-		MediaObject preview = new MediaObject("reports/OpenCV_Logo_with_text.png",
-				MediaType.PNG);
-
 		Speed speed = new Speed(80d, SpeedUnit.KPH);
 
 		Address location = new Address("Myjava", "90701", "Jablonská",
 				"Slovakia", 27, 860);
 
-		LicencePlate licencePlate = new LicencePlate("MY-077AU", "SK");
+		NumberPlate licencePlate = new NumberPlate("MY-077AU", "SK");
 
 		Date timestamp = new Date(System.currentTimeMillis());
 
-		MediaObject video = new MediaObject("http://test.com/video.h264",
+		MediaObject video = new MediaObject("reports/OpenCV_Logo_with_text.png",
 				MediaType.H264);
 
-		CarData carData = new CarData(speed, location, licencePlate, timestamp,
-				video);
+		CarData carData = new CarData(speed, location, licencePlate, timestamp);
 
-		testEntry = new Entry(carData, preview);
+		testEntry = new Entry(carData, video);
 	}
 
 	/**

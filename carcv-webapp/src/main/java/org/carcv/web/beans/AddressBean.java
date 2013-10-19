@@ -9,7 +9,7 @@ import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
-import org.carcv.core.model.Address;
+import org.carcv.impl.core.model.Address;
 
 /**
  * @author oskopek
