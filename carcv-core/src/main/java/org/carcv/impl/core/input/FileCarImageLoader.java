@@ -1,7 +1,7 @@
 /**
  * 
  */
-package org.carcv.core.impl.input;
+package org.carcv.impl.core.input;
 
 import java.io.IOException;
 import java.util.ArrayList;

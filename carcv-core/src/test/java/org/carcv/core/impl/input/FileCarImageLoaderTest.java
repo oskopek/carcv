@@ -32,7 +32,7 @@ public class FileCarImageLoaderTest {
     }
 
     /**
-     * Test method for {@link org.carcv.core.impl.input.FileCarImageLoader#getLoader()}.
+     * Test method for {@link org.carcv.impl.core.input.FileCarImageLoader#getLoader()}.
      */
     @Test
     public void testGetLoader() {
