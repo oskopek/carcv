@@ -11,7 +11,7 @@
 	<parent>
 		<groupId>org.carcv</groupId>
 		<artifactId>carcv</artifactId>
-		<version>${version.carcv}</version>
+		<version>1.0.0.Alpha1-SNAPSHOT</version>
 	</parent>
 
 	<prerequisites>
@@ -93,7 +93,7 @@
 		<dependency>
 			<groupId>org.carcv.core</groupId>
 			<artifactId>carcv-core</artifactId>
-			<version>${version.carcv}</version>
+			<version>1.0.0.Alpha1-SNAPSHOT</version>
 		</dependency>
 		<dependency>
 			<groupId>net.sf.javaanpr</groupId>

@@ -3,7 +3,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>org.carcv</groupId>
 	<artifactId>carcv</artifactId>
-	<version>${version.carcv}</version>
+	<version>1.0.0.Alpha1-SNAPSHOT</version>
 	<packaging>pom</packaging>
 	<name>CarCV</name>
 
@@ -11,10 +11,6 @@
 		<module>carcv-core</module>
 		<module>carcv-webapp</module>
 	</modules>
-	
-	<properties>
-	<version.carcv>1.0.0.Alpha1-SNAPSHOT</version.carcv>
-	</properties>
 
 	<profiles>
 		<profile>
