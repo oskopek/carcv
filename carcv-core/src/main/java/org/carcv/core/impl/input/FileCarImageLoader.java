@@ -3,6 +3,10 @@
  */
 package org.carcv.core.impl.input;
 
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+
 import org.carcv.core.input.CarImageLoader;
 
 
@@ -34,6 +38,32 @@ public final class FileCarImageLoader extends CarImageLoader {
             return null;
         } 
         return loader;
+    }
+    
+    @Override
+    public List<FileCarImage> getBatch() throws IOException {
+
+        discoverer.discover();
+
+        List<FileCarImage> list = new ArrayList<>();
+
+        while (!discoverer.getQueue().isEmpty()) {
+            list.add(discoverer.getQueue().poll());
+        }
+
+        return list;
+    }
+
+    @Override
+    public List<FileCarImage> getBatchNoDiscover() {
+
+        List<FileCarImage> list = new ArrayList<>();
+
+        while (!discoverer.getQueue().isEmpty()) {
+            list.add(discoverer.getQueue().poll());
+        }
+
+        return list;
     }
 
 }

@@ -19,13 +19,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.carcv.core.input.Discoverer;
-import org.carcv.core.input.ImageQueue;
 
 /**
  * @author oskopek
  * 
  */
-public class FileDiscoverer extends SimpleFileVisitor<Path> implements Discoverer<ImageQueue> {
+public class FileDiscoverer extends SimpleFileVisitor<Path> implements Discoverer<FileImageQueue> {
 
     //private static FileDiscoverer fileDiscoverer;
 
@@ -33,14 +32,14 @@ public class FileDiscoverer extends SimpleFileVisitor<Path> implements Discovere
 
     final private List<Path> knownPaths;
     
-    final private ImageQueue queue;
+    final private FileImageQueue queue;
 
     //private Integer lastGottenIndex = -1;
 
     /**
      * 
      */
-    public FileDiscoverer(Path baseDirectory, final ImageQueue queue) {
+    public FileDiscoverer(Path baseDirectory, final FileImageQueue queue) {
         this.baseDirectory = baseDirectory;
         this.knownPaths = new ArrayList<>();
         //this.lastGottenIndex = -1;
@@ -131,11 +130,9 @@ public class FileDiscoverer extends SimpleFileVisitor<Path> implements Discovere
 
     }*/
 
-    /**
-     * @return the queue
-     */
+    
     @Override
-    public ImageQueue getQueue() {
+    public FileImageQueue getQueue() {
         return queue;
     }
 
