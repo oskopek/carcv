@@ -18,9 +18,9 @@ import java.nio.file.attribute.PosixFilePermissions;
 import java.util.Set;
 import java.util.TreeSet;
 
-import org.carcv.core.input.ImageQueue;
 import org.carcv.impl.input.FileDiscoverer;
 import org.carcv.impl.input.FileCarImage;
+import org.carcv.impl.input.FileImageQueue;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -35,7 +35,7 @@ public class FileDiscovererTest {
 
     private FileDiscoverer fileDiscoverer;
     
-    private ImageQueue queue;
+    private FileImageQueue queue;
 
     private FileAttribute<Set<PosixFilePermission>> permissions;
 
@@ -44,7 +44,7 @@ public class FileDiscovererTest {
      */
     @Before
     public void setUp() throws Exception {
-        queue = new ImageQueue();
+        queue = new FileImageQueue();
         
         rootPath = Files.createTempDirectory("fileDiscovererTestDir");
 

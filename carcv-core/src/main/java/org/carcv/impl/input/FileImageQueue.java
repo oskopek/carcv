@@ -1,101 +1,99 @@
 /**
  * 
  */
-package org.carcv.core.input;
+package org.carcv.impl.input;
 
-import java.io.Serializable;
-import java.util.AbstractCollection;
 import java.util.ArrayDeque;
 import java.util.Collection;
-import java.util.Deque;
 import java.util.Iterator;
-import java.util.Queue;
+
+import org.carcv.core.input.ImageQueue;
 
 /**
  * Own object similar to ArrayDeque
  * @author oskopek
  *
- */ //TODO: change to extends ArrayDeque
-public abstract class ImageQueue<T extends CarImage> extends AbstractCollection<T> implements Serializable, Cloneable, Iterable<T>, Collection<T>, Deque<T>, Queue<T> {
+ */
+public class FileImageQueue extends ImageQueue<FileCarImage> {
 
-    
+       
     /**
      * 
      */
-    private static final long serialVersionUID = -88371342806720875L;
+    private static final long serialVersionUID = 385700571714341890L;
     
-    private ArrayDeque<T> queue;
+    private ArrayDeque<FileCarImage> queue;
     
-    public ImageQueue() {
+    public FileImageQueue() {
         queue = new ArrayDeque<>();
     }
     
     
-    public ImageQueue(int numElements) {
+    public FileImageQueue(int numElements) {
         queue = new ArrayDeque<>(numElements);
     }
     
-    public ImageQueue(Collection<? extends T> c) {
+    public FileImageQueue(Collection<? extends FileCarImage> c) {
         queue = new ArrayDeque<>(c);
     }
     
-    @Override
-    public void addFirst(T e) {
+    //@Override
+    public void addFirst(FileCarImage e) {
         queue.addFirst(e);
     }
 
-    @Override
-    public void addLast(T e) {
+    //@Override
+    public void addLast(FileCarImage e) {
         queue.addLast(e);
     }
 
-    @Override
-    public boolean offerFirst(T e) {
+    //@Override
+    public boolean offerFirst(FileCarImage e) {
         return queue.offerFirst(e);
     }
 
-    @Override
-    public boolean offerLast(T e) {
+    //@Override
+    public boolean offerLast(FileCarImage e) {
         return queue.offerLast(e);
     }
 
     @Override
-    public T removeFirst() {
+    public FileCarImage removeFirst() {
         return queue.removeFirst();
     }
 
     @Override
-    public T removeLast() {
+    public FileCarImage removeLast() {
         return queue.removeLast();
     }
 
     @Override
-    public T pollFirst() {
+    public FileCarImage pollFirst() {
         return queue.pollFirst();
     }
 
     @Override
-    public T pollLast() {
+    public FileCarImage pollLast() {
         return queue.pollLast();
     }
 
     @Override
-    public T getFirst() {
+    public FileCarImage getFirst() {
         return queue.getFirst();
     }
 
     @Override
-    public T getLast() {
+    public FileCarImage getLast() {
         return queue.getLast();
     }
 
     @Override
-    public T peekFirst() {
+    public FileCarImage peekFirst() {
         return queue.peekFirst();
     }
 
     @Override
-    public T peekLast() {
+    public FileCarImage peekLast() {
         return queue.peekLast();
     }
 
@@ -109,43 +107,43 @@ public abstract class ImageQueue<T extends CarImage> extends AbstractCollection<
         return queue.removeLastOccurrence(o);
     }
 
-    @Override
-    public boolean offer(T e) {
+    //@Override
+    public boolean offer(FileCarImage e) {
         return queue.offer(e);
     }
 
     @Override
-    public T remove() {
+    public FileCarImage remove() {
         return queue.remove();
     }
 
     @Override
-    public T poll() {
+    public FileCarImage poll() {
         return queue.poll();
     }
 
     @Override
-    public T element() {
+    public FileCarImage element() {
         return queue.element();
     }
 
     @Override
-    public T peek() {
+    public FileCarImage peek() {
         return queue.peek();
     }
 
-    @Override
-    public void push(T e) {
+    //@Override
+    public void push(FileCarImage e) {
         queue.push(e);
     }
 
     @Override
-    public T pop() {
+    public FileCarImage pop() {
         return queue.pop();
     }
 
     @Override
-    public Iterator<T> descendingIterator() {
+    public Iterator<FileCarImage> descendingIterator() {
         return queue.descendingIterator();
     }
 
@@ -170,12 +168,12 @@ public abstract class ImageQueue<T extends CarImage> extends AbstractCollection<
     }
 
     @Override
-    public <T> T[] toArray(T[] a) { //TODO: fix warning
+    public <T> T[] toArray(T[] a) {
         return queue.toArray(a);
     }
 
     @Override
-    public boolean add(T e) {
+    public boolean add(FileCarImage e) {
         return queue.add(e);
     }
 
@@ -190,7 +188,7 @@ public abstract class ImageQueue<T extends CarImage> extends AbstractCollection<
     }
 
     @Override
-    public boolean addAll(Collection<? extends T> c) {
+    public boolean addAll(Collection<? extends FileCarImage> c) {
         return queue.addAll(c);
     }
 
@@ -210,7 +208,7 @@ public abstract class ImageQueue<T extends CarImage> extends AbstractCollection<
     }
 
     @Override
-    public Iterator<T> iterator() {
+    public Iterator<FileCarImage> iterator() {
         return queue.iterator();
     }
 
