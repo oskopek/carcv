@@ -5,12 +5,13 @@
 	<parent>
 		<groupId>org.carcv</groupId>
 		<artifactId>carcv</artifactId>
-		<version>1.0.0.Alpha1-SNAPSHOT</version>
+		<version>${version.carcv}</version>
 	</parent>
 	
 	<groupId>org.carcv.core</groupId>
 	<artifactId>carcv-core</artifactId>
 	<name>CarCV Core</name>
+	
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 	</properties>
