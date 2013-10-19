@@ -1,7 +1,7 @@
 /**
  * 
  */
-package org.carcv.core;
+package org.carcv.core.impl.input;
 
 import static org.junit.Assert.*;
 
@@ -18,6 +18,9 @@ import java.nio.file.attribute.PosixFilePermissions;
 import java.util.Set;
 import java.util.TreeSet;
 
+import org.carcv.core.input.ImageQueue;
+import org.carcv.impl.input.FileDiscoverer;
+import org.carcv.impl.input.FileCarImage;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -71,7 +74,7 @@ public class FileDiscovererTest {
     }
 
     /**
-     * Test method for {@link org.carcv.core.FileDiscoverer#FileDiscoverer(java.nio.file.Path)}.
+     * Test method for {@link org.carcv.impl.input.FileDiscoverer#FileDiscoverer(java.nio.file.Path)}.
      */
     @Test
     public void testFileDiscoverer() {
@@ -83,7 +86,7 @@ public class FileDiscovererTest {
     }
 
     /**
-     * Test method for {@link org.carcv.core.FileDiscoverer#getResourceAsStream(java.lang.String)}.
+     * Test method for {@link org.carcv.impl.input.FileDiscoverer#getResourceAsStream(java.lang.String)}.
      */
     @SuppressWarnings("deprecation")
     @Test
@@ -94,7 +97,7 @@ public class FileDiscovererTest {
     }
 
     /**
-     * Test method for {@link org.carcv.core.FileDiscoverer#getFileDiscoverer()}.
+     * Test method for {@link org.carcv.core.input.FileDiscoverer#getFileDiscoverer()}.
      */
     /*
     @Test
@@ -117,36 +120,36 @@ public class FileDiscovererTest {
     */
 
     /**
-     * Test method for {@link org.carcv.core.FileDiscoverer#discover()}.
+     * Test method for {@link org.carcv.impl.input.FileDiscoverer#discover()}.
      * 
      * @throws IOException
      */
     @Test
     public void testFileDiscovery() throws IOException {
         assertNotNull(fileDiscoverer);
-        //System.out.println("FileDiscovery dir: " + rootPath); /* {@link org.carcv.core.FileDiscovererTest#tearDown()} */
+        //System.out.println("FileDiscovery dir: " + rootPath); /* {@link org.carcv.core.input.FileDiscovererTest#tearDown()} */
 
         Path newFile1 = Files.createTempFile(rootPath, "testFileDiscovery", ".carcv.jpg", permissions);
         assertNotNull(newFile1);
-        //System.out.println(newFile1); /* {@link org.carcv.core.FileDiscovererTest#tearDown()} */
+        //System.out.println(newFile1); /* {@link org.carcv.core.input.FileDiscovererTest#tearDown()} */
 
         fileDiscoverer.discover();
 
-        ImageFile newPath1 = queue.poll();
+        FileCarImage newPath1 = queue.poll();
         assertNotNull(newPath1);
         assertNotNull(newPath1.getFilepath());
-        assertNull(newPath1.getBufImage());
+        assertNull(newPath1.getImage());
 
         Path newFile2 = Files.createTempFile(rootPath, "testFileDiscovery", ".carcv.jpg", permissions);
         assertNotNull(newFile2);
-        //System.out.println(newFile2);  /* {@link org.carcv.core.FileDiscovererTest#tearDown()} */
+        //System.out.println(newFile2);  /* {@link org.carcv.core.input.FileDiscovererTest#tearDown()} */
 
         fileDiscoverer.discover();
 
-        ImageFile newPath2 = queue.poll();
+        FileCarImage newPath2 = queue.poll();
         assertNotNull(newPath2);
         assertNotNull(newPath2.getFilepath());
-        assertNull(newPath2.getBufImage());
+        assertNull(newPath2.getImage());
 
         assertNotEquals(newPath1, newPath2);
         assertNotEquals(newPath1.getFilepath(), newPath2.getFilepath());

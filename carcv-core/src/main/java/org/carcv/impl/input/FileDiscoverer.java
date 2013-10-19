@@ -1,7 +1,7 @@
 /**
  * 
  */
-package org.carcv.core;
+package org.carcv.impl.input;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -18,11 +18,14 @@ import java.nio.file.attribute.BasicFileAttributes;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.carcv.core.input.Discoverer;
+import org.carcv.core.input.ImageQueue;
+
 /**
  * @author oskopek
  * 
  */
-public class FileDiscoverer extends SimpleFileVisitor<Path> {
+public class FileDiscoverer extends SimpleFileVisitor<Path> implements Discoverer<ImageQueue> {
 
     //private static FileDiscoverer fileDiscoverer;
 
@@ -131,6 +134,7 @@ public class FileDiscoverer extends SimpleFileVisitor<Path> {
     /**
      * @return the queue
      */
+    @Override
     public ImageQueue getQueue() {
         return queue;
     }
@@ -145,7 +149,7 @@ public class FileDiscoverer extends SimpleFileVisitor<Path> {
         if (knownPaths.contains(file)) {
             return FileVisitResult.CONTINUE;
         } else {
-            ImageFile iFile = new ImageFile(file);
+            FileCarImage iFile = new FileCarImage(file);
             queue.add(iFile);
             knownPaths.add(file);
             return FileVisitResult.CONTINUE;

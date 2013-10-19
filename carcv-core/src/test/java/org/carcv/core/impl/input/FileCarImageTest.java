@@ -1,7 +1,7 @@
 /**
  * 
  */
-package org.carcv.core;
+package org.carcv.core.impl.input;
 
 import static org.junit.Assert.*;
 
@@ -12,6 +12,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
+import org.carcv.impl.input.FileCarImage;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Ignore;
@@ -21,11 +22,11 @@ import org.junit.Test;
  * @author oskopek
  *
  */
-public class ImageFileTest {
+public class FileCarImageTest {
     
     private Path filepath;
     
-    private ImageFile file;
+    private FileCarImage file;
 
     /**
      * @throws URISyntaxException 
@@ -34,9 +35,9 @@ public class ImageFileTest {
     public void setUp() throws URISyntaxException {
         filepath = Paths.get(getClass().getResource("/img/skoda_oct.jpg").toURI());
         
-        file = new ImageFile(filepath);
+        file = new FileCarImage(filepath);
         assertNotNull(file);
-        assertNull(file.getBufImage());
+        assertNull(file.getImage());
     }
 
     /**
@@ -49,7 +50,7 @@ public class ImageFileTest {
     }
 
     /**
-     * Test method for {@link org.carcv.core.ImageFile#ImageFile(java.nio.file.Path)}.
+     * Test method for {@link org.carcv.impl.input.FileCarImage#ImageFile(java.nio.file.Path)}.
      * @throws IOException 
      */
     @Test
@@ -64,7 +65,7 @@ public class ImageFileTest {
         }
         assertNotNull(tmpFile);
         
-        ImageFile iFile = new ImageFile(tmpFile);        
+        FileCarImage iFile = new FileCarImage(tmpFile);        
         assertNotNull(iFile);
         
         try {
@@ -74,23 +75,23 @@ public class ImageFileTest {
         }
         
         assertNotNull(iFile);
-        assertNull(iFile.getBufImage());
+        assertNull(iFile.getImage());
         assertTrue(Files.deleteIfExists(tmpFile));
     }
 
     /**
-     * Test method for {@link org.carcv.core.ImageFile#loadImage()}.
+     * Test method for {@link org.carcv.impl.input.FileCarImage#loadImage()}.
      * @throws IOException 
      */
     @Test
     public void testLoadImage() throws IOException {
         file.loadImage();
         assertNotNull(file);
-        assertNotNull(file.getBufImage());
+        assertNotNull(file.getImage());
     }
 
     /**
-     * Test method for {@link org.carcv.core.ImageFile#loadFragment(java.awt.Rectangle)}.
+     * Test method for {@link org.carcv.impl.input.FileCarImage#loadFragment(java.awt.Rectangle)}.
      * @throws IOException 
      */
     @Test
@@ -101,11 +102,11 @@ public class ImageFileTest {
         
         file.loadFragment(rect);
         assertNotNull(file);
-        assertNotNull(file.getBufImage());
+        assertNotNull(file.getImage());
     }
 
     /**
-     * Test method for {@link org.carcv.core.ImageFile#close()}.
+     * Test method for {@link org.carcv.impl.input.FileCarImage#close()}.
      * @throws IOException 
      */
     @Test
@@ -119,19 +120,19 @@ public class ImageFileTest {
         }
         assertNotNull(tmpFile);
         
-        ImageFile iFile = new ImageFile(tmpFile);        
+        FileCarImage iFile = new FileCarImage(tmpFile);        
         assertNotNull(iFile);
         
         iFile.close();
         assertNotNull(iFile);
         assertNotNull(iFile.getFilepath());
-        assertNull(iFile.getBufImage());
+        assertNull(iFile.getImage());
         
         assertTrue(Files.deleteIfExists(tmpFile));
     }
     
     /**
-     * Test method for {@link org.carcv.core.ImageFile#close()}.
+     * Test method for {@link org.carcv.impl.input.FileCarImage#close()}.
      * @throws IOException 
      */
     @Test
@@ -145,7 +146,7 @@ public class ImageFileTest {
         }
         assertNotNull(tmpFile);
         
-        ImageFile iFile = new ImageFile(tmpFile);        
+        FileCarImage iFile = new FileCarImage(tmpFile);        
         assertNotNull(iFile);
         
         try {
@@ -155,28 +156,28 @@ public class ImageFileTest {
             
         }
         assertNotNull(iFile);
-        assertNull(iFile.getBufImage());
+        assertNull(iFile.getImage());
         
         iFile.close();
         assertNotNull(iFile);
         assertNotNull(iFile.getFilepath());
-        assertNull(iFile.getBufImage());
+        assertNull(iFile.getImage());
         
         assertTrue(Files.deleteIfExists(tmpFile));
     }
     
     /**
-     * Test method for {@link org.carcv.core.ImageFile#close()}.
+     * Test method for {@link org.carcv.impl.input.FileCarImage#close()}.
      * @throws IOException
      */
     @Test
     public void testCloseLoadedExisting() throws IOException {        
-        ImageFile iFile = new ImageFile(filepath);        
+        FileCarImage iFile = new FileCarImage(filepath);        
         assertNotNull(iFile);
         
         iFile.loadImage();
         assertNotNull(iFile);
-        assertNotNull(iFile.getBufImage());
+        assertNotNull(iFile.getImage());
         
         //BufferedImage loaded = iFile.getBufImage();
         

@@ -1,7 +1,7 @@
 /**
  * 
  */
-package org.carcv.core;
+package org.carcv.core.input;
 
 import java.io.Serializable;
 import java.util.AbstractCollection;
@@ -11,12 +11,14 @@ import java.util.Deque;
 import java.util.Iterator;
 import java.util.Queue;
 
+import org.carcv.impl.input.FileCarImage;
+
 /**
  * Own object similar to ArrayDeque
  * @author oskopek
  *
  */ //TODO: change to extends ArrayDeque
-public class ImageQueue extends AbstractCollection<ImageFile> implements Serializable, Cloneable, Iterable<ImageFile>, Collection<ImageFile>, Deque<ImageFile>, Queue<ImageFile> {
+public class ImageQueue extends AbstractCollection<FileCarImage> implements Serializable, Cloneable, Iterable<FileCarImage>, Collection<FileCarImage>, Deque<FileCarImage>, Queue<FileCarImage> {
 
     /**
      * 
@@ -25,7 +27,7 @@ public class ImageQueue extends AbstractCollection<ImageFile> implements Seriali
     
     //private static ImageQueue imageQueue;
     
-    private ArrayDeque<ImageFile> queue;
+    private ArrayDeque<FileCarImage> queue;
     
     public ImageQueue() {
         queue = new ArrayDeque<>();
@@ -36,7 +38,7 @@ public class ImageQueue extends AbstractCollection<ImageFile> implements Seriali
         queue = new ArrayDeque<>(numElements);
     }
     
-    public ImageQueue(Collection<? extends ImageFile> c) {
+    public ImageQueue(Collection<? extends FileCarImage> c) {
         queue = new ArrayDeque<>(c);
     }
     
@@ -51,62 +53,62 @@ public class ImageQueue extends AbstractCollection<ImageFile> implements Seriali
     */
     
     @Override
-    public void addFirst(ImageFile e) {
+    public void addFirst(FileCarImage e) {
         queue.addFirst(e);
     }
 
     @Override
-    public void addLast(ImageFile e) {
+    public void addLast(FileCarImage e) {
         queue.addLast(e);
     }
 
     @Override
-    public boolean offerFirst(ImageFile e) {
+    public boolean offerFirst(FileCarImage e) {
         return queue.offerFirst(e);
     }
 
     @Override
-    public boolean offerLast(ImageFile e) {
+    public boolean offerLast(FileCarImage e) {
         return queue.offerLast(e);
     }
 
     @Override
-    public ImageFile removeFirst() {
+    public FileCarImage removeFirst() {
         return queue.removeFirst();
     }
 
     @Override
-    public ImageFile removeLast() {
+    public FileCarImage removeLast() {
         return queue.removeLast();
     }
 
     @Override
-    public ImageFile pollFirst() {
+    public FileCarImage pollFirst() {
         return queue.pollFirst();
     }
 
     @Override
-    public ImageFile pollLast() {
+    public FileCarImage pollLast() {
         return queue.pollLast();
     }
 
     @Override
-    public ImageFile getFirst() {
+    public FileCarImage getFirst() {
         return queue.getFirst();
     }
 
     @Override
-    public ImageFile getLast() {
+    public FileCarImage getLast() {
         return queue.getLast();
     }
 
     @Override
-    public ImageFile peekFirst() {
+    public FileCarImage peekFirst() {
         return queue.peekFirst();
     }
 
     @Override
-    public ImageFile peekLast() {
+    public FileCarImage peekLast() {
         return queue.peekLast();
     }
 
@@ -121,42 +123,42 @@ public class ImageQueue extends AbstractCollection<ImageFile> implements Seriali
     }
 
     @Override
-    public boolean offer(ImageFile e) {
+    public boolean offer(FileCarImage e) {
         return queue.offer(e);
     }
 
     @Override
-    public ImageFile remove() {
+    public FileCarImage remove() {
         return queue.remove();
     }
 
     @Override
-    public ImageFile poll() {
+    public FileCarImage poll() {
         return queue.poll();
     }
 
     @Override
-    public ImageFile element() {
+    public FileCarImage element() {
         return queue.element();
     }
 
     @Override
-    public ImageFile peek() {
+    public FileCarImage peek() {
         return queue.peek();
     }
 
     @Override
-    public void push(ImageFile e) {
+    public void push(FileCarImage e) {
         queue.push(e);
     }
 
     @Override
-    public ImageFile pop() {
+    public FileCarImage pop() {
         return queue.pop();
     }
 
     @Override
-    public Iterator<ImageFile> descendingIterator() {
+    public Iterator<FileCarImage> descendingIterator() {
         return queue.descendingIterator();
     }
 
@@ -186,7 +188,7 @@ public class ImageQueue extends AbstractCollection<ImageFile> implements Seriali
     }
 
     @Override
-    public boolean add(ImageFile e) {
+    public boolean add(FileCarImage e) {
         return queue.add(e);
     }
 
@@ -201,7 +203,7 @@ public class ImageQueue extends AbstractCollection<ImageFile> implements Seriali
     }
 
     @Override
-    public boolean addAll(Collection<? extends ImageFile> c) {
+    public boolean addAll(Collection<? extends FileCarImage> c) {
         return queue.addAll(c);
     }
 
@@ -221,7 +223,7 @@ public class ImageQueue extends AbstractCollection<ImageFile> implements Seriali
     }
 
     @Override
-    public Iterator<ImageFile> iterator() {
+    public Iterator<FileCarImage> iterator() {
         return queue.iterator();
     }
 

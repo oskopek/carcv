@@ -1,14 +1,13 @@
 /**
  * 
  */
-package org.carcv.core;
+package org.carcv.impl.input;
 
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.Serializable;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.StandardOpenOption;
@@ -20,24 +19,33 @@ import javax.imageio.stream.ImageInputStream;
 
 import org.apache.commons.lang.builder.EqualsBuilder;
 import org.apache.commons.lang.builder.HashCodeBuilder;
+import org.carcv.core.input.CarImage;
 
 /**
- * Default behavior is to not load an image from path. To load it, use {@link ImageFile#loadImage()}
+ * Default behavior is to not load an image from path. To load it, use {@link FileCarImage#loadImage()}
  * @author oskopek
  * 
  */
-public class ImageFile implements AutoCloseable, Serializable  {
+public class FileCarImage implements CarImage  {
 
     /**
      * 
      */
     private static final long serialVersionUID = 1L;
+    
+    private Long id;
 
-    private BufferedImage bufImage;
+    private BufferedImage image;
 
     private Path filepath;
 
-    public ImageFile(Path filepath) {
+    public FileCarImage(Path filepath, Long id) {
+        this.id = id;
+        this.filepath = filepath;
+    }
+    
+    public FileCarImage(Path filepath) {
+        this.id = 0l;
         this.filepath = filepath;
     }
 
@@ -51,7 +59,7 @@ public class ImageFile implements AutoCloseable, Serializable  {
 
         reader.setInput(imageStream, true, true);
 
-        this.bufImage = reader.read(0, param);
+        this.image = reader.read(0, param);
 
         reader.dispose();
         imageStream.close();
@@ -70,7 +78,7 @@ public class ImageFile implements AutoCloseable, Serializable  {
         g.drawImage(image, 0, 0, null);
         g.dispose();
 
-        this.bufImage = outimage;
+        this.image = outimage;
         
         inStream.close();
     }
@@ -85,7 +93,7 @@ public class ImageFile implements AutoCloseable, Serializable  {
         param.setSourceRegion(rect);
         reader.setInput(imageStream, true, true);
 
-        this.bufImage = reader.read(0, param);
+        this.image = reader.read(0, param);
 
         reader.dispose();
         imageStream.close();
@@ -93,23 +101,17 @@ public class ImageFile implements AutoCloseable, Serializable  {
 
     @Override
     public void close() {
-        if(bufImage!=null) {
-            bufImage.flush();
+        if(image!=null) {
+            image.flush();
         }
     }
 
     /**
-     * @return the bufImage
+     * @return the image
      */
-    public BufferedImage getBufImage() {
-        return bufImage;
-    }
-
-    /**
-     * @param bufImage the bufImage to set
-     */
-    public void setBufImage(BufferedImage bufImage) {
-        this.bufImage = bufImage;
+    @Override
+    public BufferedImage getImage() {
+        return image;
     }
 
     /**
@@ -128,10 +130,10 @@ public class ImageFile implements AutoCloseable, Serializable  {
     
     @Override
     public boolean equals(Object o) {
-        if(o instanceof ImageFile) {
-            ImageFile f = (ImageFile) o;
+        if(o instanceof FileCarImage) {
+            FileCarImage f = (FileCarImage) o;
             
-            return new EqualsBuilder().append(bufImage, f.bufImage).append(filepath, f.filepath).isEquals();
+            return new EqualsBuilder().append(image, f.image).append(filepath, f.filepath).isEquals();
         }        
         return false;
         
@@ -139,7 +141,12 @@ public class ImageFile implements AutoCloseable, Serializable  {
     
     @Override
     public int hashCode() {
-        return new HashCodeBuilder().append(bufImage).append(filepath).toHashCode();
+        return new HashCodeBuilder().append(image).append(filepath).toHashCode();
+    }
+
+    @Override
+    public Long getId() {
+        return id;
     }
 
 }
