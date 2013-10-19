@@ -186,7 +186,7 @@ public class ImageFileTest {
         
         //BufferedImage closed = iFile.getBufImage();
         
-        //TODO: how to test it is really flushed?
+        //TODO: how to test if it is really flushed?
     }
 
 }
