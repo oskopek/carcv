@@ -9,7 +9,6 @@ import javax.validation.constraints.NotNull;
 
 import org.apache.commons.lang.builder.EqualsBuilder;
 import org.apache.commons.lang.builder.HashCodeBuilder;
-import org.carcv.impl.core.model.Address;
 
 /**
  * @author oskopek
@@ -81,10 +80,10 @@ public abstract class AbstractAddress extends AbstractModel {
         if (obj == null) {
             return false;
         }
-        if (!(obj instanceof Address)) {
+        if (!(obj instanceof AbstractAddress)) {
             return false;
         }
-        Address other = (Address) obj;
+        AbstractAddress other = (AbstractAddress) obj;
 
         return new EqualsBuilder()
                 .append(getLatitude(), other.getLatitude())

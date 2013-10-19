@@ -1,7 +1,7 @@
 /**
  * 
  */
-package org.carcv.impl.core.input;
+package org.carcv.impl.core.model.file;
 
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
@@ -19,33 +19,25 @@ import javax.imageio.stream.ImageInputStream;
 
 import org.apache.commons.lang.builder.EqualsBuilder;
 import org.apache.commons.lang.builder.HashCodeBuilder;
-import org.carcv.core.input.CarImage;
+import org.carcv.core.model.AbstractCarImage;
 
 /**
  * Default behavior is to not load an image from path. To load it, use {@link FileCarImage#loadImage()}
  * @author oskopek
  * 
  */
-public class FileCarImage implements CarImage  {
+public class FileCarImage extends AbstractCarImage  {
 
     /**
      * 
      */
     private static final long serialVersionUID = 1L;
-    
-    private Long id;
 
     private BufferedImage image;
 
     private Path filepath;
 
-    public FileCarImage(Path filepath, Long id) {
-        this.id = id;
-        this.filepath = filepath;
-    }
-    
     public FileCarImage(Path filepath) {
-        this.id = 0l;
         this.filepath = filepath;
     }
 
@@ -142,11 +134,6 @@ public class FileCarImage implements CarImage  {
     @Override
     public int hashCode() {
         return new HashCodeBuilder().append(image).append(filepath).toHashCode();
-    }
-
-    @Override
-    public Long getId() {
-        return id;
     }
 
 }

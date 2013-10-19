@@ -5,6 +5,7 @@ package org.carcv.core.model;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.OneToOne;
 import javax.validation.constraints.NotNull;
 
 import org.apache.commons.lang.builder.EqualsBuilder;
@@ -15,39 +16,31 @@ import org.apache.commons.lang.builder.HashCodeBuilder;
  *
  */
 @Entity
-//@Table(name = "numberplate")
-public abstract class AbstractNumberPlate extends AbstractModel {
-
+public abstract class AbstractEntry extends AbstractModel {
+    
     /**
      * 
      */
     private static final long serialVersionUID = 1L;
-    
-    @Column
-    @NotNull
-    public abstract String getText();
-    
-    @Column
-    @NotNull
-    public abstract String getOrigin();
-    
 
-
-    /*
-     * (non-Javadoc)
-     * 
-     * @see java.lang.Object#hashCode()
-     */
+    @Column
+    @OneToOne
+    @NotNull
+    public abstract AbstractCarData getCarData();
+    
+    @OneToOne
+    @NotNull
+    //@Column(name="video")
+    public abstract AbstractMediaObject getVideo();
+    
     @Override
     public int hashCode() {
-        return new HashCodeBuilder().append(getText()).append(getOrigin()).toHashCode();
+        return new HashCodeBuilder()
+            .append(getCarData())
+            .append(getVideo())
+            .toHashCode();
     }
-
-    /*
-     * (non-Javadoc)
-     * 
-     * @see java.lang.Object#equals(java.lang.Object)
-     */
+    
     @Override
     public boolean equals(Object obj) {
         if (this == obj) {
@@ -56,13 +49,15 @@ public abstract class AbstractNumberPlate extends AbstractModel {
         if (obj == null) {
             return false;
         }
-        if (!(obj instanceof AbstractNumberPlate)) {
+        if (!(obj instanceof AbstractEntry)) {
             return false;
         }
-        AbstractNumberPlate other = (AbstractNumberPlate) obj;
+        AbstractEntry other = (AbstractEntry) obj;
+
         return new EqualsBuilder()
-                .append(getText(), other.getText())
-                .append(getOrigin(), other.getOrigin())
+                .append(getVideo(), other.getVideo())
+                .append(getCarData(), other.getCarData())
                 .isEquals();
+        
     }
 }

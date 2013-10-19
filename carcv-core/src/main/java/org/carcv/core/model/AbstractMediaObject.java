@@ -8,7 +8,6 @@ import javax.validation.constraints.NotNull;
 
 import org.apache.commons.lang.builder.EqualsBuilder;
 import org.apache.commons.lang.builder.HashCodeBuilder;
-import org.carcv.impl.core.model.MediaObject;
 
 /**
  * @author oskopek
@@ -51,8 +50,8 @@ public abstract class AbstractMediaObject extends AbstractModel {
      */
     @Override
     public boolean equals(Object o) {
-        if (o instanceof MediaObject) {
-            MediaObject obj = (MediaObject) o;
+        if (o instanceof AbstractMediaObject) {
+            AbstractMediaObject obj = (AbstractMediaObject) o;
             return new EqualsBuilder().append(getURL(), obj.getURL())
                     .append(getMediaType(), obj.getMediaType()).isEquals();
         }

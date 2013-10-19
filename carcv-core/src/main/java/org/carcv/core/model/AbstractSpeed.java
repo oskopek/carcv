@@ -9,7 +9,6 @@ import javax.validation.constraints.NotNull;
 
 import org.apache.commons.lang.builder.EqualsBuilder;
 import org.apache.commons.lang.builder.HashCodeBuilder;
-import org.carcv.impl.core.model.Speed;
 
 /**
  * @author oskopek
@@ -58,10 +57,10 @@ public abstract class AbstractSpeed extends AbstractModel {
         if (obj == null) {
             return false;
         }
-        if (!(obj instanceof Speed)) {
+        if (!(obj instanceof AbstractSpeed)) {
             return false;
         }
-        Speed other = (Speed) obj;
+        AbstractSpeed other = (AbstractSpeed) obj;
         return new EqualsBuilder()
                 .append(this.getSpeed(), other.getSpeed())
                 .append(this.getUnit(), other.getUnit())
