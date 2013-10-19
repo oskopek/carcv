@@ -18,9 +18,9 @@ import java.nio.file.attribute.PosixFilePermissions;
 import java.util.Set;
 import java.util.TreeSet;
 
-import org.carcv.impl.input.FileDiscoverer;
-import org.carcv.impl.input.FileCarImage;
-import org.carcv.impl.input.FileImageQueue;
+import org.carcv.core.impl.input.FileCarImage;
+import org.carcv.core.impl.input.FileDiscoverer;
+import org.carcv.core.impl.input.FileImageQueue;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -74,7 +74,7 @@ public class FileDiscovererTest {
     }
 
     /**
-     * Test method for {@link org.carcv.impl.input.FileDiscoverer#FileDiscoverer(java.nio.file.Path)}.
+     * Test method for {@link org.carcv.core.impl.input.FileDiscoverer#FileDiscoverer(java.nio.file.Path)}.
      */
     @Test
     public void testFileDiscoverer() {
@@ -86,7 +86,7 @@ public class FileDiscovererTest {
     }
 
     /**
-     * Test method for {@link org.carcv.impl.input.FileDiscoverer#getResourceAsStream(java.lang.String)}.
+     * Test method for {@link org.carcv.core.impl.input.FileDiscoverer#getResourceAsStream(java.lang.String)}.
      */
     @SuppressWarnings("deprecation")
     @Test
@@ -120,7 +120,7 @@ public class FileDiscovererTest {
     */
 
     /**
-     * Test method for {@link org.carcv.impl.input.FileDiscoverer#discover()}.
+     * Test method for {@link org.carcv.core.impl.input.FileDiscoverer#discover()}.
      * 
      * @throws IOException
      */

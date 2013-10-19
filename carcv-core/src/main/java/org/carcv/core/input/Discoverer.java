@@ -3,6 +3,7 @@
  */
 package org.carcv.core.input;
 
+import java.io.IOException;
 import java.util.Queue;
 
 /**
@@ -17,5 +18,10 @@ public interface Discoverer<T extends Queue> {
      * @return
      */
     public T getQueue();
+    
+    /**
+     * Optional method to invoke -> discover new input files
+     */
+    public void discover() throws IOException;
 
 }

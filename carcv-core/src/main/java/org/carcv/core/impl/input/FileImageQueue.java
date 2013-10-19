@@ -1,7 +1,7 @@
 /**
  * 
  */
-package org.carcv.impl.input;
+package org.carcv.core.impl.input;
 
 import java.util.ArrayDeque;
 import java.util.Collection;

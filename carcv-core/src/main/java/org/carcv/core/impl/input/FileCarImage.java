@@ -1,7 +1,7 @@
 /**
  * 
  */
-package org.carcv.impl.input;
+package org.carcv.core.impl.input;
 
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
