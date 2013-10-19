@@ -16,8 +16,6 @@ import org.carcv.core.input.CarImageLoader;
  */
 public final class FileCarImageLoader extends CarImageLoader {
     
-    private static FileCarImageLoader loader;
-    
     private FileDiscoverer discoverer;
 
     /**
@@ -25,19 +23,6 @@ public final class FileCarImageLoader extends CarImageLoader {
      */
     public FileCarImageLoader(FileDiscoverer discoverer) {
         this.discoverer = discoverer;
-        
-        FileCarImageLoader.loader = this;
-    }
-    
-    /**
-     * 
-     * @return static loader instance, or null if not initialized
-     */
-    public static FileCarImageLoader getLoader() {
-        if(loader == null) {
-            return null;
-        } 
-        return loader;
     }
     
     @Override
