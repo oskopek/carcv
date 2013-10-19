@@ -15,7 +15,7 @@ import org.apache.commons.lang.builder.HashCodeBuilder;
  * @author oskopek
  *
  */
-@Entity
+//@Entity
 public abstract class AbstractEntry extends AbstractModel {
     
     /**

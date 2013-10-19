@@ -5,6 +5,8 @@ package org.carcv.impl.core.model;
 
 import java.util.Date;
 
+import javax.persistence.Entity;
+
 import org.carcv.core.model.AbstractCarData;
 
 /**
@@ -13,6 +15,7 @@ import org.carcv.core.model.AbstractCarData;
  * @author oskopek
  * 
  */
+@Entity
 public class CarData extends AbstractCarData {
 
 	/**

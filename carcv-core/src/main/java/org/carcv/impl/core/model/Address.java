@@ -3,6 +3,8 @@
  */
 package org.carcv.impl.core.model;
 
+import javax.persistence.Entity;
+
 import org.carcv.core.model.AbstractAddress;
 
 /**
@@ -11,6 +13,7 @@ import org.carcv.core.model.AbstractAddress;
  * @author oskopek
  * 
  */
+@Entity
 public class Address extends AbstractAddress {
 
 	/**

@@ -14,7 +14,7 @@ import org.apache.commons.lang.builder.HashCodeBuilder;
  * @author oskopek
  *
  */
-@Entity
+//@Entity
 //@Table(name = "numberplate")
 public abstract class AbstractNumberPlate extends AbstractModel {
 

@@ -14,7 +14,7 @@ import org.apache.commons.lang.builder.HashCodeBuilder;
  * @author oskopek
  *
  */
-@Entity
+//@Entity
 //@Table(name = "speed")
 public abstract class AbstractSpeed extends AbstractModel {
 

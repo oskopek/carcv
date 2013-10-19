@@ -3,6 +3,8 @@
  */
 package org.carcv.impl.core.model;
 
+import javax.persistence.Entity;
+
 import org.carcv.core.model.AbstractCarData;
 import org.carcv.core.model.AbstractEntry;
 import org.carcv.core.model.AbstractMediaObject;
@@ -11,6 +13,7 @@ import org.carcv.core.model.AbstractMediaObject;
  * @author oskopek
  *
  */
+@Entity
 public class Entry extends AbstractEntry {
     
     /**

@@ -13,7 +13,7 @@ import org.apache.commons.lang.builder.HashCodeBuilder;
  * @author oskopek
  *
  */
-@Entity
+//@Entity
 //@Table(name = "mediaobject")
 public abstract class AbstractMediaObject extends AbstractModel {
 

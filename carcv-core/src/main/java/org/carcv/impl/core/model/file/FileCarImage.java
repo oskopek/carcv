@@ -16,6 +16,7 @@ import javax.imageio.ImageIO;
 import javax.imageio.ImageReadParam;
 import javax.imageio.ImageReader;
 import javax.imageio.stream.ImageInputStream;
+import javax.persistence.Entity;
 
 import org.apache.commons.lang.builder.EqualsBuilder;
 import org.apache.commons.lang.builder.HashCodeBuilder;
@@ -26,6 +27,7 @@ import org.carcv.core.model.AbstractCarImage;
  * @author oskopek
  * 
  */
+@Entity
 public class FileCarImage extends AbstractCarImage  {
 
     /**

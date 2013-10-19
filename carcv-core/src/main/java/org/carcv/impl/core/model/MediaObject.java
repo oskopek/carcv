@@ -3,6 +3,8 @@
  */
 package org.carcv.impl.core.model;
 
+import javax.persistence.Entity;
+
 import org.carcv.core.model.AbstractMediaObject;
 import org.carcv.core.model.MediaType;
 
@@ -12,6 +14,7 @@ import org.carcv.core.model.MediaType;
  * @author oskopek
  * 
  */
+@Entity
 public class MediaObject extends AbstractMediaObject {
 
 	/**

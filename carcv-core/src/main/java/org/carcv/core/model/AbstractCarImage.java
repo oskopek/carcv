@@ -13,7 +13,7 @@ import javax.validation.constraints.NotNull;
  * @author oskopek
  *
  */
-@Entity
+//@Entity
 public abstract class AbstractCarImage extends AbstractModel implements AutoCloseable {    
 
     /**

@@ -16,7 +16,7 @@ import org.apache.commons.lang.builder.CompareToBuilder;
  * @author oskopek
  *
  */
-@Entity
+//@Entity
 public abstract class AbstractModel implements Serializable, Comparable<AbstractModel> {
     
     private Long id;

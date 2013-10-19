@@ -3,6 +3,8 @@
  */
 package org.carcv.impl.core.model;
 
+import javax.persistence.Entity;
+
 import org.carcv.core.model.AbstractSpeed;
 import org.carcv.core.model.SpeedUnit;
 
@@ -10,6 +12,7 @@ import org.carcv.core.model.SpeedUnit;
  * @author oskopek
  * 
  */
+@Entity
 public class Speed extends AbstractSpeed {
 
 	/**
