@@ -5,6 +5,8 @@
 	<persistence-unit name="carcv" transaction-type="JTA">
 		<!-- <jta-data-source>java:jboss/datasources/ExampleDS</jta-data-source> -->
 		<jta-data-source>java:jboss/datasources/MysqlDS</jta-data-source>
+		<jar-file>carcv-core-1.0.0.Alpha1-SNAPSHOT.jar</jar-file>
+		
 		<properties>
 			<!-- <property name="hibernate.dialect" value="org.hibernate.dialect.HSQLDialect"/> -->
 			<property name="hibernate.dialect" value="org.hibernate.dialect.MySQLDialect" />

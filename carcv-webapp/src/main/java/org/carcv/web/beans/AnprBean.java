@@ -25,8 +25,12 @@ public class AnprBean {
     private static Intelligence intel;
     
     @PostConstruct
-    public void init() throws ParserConfigurationException, SAXException, IOException {
-    	intel = new Intelligence();
+    public void init() {
+    	try {
+            intel = new Intelligence();
+        } catch (ParserConfigurationException | SAXException | IOException e) {
+            e.printStackTrace();
+        }
     }
     
     public String recognize(InputStream is) throws IOException, Exception {
