@@ -5,7 +5,7 @@
 	<persistence-unit name="carcv_test" transaction-type="JTA">
 
 		<jta-data-source>java:jboss/datasources/ExampleDS</jta-data-source>
-		<jar-file>carcv-core-1.0.0.Alpha1-SNAPSHOT.jar</jar-file> <!-- TODO fix -->
+		<jar-file>/lib/carcv-core-1.0.0.Alpha1-SNAPSHOT.jar</jar-file> <!-- TODO fix -->
 
 
 		<properties>
