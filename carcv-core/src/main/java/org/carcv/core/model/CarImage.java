@@ -5,15 +5,11 @@ package org.carcv.core.model;
 
 import java.awt.Image;
 
-import javax.persistence.MappedSuperclass;
-import javax.validation.constraints.NotNull;
-
 /**
  * @author oskopek
  *
  */
-@MappedSuperclass
-public abstract class AbstractCarImage extends AbstractModel implements AutoCloseable {    
+public abstract class CarImage extends AbstractModel implements AutoCloseable {    
 
     /**
      * 
@@ -23,6 +19,5 @@ public abstract class AbstractCarImage extends AbstractModel implements AutoClos
     /**
      * @return the image
      */
-    @NotNull
     public abstract Image getImage();
 }
