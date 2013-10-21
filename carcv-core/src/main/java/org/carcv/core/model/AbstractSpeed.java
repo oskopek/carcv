@@ -3,8 +3,7 @@
  */
 package org.carcv.core.model;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
+import javax.persistence.MappedSuperclass;
 import javax.validation.constraints.NotNull;
 
 import org.apache.commons.lang.builder.EqualsBuilder;
@@ -14,8 +13,7 @@ import org.apache.commons.lang.builder.HashCodeBuilder;
  * @author oskopek
  *
  */
-//@Entity
-//@Table(name = "speed")
+@MappedSuperclass
 public abstract class AbstractSpeed extends AbstractModel {
 
     /**
@@ -23,13 +21,11 @@ public abstract class AbstractSpeed extends AbstractModel {
      */
     private static final long serialVersionUID = 1L;
     
-    @Column//(name = "speed")
     @NotNull
     //@Range(min = 0, message = "Speed is less or equal to 0!")
     public abstract Double getSpeed();
     
 
-    @Column//(name = "unit")
     @NotNull  
     public abstract SpeedUnit getUnit();
 

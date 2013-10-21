@@ -5,9 +5,9 @@ package org.carcv.core.model;
 
 import java.io.Serializable;
 
-import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.MappedSuperclass;
 import javax.validation.constraints.NotNull;
 
 import org.apache.commons.lang.builder.CompareToBuilder;
@@ -16,7 +16,7 @@ import org.apache.commons.lang.builder.CompareToBuilder;
  * @author oskopek
  *
  */
-//@Entity
+@MappedSuperclass
 public abstract class AbstractModel implements Serializable, Comparable<AbstractModel> {
     
     private Long id;

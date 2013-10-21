@@ -3,8 +3,7 @@
  */
 package org.carcv.core.model;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
+import javax.persistence.MappedSuperclass;
 import javax.validation.constraints.NotNull;
 
 import org.apache.commons.lang.builder.EqualsBuilder;
@@ -14,8 +13,7 @@ import org.apache.commons.lang.builder.HashCodeBuilder;
  * @author oskopek
  *
  */
-//@Entity
-//@Table(name = "numberplate")
+@MappedSuperclass
 public abstract class AbstractNumberPlate extends AbstractModel {
 
     /**
@@ -23,11 +21,9 @@ public abstract class AbstractNumberPlate extends AbstractModel {
      */
     private static final long serialVersionUID = 1L;
     
-    @Column
     @NotNull
     public abstract String getText();
     
-    @Column
     @NotNull
     public abstract String getOrigin();
     

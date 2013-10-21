@@ -3,7 +3,7 @@
  */
 package org.carcv.core.model;
 
-import javax.persistence.Entity;
+import javax.persistence.MappedSuperclass;
 import javax.validation.constraints.NotNull;
 
 import org.apache.commons.lang.builder.EqualsBuilder;
@@ -13,8 +13,7 @@ import org.apache.commons.lang.builder.HashCodeBuilder;
  * @author oskopek
  *
  */
-//@Entity
-//@Table(name = "mediaobject")
+@MappedSuperclass
 public abstract class AbstractMediaObject extends AbstractModel {
 
     /**
@@ -23,11 +22,10 @@ public abstract class AbstractMediaObject extends AbstractModel {
     private static final long serialVersionUID = 1L;
     
 
-    //@Column(name = "URL")
     @NotNull
     public abstract String getURL();
 
-    //@Column(name = "mediatype")
+
     @NotNull
     public abstract MediaType getMediaType();
     

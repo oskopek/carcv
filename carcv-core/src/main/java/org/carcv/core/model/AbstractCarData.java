@@ -5,8 +5,7 @@ package org.carcv.core.model;
 
 import java.util.Date;
 
-import javax.persistence.Entity;
-import javax.persistence.ManyToOne;
+import javax.persistence.MappedSuperclass;
 import javax.validation.constraints.NotNull;
 
 import org.apache.commons.lang.builder.EqualsBuilder;
@@ -16,8 +15,7 @@ import org.apache.commons.lang.builder.HashCodeBuilder;
  * @author oskopek
  *
  */
-//@Entity
-//@Table(name = "cardata")
+@MappedSuperclass
 public abstract class AbstractCarData extends AbstractModel {
 
     /**
@@ -25,24 +23,28 @@ public abstract class AbstractCarData extends AbstractModel {
      */
     private static final long serialVersionUID = 1L;
 
-    @ManyToOne
+    /**
+     * NOTE: Add @OneToOne annotation
+     * @return
+     */
     @NotNull
-    //@Column(name="speed")
     public abstract AbstractSpeed getSpeed();
 
-    @ManyToOne
+    /**
+     * NOTE: Add @OneToOne annotation
+     * @return
+     */
     @NotNull
-    //@Column(name="location")
     public abstract AbstractAddress getAddress();
 
-    @ManyToOne
+    /**
+     * NOTE: Add @OneToOne annotation
+     * @return
+     */
     @NotNull
-    //@Column(name="licenceplate")
     public abstract AbstractNumberPlate getNumberPlate();
 
     @NotNull
-    //@Column(name = "timestamp")
-    //@Type(type="TIMESTAMP")
     public abstract Date getTimestamp();
 
     /*

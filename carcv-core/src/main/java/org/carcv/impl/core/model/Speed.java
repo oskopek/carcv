@@ -50,9 +50,7 @@ public class Speed extends AbstractSpeed {
 
 	private SpeedUnit unit;
 
-	/**
-	 * @return the speed
-	 */
+	@Override
 	public Double getSpeed() {
 		return speed;
 	}
@@ -65,9 +63,7 @@ public class Speed extends AbstractSpeed {
 		this.speed = speed;
 	}
 
-	/**
-	 * @return the unit
-	 */
+	@Override
 	public SpeedUnit getUnit() {
 		return unit;
 	}

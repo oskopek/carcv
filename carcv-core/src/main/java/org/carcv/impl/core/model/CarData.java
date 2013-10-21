@@ -6,6 +6,7 @@ package org.carcv.impl.core.model;
 import java.util.Date;
 
 import javax.persistence.Entity;
+import javax.persistence.OneToOne;
 
 import org.carcv.core.model.AbstractCarData;
 
@@ -52,11 +53,10 @@ public class CarData extends AbstractCarData {
 		this.numberPlate = numberPlate;
 		this.timestamp = timestamp;
 	}
-
-	/**
-	 * @return the speed
-	 */
+	
+	
 	@Override
+	@OneToOne
 	public Speed getSpeed() {
 		return speed;
 	}
@@ -69,10 +69,9 @@ public class CarData extends AbstractCarData {
 		this.speed = speed;
 	}
 
-	/**
-	 * @return the location
-	 */
-	@Override
+
+    @Override
+	@OneToOne
 	public Address getAddress() {
 		return address;
 	}
@@ -85,10 +84,8 @@ public class CarData extends AbstractCarData {
 		this.address = address;
 	}
 
-	/**
-	 * @return the numberPlate
-	 */
 	@Override
+    @OneToOne
 	public NumberPlate getNumberPlate() {
 		return numberPlate;
 	}

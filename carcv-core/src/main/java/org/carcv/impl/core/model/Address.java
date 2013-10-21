@@ -8,7 +8,7 @@ import javax.persistence.Entity;
 import org.carcv.core.model.AbstractAddress;
 
 /**
- * A basic getter/setter POJO implementation of IAddress, JPA annotated
+ * A basic getter/setter POJO implementation of Address, JPA annotated
  * 
  * @author oskopek
  * 

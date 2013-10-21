@@ -4,10 +4,9 @@
 package org.carcv.impl.core.model;
 
 import javax.persistence.Entity;
+import javax.persistence.OneToOne;
 
-import org.carcv.core.model.AbstractCarData;
 import org.carcv.core.model.AbstractEntry;
-import org.carcv.core.model.AbstractMediaObject;
 
 /**
  * @author oskopek
@@ -20,7 +19,6 @@ public class Entry extends AbstractEntry {
      * 
      */
     private static final long serialVersionUID = 2309289364991527040L;
-    
     
     private CarData carData;
     private MediaObject video;
@@ -37,7 +35,8 @@ public class Entry extends AbstractEntry {
      * @see org.carcv.core.model.AbstractEntry#getCarData()
      */
     @Override
-    public AbstractCarData getCarData() {
+    @OneToOne
+    public CarData getCarData() {
         return carData;
     }
 
@@ -45,7 +44,8 @@ public class Entry extends AbstractEntry {
      * @see org.carcv.core.model.AbstractEntry#getVideo()
      */
     @Override
-    public AbstractMediaObject getVideo() {
+    @OneToOne
+    public MediaObject getVideo() {
         return video;
     }
 

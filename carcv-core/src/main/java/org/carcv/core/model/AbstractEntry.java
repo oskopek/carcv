@@ -3,9 +3,7 @@
  */
 package org.carcv.core.model;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.OneToOne;
+import javax.persistence.MappedSuperclass;
 import javax.validation.constraints.NotNull;
 
 import org.apache.commons.lang.builder.EqualsBuilder;
@@ -15,7 +13,7 @@ import org.apache.commons.lang.builder.HashCodeBuilder;
  * @author oskopek
  *
  */
-//@Entity
+@MappedSuperclass
 public abstract class AbstractEntry extends AbstractModel {
     
     /**
@@ -23,14 +21,18 @@ public abstract class AbstractEntry extends AbstractModel {
      */
     private static final long serialVersionUID = 1L;
 
-    @Column
-    @OneToOne
+    /**
+     * NOTE: Add @OneToOne annotation
+     * @return
+     */
     @NotNull
     public abstract AbstractCarData getCarData();
     
-    @OneToOne
+    /**
+     * NOTE: Add @OneToOne annotation
+     * @return
+     */
     @NotNull
-    //@Column(name="video")
     public abstract AbstractMediaObject getVideo();
     
     @Override

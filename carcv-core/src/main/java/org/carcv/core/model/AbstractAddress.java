@@ -3,8 +3,7 @@
  */
 package org.carcv.core.model;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
+import javax.persistence.MappedSuperclass;
 import javax.validation.constraints.NotNull;
 
 import org.apache.commons.lang.builder.EqualsBuilder;
@@ -14,8 +13,7 @@ import org.apache.commons.lang.builder.HashCodeBuilder;
  * @author oskopek
  *
  */
-//@Entity
-//@Table(name = "address")
+@MappedSuperclass
 public abstract class AbstractAddress extends AbstractModel {
 
     /**
@@ -23,35 +21,28 @@ public abstract class AbstractAddress extends AbstractModel {
      */
     private static final long serialVersionUID = 1L;
 
-    @Column
+    
     @NotNull
     public abstract Double getLatitude();
     
-    @Column
     @NotNull
     public abstract Double getLongitude();
     
-    @Column
     @NotNull
     public abstract String getCity();
     
-    @Column
     @NotNull
     public abstract String getStreet();
     
-    @Column
     @NotNull
     public abstract String getCountry();
     
-    @Column
     @NotNull
     public abstract String getPostalCode();
     
-    @Column
     @NotNull
     public abstract Integer getStreetNumber();
     
-    @Column
     @NotNull
     public abstract Integer getReferenceNumber();
     
