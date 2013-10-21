@@ -13,5 +13,10 @@ import org.carcv.core.model.Entry;
  */
 public interface SaveBatch {
     
-    public boolean save(ArrayList<Entry> list);
+    /**
+     * 
+     * @param batch
+     * @return false if save was unsuccessful, true if successful
+     */
+    public boolean save(final ArrayList<Entry> batch);
 }
