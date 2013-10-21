@@ -21,6 +21,7 @@ import org.carcv.core.model.file.FileCarImage;
 import org.carcv.core.model.file.FileEntry;
 import org.carcv.web.beans.AddressBean;
 import org.carcv.web.beans.CarDataBean;
+import org.carcv.web.beans.CarImageBean;
 import org.carcv.web.beans.EntryBean;
 import org.carcv.web.beans.NumberPlateBean;
 import org.carcv.web.beans.SpeedBean;
@@ -66,8 +67,8 @@ public class PersistenceIT {
     private CarDataBean carDataBean;
     @EJB
     private NumberPlateBean numberPlateBean;
-    //@EJB
-    //private MediaObjectBean mediaObjectBean;
+    @EJB
+    private CarImageBean carImageBean;
     @EJB
     private SpeedBean speedBean;
     @EJB
@@ -86,29 +87,29 @@ public class PersistenceIT {
 
         Date timestamp = new Date(System.currentTimeMillis());
 
-        //MediaObject video = new MediaObject("http://test.com/video.h264", MediaType.H264);
+        FileCarImage carImage = new FileCarImage(Paths.get("/tmp/test/video.h264"));
 
         CarData carData = new CarData(speed, address, licencePlate, timestamp);
 
-        FileEntry abstractEntry = new FileEntry(carData, new FileCarImage(Paths.get("/tmp/test/video.h264")));
+        FileEntry abstractEntry = new FileEntry(carData, carImage);
         
         // End entity code
         
         assertNotNull(addressBean);
         assertNotNull(numberPlateBean);
-        //assertNotNull(mediaObjectBean);
+        assertNotNull(carImageBean);
         assertNotNull(speedBean);
         assertNotNull(carDataBean);
         assertNotNull(entryBean);
         
         addressBean.create(address);
         numberPlateBean.create(licencePlate);
-        //mediaObjectBean.create(video);
+        carImageBean.create(carImage);
         speedBean.create(speed);
         carDataBean.create(carData);
         entryBean.create(abstractEntry);
         
-        //assertEquals(video, mediaObjectBean.getAll().get(0));
+        assertEquals(carImage, carImageBean.getAll().get(0));
         assertEquals(speed, speedBean.getAll().get(0));
         assertEquals(address, addressBean.getAll().get(0));
         assertEquals(licencePlate, numberPlateBean.getAll().get(0));
