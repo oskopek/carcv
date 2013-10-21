@@ -18,9 +18,9 @@ import java.nio.file.attribute.PosixFilePermissions;
 import java.util.Set;
 import java.util.TreeSet;
 
+import org.carcv.core.model.file.FileCarImage;
 import org.carcv.impl.core.input.FileDiscoverer;
 import org.carcv.impl.core.input.FileImageQueue;
-import org.carcv.impl.core.model.file.FileCarImage;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;

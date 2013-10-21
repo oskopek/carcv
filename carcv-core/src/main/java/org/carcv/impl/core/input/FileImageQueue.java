@@ -8,7 +8,7 @@ import java.util.Collection;
 import java.util.Iterator;
 
 import org.carcv.core.input.ImageQueue;
-import org.carcv.impl.core.model.file.FileCarImage;
+import org.carcv.core.model.file.FileCarImage;
 
 /**
  * Own object similar to ArrayDeque

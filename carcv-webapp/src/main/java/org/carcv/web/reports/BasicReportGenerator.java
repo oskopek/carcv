@@ -21,8 +21,8 @@ import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.data.JRMapCollectionDataSource;
 import net.sf.jasperreports.engine.export.JRPdfExporter;
 
-import org.carcv.core.model.AbstractAddress;
-import org.carcv.core.model.AbstractCarData;
+import org.carcv.core.model.Address;
+import org.carcv.core.model.CarData;
 import org.carcv.core.model.Entry;
 
 /**
@@ -40,7 +40,7 @@ public class BasicReportGenerator {
 		Map<String, Object> values = new HashMap<String, Object>();
 		Map<String, Object> parameters = new HashMap<String, Object>();
 
-		AbstractCarData data = e.getCarData();
+		CarData data = e.getCarData();
 
 		DateFormat dateFormat = new SimpleDateFormat("dd. MM. yyyy");
 		DateFormat timeFormat = new SimpleDateFormat("HH:mm");
@@ -53,7 +53,7 @@ public class BasicReportGenerator {
 				dateFormat.format(new Date(System.currentTimeMillis())));
 
 		// data
-		AbstractAddress add = data.getAddress();
+		Address add = data.getAddress();
 		String dataLocation = add.print();
 
 		// parameters.put("id", Long.toString(data.getId()));

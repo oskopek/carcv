@@ -12,7 +12,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
-import org.carcv.impl.core.model.file.FileCarImage;
+import org.carcv.core.model.file.FileCarImage;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Ignore;
@@ -50,7 +50,7 @@ public class FileCarImageTest {
     }
 
     /**
-     * Test method for {@link org.carcv.impl.core.model.file.FileCarImage#ImageFile(java.nio.file.Path)}.
+     * Test method for {@link org.carcv.core.model.file.FileCarImage#ImageFile(java.nio.file.Path)}.
      * @throws IOException 
      */
     @Test
@@ -80,7 +80,7 @@ public class FileCarImageTest {
     }
 
     /**
-     * Test method for {@link org.carcv.impl.core.model.file.FileCarImage#loadImage()}.
+     * Test method for {@link org.carcv.core.model.file.FileCarImage#loadImage()}.
      * @throws IOException 
      */
     @Test
@@ -91,7 +91,7 @@ public class FileCarImageTest {
     }
 
     /**
-     * Test method for {@link org.carcv.impl.core.model.file.FileCarImage#loadFragment(java.awt.Rectangle)}.
+     * Test method for {@link org.carcv.core.model.file.FileCarImage#loadFragment(java.awt.Rectangle)}.
      * @throws IOException 
      */
     @Test
@@ -106,7 +106,7 @@ public class FileCarImageTest {
     }
 
     /**
-     * Test method for {@link org.carcv.impl.core.model.file.FileCarImage#close()}.
+     * Test method for {@link org.carcv.core.model.file.FileCarImage#close()}.
      * @throws IOException 
      */
     @Test
@@ -132,7 +132,7 @@ public class FileCarImageTest {
     }
     
     /**
-     * Test method for {@link org.carcv.impl.core.model.file.FileCarImage#close()}.
+     * Test method for {@link org.carcv.core.model.file.FileCarImage#close()}.
      * @throws IOException 
      */
     @Test
@@ -167,7 +167,7 @@ public class FileCarImageTest {
     }
     
     /**
-     * Test method for {@link org.carcv.impl.core.model.file.FileCarImage#close()}.
+     * Test method for {@link org.carcv.core.model.file.FileCarImage#close()}.
      * @throws IOException
      */
     @Test

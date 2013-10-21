@@ -9,7 +9,7 @@ import javax.validation.constraints.NotNull;
 
 import org.apache.commons.lang.builder.EqualsBuilder;
 import org.apache.commons.lang.builder.HashCodeBuilder;
-import org.carcv.impl.core.model.file.FileCarImage;
+import org.carcv.core.model.file.FileCarImage;
 
 /**
  * @author oskopek
@@ -46,7 +46,7 @@ public class Car extends AbstractModel {
      */
     @NotNull
     @OneToOne
-    public CarImage getCarImage() {
+    public FileCarImage getCarImage() {
         return carImage;
     }
     

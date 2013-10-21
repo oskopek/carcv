@@ -19,7 +19,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.carcv.core.input.Discoverer;
-import org.carcv.impl.core.model.file.FileCarImage;
+import org.carcv.core.model.file.FileCarImage;
 
 /**
  * @author oskopek
