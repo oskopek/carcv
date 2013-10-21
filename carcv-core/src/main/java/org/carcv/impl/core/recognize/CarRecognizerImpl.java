@@ -1,7 +1,7 @@
 /**
  * 
  */
-package org.carcv.core.recognize;
+package org.carcv.impl.core.recognize;
 
 import java.io.IOException;
 import java.nio.file.Path;
@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import org.carcv.core.model.Entry;
 import org.carcv.core.model.NumberPlate;
 import org.carcv.core.model.Speed;
+import org.carcv.core.recognize.CarRecognizer;
 import org.carcv.impl.core.detect.NumberPlateDetectorImpl;
 import org.carcv.impl.core.detect.SpeedDetectorImpl;
 import org.carcv.impl.core.input.FileCarImageLoader;
