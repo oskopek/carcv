@@ -23,7 +23,7 @@ import net.sf.jasperreports.engine.export.JRPdfExporter;
 
 import org.carcv.core.model.Address;
 import org.carcv.core.model.CarData;
-import org.carcv.core.model.Entry;
+import org.carcv.core.model.AbstractEntry;
 
 /**
  * @author oskopek
@@ -36,7 +36,7 @@ public class BasicReportGenerator {
 	private final String previewURL = "reports/OpenCV_Logo_with_text.png"; //TODO: add real handling of video
 	private final String videoURL = "/tmp/test/video.h264";
 	
-	public BasicReportGenerator(Entry e, String templateFilename,
+	public BasicReportGenerator(AbstractEntry e, String templateFilename,
 			String reportBuilderLocation,
 			String reportName) throws JRException {
 		

@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import net.sf.jasperreports.engine.JRException;
 
-import org.carcv.core.model.Entry;
+import org.carcv.core.model.AbstractEntry;
 import org.carcv.web.beans.EntryBean;
 import org.carcv.web.reports.BasicReportGenerator;
 
@@ -44,9 +44,9 @@ public class GenerateReport extends HttpServlet {
     	//generate
     	long entryId = Long.parseLong(request.getParameter("entry_id"));
     	
-    	Entry entry = entryBean.findById(entryId);
+    	AbstractEntry abstractEntry = entryBean.findById(entryId);
 		
-    	BasicReportGenerator brg = new BasicReportGenerator(entry, "/reports/speed_report.jasper", "Myjava", "TestReport");
+    	BasicReportGenerator brg = new BasicReportGenerator(abstractEntry, "/reports/speed_report.jasper", "Myjava", "TestReport");
     	
 		brg.exportStream(filename, response.getOutputStream());
 		

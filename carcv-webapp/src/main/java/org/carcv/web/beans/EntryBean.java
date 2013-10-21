@@ -9,7 +9,7 @@ import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
-import org.carcv.core.model.Entry;
+import org.carcv.core.model.file.FileEntry;
 
 /**
  * @author oskopek
@@ -21,20 +21,20 @@ public class EntryBean {
 	@PersistenceContext
 	private EntityManager em;
 	
-	public void create(Entry...entries) {
-		for(Entry e : entries) {
+	public void create(FileEntry...entries) {
+		for(FileEntry e : entries) {
 			em.persist(e);
 		}
 	}
 	
-	public Entry findById(long id) {
-		return (Entry) em.createQuery("select e from Entry e where e.id = :id")
+	public FileEntry findById(long id) {
+		return (FileEntry) em.createQuery("select e from AbstractEntry e where e.id = :id")
 				.setParameter("id", id).getSingleResult();
 	}
 	
 	@SuppressWarnings("unchecked")
-	public List<Entry> getAll() {
-		return em.createQuery("select e from Entry e")
+	public List<FileEntry> getAll() {
+		return em.createQuery("select e from AbstractEntry e")
 				.getResultList();
 	}
 }

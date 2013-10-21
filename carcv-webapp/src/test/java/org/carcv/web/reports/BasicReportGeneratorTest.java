@@ -12,11 +12,11 @@ import net.sf.jasperreports.engine.JRException;
 
 import org.carcv.core.model.Address;
 import org.carcv.core.model.CarData;
-import org.carcv.core.model.Entry;
 import org.carcv.core.model.NumberPlate;
 import org.carcv.core.model.Speed;
 import org.carcv.core.model.SpeedUnit;
 import org.carcv.core.model.file.FileCarImage;
+import org.carcv.core.model.file.FileEntry;
 import org.carcv.web.reports.BasicReportGenerator;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -27,7 +27,7 @@ import org.junit.Test;
  */
 public class BasicReportGeneratorTest {
 
-	private static Entry testEntry = null;
+	private static FileEntry testEntry = null;
 
 	/**
 	 * @throws java.lang.Exception
@@ -45,12 +45,12 @@ public class BasicReportGeneratorTest {
 
 		CarData carData = new CarData(speed, location, licencePlate, timestamp);
 
-		testEntry = new Entry(carData, new FileCarImage(Paths.get("/tmp/test/video.h264")));
+		testEntry = new FileEntry(carData, new FileCarImage(Paths.get("/tmp/test/video.h264")));
 	}
 
 	/**
 	 * Test method for
-	 * {@link org.carcv.web.reports.BasicReportGenerator#buildPDFReport(org.carcv.core.model.Entry, java.lang.String, java.lang.String, java.lang.String)}
+	 * {@link org.carcv.web.reports.BasicReportGenerator#buildPDFReport(org.carcv.core.model.AbstractEntry, java.lang.String, java.lang.String, java.lang.String)}
 	 * .
 	 * 
 	 * @throws JRException

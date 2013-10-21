@@ -13,8 +13,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.carcv.core.model.Entry;
 import org.carcv.core.model.file.FileCarImage;
+import org.carcv.core.model.file.FileEntry;
 import org.carcv.web.beans.EntryBean;
 
 /**
@@ -37,7 +37,7 @@ public class CarTableServlet extends HttpServlet {
 	protected void processRequest(HttpServletRequest request, 
 			HttpServletResponse response) throws ServletException, IOException {
 		
-		ArrayList<Entry> entries = (ArrayList<Entry>) bean.getAll();
+		ArrayList<FileEntry> abstractEntries = (ArrayList<FileEntry>) bean.getAll();
 
 		//write page
 		response.setContentType("text/html");
@@ -76,7 +76,7 @@ public class CarTableServlet extends HttpServlet {
 		String videoURL;
 		String previewURL;
 
-		for (Entry e : entries) {
+		for (FileEntry e : abstractEntries) {
 			// initialize
 			date = dateFormat.format(e.getCarData().getTimestamp());
 			time = timeFormat.format(e.getCarData().getTimestamp());

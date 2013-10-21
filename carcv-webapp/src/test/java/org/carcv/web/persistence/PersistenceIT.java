@@ -14,11 +14,11 @@ import javax.ejb.EJB;
 
 import org.carcv.core.model.Address;
 import org.carcv.core.model.CarData;
-import org.carcv.core.model.Entry;
 import org.carcv.core.model.NumberPlate;
 import org.carcv.core.model.Speed;
 import org.carcv.core.model.SpeedUnit;
 import org.carcv.core.model.file.FileCarImage;
+import org.carcv.core.model.file.FileEntry;
 import org.carcv.web.beans.AddressBean;
 import org.carcv.web.beans.CarDataBean;
 import org.carcv.web.beans.EntryBean;
@@ -90,7 +90,7 @@ public class PersistenceIT {
 
         CarData carData = new CarData(speed, address, licencePlate, timestamp);
 
-        Entry entry = new Entry(carData, new FileCarImage(Paths.get("/tmp/test/video.h264")));
+        FileEntry abstractEntry = new FileEntry(carData, new FileCarImage(Paths.get("/tmp/test/video.h264")));
         
         // End entity code
         
@@ -106,7 +106,7 @@ public class PersistenceIT {
         //mediaObjectBean.create(video);
         speedBean.create(speed);
         carDataBean.create(carData);
-        entryBean.create(entry);
+        entryBean.create(abstractEntry);
         
         //assertEquals(video, mediaObjectBean.getAll().get(0));
         assertEquals(speed, speedBean.getAll().get(0));
@@ -117,7 +117,7 @@ public class PersistenceIT {
         
         assertEquals(carData, gotCarData);
         assertEquals(timestamp, gotCarData.getTimestamp());        
-        assertEquals(entry, entryBean.getAll().get(0));
+        assertEquals(abstractEntry, entryBean.getAll().get(0));
     }
 
 }

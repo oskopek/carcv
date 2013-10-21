@@ -14,11 +14,11 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.carcv.core.model.Address;
 import org.carcv.core.model.CarData;
-import org.carcv.core.model.Entry;
 import org.carcv.core.model.NumberPlate;
 import org.carcv.core.model.Speed;
 import org.carcv.core.model.SpeedUnit;
 import org.carcv.core.model.file.FileCarImage;
+import org.carcv.core.model.file.FileEntry;
 import org.carcv.web.beans.*;
 /**
  * Servlet implementation class AddEntryServlet
@@ -74,7 +74,7 @@ public class AddEntryServlet extends HttpServlet {
 
     			CarData carData = new CarData(speed, address, licencePlate, timestamp);
 
-    			Entry testEntry = new Entry(carData, new FileCarImage(Paths.get("/tmp/test/video.h264")));
+    			FileEntry testEntry = new FileEntry(carData, new FileCarImage(Paths.get("/tmp/test/video.h264")));
     			
     			// End entity code
     			out.println(testEntry.toString());
