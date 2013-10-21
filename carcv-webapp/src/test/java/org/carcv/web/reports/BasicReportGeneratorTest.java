@@ -5,6 +5,7 @@ package org.carcv.web.reports;
 
 import java.io.File;
 import java.net.URL;
+import java.nio.file.Paths;
 import java.util.Date;
 
 import net.sf.jasperreports.engine.JRException;
@@ -12,11 +13,10 @@ import net.sf.jasperreports.engine.JRException;
 import org.carcv.core.model.Address;
 import org.carcv.core.model.CarData;
 import org.carcv.core.model.Entry;
-import org.carcv.core.model.MediaObject;
-import org.carcv.core.model.MediaType;
 import org.carcv.core.model.NumberPlate;
 import org.carcv.core.model.Speed;
 import org.carcv.core.model.SpeedUnit;
+import org.carcv.core.model.file.FileCarImage;
 import org.carcv.web.reports.BasicReportGenerator;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -43,12 +43,9 @@ public class BasicReportGeneratorTest {
 
 		Date timestamp = new Date(System.currentTimeMillis());
 
-		MediaObject video = new MediaObject("reports/OpenCV_Logo_with_text.png",
-				MediaType.H264);
-
 		CarData carData = new CarData(speed, location, licencePlate, timestamp);
 
-		testEntry = new Entry(carData, video);
+		testEntry = new Entry(carData, new FileCarImage(Paths.get("/tmp/test/video.h264")));
 	}
 
 	/**

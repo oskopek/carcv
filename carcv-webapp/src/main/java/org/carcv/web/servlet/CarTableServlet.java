@@ -14,6 +14,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.carcv.core.model.Entry;
+import org.carcv.core.model.file.FileCarImage;
 import org.carcv.web.beans.EntryBean;
 
 /**
@@ -82,8 +83,11 @@ public class CarTableServlet extends HttpServlet {
 			licencePlate = e.getCarData().getNumberPlate().getOrigin() + ": "
 					+ e.getCarData().getNumberPlate().getText();
 			location = e.getCarData().getAddress().print();
-			videoURL = e.getVideo().getURL();
-			previewURL = e.getVideo().getURL();
+			
+			FileCarImage fci = (FileCarImage) e.getCarImage();
+			
+			videoURL = fci.getFilepath().toString(); //TODO: add link to actual video
+			previewURL = videoURL;
 
 			// write
 			out.println("<tr>");

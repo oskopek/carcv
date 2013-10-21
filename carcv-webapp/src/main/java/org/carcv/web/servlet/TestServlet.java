@@ -17,6 +17,7 @@ import org.carcv.web.beans.MediaObjectBean;
 
 /**
  * Servlet implementation class TestServlet
+ * @deprecated
  */
 @WebServlet("/test/TestServlet")
 public class TestServlet extends HttpServlet {

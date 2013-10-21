@@ -2,6 +2,7 @@ package org.carcv.web.servlet;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.nio.file.Paths;
 import java.util.Date;
 
 import javax.ejb.EJB;
@@ -14,11 +15,10 @@ import javax.servlet.http.HttpServletResponse;
 import org.carcv.core.model.Address;
 import org.carcv.core.model.CarData;
 import org.carcv.core.model.Entry;
-import org.carcv.core.model.MediaObject;
-import org.carcv.core.model.MediaType;
 import org.carcv.core.model.NumberPlate;
 import org.carcv.core.model.Speed;
 import org.carcv.core.model.SpeedUnit;
+import org.carcv.core.model.file.FileCarImage;
 import org.carcv.web.beans.*;
 /**
  * Servlet implementation class AddEntryServlet
@@ -33,8 +33,8 @@ public class AddEntryServlet extends HttpServlet {
 	private CarDataBean carDataBean;
 	@EJB
 	private NumberPlateBean numberPlateBean;
-	@EJB
-	private MediaObjectBean mediaObjectBean;
+	//@EJB
+	//private MediaObjectBean mediaObjectBean;
 	@EJB
 	private SpeedBean speedBean;
 	@EJB
@@ -70,19 +70,18 @@ public class AddEntryServlet extends HttpServlet {
 
     			Date timestamp = new Date(System.currentTimeMillis());
 
-    			MediaObject video = new MediaObject("http://test.com/video.h264",
-    					MediaType.H264);
+    			//MediaObject video = new MediaObject("http://test.com/video.h264", MediaType.H264);
 
     			CarData carData = new CarData(speed, address, licencePlate, timestamp);
 
-    			Entry testEntry = new Entry(carData, video);
+    			Entry testEntry = new Entry(carData, new FileCarImage(Paths.get("/tmp/test/video.h264")));
     			
     			// End entity code
     			out.println(testEntry.toString());
     			
     			addressBean.create(address);
     			numberPlateBean.create(licencePlate);
-    			mediaObjectBean.create(video);
+    			//mediaObjectBean.create(video);
     			speedBean.create(speed);
     			carDataBean.create(carData);
     			entryBean.create(testEntry);

@@ -13,7 +13,7 @@ import org.carcv.core.model.MediaObject;
 
 /**
  * @author oskopek
- *
+ * @deprecated
  */
 @Stateless
 public class MediaObjectBean {

@@ -33,6 +33,9 @@ public class BasicReportGenerator {
 	
 	JasperPrint filledReportPrint;
 	
+	private final String previewURL = "reports/OpenCV_Logo_with_text.png"; //TODO: add real handling of video
+	private final String videoURL = "/tmp/test/video.h264";
+	
 	public BasicReportGenerator(Entry e, String templateFilename,
 			String reportBuilderLocation,
 			String reportName) throws JRException {
@@ -57,11 +60,11 @@ public class BasicReportGenerator {
 		String dataLocation = add.print();
 
 		// parameters.put("id", Long.toString(data.getId()));
-		parameters.put("previewURL", e.getVideo().getURL());
+		parameters.put("previewURL", previewURL);
 		parameters.put("date", dateFormat.format(data.getTimestamp()));
 		parameters.put("location", dataLocation);
 		parameters.put("LPNumber", data.getNumberPlate().getText());
-		parameters.put("videoURL", e.getVideo().getURL());
+		parameters.put("videoURL", videoURL);
 		parameters.put("time", timeFormat.format(data.getTimestamp()));
 		parameters.put("speed", Double.toString(data.getSpeed().getSpeed())
 				+ " " + data.getSpeed().getUnit().toString());

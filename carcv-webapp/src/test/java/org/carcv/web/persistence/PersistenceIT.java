@@ -7,6 +7,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
 import java.io.File;
+import java.nio.file.Paths;
 import java.util.Date;
 
 import javax.ejb.EJB;
@@ -14,15 +15,13 @@ import javax.ejb.EJB;
 import org.carcv.core.model.Address;
 import org.carcv.core.model.CarData;
 import org.carcv.core.model.Entry;
-import org.carcv.core.model.MediaObject;
-import org.carcv.core.model.MediaType;
 import org.carcv.core.model.NumberPlate;
 import org.carcv.core.model.Speed;
 import org.carcv.core.model.SpeedUnit;
+import org.carcv.core.model.file.FileCarImage;
 import org.carcv.web.beans.AddressBean;
 import org.carcv.web.beans.CarDataBean;
 import org.carcv.web.beans.EntryBean;
-import org.carcv.web.beans.MediaObjectBean;
 import org.carcv.web.beans.NumberPlateBean;
 import org.carcv.web.beans.SpeedBean;
 import org.jboss.arquillian.container.test.api.Deployment;
@@ -67,8 +66,8 @@ public class PersistenceIT {
     private CarDataBean carDataBean;
     @EJB
     private NumberPlateBean numberPlateBean;
-    @EJB
-    private MediaObjectBean mediaObjectBean;
+    //@EJB
+    //private MediaObjectBean mediaObjectBean;
     @EJB
     private SpeedBean speedBean;
     @EJB
@@ -87,30 +86,29 @@ public class PersistenceIT {
 
         Date timestamp = new Date(System.currentTimeMillis());
 
-        MediaObject video = new MediaObject("http://test.com/video.h264",
-                MediaType.H264);
+        //MediaObject video = new MediaObject("http://test.com/video.h264", MediaType.H264);
 
         CarData carData = new CarData(speed, address, licencePlate, timestamp);
 
-        Entry entry = new Entry(carData, video);
+        Entry entry = new Entry(carData, new FileCarImage(Paths.get("/tmp/test/video.h264")));
         
         // End entity code
         
         assertNotNull(addressBean);
         assertNotNull(numberPlateBean);
-        assertNotNull(mediaObjectBean);
+        //assertNotNull(mediaObjectBean);
         assertNotNull(speedBean);
         assertNotNull(carDataBean);
         assertNotNull(entryBean);
         
         addressBean.create(address);
         numberPlateBean.create(licencePlate);
-        mediaObjectBean.create(video);
+        //mediaObjectBean.create(video);
         speedBean.create(speed);
         carDataBean.create(carData);
         entryBean.create(entry);
         
-        assertEquals(video, mediaObjectBean.getAll().get(0));
+        //assertEquals(video, mediaObjectBean.getAll().get(0));
         assertEquals(speed, speedBean.getAll().get(0));
         assertEquals(address, addressBean.getAll().get(0));
         assertEquals(licencePlate, numberPlateBean.getAll().get(0));
