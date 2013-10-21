@@ -25,7 +25,7 @@ import javax.validation.constraints.NotNull;
 
 import org.apache.commons.lang.builder.EqualsBuilder;
 import org.apache.commons.lang.builder.HashCodeBuilder;
-import org.carcv.core.model.CarImage;
+import org.carcv.core.model.AbstractCarImage;
 
 /**
  * Default behavior is to not load an image from path. To load it, use {@link FileCarImage#loadImage()}
@@ -33,7 +33,7 @@ import org.carcv.core.model.CarImage;
  * 
  */
 @Entity
-public class FileCarImage extends CarImage  { //TODO: add test of new filecarimage
+public class FileCarImage extends AbstractCarImage  { //TODO: add test of new filecarimage
 
     /**
      * 

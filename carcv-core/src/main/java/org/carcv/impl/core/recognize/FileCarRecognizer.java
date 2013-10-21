@@ -7,9 +7,9 @@ import java.io.IOException;
 import java.nio.file.Path;
 import java.util.ArrayList;
 
-import org.carcv.core.model.Entry;
 import org.carcv.core.model.NumberPlate;
 import org.carcv.core.model.Speed;
+import org.carcv.core.model.file.FileEntry;
 import org.carcv.core.recognize.CarRecognizer;
 import org.carcv.impl.core.detect.NumberPlateDetectorImpl;
 import org.carcv.impl.core.detect.SpeedDetectorImpl;
@@ -21,7 +21,7 @@ import org.carcv.impl.core.output.FileSaveBatch;
  * @author oskopek
  *
  */
-public class CarRecognizerImpl extends CarRecognizer { //TODO: Test CarRecognizerImpl
+public class FileCarRecognizer extends CarRecognizer { //TODO: Test FileCarRecognizer
     
     private FileCarImageLoader loader;
     
@@ -29,7 +29,7 @@ public class CarRecognizerImpl extends CarRecognizer { //TODO: Test CarRecognize
     
     
     
-    public CarRecognizerImpl(Path inDir, Path outDir) {        
+    public FileCarRecognizer(Path inDir, Path outDir) {        
         //should load CarData with Address; FileCarImage with filepath
         loader = new FileCarImageLoader(new FileDiscoverer(inDir));
         
@@ -42,7 +42,7 @@ public class CarRecognizerImpl extends CarRecognizer { //TODO: Test CarRecognize
      */
     @Override
     public void recognize() throws IOException {
-        final ArrayList<Entry> batch = (ArrayList<Entry>) loader.getBatch();
+        final ArrayList<FileEntry> batch = (ArrayList<FileEntry>) loader.getBatch();
         
         detectSpeed(batch);
         detectNumberPlate(batch);
@@ -50,20 +50,20 @@ public class CarRecognizerImpl extends CarRecognizer { //TODO: Test CarRecognize
         saver.save(batch);
     }
     
-    private void detectSpeed(final ArrayList<Entry> batch) {
+    private void detectSpeed(final ArrayList<FileEntry> batch) {
         SpeedDetectorImpl sd = new SpeedDetectorImpl();
         
-        for(Entry entry : batch) {
+        for(FileEntry entry : batch) {
             Double d = (Double) sd.detectSpeed(entry.getCarImage());
             
             entry.getCarData().setSpeed(new Speed(d));
         }
     }
     
-    private void detectNumberPlate(final ArrayList<Entry> batch) {
+    private void detectNumberPlate(final ArrayList<FileEntry> batch) {
         NumberPlateDetectorImpl npd = new NumberPlateDetectorImpl();
         
-        for(Entry entry : batch) {
+        for(FileEntry entry : batch) {
             String text = npd.detectPlateText(entry.getCarImage());
             String origin = npd.detectPlateOrigin(entry.getCarImage());
             

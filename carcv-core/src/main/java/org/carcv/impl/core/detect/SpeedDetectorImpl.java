@@ -4,7 +4,7 @@
 package org.carcv.impl.core.detect;
 
 import org.carcv.core.detect.SpeedDetector;
-import org.carcv.core.model.CarImage;
+import org.carcv.core.model.AbstractCarImage;
 
 /**
  * @author oskopek
@@ -23,7 +23,7 @@ public class SpeedDetectorImpl implements SpeedDetector { //TODO: test and imple
      * @see org.carcv.core.detect.Detector#detect(org.carcv.core.input.CarImage)
      */
     @Override
-    public String detect(CarImage image) {
+    public String detect(AbstractCarImage image) {
         return detectSpeed(image).toString();
     }
 
@@ -31,7 +31,7 @@ public class SpeedDetectorImpl implements SpeedDetector { //TODO: test and imple
      * @see org.carcv.core.detect.SpeedDetector#detectSpeed(org.carcv.core.input.CarImage)
      */
     @Override
-    public Number detectSpeed(CarImage image) {
+    public Number detectSpeed(AbstractCarImage image) {
         Integer speed = 0;
         
         // TODO speed detector implementation

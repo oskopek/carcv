@@ -10,8 +10,8 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Properties;
 
-import org.carcv.core.model.Entry;
-import org.carcv.core.model.file.FileCarImage;
+import org.carcv.core.model.AbstractEntry;
+import org.carcv.core.model.file.FileEntry;
 import org.carcv.core.output.SaveBatch;
 
 /**
@@ -33,10 +33,16 @@ public class FileSaveBatch implements SaveBatch { //TODO: test FileSaveBatch
      * @see org.carcv.core.output.SaveBatch#save(java.util.ArrayList)
      */
     @Override
-    public boolean save(final ArrayList<Entry> batch) {        
-        for(Entry entry : batch) {
+    public boolean save(final ArrayList<? extends AbstractEntry> batch) { 
+        final ArrayList<FileEntry> fileBatch = (ArrayList<FileEntry>) batch;
+        
+        return saveFileEntry(fileBatch);
+    }
+    
+    public boolean saveFileEntry(final ArrayList<FileEntry> fileBatch) {
+        for(FileEntry entry : fileBatch) {
             try {
-                saveEntry(entry);
+                saveFileEntry(entry);
             } catch (IOException e) {
                 //e.printStackTrace();
                 return false;
@@ -46,12 +52,10 @@ public class FileSaveBatch implements SaveBatch { //TODO: test FileSaveBatch
         return true;
     }
     
-    private void saveEntry(Entry e) throws IOException {
+    private void saveFileEntry(FileEntry e) throws IOException {
         Properties p = new Properties();
         
-        FileCarImage fci = (FileCarImage) e.getCarImage();
-        
-        p.setProperty("filepath"    , fci.getFilepath().toString());
+        p.setProperty("filepath"    , e.getCarImage().getFilepath().toString());
         
         
         p.setProperty("numberplate-origin"   , e.getCarData().getNumberPlate().getOrigin());
@@ -73,10 +77,10 @@ public class FileSaveBatch implements SaveBatch { //TODO: test FileSaveBatch
         
         //TODO: add everything here -- should be done
         
-        Path outFilePath = Paths.get(directory.toString(), fci.getFilepath().getFileName().toString());
+        Path outFilePath = Paths.get(directory.toString(), e.getCarImage().getFilepath().getFileName().toString());
         
         FileOutputStream fous = new FileOutputStream(outFilePath.toFile());
-        p.store(fous, fci.getFilepath().getFileName().toString());
+        p.store(fous, e.getCarImage().getFilepath().getFileName().toString());
         
     }
 

@@ -8,15 +8,15 @@ import javax.persistence.OneToOne;
 import javax.validation.constraints.NotNull;
 
 import org.carcv.core.model.CarData;
-import org.carcv.core.model.CarImage;
-import org.carcv.core.model.Entry;
+import org.carcv.core.model.AbstractCarImage;
+import org.carcv.core.model.AbstractEntry;
 
 /**
  * @author oskopek
  *
  */
 @Entity
-public class FileEntry extends Entry {
+public class FileEntry extends AbstractEntry {
     
     /**
      * 
@@ -29,11 +29,11 @@ public class FileEntry extends Entry {
 
     /**
      * @param carData
-     * @param carImage
+     * @param abstractCarImage
      */
-    public FileEntry(CarData carData, CarImage carImage) {
+    public FileEntry(CarData carData, AbstractCarImage abstractCarImage) {
         this.carData = carData;
-        this.carImage = (FileCarImage) carImage;
+        this.carImage = (FileCarImage) abstractCarImage;
     }
     
     /**

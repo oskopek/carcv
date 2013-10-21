@@ -10,7 +10,7 @@ import org.apache.commons.lang.builder.HashCodeBuilder;
  * @author oskopek
  *
  */
-public abstract class Entry extends AbstractModel {
+public abstract class AbstractEntry extends AbstractModel {
     
     /**
      * 
@@ -18,9 +18,9 @@ public abstract class Entry extends AbstractModel {
     private static final long serialVersionUID = 2309289364991527040L;
     /*
     private CarData carData;
-    private CarImage carImage;
+    private AbstractCarImage carImage;
    
-    public Entry(CarData carData, CarImage carImage) {
+    public AbstractEntry(CarData carData, AbstractCarImage carImage) {
         this.carData = carData;
         this.carImage = carImage;
     }
@@ -28,7 +28,7 @@ public abstract class Entry extends AbstractModel {
     */
     
     public abstract CarData getCarData();
-    public abstract CarImage getCarImage();
+    public abstract AbstractCarImage getCarImage();
 
     @Override
     public int hashCode() {
@@ -46,10 +46,10 @@ public abstract class Entry extends AbstractModel {
         if (obj == null) {
             return false;
         }
-        if (!(obj instanceof Entry)) {
+        if (!(obj instanceof AbstractEntry)) {
             return false;
         }
-        Entry other = (Entry) obj;
+        AbstractEntry other = (AbstractEntry) obj;
 
         return new EqualsBuilder()
                 .append(getCarImage(), other.getCarImage())

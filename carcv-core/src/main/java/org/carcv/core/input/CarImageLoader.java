@@ -7,8 +7,8 @@ import java.io.IOException;
 import java.util.List;
 
 import org.carcv.core.model.CarData;
-import org.carcv.core.model.CarImage;
-import org.carcv.core.model.Entry;
+import org.carcv.core.model.AbstractCarImage;
+import org.carcv.core.model.AbstractEntry;
 
 /**
  * Need to override init method, to initialize <code>discoverer</code> and <code>queue</code>
@@ -25,7 +25,7 @@ public abstract class CarImageLoader {
      * @return
      * @throws IOException
      */
-    public List<? extends Entry> getBatch() throws IOException {
+    public List<? extends AbstractEntry> getBatch() throws IOException {
 
         getDiscoverer().discover();
 
@@ -37,18 +37,18 @@ public abstract class CarImageLoader {
      * 
      * @return
      */
-    public abstract List<? extends Entry> getBatchNoDiscover(); /*{
+    public abstract List<? extends AbstractEntry> getBatchNoDiscover(); /*{
         
         CarData cd = fetchAllCarData();
 
-        List<Entry> list = new ArrayList<>();
+        List<AbstractEntry> list = new ArrayList<>();
 
-        Entry e = null;
+        AbstractEntry e = null;
         
         while (!getDiscoverer().getQueue().isEmpty()) {
-            CarImage ci = getDiscoverer().getQueue().poll();
+            AbstractCarImage ci = getDiscoverer().getQueue().poll();
             
-            e = new Entry(cd, ci); //TODO: fix cannot instantiate abstract class error
+            e = new AbstractEntry(cd, ci); //TODO: fix cannot instantiate abstract class error
             
             list.add(e);
         }
@@ -56,7 +56,7 @@ public abstract class CarImageLoader {
         return list;
     }*/
 
-    public abstract Discoverer<? extends ImageQueue<? extends CarImage>> getDiscoverer();
+    public abstract Discoverer<? extends ImageQueue<? extends AbstractCarImage>> getDiscoverer();
     
     public abstract CarData fetchAllCarData();
 }

@@ -3,7 +3,7 @@
  */
 package org.carcv.core.detect;
 
-import org.carcv.core.model.CarImage;
+import org.carcv.core.model.AbstractCarImage;
 
 /**
  * @author oskopek
@@ -11,8 +11,8 @@ import org.carcv.core.model.CarImage;
  */
 public interface NumberPlateDetector extends Detector {
 
-    public String detectPlateText(final CarImage image);
+    public String detectPlateText(final AbstractCarImage image);
     
-    public String detectPlateOrigin(final CarImage image);
+    public String detectPlateOrigin(final AbstractCarImage image);
     
 }
