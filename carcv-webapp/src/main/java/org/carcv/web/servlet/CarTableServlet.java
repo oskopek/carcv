@@ -13,7 +13,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.carcv.impl.core.model.Entry;
+import org.carcv.core.model.Entry;
 import org.carcv.web.beans.EntryBean;
 
 /**

@@ -11,14 +11,14 @@ import java.util.Deque;
 import java.util.Iterator;
 import java.util.Queue;
 
-import org.carcv.core.model.AbstractCarImage;
+import org.carcv.core.model.CarImage;
 
 /**
  * Own object similar to ArrayDeque
  * @author oskopek
  *
  */ //TODO: change to extends ArrayDeque
-public abstract class ImageQueue<T extends AbstractCarImage> extends AbstractCollection<T> implements Serializable, Cloneable, Iterable<T>, Collection<T>, Deque<T>, Queue<T> {
+public abstract class ImageQueue<T extends CarImage> extends AbstractCollection<T> implements Serializable, Cloneable, Iterable<T>, Collection<T>, Deque<T>, Queue<T> {
 
     
     /**

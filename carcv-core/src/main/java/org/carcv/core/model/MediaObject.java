@@ -1,12 +1,13 @@
 /**
  * 
  */
-package org.carcv.impl.core.model;
+package org.carcv.core.model;
 
 import javax.persistence.Entity;
+import javax.validation.constraints.NotNull;
 
-import org.carcv.core.model.AbstractMediaObject;
-import org.carcv.core.model.MediaType;
+import org.apache.commons.lang.builder.EqualsBuilder;
+import org.apache.commons.lang.builder.HashCodeBuilder;
 
 /**
  * Used for persistence of remote and local files in a database TODO: add local caching of files
@@ -15,7 +16,7 @@ import org.carcv.core.model.MediaType;
  * 
  */
 @Entity
-public class MediaObject extends AbstractMediaObject {
+public class MediaObject extends AbstractModel {
 
 	/**
 	 * 
@@ -46,6 +47,7 @@ public class MediaObject extends AbstractMediaObject {
 	/**
 	 * @return the URL
 	 */
+	@NotNull
 	public String getURL() {
 		return URL;
 	}
@@ -61,6 +63,7 @@ public class MediaObject extends AbstractMediaObject {
 	/**
 	 * @return the mediaType
 	 */
+	@NotNull
 	public MediaType getMediaType() {
 		return mediaType;
 	}
@@ -85,5 +88,30 @@ public class MediaObject extends AbstractMediaObject {
 				+ mediaType + "]";
 	}
 	*/
+	
+	 /*
+     * (non-Javadoc)
+     * 
+     * @see java.lang.Object#hashCode()
+     */
+    @Override
+    public int hashCode() {
+        return new HashCodeBuilder().append(getURL()).append(getMediaType()).toHashCode();
+    }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see java.lang.Object#equals(java.lang.Object)
+     */
+    @Override
+    public boolean equals(Object o) {
+        if (o instanceof MediaObject) {
+            MediaObject obj = (MediaObject) o;
+            return new EqualsBuilder().append(getURL(), obj.getURL())
+                    .append(getMediaType(), obj.getMediaType()).isEquals();
+        }
+        return false;
+    }
 
 }

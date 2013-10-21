@@ -19,12 +19,13 @@ import org.apache.commons.lang.builder.CompareToBuilder;
 @MappedSuperclass
 public abstract class AbstractModel implements Serializable, Comparable<AbstractModel> {
     
-    private Long id;
-
     /**
      * 
      */
-    private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = -5140579589148423614L;
+    
+    
+    private Long id;
     
     @Id
     @GeneratedValue

@@ -9,7 +9,7 @@ import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
-import org.carcv.impl.core.model.MediaObject;
+import org.carcv.core.model.MediaObject;
 
 /**
  * @author oskopek

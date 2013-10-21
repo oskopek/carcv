@@ -11,13 +11,13 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.carcv.impl.core.model.Address;
-import org.carcv.impl.core.model.CarData;
-import org.carcv.impl.core.model.Entry;
-import org.carcv.impl.core.model.NumberPlate;
-import org.carcv.impl.core.model.MediaObject;
+import org.carcv.core.model.Address;
+import org.carcv.core.model.CarData;
+import org.carcv.core.model.Entry;
+import org.carcv.core.model.MediaObject;
 import org.carcv.core.model.MediaType;
-import org.carcv.impl.core.model.Speed;
+import org.carcv.core.model.NumberPlate;
+import org.carcv.core.model.Speed;
 import org.carcv.core.model.SpeedUnit;
 import org.carcv.web.beans.*;
 /**

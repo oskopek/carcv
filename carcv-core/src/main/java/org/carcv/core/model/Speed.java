@@ -1,19 +1,20 @@
 /**
  * 
  */
-package org.carcv.impl.core.model;
+package org.carcv.core.model;
 
 import javax.persistence.Entity;
+import javax.validation.constraints.NotNull;
 
-import org.carcv.core.model.AbstractSpeed;
-import org.carcv.core.model.SpeedUnit;
+import org.apache.commons.lang.builder.EqualsBuilder;
+import org.apache.commons.lang.builder.HashCodeBuilder;
 
 /**
  * @author oskopek
  * 
  */
 @Entity
-public class Speed extends AbstractSpeed {
+public class Speed extends AbstractModel {
 
 	/**
 	 * 
@@ -50,7 +51,9 @@ public class Speed extends AbstractSpeed {
 
 	private SpeedUnit unit;
 
-	@Override
+	
+    @NotNull
+    //@Range(min = 0, message = "Speed is less or equal to 0!")
 	public Double getSpeed() {
 		return speed;
 	}
@@ -63,7 +66,7 @@ public class Speed extends AbstractSpeed {
 		this.speed = speed;
 	}
 
-	@Override
+    @NotNull
 	public SpeedUnit getUnit() {
 		return unit;
 	}
@@ -86,5 +89,39 @@ public class Speed extends AbstractSpeed {
 	public String toString() {
 		return "Speed [speed=" + speed + ", unit=" + unit + "]";
 	}*/
+	
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see java.lang.Object#hashCode()
+     */
+    @Override
+    public int hashCode() {
+        return new HashCodeBuilder().append(getSpeed()).append(getUnit()).toHashCode();
+    }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see java.lang.Object#equals(java.lang.Object)
+     */
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (!(obj instanceof Speed)) {
+            return false;
+        }
+        Speed other = (Speed) obj;
+        return new EqualsBuilder()
+                .append(this.getSpeed(), other.getSpeed())
+                .append(this.getUnit(), other.getUnit())
+                .isEquals();
+    }
 
 }

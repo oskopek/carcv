@@ -23,7 +23,7 @@ import net.sf.jasperreports.engine.export.JRPdfExporter;
 
 import org.carcv.core.model.AbstractAddress;
 import org.carcv.core.model.AbstractCarData;
-import org.carcv.impl.core.model.Entry;
+import org.carcv.core.model.Entry;
 
 /**
  * @author oskopek

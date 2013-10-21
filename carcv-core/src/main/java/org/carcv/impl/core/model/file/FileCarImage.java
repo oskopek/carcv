@@ -17,10 +17,11 @@ import javax.imageio.ImageReadParam;
 import javax.imageio.ImageReader;
 import javax.imageio.stream.ImageInputStream;
 import javax.persistence.Entity;
+import javax.validation.constraints.NotNull;
 
 import org.apache.commons.lang.builder.EqualsBuilder;
 import org.apache.commons.lang.builder.HashCodeBuilder;
-import org.carcv.core.model.AbstractCarImage;
+import org.carcv.core.model.CarImage;
 
 /**
  * Default behavior is to not load an image from path. To load it, use {@link FileCarImage#loadImage()}
@@ -28,7 +29,7 @@ import org.carcv.core.model.AbstractCarImage;
  * 
  */
 @Entity
-public class FileCarImage extends AbstractCarImage  {
+public class FileCarImage extends CarImage  {
 
     /**
      * 
@@ -104,6 +105,7 @@ public class FileCarImage extends AbstractCarImage  {
      * @return the image
      */
     @Override
+    @NotNull
     public BufferedImage getImage() {
         return image;
     }
@@ -111,6 +113,7 @@ public class FileCarImage extends AbstractCarImage  {
     /**
      * @return the filepath
      */
+    @NotNull
     public Path getFilepath() {
         return filepath;
     }

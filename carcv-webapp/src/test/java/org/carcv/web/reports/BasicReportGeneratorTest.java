@@ -9,13 +9,13 @@ import java.util.Date;
 
 import net.sf.jasperreports.engine.JRException;
 
-import org.carcv.impl.core.model.Address;
-import org.carcv.impl.core.model.CarData;
-import org.carcv.impl.core.model.Entry;
-import org.carcv.impl.core.model.NumberPlate;
-import org.carcv.impl.core.model.MediaObject;
+import org.carcv.core.model.Address;
+import org.carcv.core.model.CarData;
+import org.carcv.core.model.Entry;
+import org.carcv.core.model.MediaObject;
 import org.carcv.core.model.MediaType;
-import org.carcv.impl.core.model.Speed;
+import org.carcv.core.model.NumberPlate;
+import org.carcv.core.model.Speed;
 import org.carcv.core.model.SpeedUnit;
 import org.carcv.web.reports.BasicReportGenerator;
 import org.junit.BeforeClass;
@@ -53,7 +53,7 @@ public class BasicReportGeneratorTest {
 
 	/**
 	 * Test method for
-	 * {@link org.carcv.web.reports.BasicReportGenerator#buildPDFReport(org.carcv.impl.core.model.Entry, java.lang.String, java.lang.String, java.lang.String)}
+	 * {@link org.carcv.web.reports.BasicReportGenerator#buildPDFReport(org.carcv.core.model.Entry, java.lang.String, java.lang.String, java.lang.String)}
 	 * .
 	 * 
 	 * @throws JRException

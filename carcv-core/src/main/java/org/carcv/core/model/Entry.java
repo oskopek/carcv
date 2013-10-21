@@ -3,7 +3,8 @@
  */
 package org.carcv.core.model;
 
-import javax.persistence.MappedSuperclass;
+import javax.persistence.Entity;
+import javax.persistence.OneToOne;
 import javax.validation.constraints.NotNull;
 
 import org.apache.commons.lang.builder.EqualsBuilder;
@@ -13,27 +14,42 @@ import org.apache.commons.lang.builder.HashCodeBuilder;
  * @author oskopek
  *
  */
-@MappedSuperclass
-public abstract class AbstractEntry extends AbstractModel {
+@Entity
+public class Entry extends AbstractModel {
     
     /**
      * 
      */
-    private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 2309289364991527040L;
+    
+    private CarData carData;
+    private MediaObject video;
 
     /**
-     * NOTE: Add @OneToOne annotation
-     * @return
+     * 
+     */
+    public Entry(CarData carData, MediaObject video) {
+        this.carData = carData;
+        this.video = video;
+    }
+
+    /* (non-Javadoc)
+     * @see org.carcv.core.model.AbstractEntry#getCarData()
      */
     @NotNull
-    public abstract AbstractCarData getCarData();
-    
-    /**
-     * NOTE: Add @OneToOne annotation
-     * @return
+    @OneToOne
+    public CarData getCarData() {
+        return carData;
+    }
+
+    /* (non-Javadoc)
+     * @see org.carcv.core.model.AbstractEntry#getVideo()
      */
     @NotNull
-    public abstract AbstractMediaObject getVideo();
+    @OneToOne
+    public MediaObject getVideo() {
+        return video;
+    }
     
     @Override
     public int hashCode() {
@@ -51,10 +67,10 @@ public abstract class AbstractEntry extends AbstractModel {
         if (obj == null) {
             return false;
         }
-        if (!(obj instanceof AbstractEntry)) {
+        if (!(obj instanceof Entry)) {
             return false;
         }
-        AbstractEntry other = (AbstractEntry) obj;
+        Entry other = (Entry) obj;
 
         return new EqualsBuilder()
                 .append(getVideo(), other.getVideo())
@@ -62,4 +78,5 @@ public abstract class AbstractEntry extends AbstractModel {
                 .isEquals();
         
     }
+
 }

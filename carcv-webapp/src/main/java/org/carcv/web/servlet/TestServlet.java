@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.carcv.impl.core.model.MediaObject;
+import org.carcv.core.model.MediaObject;
 import org.carcv.core.model.MediaType;
 import org.carcv.web.beans.MediaObjectBean;
 

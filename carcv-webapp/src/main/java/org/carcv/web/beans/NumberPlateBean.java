@@ -9,7 +9,7 @@ import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
-import org.carcv.impl.core.model.NumberPlate;
+import org.carcv.core.model.NumberPlate;
 
 /**
  * @author oskopek

@@ -3,7 +3,7 @@
  */
 package org.carcv.core.detect;
 
-import org.carcv.core.model.AbstractCarImage;
+import org.carcv.core.model.CarImage;
 
 /**
  * @author oskopek
@@ -11,5 +11,5 @@ import org.carcv.core.model.AbstractCarImage;
  */
 public interface SpeedDetector extends Detector {
 
-    public Number detectSpeed(final AbstractCarImage image);
+    public Number detectSpeed(final CarImage image);
 }

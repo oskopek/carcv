@@ -1,11 +1,13 @@
 /**
  * 
  */
-package org.carcv.impl.core.model;
+package org.carcv.core.model;
 
 import javax.persistence.Entity;
+import javax.validation.constraints.NotNull;
 
-import org.carcv.core.model.AbstractAddress;
+import org.apache.commons.lang.builder.EqualsBuilder;
+import org.apache.commons.lang.builder.HashCodeBuilder;
 
 /**
  * A basic getter/setter POJO implementation of Address, JPA annotated
@@ -14,7 +16,7 @@ import org.carcv.core.model.AbstractAddress;
  * 
  */
 @Entity
-public class Address extends AbstractAddress {
+public class Address extends AbstractModel {
 
 	/**
 	 * 
@@ -173,44 +175,97 @@ public class Address extends AbstractAddress {
 		this.referenceNumber = referenceNumber;
 	}
 
-    @Override
+    @NotNull
     public Double getLatitude() {
         return latitude;
     }
 
-    @Override
+    @NotNull
     public Double getLongitude() {
         return longitude;
     }
 
-    @Override
+    @NotNull
     public String getCity() {
         return city;
     }
 
-    @Override
+    @NotNull
     public String getStreet() {
         return street;
     }
 
-    @Override
+    @NotNull
     public String getCountry() {
         return country;
     }
 
-    @Override
+    @NotNull
     public String getPostalCode() {
         return postalCode;
     }
 
-    @Override
+    @NotNull
     public Integer getStreetNumber() {
         return streetNumber;
     }
 
-    @Override
+    @NotNull
     public Integer getReferenceNumber() {
         return referenceNumber;
     }
+    
+    /*
+     * (non-Javadoc)
+     * 
+     * @see java.lang.Object#hashCode()
+     */
+    @Override
+    public int hashCode() {
+        return new HashCodeBuilder().append(getLatitude()).append(getLongitude())
+                .append(getCity()).append(getPostalCode()).append(getStreet()).append(getCountry())
+                .append(getStreetNumber()).append(getReferenceNumber()).toHashCode();
+    }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see java.lang.Object#equals(java.lang.Object)
+     */
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (!(obj instanceof Address)) {
+            return false;
+        }
+        Address other = (Address) obj;
+
+        return new EqualsBuilder()
+                .append(getLatitude(), other.getLatitude())
+                .append(getLongitude(), other.getLongitude())
+                .append(getCity(), other.getCity())
+                .append(getPostalCode(), other.getPostalCode())
+                .append(getStreet(), other.getStreet())
+                .append(getCountry(), other.getCountry())
+                .append(getStreetNumber(), other.getStreetNumber())
+                .append(getReferenceNumber(), other.getReferenceNumber()).isEquals();
+    }
+
+    /**
+     * Prints address in post-format
+     * 
+     * @return
+     */
+    public String print() {
+        return getStreet() + " " + getStreetNumber() + "/"
+                + getReferenceNumber() + "\n" + getPostalCode() + " "
+                + getCity() + "\n" + getCountry();
+    }
+
 
 }

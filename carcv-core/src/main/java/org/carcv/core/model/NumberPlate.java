@@ -1,11 +1,13 @@
 /**
  * 
  */
-package org.carcv.impl.core.model;
+package org.carcv.core.model;
 
 import javax.persistence.Entity;
+import javax.validation.constraints.NotNull;
 
-import org.carcv.core.model.AbstractNumberPlate;
+import org.apache.commons.lang.builder.EqualsBuilder;
+import org.apache.commons.lang.builder.HashCodeBuilder;
 
 /**
  * Country of origin and text of a given Licence Plate
@@ -14,7 +16,7 @@ import org.carcv.core.model.AbstractNumberPlate;
  * 
  */
 @Entity
-public class NumberPlate extends AbstractNumberPlate {
+public class NumberPlate extends AbstractModel {
 
 	/**
 	 * 
@@ -62,12 +64,12 @@ public class NumberPlate extends AbstractNumberPlate {
 		this.origin = origin;
 	}
 
-    @Override
+    @NotNull
     public String getText() {
         return text;
     }
 
-    @Override
+    @NotNull
     public String getOrigin() {
         return origin;
     }
@@ -82,5 +84,38 @@ public class NumberPlate extends AbstractNumberPlate {
 	public String toString() {
 		return "NumberPlate [text=" + text + ", origin=" + origin + "]";
 	}*/
+    
+    /*
+     * (non-Javadoc)
+     * 
+     * @see java.lang.Object#hashCode()
+     */
+    @Override
+    public int hashCode() {
+        return new HashCodeBuilder().append(getText()).append(getOrigin()).toHashCode();
+    }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see java.lang.Object#equals(java.lang.Object)
+     */
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (!(obj instanceof NumberPlate)) {
+            return false;
+        }
+        NumberPlate other = (NumberPlate) obj;
+        return new EqualsBuilder()
+                .append(getText(), other.getText())
+                .append(getOrigin(), other.getOrigin())
+                .isEquals();
+    }
 
 }
