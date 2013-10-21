@@ -4,7 +4,6 @@
 package org.carcv.core.input;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
 import org.carcv.core.model.CarData;
@@ -26,7 +25,7 @@ public abstract class CarImageLoader {
      * @return
      * @throws IOException
      */
-    public List<Entry> getBatch() throws IOException {
+    public List<? extends Entry> getBatch() throws IOException {
 
         getDiscoverer().discover();
 
@@ -38,7 +37,7 @@ public abstract class CarImageLoader {
      * 
      * @return
      */
-    public List<Entry> getBatchNoDiscover() {
+    public abstract List<? extends Entry> getBatchNoDiscover(); /*{
         
         CarData cd = fetchAllCarData();
 
@@ -49,13 +48,13 @@ public abstract class CarImageLoader {
         while (!getDiscoverer().getQueue().isEmpty()) {
             CarImage ci = getDiscoverer().getQueue().poll();
             
-            e = new Entry(cd, ci);
+            e = new Entry(cd, ci); //TODO: fix cannot instantiate abstract class error
             
             list.add(e);
         }
 
         return list;
-    }
+    }*/
 
     public abstract Discoverer<? extends ImageQueue<? extends CarImage>> getDiscoverer();
     
