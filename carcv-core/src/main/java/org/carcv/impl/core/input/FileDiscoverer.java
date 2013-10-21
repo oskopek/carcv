@@ -36,6 +36,16 @@ public class FileDiscoverer extends SimpleFileVisitor<Path> implements Discovere
     final private FileImageQueue queue;
 
     //private Integer lastGottenIndex = -1;
+    
+    /**
+     * 
+     */
+    public FileDiscoverer(Path baseDirectory) {
+        this.baseDirectory = baseDirectory;
+        this.knownPaths = new ArrayList<>();
+        //this.lastGottenIndex = -1;
+        this.queue = new FileImageQueue();
+    }
 
     /**
      * 

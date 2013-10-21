@@ -3,17 +3,14 @@
  */
 package org.carcv.core.recognize;
 
+import java.io.IOException;
+
 /**
  * @author oskopek
  *
  */
 public abstract class CarRecognizer {
 
-    /**
-     * 
-     */
-    public CarRecognizer() {
-        // TODO Auto-generated constructor stub
-    }
+   public abstract void recognize() throws IOException;
 
 }

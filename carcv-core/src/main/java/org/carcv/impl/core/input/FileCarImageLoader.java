@@ -3,12 +3,8 @@
  */
 package org.carcv.impl.core.input;
 
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-
 import org.carcv.core.input.CarImageLoader;
-import org.carcv.core.model.file.FileCarImage;
+import org.carcv.core.model.CarData;
 
 
 /**
@@ -27,29 +23,17 @@ public final class FileCarImageLoader extends CarImageLoader {
     }
     
     @Override
-    public List<FileCarImage> getBatch() throws IOException {
-
-        discoverer.discover();
-
-        List<FileCarImage> list = new ArrayList<>();
-
-        while (!discoverer.getQueue().isEmpty()) {
-            list.add(discoverer.getQueue().poll());
-        }
-
-        return list;
+    public CarData fetchAllCarData() {
+        // TODO Auto-generated method stub
+        return null;
     }
 
+    /**
+     * @return the discoverer
+     */
     @Override
-    public List<FileCarImage> getBatchNoDiscover() {
-
-        List<FileCarImage> list = new ArrayList<>();
-
-        while (!discoverer.getQueue().isEmpty()) {
-            list.add(discoverer.getQueue().poll());
-        }
-
-        return list;
+    public FileDiscoverer getDiscoverer() {
+        return discoverer;
     }
-
+    
 }

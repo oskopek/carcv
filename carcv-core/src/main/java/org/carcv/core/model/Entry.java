@@ -23,7 +23,7 @@ public class Entry extends AbstractModel {
     private static final long serialVersionUID = 2309289364991527040L;
     
     private CarData carData;
-    private MediaObject video;
+    private CarImage carImage;
     
 
     @SuppressWarnings("unused")
@@ -34,9 +34,9 @@ public class Entry extends AbstractModel {
     /**
      * 
      */
-    public Entry(CarData carData, MediaObject video) {
+    public Entry(CarData carData, CarImage carImage) {
         this.carData = carData;
-        this.video = video;
+        this.carImage = carImage;
     }
 
     /* (non-Javadoc)
@@ -53,8 +53,8 @@ public class Entry extends AbstractModel {
      */
     @NotNull
     @OneToOne
-    public MediaObject getVideo() {
-        return video;
+    public CarImage getCarImage() {
+        return carImage;
     }
     
     /**
@@ -67,15 +67,15 @@ public class Entry extends AbstractModel {
     /**
      * @param video the video to set
      */
-    public void setVideo(MediaObject video) {
-        this.video = video;
+    public void setCarImage(CarImage carImage) {
+        this.carImage = carImage;
     }
 
     @Override
     public int hashCode() {
         return new HashCodeBuilder()
             .append(getCarData())
-            .append(getVideo())
+            .append(getCarImage())
             .toHashCode();
     }
     
@@ -93,7 +93,7 @@ public class Entry extends AbstractModel {
         Entry other = (Entry) obj;
 
         return new EqualsBuilder()
-                .append(getVideo(), other.getVideo())
+                .append(getCarImage(), other.getCarImage())
                 .append(getCarData(), other.getCarData())
                 .isEquals();
         

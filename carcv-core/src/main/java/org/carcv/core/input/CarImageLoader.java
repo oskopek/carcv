@@ -7,7 +7,9 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.carcv.core.model.CarData;
 import org.carcv.core.model.CarImage;
+import org.carcv.core.model.Entry;
 
 /**
  * Need to override init method, to initialize <code>discoverer</code> and <code>queue</code>
@@ -18,25 +20,17 @@ import org.carcv.core.model.CarImage;
  */
 public abstract class CarImageLoader {
 
-    private Discoverer<ImageQueue<CarImage>> discoverer;
-
     /**
      * Doesn't try to discover new elements
      * 
      * @return
      * @throws IOException
      */
-    public List<? extends CarImage> getBatch() throws IOException {
+    public List<Entry> getBatch() throws IOException {
 
-        discoverer.discover();
+        getDiscoverer().discover();
 
-        List<CarImage> list = new ArrayList<>();
-
-        while (!discoverer.getQueue().isEmpty()) {
-            list.add(discoverer.getQueue().poll());
-        }
-
-        return list;
+        return getBatchNoDiscover();
     }
 
     /**
@@ -44,14 +38,26 @@ public abstract class CarImageLoader {
      * 
      * @return
      */
-    public List<? extends CarImage> getBatchNoDiscover() {
+    public List<Entry> getBatchNoDiscover() {
+        
+        CarData cd = fetchAllCarData();
 
-        List<CarImage> list = new ArrayList<>();
+        List<Entry> list = new ArrayList<>();
 
-        while (!discoverer.getQueue().isEmpty()) {
-            list.add(discoverer.getQueue().poll());
+        Entry e = null;
+        
+        while (!getDiscoverer().getQueue().isEmpty()) {
+            CarImage ci = getDiscoverer().getQueue().poll();
+            
+            e = new Entry(cd, ci);
+            
+            list.add(e);
         }
 
         return list;
     }
+
+    public abstract Discoverer<? extends ImageQueue<? extends CarImage>> getDiscoverer();
+    
+    public abstract CarData fetchAllCarData();
 }
