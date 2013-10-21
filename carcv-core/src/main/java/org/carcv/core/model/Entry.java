@@ -24,6 +24,12 @@ public class Entry extends AbstractModel {
     
     private CarData carData;
     private MediaObject video;
+    
+
+    @SuppressWarnings("unused")
+    private Entry() {
+        //intentionally empty
+    }
 
     /**
      * 
@@ -51,6 +57,20 @@ public class Entry extends AbstractModel {
         return video;
     }
     
+    /**
+     * @param carData the carData to set
+     */
+    public void setCarData(CarData carData) {
+        this.carData = carData;
+    }
+
+    /**
+     * @param video the video to set
+     */
+    public void setVideo(MediaObject video) {
+        this.video = video;
+    }
+
     @Override
     public int hashCode() {
         return new HashCodeBuilder()

@@ -39,10 +39,8 @@ public class Address extends AbstractModel {
 
 	private Integer referenceNumber;
 
-	/**
-	 * For EJB
-	 */
-	public Address() {
+	@SuppressWarnings("unused")
+    private Address() {
 		// hibernate empty constructor
 	}
 

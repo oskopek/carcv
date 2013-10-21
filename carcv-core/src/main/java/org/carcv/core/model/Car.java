@@ -27,6 +27,12 @@ public class Car extends AbstractModel {
     
     private FileCarImage carImage;
     
+    
+    @SuppressWarnings("unused")
+    private Car() {
+      //intentionally empty
+    }
+    
     public Car(CarData carData, FileCarImage carImage) {
         this.carData = carData;
         this.carImage = carImage;
@@ -50,6 +56,20 @@ public class Car extends AbstractModel {
         return carImage;
     }
     
+
+    /**
+     * @param carData the carData to set
+     */
+    public void setCarData(CarData carData) {
+        this.carData = carData;
+    }
+
+    /**
+     * @param carImage the carImage to set
+     */
+    public void setCarImage(FileCarImage carImage) {
+        this.carImage = carImage;
+    }
 
     @Override
     public boolean equals(Object obj) {

@@ -27,10 +27,9 @@ public class MediaObject extends AbstractModel {
 
 	private MediaType mediaType;
 
-	/**
-	 * For EJB
-	 */
-	public MediaObject() {
+
+	@SuppressWarnings("unused")
+    private MediaObject() {
 		// hibernate empty
 	}
 

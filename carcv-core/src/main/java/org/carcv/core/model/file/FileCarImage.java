@@ -10,6 +10,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
 
 import javax.imageio.ImageIO;
@@ -17,6 +18,9 @@ import javax.imageio.ImageReadParam;
 import javax.imageio.ImageReader;
 import javax.imageio.stream.ImageInputStream;
 import javax.persistence.Entity;
+import javax.persistence.PrePersist;
+import javax.persistence.PreUpdate;
+import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
 
 import org.apache.commons.lang.builder.EqualsBuilder;
@@ -37,11 +41,33 @@ public class FileCarImage extends CarImage  {
     private static final long serialVersionUID = 1L;
 
     private BufferedImage image;
+    
+    @NotNull
+    private String filepathStr;
 
     private Path filepath;
+    
+    @PreUpdate
+    @PrePersist
+    private void init() {
+        if(filepath==null) {
+            filepath = Paths.get(filepathStr);
+        } else if(filepathStr==null || filepathStr.equals(filepath.toString())) {
+            filepathStr = filepath.toString();
+        } else {
+            throw new IllegalStateException("Doesn't work");
+        }
+    }
+    
+    
+    @SuppressWarnings("unused")
+    private FileCarImage() {
+        //intentionally empty
+    }
 
     public FileCarImage(Path filepath) {
         this.filepath = filepath;
+        this.filepathStr = filepath.toString();
     }
 
     public void loadImage() throws IOException {
@@ -105,7 +131,7 @@ public class FileCarImage extends CarImage  {
      * @return the image
      */
     @Override
-    @NotNull
+    @Transient
     public BufferedImage getImage() {
         return image;
     }
@@ -113,7 +139,7 @@ public class FileCarImage extends CarImage  {
     /**
      * @return the filepath
      */
-    @NotNull
+    @Transient
     public Path getFilepath() {
         return filepath;
     }
@@ -123,6 +149,7 @@ public class FileCarImage extends CarImage  {
      */
     public void setFilepath(Path filepath) {
         this.filepath = filepath;
+        this.filepathStr = filepath.toString();
     }
     
     @Override

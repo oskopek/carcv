@@ -34,6 +34,10 @@ public abstract class AbstractModel implements Serializable, Comparable<Abstract
         return id;
     }
     
+    public void setId(Long id) {
+        this.id = id;
+    }
+    
     @Override
     public abstract boolean equals(Object o);
     

@@ -21,10 +21,9 @@ public class Speed extends AbstractModel {
 	 */
 	private static final long serialVersionUID = 1816208535143255888L;
 
-	/**
-	 * For EJB
-	 */
-	public Speed() {
+
+	@SuppressWarnings("unused")
+    private Speed() {
 		// hibernate constructor stub
 	}
 

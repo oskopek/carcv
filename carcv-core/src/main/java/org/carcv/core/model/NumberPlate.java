@@ -27,7 +27,8 @@ public class NumberPlate extends AbstractModel {
 
 	private String origin;
 
-	public NumberPlate() {
+	@SuppressWarnings("unused")
+    private NumberPlate() {
 		// hibernate stub
 	}
 

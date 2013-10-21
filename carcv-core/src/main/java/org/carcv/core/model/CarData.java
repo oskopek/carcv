@@ -34,10 +34,8 @@ public class CarData extends AbstractModel {
 
 	private Date timestamp;
 
-	/**
-	 * For EJB
-	 */
-	public CarData() {
+	@SuppressWarnings("unused")
+    private CarData() {
 		// hibernate stub
 	}
 
