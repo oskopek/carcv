@@ -11,8 +11,8 @@ import java.util.Queue;
  * @author oskopek
  *
  */
-public interface Discoverer<T extends Queue> {
-    
+public interface Discoverer<T extends Queue<? extends Object>> { //Queue<hack>
+     
     /**
      * Returns the new or all input files in a Queue
      * @return
