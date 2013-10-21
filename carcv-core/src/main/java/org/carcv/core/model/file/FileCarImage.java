@@ -10,7 +10,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
 
 import javax.imageio.ImageIO;
@@ -18,14 +17,13 @@ import javax.imageio.ImageReadParam;
 import javax.imageio.ImageReader;
 import javax.imageio.stream.ImageInputStream;
 import javax.persistence.Entity;
-import javax.persistence.PrePersist;
-import javax.persistence.PreUpdate;
 import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
 
 import org.apache.commons.lang.builder.EqualsBuilder;
 import org.apache.commons.lang.builder.HashCodeBuilder;
 import org.carcv.core.model.AbstractCarImage;
+import org.carcv.core.model.PersistablePath;
 
 /**
  * Default behavior is to not load an image from path. To load it, use {@link FileCarImage#loadImage()}
@@ -41,23 +39,9 @@ public class FileCarImage extends AbstractCarImage  { //TODO: add test of new fi
     private static final long serialVersionUID = 1L;
 
     private BufferedImage image;
-    
-    @NotNull
-    private String filepathStr;
 
-    private Path filepath;
+    private PersistablePath persistablePath;
     
-    @PreUpdate
-    @PrePersist
-    private void init() {
-        if(filepath==null) {
-            filepath = Paths.get(filepathStr);
-        } else if(filepathStr==null || filepathStr.equals(filepath.toString())) {
-            filepathStr = filepath.toString();
-        } else {
-            throw new IllegalStateException("Doesn't work");
-        }
-    }
     
     
     @SuppressWarnings("unused")
@@ -66,12 +50,11 @@ public class FileCarImage extends AbstractCarImage  { //TODO: add test of new fi
     }
 
     public FileCarImage(Path filepath) {
-        this.filepath = filepath;
-        this.filepathStr = filepath.toString();
+        this.persistablePath = new PersistablePath(filepath);
     }
 
     public void loadImage() throws IOException {
-        InputStream inStream = Files.newInputStream(filepath, StandardOpenOption.READ);
+        InputStream inStream = Files.newInputStream(persistablePath.getPath(), StandardOpenOption.READ);
         
         /*//TODO fix loading of image
         ImageInputStream imageStream = ImageIO.createImageInputStream(inStream);
@@ -90,7 +73,7 @@ public class FileCarImage extends AbstractCarImage  { //TODO: add test of new fi
         BufferedImage image = ImageIO.read(inStream);
 
         if(image == null) {
-            throw new NullPointerException("Failed to load image " + filepath);
+            throw new NullPointerException("Failed to load image " + persistablePath);
         }
         
         BufferedImage outimage = new BufferedImage(image.getWidth(), image.getHeight(), BufferedImage.TYPE_INT_RGB);
@@ -105,7 +88,7 @@ public class FileCarImage extends AbstractCarImage  { //TODO: add test of new fi
     }
 
     public void loadFragment(Rectangle rect) throws IOException {
-        InputStream inStream = Files.newInputStream(filepath, StandardOpenOption.READ);
+        InputStream inStream = Files.newInputStream(persistablePath.getPath(), StandardOpenOption.READ);
         
         ImageInputStream imageStream = ImageIO.createImageInputStream(inStream);
         ImageReader reader = ImageIO.getImageReaders(imageStream).next();
@@ -135,21 +118,32 @@ public class FileCarImage extends AbstractCarImage  { //TODO: add test of new fi
     public BufferedImage getImage() {
         return image;
     }
-
+    
     /**
-     * @return the filepath
+     * @return the persistablePath
      */
     @Transient
     public Path getFilepath() {
-        return filepath;
+        return persistablePath.getPath();
+    }
+    
+    public void setFilepath(Path filepath) {
+        this.persistablePath = new PersistablePath(filepath);
     }
 
     /**
-     * @param filepath the filepath to set
+     * @return the persistablePath
      */
-    public void setFilepath(Path filepath) {
-        this.filepath = filepath;
-        this.filepathStr = filepath.toString();
+    @NotNull
+    public PersistablePath getPersistablePath() {
+        return persistablePath;
+    }
+
+    /**
+     * @param persistablePath the persistablePath to set
+     */
+    public void setPersistablePath(PersistablePath persistablePath) {
+        this.persistablePath = persistablePath;
     }
     
     @Override
@@ -157,7 +151,7 @@ public class FileCarImage extends AbstractCarImage  { //TODO: add test of new fi
         if(o instanceof FileCarImage) {
             FileCarImage f = (FileCarImage) o;
             
-            return new EqualsBuilder().append(image, f.image).append(filepath, f.filepath).isEquals();
+            return new EqualsBuilder().append(image, f.image).append(persistablePath, f.persistablePath).isEquals();
         }        
         return false;
         
@@ -165,7 +159,7 @@ public class FileCarImage extends AbstractCarImage  { //TODO: add test of new fi
     
     @Override
     public int hashCode() {
-        return new HashCodeBuilder().append(image).append(filepath).toHashCode();
+        return new HashCodeBuilder().append(image).append(persistablePath).toHashCode();
     }
 
 }

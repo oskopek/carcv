@@ -28,13 +28,13 @@ public class EntryBean {
 	}
 	
 	public FileEntry findById(long id) {
-		return (FileEntry) em.createQuery("select e from AbstractEntry e where e.id = :id")
+		return (FileEntry) em.createQuery("select e from FileEntry e where e.id = :id")
 				.setParameter("id", id).getSingleResult();
 	}
 	
 	@SuppressWarnings("unchecked")
 	public List<FileEntry> getAll() {
-		return em.createQuery("select e from AbstractEntry e")
+		return em.createQuery("select e from FileEntry e")
 				.getResultList();
 	}
 }

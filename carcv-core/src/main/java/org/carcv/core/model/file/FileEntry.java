@@ -26,6 +26,11 @@ public class FileEntry extends AbstractEntry {
     
     private FileCarImage carImage;
     private CarData carData;
+    
+    @SuppressWarnings("unused")
+    private FileEntry() {
+        //intentionally empty
+    }
 
     /**
      * @param carData

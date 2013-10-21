@@ -137,7 +137,7 @@ public class FileDiscovererTest {
 
         FileCarImage newPath1 = queue.poll();
         assertNotNull(newPath1);
-        assertNotNull(newPath1.getFilepath());
+        assertNotNull(newPath1.getPersistablePath());
         assertNull(newPath1.getImage());
 
         Path newFile2 = Files.createTempFile(rootPath, "testFileDiscovery", ".carcv.jpg", permissions);
@@ -148,11 +148,11 @@ public class FileDiscovererTest {
 
         FileCarImage newPath2 = queue.poll();
         assertNotNull(newPath2);
-        assertNotNull(newPath2.getFilepath());
+        assertNotNull(newPath2.getPersistablePath());
         assertNull(newPath2.getImage());
 
         assertNotEquals(newPath1, newPath2);
-        assertNotEquals(newPath1.getFilepath(), newPath2.getFilepath());
+        assertNotEquals(newPath1.getPersistablePath(), newPath2.getPersistablePath());
         assertNotEquals(newFile1, newFile2);
     }
 

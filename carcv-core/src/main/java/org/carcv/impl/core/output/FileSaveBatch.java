@@ -55,7 +55,7 @@ public class FileSaveBatch implements SaveBatch { //TODO: test FileSaveBatch
     private void saveFileEntry(FileEntry e) throws IOException {
         Properties p = new Properties();
         
-        p.setProperty("filepath"    , e.getCarImage().getFilepath().toString());
+        p.setProperty("filepath"    , e.getCarImage().getPersistablePath().toString());
         
         
         p.setProperty("numberplate-origin"   , e.getCarData().getNumberPlate().getOrigin());
