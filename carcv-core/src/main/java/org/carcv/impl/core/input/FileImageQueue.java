@@ -15,7 +15,7 @@ import org.carcv.core.model.file.FileCarImage;
  * @author oskopek
  *
  */
-public class FileImageQueue extends ImageQueue<FileCarImage> {
+public class FileImageQueue extends ImageQueue<FileCarImage> { //tested in FileDiscovererTest
 
        
     /**

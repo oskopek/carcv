@@ -33,7 +33,7 @@ import org.carcv.core.model.CarImage;
  * 
  */
 @Entity
-public class FileCarImage extends CarImage  { //TODO: add test of filecarimage
+public class FileCarImage extends CarImage  { //TODO: add test of new filecarimage
 
     /**
      * 

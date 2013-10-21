@@ -10,7 +10,7 @@ import org.carcv.core.model.CarImage;
  * @author oskopek
  *
  */
-public class SpeedDetectorImpl implements SpeedDetector {
+public class SpeedDetectorImpl implements SpeedDetector { //TODO: test and implement SpeedDetectorImpl
 
     /**
      * 

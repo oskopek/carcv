@@ -21,7 +21,7 @@ import org.carcv.impl.core.output.FileSaveBatch;
  * @author oskopek
  *
  */
-public class CarRecognizerImpl extends CarRecognizer {
+public class CarRecognizerImpl extends CarRecognizer { //TODO: Test CarRecognizerImpl
     
     private FileCarImageLoader loader;
     

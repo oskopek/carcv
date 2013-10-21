@@ -10,7 +10,7 @@ import org.carcv.core.model.CarImage;
  * @author oskopek
  *
  */
-public class NumberPlateDetectorImpl implements NumberPlateDetector {
+public class NumberPlateDetectorImpl implements NumberPlateDetector {//TODO: test and implement NumberPlateDetectorImpl
 
     @Override
     public String detect(final CarImage image) {

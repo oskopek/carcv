@@ -11,7 +11,7 @@ import org.carcv.core.model.CarData;
  * @author oskopek
  *
  */
-public final class FileCarImageLoader extends CarImageLoader {
+public final class FileCarImageLoader extends CarImageLoader { //TODO: test FileCarImageLoader and finish impl
     
     private FileDiscoverer discoverer;
 
@@ -24,7 +24,7 @@ public final class FileCarImageLoader extends CarImageLoader {
     
     @Override
     public CarData fetchAllCarData() {
-        // TODO Auto-generated method stub
+        // TODO implement fetchAllCarData
         return null;
     }
 

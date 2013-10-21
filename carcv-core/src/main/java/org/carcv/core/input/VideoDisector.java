@@ -8,7 +8,7 @@ import java.nio.file.Path;
 
 /**
  * @author oskopek
- *
+ * @deprecated use a script to split it into images externally
  */
 public abstract class VideoDisector {
     

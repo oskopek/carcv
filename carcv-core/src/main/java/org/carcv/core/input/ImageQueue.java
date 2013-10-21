@@ -17,8 +17,8 @@ import org.carcv.core.model.CarImage;
  * Own object similar to ArrayDeque
  * @author oskopek
  *
- */ //TODO: change to extends ArrayDeque
-public abstract class ImageQueue<T extends CarImage> extends AbstractCollection<T> implements Serializable, Cloneable, Iterable<T>, Collection<T>, Deque<T>, Queue<T> {
+ */
+public abstract class ImageQueue<E extends CarImage> extends AbstractCollection<E> implements Serializable, Cloneable, Iterable<E>, Collection<E>, Deque<E>, Queue<E> {
 
     
     /**
@@ -26,7 +26,7 @@ public abstract class ImageQueue<T extends CarImage> extends AbstractCollection<
      */
     private static final long serialVersionUID = -88371342806720875L;
     
-    private ArrayDeque<T> queue;
+    private ArrayDeque<E> queue;
     
     public ImageQueue() {
         queue = new ArrayDeque<>();
@@ -37,67 +37,67 @@ public abstract class ImageQueue<T extends CarImage> extends AbstractCollection<
         queue = new ArrayDeque<>(numElements);
     }
     
-    public ImageQueue(Collection<? extends T> c) {
+    public ImageQueue(Collection<? extends E> c) {
         queue = new ArrayDeque<>(c);
     }
     
     @Override
-    public void addFirst(T e) {
+    public void addFirst(E e) {
         queue.addFirst(e);
     }
 
     @Override
-    public void addLast(T e) {
+    public void addLast(E e) {
         queue.addLast(e);
     }
 
     @Override
-    public boolean offerFirst(T e) {
+    public boolean offerFirst(E e) {
         return queue.offerFirst(e);
     }
 
     @Override
-    public boolean offerLast(T e) {
+    public boolean offerLast(E e) {
         return queue.offerLast(e);
     }
 
     @Override
-    public T removeFirst() {
+    public E removeFirst() {
         return queue.removeFirst();
     }
 
     @Override
-    public T removeLast() {
+    public E removeLast() {
         return queue.removeLast();
     }
 
     @Override
-    public T pollFirst() {
+    public E pollFirst() {
         return queue.pollFirst();
     }
 
     @Override
-    public T pollLast() {
+    public E pollLast() {
         return queue.pollLast();
     }
 
     @Override
-    public T getFirst() {
+    public E getFirst() {
         return queue.getFirst();
     }
 
     @Override
-    public T getLast() {
+    public E getLast() {
         return queue.getLast();
     }
 
     @Override
-    public T peekFirst() {
+    public E peekFirst() {
         return queue.peekFirst();
     }
 
     @Override
-    public T peekLast() {
+    public E peekLast() {
         return queue.peekLast();
     }
 
@@ -112,42 +112,42 @@ public abstract class ImageQueue<T extends CarImage> extends AbstractCollection<
     }
 
     @Override
-    public boolean offer(T e) {
+    public boolean offer(E e) {
         return queue.offer(e);
     }
 
     @Override
-    public T remove() {
+    public E remove() {
         return queue.remove();
     }
 
     @Override
-    public T poll() {
+    public E poll() {
         return queue.poll();
     }
 
     @Override
-    public T element() {
+    public E element() {
         return queue.element();
     }
 
     @Override
-    public T peek() {
+    public E peek() {
         return queue.peek();
     }
 
     @Override
-    public void push(T e) {
+    public void push(E e) {
         queue.push(e);
     }
 
     @Override
-    public T pop() {
+    public E pop() {
         return queue.pop();
     }
 
     @Override
-    public Iterator<T> descendingIterator() {
+    public Iterator<E> descendingIterator() {
         return queue.descendingIterator();
     }
 
@@ -172,12 +172,12 @@ public abstract class ImageQueue<T extends CarImage> extends AbstractCollection<
     }
 
     @Override
-    public <T> T[] toArray(T[] a) { //TODO: fix warning
+    public <T> T[] toArray(T[] a) {
         return queue.toArray(a);
     }
 
     @Override
-    public boolean add(T e) {
+    public boolean add(E e) {
         return queue.add(e);
     }
 
@@ -192,7 +192,7 @@ public abstract class ImageQueue<T extends CarImage> extends AbstractCollection<
     }
 
     @Override
-    public boolean addAll(Collection<? extends T> c) {
+    public boolean addAll(Collection<? extends E> c) {
         return queue.addAll(c);
     }
 
@@ -212,7 +212,7 @@ public abstract class ImageQueue<T extends CarImage> extends AbstractCollection<
     }
 
     @Override
-    public Iterator<T> iterator() {
+    public Iterator<E> iterator() {
         return queue.iterator();
     }
 

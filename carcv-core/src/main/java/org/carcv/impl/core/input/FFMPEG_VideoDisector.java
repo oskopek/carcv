@@ -12,9 +12,9 @@ import org.carcv.core.input.VideoDisector;
 
 /**
  * @author oskopek
- *
+ * @deprecated use a script to split it into images externally
  */
-public class FFMPEG_VideoDisector extends VideoDisector {
+public class FFMPEG_VideoDisector extends VideoDisector {//TODO: test FFMPEG vid disector
     
     final public static int defaultFrameRate = 30;  
     

@@ -41,7 +41,7 @@ public class SpeedTest {
      * Test method for {@link org.carcv.core.model.Speed#compareTo(org.carcv.core.model.Speed)}.
      */
     @Test
-    @Ignore(value="New system of comparing renders this test irrelevant") //TODO fix compare to in all models
+    @Ignore(value="New system of comparing renders this test irrelevant")
     public void testCompareTo() {
         Speed s1 = new Speed(80.2, SpeedUnit.KPH);        
         assertEquals(0, s1.compareTo(s1));
