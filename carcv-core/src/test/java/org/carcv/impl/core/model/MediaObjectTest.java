@@ -9,12 +9,14 @@ import static org.junit.Assert.assertTrue;
 
 import org.carcv.core.model.MediaObject;
 import org.carcv.core.model.MediaType;
+import org.junit.Ignore;
 import org.junit.Test;
 
 /**
  * @author oskopek
- * 
+ * @deprecated
  */
+@Ignore
 public class MediaObjectTest {
 
 	/**
