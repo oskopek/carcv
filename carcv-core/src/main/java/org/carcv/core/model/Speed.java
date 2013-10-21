@@ -37,13 +37,13 @@ public class Speed extends AbstractModel {
 	}
 
 	/**
-	 * Default unit = SpeedUnit.MS (meters per second)
+	 * Default unit = SpeedUnit.KPH (kilometers per hour)
 	 * 
 	 * @param speed
 	 */
 	public Speed(Double speed) {
 		this.speed = speed;
-		this.unit = SpeedUnit.MS;
+		this.unit = SpeedUnit.KPH;
 	}
 
 	private Double speed;

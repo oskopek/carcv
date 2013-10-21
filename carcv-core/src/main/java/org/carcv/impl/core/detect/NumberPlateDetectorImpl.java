@@ -14,11 +14,17 @@ public class NumberPlateDetectorImpl implements NumberPlateDetector {
 
     @Override
     public String detect(final CarImage image) {
-        return detectPlate(image);
+        return detectPlateText(image);
     }
 
     @Override
-    public String detectPlate(final CarImage image) {
+    public String detectPlateText(final CarImage image) {
+        // TODO number plate detector implementation
+        return null;
+    }
+    
+    @Override
+    public String detectPlateOrigin(final CarImage image) {
         // TODO number plate detector implementation
         return null;
     }

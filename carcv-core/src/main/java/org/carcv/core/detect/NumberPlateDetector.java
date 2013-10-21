@@ -11,6 +11,8 @@ import org.carcv.core.model.CarImage;
  */
 public interface NumberPlateDetector extends Detector {
 
-    public String detectPlate(final CarImage image);
+    public String detectPlateText(final CarImage image);
+    
+    public String detectPlateOrigin(final CarImage image);
     
 }
