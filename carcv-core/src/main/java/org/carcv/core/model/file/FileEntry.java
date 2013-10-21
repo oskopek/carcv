@@ -54,7 +54,6 @@ public class FileEntry extends AbstractEntry {
 
     @Override
     @OneToOne
-    @NotNull
     public FileCarImage getCarImage() {
         return carImage;
     }
