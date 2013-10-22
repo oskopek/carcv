@@ -84,7 +84,7 @@ public class CarTableServlet extends HttpServlet {
 					+ e.getCarData().getNumberPlate().getText();
 			location = e.getCarData().getAddress().print();
 			
-			FileCarImage fci = (FileCarImage) e.getCarImage();
+			FileCarImage fci = (FileCarImage) e.getCarImages().get(0);
 			
 			videoURL = fci.getPersistablePath().toString(); //TODO: add link to actual video
 			previewURL = videoURL;

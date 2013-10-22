@@ -3,6 +3,7 @@ package org.carcv.web.servlet;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.nio.file.Paths;
+import java.util.Arrays;
 import java.util.Date;
 
 import javax.ejb.EJB;
@@ -27,16 +28,6 @@ import org.carcv.web.beans.*;
 public class AddEntryServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
-	@EJB
-	private AddressBean addressBean;
-	@EJB
-	private CarDataBean carDataBean;
-	@EJB
-	private NumberPlateBean numberPlateBean;
-	//@EJB
-	//private MediaObjectBean mediaObjectBean;
-	@EJB
-	private SpeedBean speedBean;
 	@EJB
 	private EntryBean entryBean;
 	
@@ -74,16 +65,11 @@ public class AddEntryServlet extends HttpServlet {
 
     			CarData carData = new CarData(speed, address, licencePlate, timestamp);
 
-    			FileEntry testEntry = new FileEntry(carData, new FileCarImage(Paths.get("/tmp/test/video.h264")));
+    			FileEntry testEntry = new FileEntry(carData, Arrays.asList(new FileCarImage(Paths.get("/tmp/test/video.h264"))));
     			
     			// End entity code
     			out.println(testEntry.toString());
     			
-    			addressBean.create(address);
-    			numberPlateBean.create(licencePlate);
-    			//mediaObjectBean.create(video);
-    			speedBean.create(speed);
-    			carDataBean.create(carData);
     			entryBean.create(testEntry);
 
     			out.println("Saved");

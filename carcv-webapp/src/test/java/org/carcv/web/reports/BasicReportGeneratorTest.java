@@ -6,6 +6,7 @@ package org.carcv.web.reports;
 import java.io.File;
 import java.net.URL;
 import java.nio.file.Paths;
+import java.util.Arrays;
 import java.util.Date;
 
 import net.sf.jasperreports.engine.JRException;
@@ -45,7 +46,7 @@ public class BasicReportGeneratorTest {
 
 		CarData carData = new CarData(speed, location, licencePlate, timestamp);
 
-		testEntry = new FileEntry(carData, new FileCarImage(Paths.get("/tmp/test/video.h264")));
+		testEntry = new FileEntry(carData, Arrays.asList(new FileCarImage(Paths.get("/tmp/test/video.h264"))));
 	}
 
 	/**

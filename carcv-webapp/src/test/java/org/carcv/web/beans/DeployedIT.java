@@ -8,7 +8,6 @@ import java.io.File;
 
 import javax.ejb.EJB;
 
-import org.carcv.web.beans.SpeedBean;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
@@ -46,11 +45,11 @@ public class DeployedIT {
     }
     
     @EJB
-    private SpeedBean speedBean;
+    private EntryBean entryBean;
     
     @Test
     public void beanInjectionTest() {
-        assertNotNull("Failed to inject EJB speedBean", speedBean);
+        assertNotNull("Failed to inject EJB entryBean", entryBean);
     }
 
 }

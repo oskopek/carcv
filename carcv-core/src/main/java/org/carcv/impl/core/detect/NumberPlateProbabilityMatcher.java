@@ -26,7 +26,7 @@ public class NumberPlateProbabilityMatcher implements Matcher { //TODO: test and
     @Override
     public boolean match(AbstractCarImage leftImage, AbstractCarImage rightImage) {
         Random r = new Random();
-        return r.nextBoolean(); //TODO
+        return r.nextBoolean(); //TODO implement
     }
     
     public static String getAverageNumberPlate(final List<String> numberPlates) {
