@@ -3,8 +3,7 @@
  */
 package org.carcv.web.persistence;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.*;
 
 import java.io.File;
 import java.nio.file.Paths;
@@ -78,6 +77,7 @@ public class PersistenceIT {
         CarData carData = new CarData(speed, address, licencePlate, timestamp);
 
         FileEntry fileEntry = new FileEntry(carData, Arrays.asList(carImage));
+        assertNotNull(fileEntry);
         
         // End entity code
         assertNotNull(entryBean);
@@ -86,7 +86,8 @@ public class PersistenceIT {
         entryBean.create(fileEntry);
         
         //get
-        FileEntry got = entryBean.getAll().get(0);
+        FileEntry got = entryBean.getAll().get(0);   
+        assertEquals(fileEntry, got);
         
         //check
         assertEquals(carImage, got.getCarImages().get(0));

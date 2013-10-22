@@ -5,8 +5,10 @@ package org.carcv.core.model.file;
 
 import java.util.List;
 
+import javax.persistence.ElementCollection;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.validation.constraints.NotNull;
 
 import org.carcv.core.model.CarData;
@@ -51,7 +53,7 @@ public class FileEntry extends AbstractEntry {
 
     @Override
     @NotNull
-    @Embedded
+    @ElementCollection(fetch=FetchType.EAGER)
     public List<FileCarImage> getCarImages() {
         return carImages;
     }
@@ -68,6 +70,13 @@ public class FileEntry extends AbstractEntry {
      */
     public void setCarData(CarData carData) {
         this.carData = carData;
+    }
+    
+    @Override
+    public String toString() {
+        return "FileEntry[id=" + getId() + 
+                ", carImages.size()=" + carImages.size() + 
+                ", carData=" + carData.toString() + "]";        
     }
 
 }

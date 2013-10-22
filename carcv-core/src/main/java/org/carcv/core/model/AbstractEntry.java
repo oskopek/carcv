@@ -36,7 +36,7 @@ public abstract class AbstractEntry extends AbstractModel {
     public int hashCode() {
         return new HashCodeBuilder()
             .append(getCarData())
-            .append(getCarImages())
+            .append(getCarImages().size())
             .toHashCode();
     }
     
@@ -54,7 +54,7 @@ public abstract class AbstractEntry extends AbstractModel {
         AbstractEntry other = (AbstractEntry) obj;
 
         return new EqualsBuilder()
-                .append(getCarImages(), other.getCarImages())
+                .append(getCarImages().size(), other.getCarImages().size())
                 .append(getCarData(), other.getCarData())
                 .isEquals();
         
