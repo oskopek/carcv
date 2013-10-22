@@ -6,6 +6,7 @@ package org.carcv.core.model;
 import javax.persistence.Embeddable;
 import javax.validation.constraints.NotNull;
 
+import org.apache.commons.lang.builder.CompareToBuilder;
 import org.apache.commons.lang.builder.EqualsBuilder;
 import org.apache.commons.lang.builder.HashCodeBuilder;
 
@@ -14,7 +15,7 @@ import org.apache.commons.lang.builder.HashCodeBuilder;
  * 
  */
 @Embeddable
-public class Speed extends AbstractModel {
+public class Speed extends AbstractEmbeddable implements Comparable<Speed> {
 
 	/**
 	 * 
@@ -121,6 +122,13 @@ public class Speed extends AbstractModel {
                 .append(this.getSpeed(), other.getSpeed())
                 .append(this.getUnit(), other.getUnit())
                 .isEquals();
+    }
+
+    public int compareTo(Speed o) {
+        return new CompareToBuilder()
+                .append(speed, o.speed)
+                .append(unit, o.unit)
+                .toComparison();
     }
 
 }

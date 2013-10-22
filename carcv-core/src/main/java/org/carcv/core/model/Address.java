@@ -6,6 +6,7 @@ package org.carcv.core.model;
 import javax.persistence.Embeddable;
 import javax.validation.constraints.NotNull;
 
+import org.apache.commons.lang.builder.CompareToBuilder;
 import org.apache.commons.lang.builder.EqualsBuilder;
 import org.apache.commons.lang.builder.HashCodeBuilder;
 
@@ -16,7 +17,7 @@ import org.apache.commons.lang.builder.HashCodeBuilder;
  * 
  */
 @Embeddable
-public class Address extends AbstractModel {
+public class Address extends AbstractEmbeddable implements Comparable<Address> {
 
 	/**
 	 * 
@@ -263,6 +264,20 @@ public class Address extends AbstractModel {
         return getStreet() + " " + getStreetNumber() + "/"
                 + getReferenceNumber() + "\n" + getPostalCode() + " "
                 + getCity() + "\n" + getCountry();
+    }
+
+    @Override
+    public int compareTo(Address other) {
+        return new CompareToBuilder()
+        .append(getLatitude(), other.getLatitude())
+        .append(getLongitude(), other.getLongitude())
+        .append(getCity(), other.getCity())
+        .append(getPostalCode(), other.getPostalCode())
+        .append(getStreet(), other.getStreet())
+        .append(getCountry(), other.getCountry())
+        .append(getStreetNumber(), other.getStreetNumber())
+        .append(getReferenceNumber(), other.getReferenceNumber())
+        .toComparison();
     }
 
 

@@ -9,6 +9,7 @@ import javax.persistence.Embeddable;
 import javax.persistence.Embedded;
 import javax.validation.constraints.NotNull;
 
+import org.apache.commons.lang.builder.CompareToBuilder;
 import org.apache.commons.lang.builder.EqualsBuilder;
 import org.apache.commons.lang.builder.HashCodeBuilder;
 
@@ -19,7 +20,7 @@ import org.apache.commons.lang.builder.HashCodeBuilder;
  * 
  */
 @Embeddable
-public class CarData extends AbstractModel {
+public class CarData extends AbstractEmbeddable implements Comparable<CarData> {
 
 	/**
 	 * 
@@ -165,6 +166,16 @@ public class CarData extends AbstractModel {
                 .append(getNumberPlate(), other.getNumberPlate())
                 .append(getTimestamp(), other.getTimestamp())
                 .isEquals();
+    }
+
+    @Override
+    public int compareTo(CarData o) {
+        return new CompareToBuilder()
+                .append(speed, o.speed)
+                .append(address, o.address)
+                .append(numberPlate, o.numberPlate)
+                .append(timestamp, o.timestamp)
+                .toComparison();
     }
 
 }

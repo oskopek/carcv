@@ -6,6 +6,7 @@ package org.carcv.core.model;
 import javax.persistence.Embeddable;
 import javax.validation.constraints.NotNull;
 
+import org.apache.commons.lang.builder.CompareToBuilder;
 import org.apache.commons.lang.builder.EqualsBuilder;
 import org.apache.commons.lang.builder.HashCodeBuilder;
 
@@ -16,7 +17,7 @@ import org.apache.commons.lang.builder.HashCodeBuilder;
  * 
  */
 @Embeddable
-public class NumberPlate extends AbstractModel {
+public class NumberPlate extends AbstractEmbeddable implements Comparable<NumberPlate> {
 
 	/**
 	 * 
@@ -117,6 +118,11 @@ public class NumberPlate extends AbstractModel {
                 .append(getText(), other.getText())
                 .append(getOrigin(), other.getOrigin())
                 .isEquals();
+    }
+
+    @Override
+    public int compareTo(NumberPlate o) {
+        return new CompareToBuilder().append(text, o.text).append(origin, o.origin).toComparison();
     }
 
 }

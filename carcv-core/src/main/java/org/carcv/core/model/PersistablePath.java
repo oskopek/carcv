@@ -10,6 +10,7 @@ import javax.persistence.Embeddable;
 import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
 
+import org.apache.commons.lang.builder.CompareToBuilder;
 import org.apache.commons.lang.builder.EqualsBuilder;
 import org.apache.commons.lang.builder.HashCodeBuilder;
 
@@ -18,7 +19,7 @@ import org.apache.commons.lang.builder.HashCodeBuilder;
  *
  */
 @Embeddable
-public class PersistablePath extends AbstractModel {
+public class PersistablePath extends AbstractEmbeddable implements Comparable<PersistablePath> {
     
     /**
      * 
@@ -88,6 +89,11 @@ public class PersistablePath extends AbstractModel {
      */
     public void setPathStr(String path) {
         this.pathStr = path;
+    }
+
+    @Override
+    public int compareTo(PersistablePath o) {
+        return new CompareToBuilder().append(pathStr, o.pathStr).toComparison();
     }
 
 }
