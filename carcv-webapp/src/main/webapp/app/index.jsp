@@ -19,8 +19,8 @@
 
 <body>
 	<div id="header">
-		<a href="/" target="_top"><img
-			src="/resources/opencv-logo.png" width="150"
+		<a href="/" target="_top"><img src="/resources/opencv-logo.png"
+			width="150"
 			style="border: 0; margin-top: 5px; margin-bottom: 5px; text-align: left; position: relative; top: -10px"
 			alt="OpenCV" /></a>
 		<p
@@ -50,8 +50,9 @@
 				</td>
 			</tr>
 			<tr>
-				<td><a href="/" target="_top" style="position: absolute; left: 40%; text-decoration: none">Admin</a><br>
-					</td>
+				<td><a href="/" target="_top"
+					style="position: absolute; left: 40%; text-decoration: none">Admin</a><br>
+				</td>
 			</tr>
 			<tr>
 				<td><a href="/servlet/LogoutServlet" target="_top"

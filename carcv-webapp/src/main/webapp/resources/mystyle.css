@@ -30,13 +30,13 @@ body {
 }
 
 table {
-    table-layout: fixed;
+	table-layout: fixed;
 }
 
 td {
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
 }
 
 #header {
@@ -58,16 +58,14 @@ td {
 	left: 17.5%;
 	top: 55px;
 	width: 79.7%;
-	
 	/* Firefox */
-	height: -moz-calc(100% - 135px);
+	height: -moz-calc(100% -  135px);
 	/* WebKit */
-	height: -webkit-calc(100% - 135px);
+	height: -webkit-calc(100% -  135px);
 	/* Opera */
-	height: -o-calc(100% - 135px);
+	height: -o-calc(100% -  135px);
 	/* Standard */
-	height: calc(100% - 135px);
-	
+	height: calc(100% -  135px);
 	border-radius: 10px;
 	padding: 1%;
 	border: 5px solid #b0c4de;
@@ -103,16 +101,14 @@ td {
 	left: 0px;
 	top: 55px;
 	width: 15%;
-	
 	/* Firefox */
-	height: -moz-calc(100% - 135px);
+	height: -moz-calc(100% -  135px);
 	/* WebKit */
-	height: -webkit-calc(100% - 135px);
+	height: -webkit-calc(100% -  135px);
 	/* Opera */
-	height: -o-calc(100% - 135px);
+	height: -o-calc(100% -  135px);
 	/* Standard */
-	height: calc(100% - 135px);
-	
+	height: calc(100% -  135px);
 	border-radius: 10px;
 	padding: 1%;
 	border: 5px solid #b0c4de;
