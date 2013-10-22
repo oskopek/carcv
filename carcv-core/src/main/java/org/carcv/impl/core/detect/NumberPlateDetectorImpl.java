@@ -16,18 +16,22 @@ import org.carcv.core.model.file.FileCarImage;
 import org.xml.sax.SAXException;
 
 /**
+ * Image must be loaded!
  * @author oskopek
  *
  */
-public class NumberPlateDetectorImpl implements NumberPlateDetector {//TODO: test and implement NumberPlateDetectorImpl
+public class NumberPlateDetectorImpl implements NumberPlateDetector {//TODO: test NumberPlateDetectorImpl
 
     @Override
     public String detect(final AbstractCarImage image) {
-        return detectPlateText((FileCarImage) image);
+        FileCarImage f = (FileCarImage) image;
+
+        return detectPlateText(f);
     }
 
     @Override
     public String detectPlateText(final FileCarImage image) {
+        
         Intelligence intel = null;
         try {
             intel = new Intelligence();
@@ -40,6 +44,7 @@ public class NumberPlateDetectorImpl implements NumberPlateDetector {//TODO: tes
         } catch (Exception e) {
             return null;
         }
+        
         return lp;
     }
     

@@ -52,9 +52,13 @@ public class FileCarImage extends AbstractCarImage  { //TODO: add test of new fi
     public FileCarImage(Path filepath) {
         this.persistablePath = new PersistablePath(filepath);
     }
-
+    
     public void loadImage() throws IOException {
         InputStream inStream = Files.newInputStream(persistablePath.getPath(), StandardOpenOption.READ);
+        loadImage(inStream);
+    }
+
+    public void loadImage(InputStream inStream) throws IOException {
         
         /*//TODO fix loading of image
         ImageInputStream imageStream = ImageIO.createImageInputStream(inStream);
@@ -86,9 +90,13 @@ public class FileCarImage extends AbstractCarImage  { //TODO: add test of new fi
         
         inStream.close();
     }
-
+    
     public void loadFragment(Rectangle rect) throws IOException {
         InputStream inStream = Files.newInputStream(persistablePath.getPath(), StandardOpenOption.READ);
+        loadFragment(inStream, rect);
+    }
+
+    public void loadFragment(InputStream inStream, Rectangle rect) throws IOException {
         
         ImageInputStream imageStream = ImageIO.createImageInputStream(inStream);
         ImageReader reader = ImageIO.getImageReaders(imageStream).next();
