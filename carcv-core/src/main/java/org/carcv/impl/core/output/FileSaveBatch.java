@@ -35,6 +35,7 @@ public class FileSaveBatch implements SaveBatch { //TODO: test FileSaveBatch
      */
     @Override
     public boolean save(final ArrayList<? extends AbstractEntry> batch) { 
+        @SuppressWarnings("unchecked")
         final ArrayList<FileEntry> fileBatch = (ArrayList<FileEntry>) batch;
         
         return saveFileEntry(fileBatch);

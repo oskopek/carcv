@@ -7,7 +7,6 @@ import java.util.Date;
 
 import javax.persistence.Embeddable;
 import javax.persistence.Embedded;
-import javax.persistence.OneToOne;
 import javax.validation.constraints.NotNull;
 
 import org.apache.commons.lang.builder.EqualsBuilder;
@@ -57,7 +56,6 @@ public class CarData extends AbstractModel {
 	
 	
 	@NotNull
-	@OneToOne
 	@Embedded
 	public Speed getSpeed() {
 		return speed;
@@ -73,7 +71,6 @@ public class CarData extends AbstractModel {
 
 
     @NotNull
-	@OneToOne
 	@Embedded
 	public Address getAddress() {
 		return address;
@@ -88,7 +85,6 @@ public class CarData extends AbstractModel {
 	}
 
     @NotNull
-    @OneToOne
     @Embedded
 	public NumberPlate getNumberPlate() {
 		return numberPlate;

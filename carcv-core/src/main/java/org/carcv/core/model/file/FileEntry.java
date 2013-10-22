@@ -7,7 +7,6 @@ import java.util.List;
 
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
-import javax.persistence.OneToOne;
 import javax.validation.constraints.NotNull;
 
 import org.carcv.core.model.CarData;
@@ -44,7 +43,6 @@ public class FileEntry extends AbstractEntry {
     }
 
     @Override
-    @OneToOne
     @NotNull
     @Embedded
     public CarData getCarData() {
@@ -52,7 +50,6 @@ public class FileEntry extends AbstractEntry {
     }
 
     @Override
-    @OneToOne
     @NotNull
     @Embedded
     public List<FileCarImage> getCarImages() {
