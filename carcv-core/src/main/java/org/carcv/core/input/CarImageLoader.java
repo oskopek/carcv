@@ -38,25 +38,25 @@ public abstract class CarImageLoader {
      * @return
      */
     public abstract List<? extends AbstractEntry> getBatchNoDiscover(); /*{
-        
-        CarData cd = fetchAllCarData();
+                                                                        
+                                                                        CarData cd = fetchAllCarData();
 
-        List<AbstractEntry> list = new ArrayList<>();
+                                                                        List<AbstractEntry> list = new ArrayList<>();
 
-        AbstractEntry e = null;
-        
-        while (!getDiscoverer().getQueue().isEmpty()) {
-            AbstractCarImage ci = getDiscoverer().getQueue().poll();
-            
-            e = new AbstractEntry(cd, ci); //TODO: fix cannot instantiate abstract class error
-            
-            list.add(e);
-        }
+                                                                        AbstractEntry e = null;
+                                                                        
+                                                                        while (!getDiscoverer().getQueue().isEmpty()) {
+                                                                        AbstractCarImage ci = getDiscoverer().getQueue().poll();
+                                                                        
+                                                                        e = new AbstractEntry(cd, ci); //TODO: fix cannot instantiate abstract class error
+                                                                        
+                                                                        list.add(e);
+                                                                        }
 
-        return list;
-    }*/
+                                                                        return list;
+                                                                        }*/
 
     public abstract Discoverer<? extends ImageQueue<? extends AbstractCarImage>> getDiscoverer();
-    
+
     public abstract CarData fetchAllCarData();
 }

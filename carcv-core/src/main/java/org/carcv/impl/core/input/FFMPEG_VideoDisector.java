@@ -15,9 +15,9 @@ import org.carcv.core.input.VideoDisector;
  * @deprecated use a script to split it into images externally
  */
 public class FFMPEG_VideoDisector extends VideoDisector {//TODO: test FFMPEG vid disector
-    
-    final public static int defaultFrameRate = 30;  
-    
+
+    final public static int defaultFrameRate = 30;
+
     public static boolean disectToFrames(Path video) {
         FFMPEG_VideoDisector fvd = new FFMPEG_VideoDisector();
         try {
@@ -25,39 +25,37 @@ public class FFMPEG_VideoDisector extends VideoDisector {//TODO: test FFMPEG vid
         } catch (IOException e) {
             e.printStackTrace();
             return false;
-        }        
+        }
     }
-    
+
     @Override
     public boolean disectToFrames(Path video, int frameRate) throws IOException {
-        
-        Path dir = Paths.get(video.getParent().toString(), video.getFileName()+".dir");
+
+        Path dir = Paths.get(video.getParent().toString(), video.getFileName() + ".dir");
         Files.createDirectory(dir);
-        
+
         return disectToFrames(dir, video, frameRate);
     }
 
     @Override
     public boolean disectToFrames(Path dir, Path video, int frameRate) throws IOException {
-        
+
         String filenamePrefix = video.getFileName().toString();
-        
+
         Path images = Paths.get(dir.toString(), filenamePrefix + "-%09d.png");
-        
-        String command = "ffmpeg -i " + video.toString() + " -r " + frameRate 
-                + " " +  images.toString();
-        
+
+        String command = "ffmpeg -i " + video.toString() + " -r " + frameRate + " " + images.toString();
+
         System.out.println("Executing: " + command);
-        
+
         Process p = Runtime.getRuntime().exec(command);
         try {
             p.waitFor();
         } catch (InterruptedException e) {
             return false;
         }
-        
-        
+
         return true;
     }
-    
+
 }

@@ -34,7 +34,7 @@ public class FileDiscovererTest {
     Path rootPath;
 
     private FileDiscoverer fileDiscoverer;
-    
+
     private FileImageQueue queue;
 
     private FileAttribute<Set<PosixFilePermission>> permissions;
@@ -45,7 +45,7 @@ public class FileDiscovererTest {
     @Before
     public void setUp() throws Exception {
         queue = new FileImageQueue();
-        
+
         rootPath = Files.createTempDirectory("fileDiscovererTestDir");
 
         fileDiscoverer = new FileDiscoverer(rootPath, queue);
@@ -62,6 +62,7 @@ public class FileDiscovererTest {
 
     /**
      * Deletes the temp directory
+     * 
      * @throws java.lang.Exception
      */
     @After
@@ -74,7 +75,8 @@ public class FileDiscovererTest {
     }
 
     /**
-     * Test method for {@link org.carcv.impl.core.input.FileDiscoverer#FileDiscoverer(java.nio.file.Path)}.
+     * Test method for
+     * {@link org.carcv.impl.core.input.FileDiscoverer#FileDiscoverer(java.nio.file.Path)}.
      */
     @Test
     public void testFileDiscoverer() {
@@ -86,7 +88,8 @@ public class FileDiscovererTest {
     }
 
     /**
-     * Test method for {@link org.carcv.impl.core.input.FileDiscoverer#getResourceAsStream(java.lang.String)}.
+     * Test method for
+     * {@link org.carcv.impl.core.input.FileDiscoverer#getResourceAsStream(java.lang.String)}.
      */
     @SuppressWarnings("deprecation")
     @Test

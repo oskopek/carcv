@@ -20,22 +20,20 @@ import org.carcv.impl.core.output.FileSaveBatch;
 
 /**
  * @author oskopek
- *
+ * 
  */
 public class FileCarRecognizer extends CarRecognizer { //TODO: Test FileCarRecognizer
-    
+
     private FileCarImageLoader loader;
-    
+
     private FileSaveBatch saver;
-    
-    
-    
-    public FileCarRecognizer(Path inDir, Path outDir) {        
+
+    public FileCarRecognizer(Path inDir, Path outDir) {
         //should load CarData with Address; FileCarImage with filepath
         loader = new FileCarImageLoader(new FileDiscoverer(inDir));
-        
+
         saver = new FileSaveBatch(outDir);
-        
+
     }
 
     /* (non-Javadoc)
@@ -44,35 +42,35 @@ public class FileCarRecognizer extends CarRecognizer { //TODO: Test FileCarRecog
     @Override
     public void recognize() throws IOException {
         final ArrayList<FileEntry> batch = (ArrayList<FileEntry>) loader.getBatch();
-        
+
         detectSpeeds(batch);
         detectNumberPlates(batch);
-        
+
         saver.save(batch);
     }
-    
+
     private void detectSpeeds(final ArrayList<FileEntry> batch) {
         SpeedDetectorImpl sd = new SpeedDetectorImpl();
-        
-        for(FileEntry entry : batch) {
+
+        for (FileEntry entry : batch) {
             Double d = (Double) sd.detectSpeed(entry.getCarImages());
-            
+
             entry.getCarData().setSpeed(new Speed(d));
         }
     }
-    
+
     private void detectNumberPlates(final ArrayList<FileEntry> batch) throws IOException {
         NumberPlateDetectorImpl npd = new NumberPlateDetectorImpl();
-        
-        for(FileEntry entry : batch) {
-            for(FileCarImage image : entry.getCarImages()) {
+
+        for (FileEntry entry : batch) {
+            for (FileCarImage image : entry.getCarImages()) {
                 image.loadImage();
             }
-            
+
             String text = npd.detectPlateText(entry.getCarImages());
             String origin = npd.detectPlateOrigin(entry.getCarImages());
-            
-            for(FileCarImage image : entry.getCarImages()) {
+
+            for (FileCarImage image : entry.getCarImages()) {
                 image.close();
             }
             entry.getCarData().setNumberPlate(new NumberPlate(text, origin));

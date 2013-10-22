@@ -21,25 +21,24 @@ import org.carcv.core.model.SpeedUnit;
 import org.carcv.core.model.file.FileCarImage;
 import org.carcv.core.model.file.FileEntry;
 import org.carcv.web.beans.*;
+
 /**
  * Servlet implementation class AddEntryServlet
  */
 @WebServlet("/test/AddEntryServlet")
 public class AddEntryServlet extends HttpServlet {
-	private static final long serialVersionUID = 1L;
-	
-	@EJB
-	private EntryBean entryBean;
-	
-	
-       
+    private static final long serialVersionUID = 1L;
+
+    @EJB
+    private EntryBean entryBean;
+
     /**
      * @see HttpServlet#HttpServlet()
      */
     public AddEntryServlet() {
         super();
     }
-    
+
     /**
      * @see HibernateUtilTest#saveAndQueryTest()
      * @param request
@@ -47,54 +46,55 @@ public class AddEntryServlet extends HttpServlet {
      * @throws ServletException
      * @throws IOException
      */
-    protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-    			response.setContentType("text/plain");
-    			PrintWriter out = response.getWriter();
-    	
-    			// Entity code
-    			Speed speed = new Speed(80d, SpeedUnit.KPH);
+    protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException,
+            IOException {
+        response.setContentType("text/plain");
+        PrintWriter out = response.getWriter();
 
-    			Address address = new Address("Myjava", "90701", "Jablonská",
-    					"Slovakia", 27, 860);
+        // Entity code
+        Speed speed = new Speed(80d, SpeedUnit.KPH);
 
-    			NumberPlate licencePlate = new NumberPlate("MY-077AU", "SK");
+        Address address = new Address("Myjava", "90701", "Jablonská", "Slovakia", 27, 860);
 
-    			Date timestamp = new Date(System.currentTimeMillis());
+        NumberPlate licencePlate = new NumberPlate("MY-077AU", "SK");
 
-    			//MediaObject video = new MediaObject("http://test.com/video.h264", MediaType.H264);
+        Date timestamp = new Date(System.currentTimeMillis());
 
-    			CarData carData = new CarData(speed, address, licencePlate, timestamp);
+        //MediaObject video = new MediaObject("http://test.com/video.h264", MediaType.H264);
 
-    			FileEntry testEntry = new FileEntry(carData, Arrays.asList(new FileCarImage(Paths.get("/tmp/test/video.h264"))));
-    			
-    			// End entity code
-    			out.println(testEntry.toString());
-    			
-    			entryBean.create(testEntry);
+        CarData carData = new CarData(speed, address, licencePlate, timestamp);
 
-    			out.println("Saved");
-    			out.println(testEntry.toString());
+        FileEntry testEntry = new FileEntry(carData, Arrays.asList(new FileCarImage(Paths.get("/tmp/test/video.h264"))));
 
-    			long entry_id = testEntry.getId();
-    			out.println("Id=" + entry_id);
+        // End entity code
+        out.println(testEntry.toString());
 
-    			// now retrieve
-    			out.println(entryBean.findById(entry_id).toString());
+        entryBean.create(testEntry);
 
-	}
+        out.println("Saved");
+        out.println(testEntry.toString());
 
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		processRequest(request, response);
-	}
+        long entry_id = testEntry.getId();
+        out.println("Id=" + entry_id);
 
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		processRequest(request, response);	
-	}
+        // now retrieve
+        out.println(entryBean.findById(entry_id).toString());
+
+    }
+
+    /**
+     * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+     */
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        processRequest(request, response);
+    }
+
+    /**
+     * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+     */
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException,
+            IOException {
+        processRequest(request, response);
+    }
 
 }

@@ -10,36 +10,35 @@ import org.apache.commons.lang.builder.HashCodeBuilder;
 
 /**
  * @author oskopek
- *
+ * 
  */
 public abstract class AbstractEntry extends AbstractModel {
-    
+
     /**
      * 
      */
     private static final long serialVersionUID = 2309289364991527040L;
+
     /*
     private CarData carData;
     private AbstractCarImage carImage;
-   
+    
     public AbstractEntry(CarData carData, AbstractCarImage carImage) {
         this.carData = carData;
         this.carImage = carImage;
     }
 
     */
-    
+
     public abstract CarData getCarData();
+
     public abstract List<? extends AbstractCarImage> getCarImages();
 
     @Override
     public int hashCode() {
-        return new HashCodeBuilder()
-            .append(getCarData())
-            .append(getCarImages().size())
-            .toHashCode();
+        return new HashCodeBuilder().append(getCarData()).append(getCarImages().size()).toHashCode();
     }
-    
+
     @Override
     public boolean equals(Object obj) {
         if (this == obj) {
@@ -53,11 +52,9 @@ public abstract class AbstractEntry extends AbstractModel {
         }
         AbstractEntry other = (AbstractEntry) obj;
 
-        return new EqualsBuilder()
-                .append(getCarImages().size(), other.getCarImages().size())
-                .append(getCarData(), other.getCarData())
-                .isEquals();
-        
+        return new EqualsBuilder().append(getCarImages().size(), other.getCarImages().size())
+                .append(getCarData(), other.getCarData()).isEquals();
+
     }
 
 }

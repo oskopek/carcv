@@ -12,9 +12,9 @@ import org.junit.Test;
 
 /**
  * @author oskopek
- *
+ * 
  */
-@Ignore(value="Not yet implemented")
+@Ignore(value = "Not yet implemented")
 public class FileCarImageLoaderTest {
 
     /**

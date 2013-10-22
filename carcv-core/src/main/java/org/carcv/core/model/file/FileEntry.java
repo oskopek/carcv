@@ -16,25 +16,24 @@ import org.carcv.core.model.AbstractEntry;
 
 /**
  * @author oskopek
- *
+ * 
  */
 @Entity
 public class FileEntry extends AbstractEntry {
-    
+
     /**
      * 
      */
     private static final long serialVersionUID = -8030471101247536237L;
-    
-    
+
     private List<FileCarImage> carImages;
     private CarData carData;
-    
+
     @SuppressWarnings("unused")
     private FileEntry() {
         //intentionally empty
     }
-    
+
     /**
      * @param carData
      * @param carImages
@@ -53,30 +52,31 @@ public class FileEntry extends AbstractEntry {
 
     @Override
     @NotNull
-    @ElementCollection(fetch=FetchType.EAGER)
+    @ElementCollection(fetch = FetchType.EAGER)
     public List<FileCarImage> getCarImages() {
         return carImages;
     }
 
     /**
-     * @param carImage the carImage to set
+     * @param carImage
+     *            the carImage to set
      */
     public void setCarImages(List<FileCarImage> carImages) {
         this.carImages = carImages;
     }
 
     /**
-     * @param carData the carData to set
+     * @param carData
+     *            the carData to set
      */
     public void setCarData(CarData carData) {
         this.carData = carData;
     }
-    
+
     @Override
     public String toString() {
-        return "FileEntry[id=" + getId() + 
-                ", carImages.size()=" + carImages.size() + 
-                ", carData=" + carData.toString() + "]";        
+        return "FileEntry[id=" + getId() + ", carImages.size()=" + carImages.size() + ", carData=" + carData.toString()
+                + "]";
     }
 
 }

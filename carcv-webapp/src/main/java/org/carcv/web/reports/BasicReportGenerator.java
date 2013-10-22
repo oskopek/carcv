@@ -30,88 +30,83 @@ import org.carcv.core.model.AbstractEntry;
  * 
  */
 public class BasicReportGenerator {
-	
-	JasperPrint filledReportPrint;
-	
-	private final String previewURL = "reports/OpenCV_Logo_with_text.png"; //TODO: add real handling of video
-	private final String videoURL = "/tmp/test/video.h264";
-	
-	public BasicReportGenerator(AbstractEntry e, String templateFilename,
-			String reportBuilderLocation,
-			String reportName) throws JRException {
-		
-		Map<String, Object> values = new HashMap<String, Object>();
-		Map<String, Object> parameters = new HashMap<String, Object>();
 
-		CarData data = e.getCarData();
+    JasperPrint filledReportPrint;
 
-		DateFormat dateFormat = new SimpleDateFormat("dd. MM. yyyy");
-		DateFormat timeFormat = new SimpleDateFormat("HH:mm");
+    private final String previewURL = "reports/OpenCV_Logo_with_text.png"; //TODO: add real handling of video
+    private final String videoURL = "/tmp/test/video.h264";
 
-		// report
-		parameters.put("reportid", Long.toString(System.currentTimeMillis()));
-		parameters.put("reportname", reportName);
-		parameters.put("reportlocation", reportBuilderLocation);
-		parameters.put("reportdate",
-				dateFormat.format(new Date(System.currentTimeMillis())));
+    public BasicReportGenerator(AbstractEntry e, String templateFilename, String reportBuilderLocation,
+            String reportName) throws JRException {
 
-		// data
-		Address add = data.getAddress();
-		String dataLocation = add.print();
+        Map<String, Object> values = new HashMap<String, Object>();
+        Map<String, Object> parameters = new HashMap<String, Object>();
 
-		// parameters.put("id", Long.toString(data.getId()));
-		parameters.put("previewURL", previewURL);
-		parameters.put("date", dateFormat.format(data.getTimestamp()));
-		parameters.put("location", dataLocation);
-		parameters.put("LPNumber", data.getNumberPlate().getText());
-		parameters.put("videoURL", videoURL);
-		parameters.put("time", timeFormat.format(data.getTimestamp()));
-		parameters.put("speed", Double.toString(data.getSpeed().getSpeed())
-				+ " " + data.getSpeed().getUnit().toString());
+        CarData data = e.getCarData();
 
-		// parameters.put
+        DateFormat dateFormat = new SimpleDateFormat("dd. MM. yyyy");
+        DateFormat timeFormat = new SimpleDateFormat("HH:mm");
 
-		Collection<Map<String, ?>> mapList = new ArrayList<Map<String, ?>>();
-		mapList.add(values);
+        // report
+        parameters.put("reportid", Long.toString(System.currentTimeMillis()));
+        parameters.put("reportname", reportName);
+        parameters.put("reportlocation", reportBuilderLocation);
+        parameters.put("reportdate", dateFormat.format(new Date(System.currentTimeMillis())));
 
-		JRMapCollectionDataSource mapDataSource = new JRMapCollectionDataSource(
-				mapList);
+        // data
+        Address add = data.getAddress();
+        String dataLocation = add.print();
 
-		// compile template - already precompiled
-		// JasperCompileManager.compileReportToFile(templateFilename + ".jrxml",
-		// templateFilename + ".jasper");
+        // parameters.put("id", Long.toString(data.getId()));
+        parameters.put("previewURL", previewURL);
+        parameters.put("date", dateFormat.format(data.getTimestamp()));
+        parameters.put("location", dataLocation);
+        parameters.put("LPNumber", data.getNumberPlate().getText());
+        parameters.put("videoURL", videoURL);
+        parameters.put("time", timeFormat.format(data.getTimestamp()));
+        parameters.put("speed", Double.toString(data.getSpeed().getSpeed()) + " "
+                + data.getSpeed().getUnit().toString());
 
-		// fill with data		
-		InputStream templateInputStream = getClass().getResourceAsStream(templateFilename);
-		
-		filledReportPrint = JasperFillManager.fillReport(templateInputStream,
-				parameters, mapDataSource);
-		
-	}
+        // parameters.put
 
-	public void exportFile(String filename) throws JRException {
-		JRExporter exporter = new JRPdfExporter();
+        Collection<Map<String, ?>> mapList = new ArrayList<Map<String, ?>>();
+        mapList.add(values);
 
-		exporter.setParameter(JRExporterParameter.OUTPUT_FILE_NAME, filename);
-		exporter.setParameter(JRExporterParameter.JASPER_PRINT, filledReportPrint);
+        JRMapCollectionDataSource mapDataSource = new JRMapCollectionDataSource(mapList);
+
+        // compile template - already precompiled
+        // JasperCompileManager.compileReportToFile(templateFilename + ".jrxml",
+        // templateFilename + ".jasper");
+
+        // fill with data		
+        InputStream templateInputStream = getClass().getResourceAsStream(templateFilename);
+
+        filledReportPrint = JasperFillManager.fillReport(templateInputStream, parameters, mapDataSource);
+
+    }
+
+    public void exportFile(String filename) throws JRException {
+        JRExporter exporter = new JRPdfExporter();
+
+        exporter.setParameter(JRExporterParameter.OUTPUT_FILE_NAME, filename);
+        exporter.setParameter(JRExporterParameter.JASPER_PRINT, filledReportPrint);
         exporter.setParameter(JRExporterParameter.CHARACTER_ENCODING, "UTF-8");
 
-		exporter.exportReport();
+        exporter.exportReport();
 
-		return;
-	}
-	
-	public void exportStream(String filename,
-			OutputStream out) throws JRException {
-		
-		JRExporter exporter = new JRPdfExporter();
+        return;
+    }
 
-		exporter.setParameter(JRExporterParameter.JASPER_PRINT, filledReportPrint);
-		exporter.setParameter(JRExporterParameter.OUTPUT_FILE_NAME, filename);
-		exporter.setParameter(JRExporterParameter.OUTPUT_STREAM, out);
-		exporter.setParameter(JRExporterParameter.CHARACTER_ENCODING, "UTF-8");
+    public void exportStream(String filename, OutputStream out) throws JRException {
 
-		exporter.exportReport();
-	}
+        JRExporter exporter = new JRPdfExporter();
+
+        exporter.setParameter(JRExporterParameter.JASPER_PRINT, filledReportPrint);
+        exporter.setParameter(JRExporterParameter.OUTPUT_FILE_NAME, filename);
+        exporter.setParameter(JRExporterParameter.OUTPUT_STREAM, out);
+        exporter.setParameter(JRExporterParameter.CHARACTER_ENCODING, "UTF-8");
+
+        exporter.exportReport();
+    }
 
 }

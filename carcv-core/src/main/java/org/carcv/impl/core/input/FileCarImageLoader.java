@@ -13,13 +13,12 @@ import org.carcv.core.model.CarData;
 import org.carcv.core.model.file.FileCarImage;
 import org.carcv.core.model.file.FileEntry;
 
-
 /**
  * @author oskopek
- *
+ * 
  */
 public final class FileCarImageLoader extends CarImageLoader { //TODO: test FileCarImageLoader and finish impl
-    
+
     private FileDiscoverer discoverer;
 
     /**
@@ -28,7 +27,7 @@ public final class FileCarImageLoader extends CarImageLoader { //TODO: test File
     public FileCarImageLoader(FileDiscoverer discoverer) {
         this.discoverer = discoverer;
     }
-    
+
     @Override
     public CarData fetchAllCarData() {
         // TODO implement fetchAllCarData
@@ -42,11 +41,11 @@ public final class FileCarImageLoader extends CarImageLoader { //TODO: test File
     public FileDiscoverer getDiscoverer() {
         return discoverer;
     }
-    
+
     @Override
     public List<FileEntry> getBatch() throws IOException {
         discoverer.discover();
-        
+
         return getBatchNoDiscover();
     }
 
@@ -57,16 +56,16 @@ public final class FileCarImageLoader extends CarImageLoader { //TODO: test File
         List<FileEntry> list = new ArrayList<>();
 
         FileEntry e = null;
-        
+
         while (!getDiscoverer().getQueue().isEmpty()) {
             FileCarImage ci = getDiscoverer().getQueue().poll();
-            
+
             e = new FileEntry(cd, Arrays.asList(ci)); //TODO: fix cannot instantiate abstract class error
-            
+
             list.add(e);
         }
 
         return list;
     }
-    
+
 }

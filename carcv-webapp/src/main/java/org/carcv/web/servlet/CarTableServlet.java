@@ -22,113 +22,108 @@ import org.carcv.web.beans.EntryBean;
  */
 @WebServlet("/servlet/CarTableServlet")
 public class CarTableServlet extends HttpServlet {
-	private static final long serialVersionUID = 1L;
-	
-	@EJB
-	private EntryBean bean;
+    private static final long serialVersionUID = 1L;
 
-	/**
-	 * @see HttpServlet#HttpServlet()
-	 */
-	public CarTableServlet() {
-		super();
-	}
-	
-	protected void processRequest(HttpServletRequest request, 
-			HttpServletResponse response) throws ServletException, IOException {
-		
-		ArrayList<FileEntry> abstractEntries = (ArrayList<FileEntry>) bean.getAll();
+    @EJB
+    private EntryBean bean;
 
-		//write page
-		response.setContentType("text/html");
-		PrintWriter out = response.getWriter();
+    /**
+     * @see HttpServlet#HttpServlet()
+     */
+    public CarTableServlet() {
+        super();
+    }
 
-		out.println("<!DOCTYPE html>");
-		out.println("<html>");
-		out.println("<head>");
-		out.println("<meta charset=\"UTF-8\">");
-		out.println("<title>CarCV - Car Table</title>");
-		out.println("<style type=\"text/css\">");
-		out.println("#table {");
-		out.println("	text-align: center;");
-		out.println("}");
-		out.println("</style>");
-		out.println("</head>");
+    protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException,
+            IOException {
 
-		out.println("<body>");
-		out.println("<table style=\"border: 1px solid #C0C0C0;\">");
-		out.println("<tr>");
-		out.println("<th style=\"width: 160px; height: 15px; background-color: #B0C4DE;\">Car preview</th>");
-		out.println("<th style=\"width: 10%; height: 15px; background-color: #B0C4DE;\">Date</th>");
-		out.println("<th style=\"width: 15%; height: 15px; background-color: #B0C4DE;\">Licence plate</th>");
-		out.println("<th style=\"width: 20%; height: 15px; background-color: #B0C4DE;\">Location</th>");
-		out.println("<th style=\"width: 20%; height: 15px; background-color: #B0C4DE;\">Video</th>");
-		out.println("<th style=\"width: 20%; height: 15px; background-color: #B0C4DE;\">Pictures</th>");
-		out.println("<th style=\"width: 15%; height: 15px; background-color: #B0C4DE;\">Report</th>");
-		out.println("</tr>");
+        ArrayList<FileEntry> abstractEntries = (ArrayList<FileEntry>) bean.getAll();
 
-		DateFormat dateFormat = new SimpleDateFormat("dd. MM. yyyy");
-		DateFormat timeFormat = new SimpleDateFormat("HH:mm");
+        //write page
+        response.setContentType("text/html");
+        PrintWriter out = response.getWriter();
 
-		String date, time;
-		String licencePlate;
-		String location;
-		String videoURL;
-		String previewURL;
+        out.println("<!DOCTYPE html>");
+        out.println("<html>");
+        out.println("<head>");
+        out.println("<meta charset=\"UTF-8\">");
+        out.println("<title>CarCV - Car Table</title>");
+        out.println("<style type=\"text/css\">");
+        out.println("#table {");
+        out.println("	text-align: center;");
+        out.println("}");
+        out.println("</style>");
+        out.println("</head>");
 
-		for (FileEntry e : abstractEntries) {
-			// initialize
-			date = dateFormat.format(e.getCarData().getTimestamp());
-			time = timeFormat.format(e.getCarData().getTimestamp());
-			licencePlate = e.getCarData().getNumberPlate().getOrigin() + ": "
-					+ e.getCarData().getNumberPlate().getText();
-			location = e.getCarData().getAddress().print();
-			
-			FileCarImage fci = (FileCarImage) e.getCarImages().get(0);
-			previewURL = fci.getPersistablePath().getPathStr();
-			
-			videoURL = "/servlet/GenerateVideoServlet?entry_id=" + e.getId();
+        out.println("<body>");
+        out.println("<table style=\"border: 1px solid #C0C0C0;\">");
+        out.println("<tr>");
+        out.println("<th style=\"width: 160px; height: 15px; background-color: #B0C4DE;\">Car preview</th>");
+        out.println("<th style=\"width: 10%; height: 15px; background-color: #B0C4DE;\">Date</th>");
+        out.println("<th style=\"width: 15%; height: 15px; background-color: #B0C4DE;\">Licence plate</th>");
+        out.println("<th style=\"width: 20%; height: 15px; background-color: #B0C4DE;\">Location</th>");
+        out.println("<th style=\"width: 20%; height: 15px; background-color: #B0C4DE;\">Video</th>");
+        out.println("<th style=\"width: 20%; height: 15px; background-color: #B0C4DE;\">Pictures</th>");
+        out.println("<th style=\"width: 15%; height: 15px; background-color: #B0C4DE;\">Report</th>");
+        out.println("</tr>");
 
-			// write
-			out.println("<tr>");
-			out.println("<td style=\"\"><img");
-			out.println("src=\"" + previewURL + "\"");
-			out.println("style=\"border: 2px\" width=\"150\" alt=\"Car\"></td>");
-			out.println("<td>" + date + "\n" + time + "</td>");
-			out.println("<td>" + licencePlate + "</td>");
-			out.println("<td>" + location + "</td>");
-			out.println("<td><a href=\"" + videoURL
-					+ "\" target=\"_top\">View video</a></td>");
-			out.println("<td><a href=\"" + previewURL
-					+ "\" target=\"_top\">View preview</a></td>");
-			out.println("<td><a href=\"" + "/servlet/GenerateReport?entry_id=" + e.getId()
-					+ "\" target=\"_top\">Generate report</a></td>");
-			out.println("</tr>");
-		}
+        DateFormat dateFormat = new SimpleDateFormat("dd. MM. yyyy");
+        DateFormat timeFormat = new SimpleDateFormat("HH:mm");
 
-		out.println("</table>");
-		out.println("</body>");
-		out.println("</html>");
-	}
+        String date, time;
+        String licencePlate;
+        String location;
+        String videoURL;
+        String previewURL;
 
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
-	 *      response)
-	 */
-	@Override
-	protected void doGet(HttpServletRequest request,
-			HttpServletResponse response) throws ServletException, IOException {
-		processRequest(request, response);
-	}
+        for (FileEntry e : abstractEntries) {
+            // initialize
+            date = dateFormat.format(e.getCarData().getTimestamp());
+            time = timeFormat.format(e.getCarData().getTimestamp());
+            licencePlate = e.getCarData().getNumberPlate().getOrigin() + ": "
+                    + e.getCarData().getNumberPlate().getText();
+            location = e.getCarData().getAddress().print();
 
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
-	 *      response)
-	 */
-	@Override
-	protected void doPost(HttpServletRequest request,
-			HttpServletResponse response) throws ServletException, IOException {
-		processRequest(request, response);
-	}
+            FileCarImage fci = (FileCarImage) e.getCarImages().get(0);
+            previewURL = fci.getPersistablePath().getPathStr();
+
+            videoURL = "/servlet/GenerateVideoServlet?entry_id=" + e.getId();
+
+            // write
+            out.println("<tr>");
+            out.println("<td style=\"\"><img");
+            out.println("src=\"" + previewURL + "\"");
+            out.println("style=\"border: 2px\" width=\"150\" alt=\"Car\"></td>");
+            out.println("<td>" + date + "\n" + time + "</td>");
+            out.println("<td>" + licencePlate + "</td>");
+            out.println("<td>" + location + "</td>");
+            out.println("<td><a href=\"" + videoURL + "\" target=\"_top\">View video</a></td>");
+            out.println("<td><a href=\"" + previewURL + "\" target=\"_top\">View preview</a></td>");
+            out.println("<td><a href=\"" + "/servlet/GenerateReport?entry_id=" + e.getId()
+                    + "\" target=\"_top\">Generate report</a></td>");
+            out.println("</tr>");
+        }
+
+        out.println("</table>");
+        out.println("</body>");
+        out.println("</html>");
+    }
+
+    /**
+     * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+     */
+    @Override
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        processRequest(request, response);
+    }
+
+    /**
+     * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+     */
+    @Override
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException,
+            IOException {
+        processRequest(request, response);
+    }
 
 }

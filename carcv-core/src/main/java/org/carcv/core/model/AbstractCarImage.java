@@ -7,9 +7,9 @@ import java.awt.Image;
 
 /**
  * @author oskopek
- *
+ * 
  */
-public abstract class AbstractCarImage extends AbstractModel implements AutoCloseable {    
+public abstract class AbstractCarImage extends AbstractModel implements AutoCloseable {
 
     /**
      * 

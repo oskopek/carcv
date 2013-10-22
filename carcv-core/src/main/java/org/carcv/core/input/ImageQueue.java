@@ -15,32 +15,32 @@ import org.carcv.core.model.AbstractCarImage;
 
 /**
  * Own object similar to ArrayDeque
+ * 
  * @author oskopek
- *
+ * 
  */
-public abstract class ImageQueue<E extends AbstractCarImage> extends AbstractCollection<E> implements Serializable, Cloneable, Iterable<E>, Collection<E>, Deque<E>, Queue<E> {
+public abstract class ImageQueue<E extends AbstractCarImage> extends AbstractCollection<E> implements Serializable,
+        Cloneable, Iterable<E>, Collection<E>, Deque<E>, Queue<E> {
 
-    
     /**
      * 
      */
     private static final long serialVersionUID = -88371342806720875L;
-    
+
     private ArrayDeque<E> queue;
-    
+
     public ImageQueue() {
         queue = new ArrayDeque<>();
     }
-    
-    
+
     public ImageQueue(int numElements) {
         queue = new ArrayDeque<>(numElements);
     }
-    
+
     public ImageQueue(Collection<? extends E> c) {
         queue = new ArrayDeque<>(c);
     }
-    
+
     @Override
     public void addFirst(E e) {
         queue.addFirst(e);

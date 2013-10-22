@@ -17,12 +17,12 @@ import org.carcv.core.output.SaveBatch;
 
 /**
  * @author oskopek
- *
+ * 
  */
 public class FileSaveBatch implements SaveBatch { //TODO: test FileSaveBatch
 
     private Path directory;
-    
+
     /**
      * 
      */
@@ -34,15 +34,15 @@ public class FileSaveBatch implements SaveBatch { //TODO: test FileSaveBatch
      * @see org.carcv.core.output.SaveBatch#save(java.util.ArrayList)
      */
     @Override
-    public boolean save(final ArrayList<? extends AbstractEntry> batch) { 
+    public boolean save(final ArrayList<? extends AbstractEntry> batch) {
         @SuppressWarnings("unchecked")
         final ArrayList<FileEntry> fileBatch = (ArrayList<FileEntry>) batch;
-        
+
         return saveFileEntry(fileBatch);
     }
-    
+
     public boolean saveFileEntry(final ArrayList<FileEntry> fileBatch) {
-        for(FileEntry entry : fileBatch) {
+        for (FileEntry entry : fileBatch) {
             try {
                 saveFileEntry(entry);
             } catch (IOException e) {
@@ -50,24 +50,23 @@ public class FileSaveBatch implements SaveBatch { //TODO: test FileSaveBatch
                 return false;
             }
         }
-        
+
         return true;
     }
-    
+
     private void saveFileEntry(FileEntry e) throws IOException {
         Properties p = new Properties();
-        
+
         FileCarImage fci = e.getCarImages().get(0);
-        
-        p.setProperty("filepath"    , fci.getPersistablePath().toString());
-        
-        
-        p.setProperty("numberplate-origin"   , e.getCarData().getNumberPlate().getOrigin());
-        p.setProperty("numberplate-text"     , e.getCarData().getNumberPlate().getText());
-        
-        p.setProperty("speed-value" , e.getCarData().getSpeed().getSpeed().toString());
-        p.setProperty("speed-unit"  , e.getCarData().getSpeed().getUnit().toString());
-        
+
+        p.setProperty("filepath", fci.getPersistablePath().toString());
+
+        p.setProperty("numberplate-origin", e.getCarData().getNumberPlate().getOrigin());
+        p.setProperty("numberplate-text", e.getCarData().getNumberPlate().getText());
+
+        p.setProperty("speed-value", e.getCarData().getSpeed().getSpeed().toString());
+        p.setProperty("speed-unit", e.getCarData().getSpeed().getUnit().toString());
+
         p.setProperty("address-city", e.getCarData().getAddress().getCity());
         p.setProperty("address-street", e.getCarData().getAddress().getStreet());
         p.setProperty("address-streetNo", e.getCarData().getAddress().getStreetNumber().toString());
@@ -76,16 +75,16 @@ public class FileSaveBatch implements SaveBatch { //TODO: test FileSaveBatch
         p.setProperty("address-postalCode", e.getCarData().getAddress().getPostalCode());
         p.setProperty("address-lat", e.getCarData().getAddress().getLatitude().toString());
         p.setProperty("address-long", e.getCarData().getAddress().getLongitude().toString());
-        
+
         p.setProperty("timestamp", e.getCarData().getTimestamp().toString());
-        
+
         //TODO: add everything here -- should be done
-        
+
         Path outFilePath = Paths.get(directory.toString(), fci.getFilepath().getFileName().toString());
-        
+
         FileOutputStream fous = new FileOutputStream(outFilePath.toFile());
         p.store(fous, fci.getFilepath().getFileName().toString());
-        
+
     }
 
 }

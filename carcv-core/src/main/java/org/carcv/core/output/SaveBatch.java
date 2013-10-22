@@ -9,10 +9,10 @@ import org.carcv.core.model.AbstractEntry;
 
 /**
  * @author oskopek
- *
+ * 
  */
 public interface SaveBatch {
-    
+
     /**
      * 
      * @param batch

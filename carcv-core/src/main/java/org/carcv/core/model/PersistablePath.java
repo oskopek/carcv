@@ -16,26 +16,26 @@ import org.apache.commons.lang.builder.HashCodeBuilder;
 
 /**
  * @author oskopek
- *
+ * 
  */
 @Embeddable
 public class PersistablePath extends AbstractEmbeddable implements Comparable<PersistablePath> {
-    
+
     /**
      * 
      */
     private static final long serialVersionUID = -4725972338092448440L;
-    
+
     private String pathStr;
-    
-    
+
     @SuppressWarnings("unused")
-    private PersistablePath() {}
-    
+    private PersistablePath() {
+    }
+
     public PersistablePath(String path) {
         this.pathStr = path;
     }
-    
+
     public PersistablePath(Path path) {
         this.pathStr = path.toString();
     }
@@ -45,11 +45,11 @@ public class PersistablePath extends AbstractEmbeddable implements Comparable<Pe
      */
     @Override
     public boolean equals(Object o) {
-        if(!(o instanceof PersistablePath)) {
+        if (!(o instanceof PersistablePath)) {
             return false;
         }
         PersistablePath other = (PersistablePath) o;
-        
+
         return new EqualsBuilder().append(this.pathStr, other.pathStr).isEquals();
     }
 
@@ -70,12 +70,13 @@ public class PersistablePath extends AbstractEmbeddable implements Comparable<Pe
     }
 
     /**
-     * @param path the path to set
+     * @param path
+     *            the path to set
      */
     public void setPath(Path path) {
         this.pathStr = path.toString();
     }
-    
+
     /**
      * @return the pathStr
      */
@@ -85,7 +86,8 @@ public class PersistablePath extends AbstractEmbeddable implements Comparable<Pe
     }
 
     /**
-     * @param pathStr the pathStr to set
+     * @param pathStr
+     *            the pathStr to set
      */
     public void setPathStr(String path) {
         this.pathStr = path;

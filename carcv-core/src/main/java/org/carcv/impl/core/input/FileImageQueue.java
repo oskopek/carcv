@@ -12,32 +12,31 @@ import org.carcv.core.model.file.FileCarImage;
 
 /**
  * Own object similar to ArrayDeque
+ * 
  * @author oskopek
- *
+ * 
  */
 public class FileImageQueue extends ImageQueue<FileCarImage> { //tested in FileDiscovererTest
 
-       
     /**
      * 
      */
     private static final long serialVersionUID = 385700571714341890L;
-    
+
     private ArrayDeque<FileCarImage> queue;
-    
+
     public FileImageQueue() {
         queue = new ArrayDeque<>();
     }
-    
-    
+
     public FileImageQueue(int numElements) {
         queue = new ArrayDeque<>(numElements);
     }
-    
+
     public FileImageQueue(Collection<? extends FileCarImage> c) {
         queue = new ArrayDeque<>(c);
     }
-    
+
     //@Override
     public void addFirst(FileCarImage e) {
         queue.addFirst(e);

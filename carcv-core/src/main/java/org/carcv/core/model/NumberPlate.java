@@ -19,52 +19,52 @@ import org.apache.commons.lang.builder.HashCodeBuilder;
 @Embeddable
 public class NumberPlate extends AbstractEmbeddable implements Comparable<NumberPlate> {
 
-	/**
+    /**
 	 * 
 	 */
-	private static final long serialVersionUID = -2507938473851975932L;
+    private static final long serialVersionUID = -2507938473851975932L;
 
-	private String text;
+    private String text;
 
-	private String origin;
+    private String origin;
 
-	@SuppressWarnings("unused")
+    @SuppressWarnings("unused")
     private NumberPlate() {
-		// hibernate stub
-	}
+        // hibernate stub
+    }
 
-	/**
-	 * @param text
-	 * @param origin
-	 */
-	public NumberPlate(String text, String origin) {
-		this.text = text;
-		this.origin = origin;
-	}
+    /**
+     * @param text
+     * @param origin
+     */
+    public NumberPlate(String text, String origin) {
+        this.text = text;
+        this.origin = origin;
+    }
 
-	/**
-	 * @param text
-	 */
-	public NumberPlate(String text) {
-		this.text = text;
-		this.origin = "";
-	}
+    /**
+     * @param text
+     */
+    public NumberPlate(String text) {
+        this.text = text;
+        this.origin = "";
+    }
 
-	/**
-	 * @param text
-	 *            the text to set
-	 */
-	public void setText(String text) {
-		this.text = text;
-	}
+    /**
+     * @param text
+     *            the text to set
+     */
+    public void setText(String text) {
+        this.text = text;
+    }
 
-	/**
-	 * @param origin
-	 *            the origin to set
-	 */
-	public void setOrigin(String origin) {
-		this.origin = origin;
-	}
+    /**
+     * @param origin
+     *            the origin to set
+     */
+    public void setOrigin(String origin) {
+        this.origin = origin;
+    }
 
     @NotNull
     public String getText() {
@@ -76,17 +76,17 @@ public class NumberPlate extends AbstractEmbeddable implements Comparable<Number
         return origin;
     }
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see java.lang.Object#toString()
-	 */
-	/*
-	@Override
-	public String toString() {
-		return "NumberPlate [text=" + text + ", origin=" + origin + "]";
-	}*/
-    
+    /*
+     * (non-Javadoc)
+     * 
+     * @see java.lang.Object#toString()
+     */
+    /*
+    @Override
+    public String toString() {
+    	return "NumberPlate [text=" + text + ", origin=" + origin + "]";
+    }*/
+
     /*
      * (non-Javadoc)
      * 
@@ -114,10 +114,7 @@ public class NumberPlate extends AbstractEmbeddable implements Comparable<Number
             return false;
         }
         NumberPlate other = (NumberPlate) obj;
-        return new EqualsBuilder()
-                .append(getText(), other.getText())
-                .append(getOrigin(), other.getOrigin())
-                .isEquals();
+        return new EqualsBuilder().append(getText(), other.getText()).append(getOrigin(), other.getOrigin()).isEquals();
     }
 
     @Override

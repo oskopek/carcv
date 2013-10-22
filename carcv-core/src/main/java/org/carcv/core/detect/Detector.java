@@ -9,7 +9,7 @@ import org.carcv.core.model.AbstractCarImage;
 
 /**
  * @author oskopek
- *
+ * 
  */
 public interface Detector {
 

@@ -37,16 +37,13 @@ public class PersistenceIT {
     @Deployment
     public static WebArchive createDeployment() {
 
-        WebArchive testArchive = ShrinkWrap.createFromZipFile(WebArchive.class,
-                new File("target/carcv-webapp.war"));
+        WebArchive testArchive = ShrinkWrap.createFromZipFile(WebArchive.class, new File("target/carcv-webapp.war"));
 
         testArchive.delete("WEB-INF/classes/META-INF/persistence.xml");
-        testArchive.addAsResource("META-INF/test-persistence.xml",
-                "META-INF/persistence.xml");
+        testArchive.addAsResource("META-INF/test-persistence.xml", "META-INF/persistence.xml");
 
         testArchive.delete("WEB-INF/jboss-web.xml");
-        testArchive.addAsWebInfResource("WEB-INF/test-jboss-web.xml",
-                "jboss-web.xml");
+        testArchive.addAsWebInfResource("WEB-INF/test-jboss-web.xml", "jboss-web.xml");
 
         testArchive.addAsResource("arquillian.xml");
 
@@ -61,12 +58,11 @@ public class PersistenceIT {
 
     @Test
     public void persistenceTest() {
-     // Entity code
+        // Entity code
 
         Speed speed = new Speed(80d, SpeedUnit.KPH);
 
-        Address address = new Address("Myjava", "90701", "Jablonská",
-                "Slovakia", 27, 860);
+        Address address = new Address("Myjava", "90701", "Jablonská", "Slovakia", 27, 860);
 
         NumberPlate licencePlate = new NumberPlate("MY-077AU", "SK");
 
@@ -78,25 +74,25 @@ public class PersistenceIT {
 
         FileEntry fileEntry = new FileEntry(carData, Arrays.asList(carImage));
         assertNotNull(fileEntry);
-        
+
         // End entity code
         assertNotNull(entryBean);
-        
+
         //persist
         entryBean.create(fileEntry);
-        
+
         //get
-        FileEntry got = entryBean.getAll().get(0);   
+        FileEntry got = entryBean.getAll().get(0);
         assertEquals(fileEntry, got);
-        
+
         //check
         assertEquals(carImage, got.getCarImages().get(0));
         assertEquals(speed, got.getCarData().getSpeed());
         assertEquals(address, got.getCarData().getAddress());
         assertEquals(licencePlate, got.getCarData().getNumberPlate());
-        
+
         assertEquals(carData, got.getCarData());
-        assertEquals(timestamp, got.getCarData().getTimestamp());        
+        assertEquals(timestamp, got.getCarData().getTimestamp());
         assertEquals(fileEntry, got);
     }
 

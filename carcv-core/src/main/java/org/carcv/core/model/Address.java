@@ -19,160 +19,158 @@ import org.apache.commons.lang.builder.HashCodeBuilder;
 @Embeddable
 public class Address extends AbstractEmbeddable implements Comparable<Address> {
 
-	/**
+    /**
 	 * 
 	 */
-	private static final long serialVersionUID = 3193222849089726865L;
+    private static final long serialVersionUID = 3193222849089726865L;
 
-	private Double latitude;
+    private Double latitude;
 
-	private Double longitude;
+    private Double longitude;
 
-	private String city;
+    private String city;
 
-	private String postalCode;
+    private String postalCode;
 
-	private String street;
+    private String street;
 
-	private String country;
+    private String country;
 
-	private Integer streetNumber;
+    private Integer streetNumber;
 
-	private Integer referenceNumber;
+    private Integer referenceNumber;
 
-	@SuppressWarnings("unused")
+    @SuppressWarnings("unused")
     private Address() {
-		// hibernate empty constructor
-	}
+        // hibernate empty constructor
+    }
 
-	/**
-	 * @param latitude
-	 * @param longitude
-	 * @param city
-	 * @param postalcode
-	 * @param street
-	 * @param country
-	 * @param streetNumber
-	 * @param referenceNumber
-	 */
-	public Address(Double latitude, Double longitude, String city,
-			String postalcode, String street, String country, Integer streetNumber,
-			Integer referenceNumber) {
-		this.latitude = latitude;
-		this.longitude = longitude;
-		this.city = city;
-		this.postalCode = postalcode;
-		this.street = street;
-		this.country = country;
-		this.streetNumber = streetNumber;
-		this.referenceNumber = referenceNumber;
-	}
+    /**
+     * @param latitude
+     * @param longitude
+     * @param city
+     * @param postalcode
+     * @param street
+     * @param country
+     * @param streetNumber
+     * @param referenceNumber
+     */
+    public Address(Double latitude, Double longitude, String city, String postalcode, String street, String country,
+            Integer streetNumber, Integer referenceNumber) {
+        this.latitude = latitude;
+        this.longitude = longitude;
+        this.city = city;
+        this.postalCode = postalcode;
+        this.street = street;
+        this.country = country;
+        this.streetNumber = streetNumber;
+        this.referenceNumber = referenceNumber;
+    }
 
-	/**
-	 * @param city
-	 * @param postalcode
-	 * @param street
-	 * @param country
-	 * @param streetNumber
-	 * @param referenceNumber
-	 */
-	public Address(String city, String postalcode, String street,
-			String country, Integer streetNumber, Integer referenceNumber) {
-		this.latitude = 0d;
-		this.longitude = 0d;
+    /**
+     * @param city
+     * @param postalcode
+     * @param street
+     * @param country
+     * @param streetNumber
+     * @param referenceNumber
+     */
+    public Address(String city, String postalcode, String street, String country, Integer streetNumber,
+            Integer referenceNumber) {
+        this.latitude = 0d;
+        this.longitude = 0d;
 
-		this.city = city;
-		this.postalCode = postalcode;
-		this.street = street;
-		this.country = country;
-		this.streetNumber = streetNumber;
-		this.referenceNumber = referenceNumber;
-	}
+        this.city = city;
+        this.postalCode = postalcode;
+        this.street = street;
+        this.country = country;
+        this.streetNumber = streetNumber;
+        this.referenceNumber = referenceNumber;
+    }
 
-	/**
-	 * @param city
-	 * @param postalcode
-	 * @param street
-	 * @param country
-	 * @param streetNumber
-	 */
-	public Address(String city, String postalcode, String street,
-			String country, Integer streetNumber) {
-		this.latitude = 0d;
-		this.longitude = 0d;
+    /**
+     * @param city
+     * @param postalcode
+     * @param street
+     * @param country
+     * @param streetNumber
+     */
+    public Address(String city, String postalcode, String street, String country, Integer streetNumber) {
+        this.latitude = 0d;
+        this.longitude = 0d;
 
-		this.city = city;
-		this.postalCode = postalcode;
-		this.street = street;
-		this.country = country;
-		this.streetNumber = streetNumber;
+        this.city = city;
+        this.postalCode = postalcode;
+        this.street = street;
+        this.country = country;
+        this.streetNumber = streetNumber;
 
-		this.referenceNumber = 0;
-	}
+        this.referenceNumber = 0;
+    }
 
-	/**
-	 * @param latitude
-	 *            the latitude to set
-	 */
-	public void setLatitude(double latitude) {
-		this.latitude = latitude;
-	}
+    /**
+     * @param latitude
+     *            the latitude to set
+     */
+    public void setLatitude(double latitude) {
+        this.latitude = latitude;
+    }
 
-	/**
-	 * @param longitude
-	 *            the longitude to set
-	 */
-	public void setLongitude(double longitude) {
-		this.longitude = longitude;
-	}
+    /**
+     * @param longitude
+     *            the longitude to set
+     */
+    public void setLongitude(double longitude) {
+        this.longitude = longitude;
+    }
 
-	/**
-	 * @param city
-	 *            the city to set
-	 */
-	public void setCity(String city) {
-		this.city = city;
-	}
+    /**
+     * @param city
+     *            the city to set
+     */
+    public void setCity(String city) {
+        this.city = city;
+    }
 
-	/**
-	 * @param postalcode
-	 *            the postalcode to set
-	 */
-	public void setPostalCode(String postalcode) {
-		this.postalCode = postalcode;
-	}
+    /**
+     * @param postalcode
+     *            the postalcode to set
+     */
+    public void setPostalCode(String postalcode) {
+        this.postalCode = postalcode;
+    }
 
-	/**
-	 * @param street
-	 *            the street to set
-	 */
-	public void setStreet(String street) {
-		this.street = street;
-	}
+    /**
+     * @param street
+     *            the street to set
+     */
+    public void setStreet(String street) {
+        this.street = street;
+    }
 
-	/**
-	 * @param country
-	 *            the country to set
-	 */
-	public void setCountry(String country) {
-		this.country = country;
-	}
+    /**
+     * @param country
+     *            the country to set
+     */
+    public void setCountry(String country) {
+        this.country = country;
+    }
 
-	/**
-	 * @param streetNumber
-	 *            the streetNumber to set
-	 */
-	public void setStreetNumber(int streetNumber) {
-		this.streetNumber = streetNumber;
-	}
+    /**
+     * @param streetNumber
+     *            the streetNumber to set
+     */
+    public void setStreetNumber(int streetNumber) {
+        this.streetNumber = streetNumber;
+    }
 
-	/**
-	 * @param referenceNumber
-	 *            the referenceNumber to set
-	 */
-	public void setReferenceNumber(int referenceNumber) {
-		this.referenceNumber = referenceNumber;
-	}
+    /**
+     * @param referenceNumber
+     *            the referenceNumber to set
+     */
+    public void setReferenceNumber(int referenceNumber) {
+        this.referenceNumber = referenceNumber;
+    }
 
     @NotNull
     public Double getLatitude() {
@@ -213,7 +211,7 @@ public class Address extends AbstractEmbeddable implements Comparable<Address> {
     public Integer getReferenceNumber() {
         return referenceNumber;
     }
-    
+
     /*
      * (non-Javadoc)
      * 
@@ -221,9 +219,9 @@ public class Address extends AbstractEmbeddable implements Comparable<Address> {
      */
     @Override
     public int hashCode() {
-        return new HashCodeBuilder().append(getLatitude()).append(getLongitude())
-                .append(getCity()).append(getPostalCode()).append(getStreet()).append(getCountry())
-                .append(getStreetNumber()).append(getReferenceNumber()).toHashCode();
+        return new HashCodeBuilder().append(getLatitude()).append(getLongitude()).append(getCity())
+                .append(getPostalCode()).append(getStreet()).append(getCountry()).append(getStreetNumber())
+                .append(getReferenceNumber()).toHashCode();
     }
 
     /*
@@ -244,14 +242,10 @@ public class Address extends AbstractEmbeddable implements Comparable<Address> {
         }
         Address other = (Address) obj;
 
-        return new EqualsBuilder()
-                .append(getLatitude(), other.getLatitude())
-                .append(getLongitude(), other.getLongitude())
-                .append(getCity(), other.getCity())
-                .append(getPostalCode(), other.getPostalCode())
-                .append(getStreet(), other.getStreet())
-                .append(getCountry(), other.getCountry())
-                .append(getStreetNumber(), other.getStreetNumber())
+        return new EqualsBuilder().append(getLatitude(), other.getLatitude())
+                .append(getLongitude(), other.getLongitude()).append(getCity(), other.getCity())
+                .append(getPostalCode(), other.getPostalCode()).append(getStreet(), other.getStreet())
+                .append(getCountry(), other.getCountry()).append(getStreetNumber(), other.getStreetNumber())
                 .append(getReferenceNumber(), other.getReferenceNumber()).isEquals();
     }
 
@@ -261,24 +255,17 @@ public class Address extends AbstractEmbeddable implements Comparable<Address> {
      * @return
      */
     public String print() {
-        return getStreet() + " " + getStreetNumber() + "/"
-                + getReferenceNumber() + "\n" + getPostalCode() + " "
+        return getStreet() + " " + getStreetNumber() + "/" + getReferenceNumber() + "\n" + getPostalCode() + " "
                 + getCity() + "\n" + getCountry();
     }
 
     @Override
     public int compareTo(Address other) {
-        return new CompareToBuilder()
-        .append(getLatitude(), other.getLatitude())
-        .append(getLongitude(), other.getLongitude())
-        .append(getCity(), other.getCity())
-        .append(getPostalCode(), other.getPostalCode())
-        .append(getStreet(), other.getStreet())
-        .append(getCountry(), other.getCountry())
-        .append(getStreetNumber(), other.getStreetNumber())
-        .append(getReferenceNumber(), other.getReferenceNumber())
-        .toComparison();
+        return new CompareToBuilder().append(getLatitude(), other.getLatitude())
+                .append(getLongitude(), other.getLongitude()).append(getCity(), other.getCity())
+                .append(getPostalCode(), other.getPostalCode()).append(getStreet(), other.getStreet())
+                .append(getCountry(), other.getCountry()).append(getStreetNumber(), other.getStreetNumber())
+                .append(getReferenceNumber(), other.getReferenceNumber()).toComparison();
     }
-
 
 }

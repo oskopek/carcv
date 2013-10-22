@@ -16,14 +16,14 @@ import org.junit.Test;
 
 /**
  * @author oskopek
- *
+ * 
  */
 public class FileCarRecognizerTest {
-    
+
     private Path inDir;
-    
+
     private Path outDir;
-    
+
     private FileCarRecognizer recognizer;
 
     /**
@@ -33,7 +33,7 @@ public class FileCarRecognizerTest {
     public void setUp() throws Exception {
         inDir = Files.createTempDirectory("inDir");
         outDir = Files.createTempDirectory("outDir");
-        
+
         recognizer = new FileCarRecognizer(inDir, outDir);
     }
 
@@ -46,40 +46,40 @@ public class FileCarRecognizerTest {
 
     /**
      * Test method for {@link org.carcv.impl.core.recognize.FileCarRecognizer#recognize()}.
-     * @throws IOException 
+     * 
+     * @throws IOException
      */
     @Test
     public void testRecognize() throws IOException {
         assertNotNull(recognizer);
         assertTrue(isDirEmpty(inDir));
         assertTrue(isDirEmpty(outDir));
-        
+
         recognizer.recognize();
-        
+
         assertTrue(isDirEmpty(inDir));
         assertTrue(isDirEmpty(outDir));
-        
+
         //TODO: finish
-        
-        
+
     }
-    
+
     private boolean isDirEmpty(Path dir) throws IOException {
         DirectoryStream<Path> ds = Files.newDirectoryStream(dir);
-        
+
         int counter = 0;
-        for(Path p : ds) {
-            if(Files.exists(p)) {
+        for (Path p : ds) {
+            if (Files.exists(p)) {
                 counter++;
             } else {
                 throw new IllegalStateException("Path was loaded from dir but the file doesn't exist!");
             }
         }
-        
-        if(counter==0) {
+
+        if (counter == 0) {
             return true;
         }
-        
+
         return false;
     }
 

@@ -20,11 +20,11 @@ import org.carcv.web.reports.BasicReportGenerator;
  */
 @WebServlet("/servlet/GenerateReport")
 public class GenerateReport extends HttpServlet {
-	private static final long serialVersionUID = 1L;
-	
-	@EJB
-	private EntryBean entryBean;
-       
+    private static final long serialVersionUID = 1L;
+
+    @EJB
+    private EntryBean entryBean;
+
     /**
      * @see HttpServlet#HttpServlet()
      */
@@ -33,49 +33,49 @@ public class GenerateReport extends HttpServlet {
         // TODO Auto-generated constructor stub
     }
 
-    protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, JRException {
-    	response.setContentType("application/pdf");
-		String filename = "report"
-				+ System.currentTimeMillis() + ".pdf";
-    	
-		//If you want it to be downloadable, enable next line:
-    	//response.setHeader("Content-Disposition", "attachment; filename=" + fileName);
-    	
-    	//generate
-    	long entryId = Long.parseLong(request.getParameter("entry_id"));
-    	
-    	AbstractEntry abstractEntry = entryBean.findById(entryId);
-		
-    	BasicReportGenerator brg = new BasicReportGenerator(abstractEntry, "/reports/speed_report.jasper", "Myjava", "TestReport");
-    	
-		brg.exportStream(filename, response.getOutputStream());
-		
-		
-		
-	}
-    
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		try {
-			processRequest(request, response);
-		} catch (JRException e) {
-			// TODO This shouldn't be here: security reasons
-			e.printStackTrace();
-		}
-	}
+    protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException,
+            IOException, JRException {
+        response.setContentType("application/pdf");
+        String filename = "report" + System.currentTimeMillis() + ".pdf";
 
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		try {
-			processRequest(request, response);
-		} catch (JRException e) {
-			// TODO This shouldn't be here: security reasons
-			e.printStackTrace();
-		}
-	}
+        //If you want it to be downloadable, enable next line:
+        //response.setHeader("Content-Disposition", "attachment; filename=" + fileName);
+
+        //generate
+        long entryId = Long.parseLong(request.getParameter("entry_id"));
+
+        AbstractEntry abstractEntry = entryBean.findById(entryId);
+
+        BasicReportGenerator brg = new BasicReportGenerator(abstractEntry, "/reports/speed_report.jasper", "Myjava",
+                "TestReport");
+
+        brg.exportStream(filename, response.getOutputStream());
+
+    }
+
+    /**
+     * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+     */
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        try {
+            processRequest(request, response);
+        } catch (JRException e) {
+            // TODO This shouldn't be here: security reasons
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+     */
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException,
+            IOException {
+        try {
+            processRequest(request, response);
+        } catch (JRException e) {
+            // TODO This shouldn't be here: security reasons
+            e.printStackTrace();
+        }
+    }
 
 }

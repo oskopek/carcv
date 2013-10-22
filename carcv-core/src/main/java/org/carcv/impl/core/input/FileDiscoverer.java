@@ -32,11 +32,11 @@ public class FileDiscoverer extends SimpleFileVisitor<Path> implements Discovere
     final private Path baseDirectory;
 
     final private List<Path> knownPaths;
-    
+
     final private FileImageQueue queue;
 
     //private Integer lastGottenIndex = -1;
-    
+
     /**
      * 
      */
@@ -98,7 +98,7 @@ public class FileDiscoverer extends SimpleFileVisitor<Path> implements Discovere
         }
         return null;
     }
-    
+
     /*
     public static void init(Path basedir) {
         fileDiscoverer = new FileDiscoverer(basedir);
@@ -141,7 +141,6 @@ public class FileDiscoverer extends SimpleFileVisitor<Path> implements Discovere
 
     }*/
 
-    
     @Override
     public FileImageQueue getQueue() {
         return queue;
