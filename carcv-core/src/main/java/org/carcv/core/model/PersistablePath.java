@@ -6,7 +6,7 @@ package org.carcv.core.model;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
-import javax.persistence.Entity;
+import javax.persistence.Embeddable;
 import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
 
@@ -17,7 +17,7 @@ import org.apache.commons.lang.builder.HashCodeBuilder;
  * @author oskopek
  *
  */
-@Entity
+@Embeddable
 public class PersistablePath extends AbstractModel {
     
     /**

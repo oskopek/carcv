@@ -16,7 +16,8 @@ import javax.imageio.ImageIO;
 import javax.imageio.ImageReadParam;
 import javax.imageio.ImageReader;
 import javax.imageio.stream.ImageInputStream;
-import javax.persistence.Entity;
+import javax.persistence.Embeddable;
+import javax.persistence.Embedded;
 import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
 
@@ -30,7 +31,7 @@ import org.carcv.core.model.PersistablePath;
  * @author oskopek
  * 
  */
-@Entity
+@Embeddable
 public class FileCarImage extends AbstractCarImage  { //TODO: add test of new filecarimage
 
     /**
@@ -143,6 +144,7 @@ public class FileCarImage extends AbstractCarImage  { //TODO: add test of new fi
      * @return the persistablePath
      */
     @NotNull
+    @Embedded
     public PersistablePath getPersistablePath() {
         return persistablePath;
     }

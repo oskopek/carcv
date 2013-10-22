@@ -8,6 +8,7 @@ import static org.junit.Assert.*;
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.nio.file.Paths;
+import java.util.Arrays;
 
 import org.carcv.core.model.file.FileCarImage;
 import org.junit.After;
@@ -47,7 +48,7 @@ public class NumberPlateDetectorImplTest {
      */
     @Test
     public void testDetect() {
-        String np = detector.detect(image);
+        String np = detector.detect(Arrays.asList(image));
         assertEquals("2SU358F", np); //actually should be 2SU3588
     }
 
@@ -58,7 +59,7 @@ public class NumberPlateDetectorImplTest {
     public void testDetectPlateText() {
         
         
-        String np = detector.detectPlateText(image);
+        String np = detector.detectPlateText((Arrays.asList(image)));
         assertEquals("2SU358F", np); //actually should be 2SU3588
     }
 

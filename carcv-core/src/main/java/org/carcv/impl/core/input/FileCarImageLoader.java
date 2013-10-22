@@ -5,6 +5,7 @@ package org.carcv.impl.core.input;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import org.carcv.core.input.CarImageLoader;
@@ -60,7 +61,7 @@ public final class FileCarImageLoader extends CarImageLoader { //TODO: test File
         while (!getDiscoverer().getQueue().isEmpty()) {
             FileCarImage ci = getDiscoverer().getQueue().poll();
             
-            e = new FileEntry(cd, ci); //TODO: fix cannot instantiate abstract class error
+            e = new FileEntry(cd, Arrays.asList(ci)); //TODO: fix cannot instantiate abstract class error
             
             list.add(e);
         }

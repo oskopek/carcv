@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.util.Properties;
 
 import org.carcv.core.model.AbstractEntry;
+import org.carcv.core.model.file.FileCarImage;
 import org.carcv.core.model.file.FileEntry;
 import org.carcv.core.output.SaveBatch;
 
@@ -55,7 +56,9 @@ public class FileSaveBatch implements SaveBatch { //TODO: test FileSaveBatch
     private void saveFileEntry(FileEntry e) throws IOException {
         Properties p = new Properties();
         
-        p.setProperty("filepath"    , e.getCarImage().getPersistablePath().toString());
+        FileCarImage fci = e.getCarImages().get(0);
+        
+        p.setProperty("filepath"    , fci.getPersistablePath().toString());
         
         
         p.setProperty("numberplate-origin"   , e.getCarData().getNumberPlate().getOrigin());
@@ -77,10 +80,10 @@ public class FileSaveBatch implements SaveBatch { //TODO: test FileSaveBatch
         
         //TODO: add everything here -- should be done
         
-        Path outFilePath = Paths.get(directory.toString(), e.getCarImage().getFilepath().getFileName().toString());
+        Path outFilePath = Paths.get(directory.toString(), fci.getFilepath().getFileName().toString());
         
         FileOutputStream fous = new FileOutputStream(outFilePath.toFile());
-        p.store(fous, e.getCarImage().getFilepath().getFileName().toString());
+        p.store(fous, fci.getFilepath().getFileName().toString());
         
     }
 

@@ -3,7 +3,7 @@
  */
 package org.carcv.core.model;
 
-import javax.persistence.Entity;
+import javax.persistence.Embeddable;
 import javax.validation.constraints.NotNull;
 
 import org.apache.commons.lang.builder.EqualsBuilder;
@@ -15,7 +15,7 @@ import org.apache.commons.lang.builder.HashCodeBuilder;
  * @author oskopek
  * 
  */
-@Entity
+@Embeddable
 public class NumberPlate extends AbstractModel {
 
 	/**

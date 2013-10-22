@@ -3,6 +3,8 @@
  */
 package org.carcv.core.model;
 
+import java.util.List;
+
 import org.apache.commons.lang.builder.EqualsBuilder;
 import org.apache.commons.lang.builder.HashCodeBuilder;
 
@@ -28,13 +30,13 @@ public abstract class AbstractEntry extends AbstractModel {
     */
     
     public abstract CarData getCarData();
-    public abstract AbstractCarImage getCarImage();
+    public abstract List<? extends AbstractCarImage> getCarImages();
 
     @Override
     public int hashCode() {
         return new HashCodeBuilder()
             .append(getCarData())
-            .append(getCarImage())
+            .append(getCarImages())
             .toHashCode();
     }
     
@@ -52,7 +54,7 @@ public abstract class AbstractEntry extends AbstractModel {
         AbstractEntry other = (AbstractEntry) obj;
 
         return new EqualsBuilder()
-                .append(getCarImage(), other.getCarImage())
+                .append(getCarImages(), other.getCarImages())
                 .append(getCarData(), other.getCarData())
                 .isEquals();
         
