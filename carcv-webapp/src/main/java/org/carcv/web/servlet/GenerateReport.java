@@ -30,7 +30,6 @@ public class GenerateReport extends HttpServlet {
      */
     public GenerateReport() {
         super();
-        // TODO Auto-generated constructor stub
     }
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException,

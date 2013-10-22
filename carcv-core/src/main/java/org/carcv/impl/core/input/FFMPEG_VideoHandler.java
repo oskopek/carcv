@@ -13,6 +13,7 @@ import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 
 import org.carcv.core.input.VideoHandler;
+import org.carcv.core.model.file.FileEntry;
 
 /**
  * {@linkplain https://trac.ffmpeg.org/wiki/Create%20a%20video%20slideshow%20from%20images}
@@ -36,7 +37,7 @@ public class FFMPEG_VideoHandler extends VideoHandler {//TODO: test FFMPEG vid d
         }
     }
     
-    public static OutputStream generateVideo(Path imageDir) {
+    public static OutputStream generateVideoAsStream(Path imageDir) {
         FFMPEG_VideoHandler fvd = new FFMPEG_VideoHandler();
         try {
             return fvd.generateVideoAsStream(imageDir, defaultFrameRate);
@@ -44,6 +45,13 @@ public class FFMPEG_VideoHandler extends VideoHandler {//TODO: test FFMPEG vid d
             e.printStackTrace();
             return null;
         }
+    }
+    
+    public static void generateVideoAsStream(final FileEntry entry, final OutputStream outStream) throws IOException {
+        FFMPEG_VideoHandler fvd = new FFMPEG_VideoHandler();
+        Path dir = entry.getCarImages().get(0).getFilepath().getParent();
+        
+        fvd.generateVideoAsStream(dir, defaultFrameRate, outStream);
     }
 
     @Override
@@ -79,6 +87,12 @@ public class FFMPEG_VideoHandler extends VideoHandler {//TODO: test FFMPEG vid d
     @Override
     public Path generateVideo(Path imageDir, int frameRate) throws IOException {
         return createVideo(imageDir, frameRate);
+    }
+    
+    public void generateVideoAsStream(Path imageDir, int frameRate, final OutputStream outStream) throws IOException {
+        Path tmp = createVideo(imageDir, frameRate);
+        Files.copy(tmp, outStream);
+        
     }
 
     @Override
