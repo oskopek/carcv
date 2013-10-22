@@ -96,11 +96,6 @@
 			<version>1.0.0.Alpha1-SNAPSHOT</version>
 		</dependency>
 		<dependency>
-			<groupId>net.sf.javaanpr</groupId>
-			<artifactId>javaanpr</artifactId>
-			<version>1.2.2</version>
-		</dependency>
-		<dependency>
 			<groupId>commons-lang</groupId>
 			<artifactId>commons-lang</artifactId>
 			<version>20030203.000129</version>

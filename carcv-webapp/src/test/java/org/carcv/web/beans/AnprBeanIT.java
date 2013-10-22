@@ -6,7 +6,8 @@ import static org.junit.Assert.*;
 
 import java.io.File;
 import java.io.IOException;
-import java.io.InputStream;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 
 import javax.ejb.EJB;
 
@@ -56,13 +57,11 @@ public class AnprBeanIT {
     public void licencePlateNumberRecognitionTest() throws IOException, Exception {
         assertNotNull(anprBean);
 
-	String filepath = "/img/skoda_oct.jpg";
+	Path filepath = Paths.get(getClass().getResource("/img/skoda_oct.jpg").toURI());
 	
-	InputStream is = getClass().getResourceAsStream(filepath);
-	
-	assertNotNull("Resource doesn't exist: " + filepath, is);
+	assertNotNull("Resource doesn't exist: " + filepath);
 
-        String licencePlate = anprBean.recognize(is);
+        String licencePlate = anprBean.recognize(filepath);
         assertEquals("2SU358F", licencePlate); //actually should be 2SU3588
     }
 
