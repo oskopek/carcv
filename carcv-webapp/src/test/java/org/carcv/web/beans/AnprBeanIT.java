@@ -21,7 +21,7 @@ import org.junit.runner.RunWith;
 
 /**
  * Test if the app deploys and EJB CDI Injection works.
- * 
+ * @deprecated
  * @author oskopek
  * 
  */

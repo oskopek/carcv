@@ -15,7 +15,7 @@ import org.carcv.impl.core.detect.NumberPlateDetectorImpl;
 
 /**
  * @author oskopek
- *
+ * @deprecated
  */
 @Stateless
 public class AnprBean {
