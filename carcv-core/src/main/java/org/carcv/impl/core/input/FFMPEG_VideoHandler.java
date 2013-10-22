@@ -21,11 +21,11 @@ import org.carcv.core.model.file.FileEntry;
  */
 public class FFMPEG_VideoHandler extends VideoHandler {//TODO: test FFMPEG vid disector
 
-    final public static int defaultFrameRate = 30;
+    final private static int defaultFrameRate = 30;
     
-    final public static String image_suffix = ".png";
+    final private static String image_suffix = ".png";
     
-    final public static String video_suffix = ".h264";
+    final private static String video_suffix = ".h264";
 
     public static boolean disectToFrames(Path video) {
         FFMPEG_VideoHandler fvd = new FFMPEG_VideoHandler();
