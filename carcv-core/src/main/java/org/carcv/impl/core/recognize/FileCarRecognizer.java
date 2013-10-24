@@ -7,6 +7,8 @@ import java.io.IOException;
 import java.nio.file.Path;
 import java.util.ArrayList;
 
+import org.carcv.core.detect.CarSorter;
+import org.carcv.core.input.DirectoryWatcher;
 import org.carcv.core.model.NumberPlate;
 import org.carcv.core.model.Speed;
 import org.carcv.core.model.file.FileCarImage;
@@ -14,8 +16,6 @@ import org.carcv.core.model.file.FileEntry;
 import org.carcv.core.recognize.CarRecognizer;
 import org.carcv.impl.core.detect.NumberPlateDetectorImpl;
 import org.carcv.impl.core.detect.SpeedDetectorImpl;
-import org.carcv.impl.core.input.FileCarImageLoader;
-import org.carcv.impl.core.input.FileDiscoverer;
 import org.carcv.impl.core.output.FileSaveBatch;
 
 /**
@@ -24,13 +24,12 @@ import org.carcv.impl.core.output.FileSaveBatch;
  */
 public class FileCarRecognizer extends CarRecognizer { //TODO: Test FileCarRecognizer
 
-    private FileCarImageLoader loader;
+    private DirectoryWatcher watcher;
 
     private FileSaveBatch saver;
 
     public FileCarRecognizer(Path inDir, Path outDir) {
-        //should load CarData with Address; FileCarImage with filepath
-        loader = new FileCarImageLoader(new FileDiscoverer(inDir));
+        watcher = new DirectoryWatcher(inDir);
 
         saver = new FileSaveBatch(outDir);
 
@@ -41,12 +40,28 @@ public class FileCarRecognizer extends CarRecognizer { //TODO: Test FileCarRecog
      */
     @Override
     public void recognize() throws IOException {
-        final ArrayList<FileEntry> batch = (ArrayList<FileEntry>) loader.getBatch();
+        watcher.discover();
+        
+        //this is a batch that contains an entry for every directory -> need to separate it into individual cars
+        final ArrayList<FileEntry> batch = (ArrayList<FileEntry>) watcher.getNewEntries();
+        
+        final ArrayList<FileEntry> result = new ArrayList<>();
+        
+        
+        ArrayList<FileEntry> directory;
+        for(FileEntry entry : batch) {
+            directory = new ArrayList<>();
+            directory.add(entry);
+            
+            sortIntoCars(directory);
+            
+            detectNumberPlates(directory);
+            detectSpeeds(directory);
+            
+            result.addAll(directory);
+        }
 
-        detectSpeeds(batch);
-        detectNumberPlates(batch);
-
-        saver.save(batch);
+        saver.save(result);
     }
 
     private void detectSpeeds(final ArrayList<FileEntry> batch) {
@@ -74,6 +89,13 @@ public class FileCarRecognizer extends CarRecognizer { //TODO: Test FileCarRecog
                 image.close();
             }
             entry.getCarData().setNumberPlate(new NumberPlate(text, origin));
+        }
+    }
+    
+    private void sortIntoCars(final ArrayList<FileEntry> batch) {
+        for(FileEntry e : batch) {
+            batch.addAll(CarSorter.sortIntoCars(e));
+            batch.remove(e);
         }
     }
 
