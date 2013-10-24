@@ -60,7 +60,7 @@ public class FileCarRecognizerTest {
         assertTrue(isDirEmpty(inDir));
         assertTrue(isDirEmpty(outDir));
 
-        //TODO: finish
+        //TODO 1 Finish testRecognize() in FileCarRecognizerTest
 
     }
 

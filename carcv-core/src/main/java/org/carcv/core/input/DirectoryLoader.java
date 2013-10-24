@@ -46,7 +46,7 @@ public class DirectoryLoader {
         return new FileEntry(cd, images);
     }
     
-    private static CarData loadCarData(Path directory) throws IOException { //TODO: see FileSaveBatch#saveFileEntry and adjust properties
+    private static CarData loadCarData(Path directory) throws IOException {
         Properties p = new Properties();
         
         Path info = Paths.get(directory.toString(), infoFileName);
@@ -54,14 +54,14 @@ public class DirectoryLoader {
         p.load(new FileInputStream(info.toFile()));
         
         
-        String latitude = p.getProperty("latitude");
-        String longitude = p.getProperty("longitude");
-        String city = p.getProperty("city");
-        String postalcode = p.getProperty("postalcode");
-        String street = p.getProperty("street");
-        String country = p.getProperty("country");
-        String streetNumber = p.getProperty("streetNumber");
-        String referenceNumber = p.getProperty("referenceNumber");
+        String latitude = p.getProperty("address-lat");
+        String longitude = p.getProperty("address-long");
+        String city = p.getProperty("address-city");
+        String postalcode = p.getProperty("address-postalCode");
+        String street = p.getProperty("address-street");
+        String country = p.getProperty("address-country");
+        String streetNumber = p.getProperty("address-streetNo");
+        String referenceNumber = p.getProperty("address-refNo");
         
         String time = p.getProperty("timestamp");
                 

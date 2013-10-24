@@ -7,6 +7,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Properties;
 
@@ -19,7 +20,7 @@ import org.carcv.core.output.SaveBatch;
  * @author oskopek
  * 
  */
-public class FileSaveBatch implements SaveBatch { //TODO: test FileSaveBatch
+public class FileSaveBatch implements SaveBatch { //TODO 1 Test FileSaveBatch
 
     private Path directory;
 
@@ -57,10 +58,6 @@ public class FileSaveBatch implements SaveBatch { //TODO: test FileSaveBatch
     private void saveFileEntry(FileEntry e) throws IOException {
         Properties p = new Properties();
 
-        FileCarImage fci = e.getCarImages().get(0);
-
-        p.setProperty("filepath", fci.getPersistablePath().toString());
-
         p.setProperty("numberplate-origin", e.getCarData().getNumberPlate().getOrigin());
         p.setProperty("numberplate-text", e.getCarData().getNumberPlate().getText());
 
@@ -76,14 +73,20 @@ public class FileSaveBatch implements SaveBatch { //TODO: test FileSaveBatch
         p.setProperty("address-lat", e.getCarData().getAddress().getLatitude().toString());
         p.setProperty("address-long", e.getCarData().getAddress().getLongitude().toString());
 
-        p.setProperty("timestamp", e.getCarData().getTimestamp().toString());
+        p.setProperty("timestamp", e.getCarData().getTimestamp().toString());        
 
-        //TODO: add everything here -- should be done
+        List<FileCarImage> fciList = e.getCarImages();        
+        int index = 0;
+        for(Iterator<FileCarImage> i = fciList.iterator(); i.hasNext(); index++) {
+            FileCarImage fci = i.next();
 
-        Path outFilePath = Paths.get(directory.toString(), fci.getFilepath().getFileName().toString());
+            p.setProperty("filepath" + index, fci.getPersistablePath().toString());
+        }
+        
+        Path outFilePath = Paths.get(directory.toString(), fciList.get(0).getFilepath().getFileName().toString());
 
         FileOutputStream fous = new FileOutputStream(outFilePath.toFile());
-        p.store(fous, fci.getFilepath().getFileName().toString());
+        p.store(fous, fciList.get(0).getFilepath().getFileName().toString());
 
     }
 

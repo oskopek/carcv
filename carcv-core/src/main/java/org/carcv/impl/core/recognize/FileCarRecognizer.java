@@ -22,7 +22,7 @@ import org.carcv.impl.core.output.FileSaveBatch;
  * @author oskopek
  * 
  */
-public class FileCarRecognizer extends CarRecognizer { //TODO: Test FileCarRecognizer
+public class FileCarRecognizer extends CarRecognizer {
 
     private DirectoryWatcher watcher;
 

@@ -5,7 +5,7 @@ package org.carcv.core.detect;
 
 import java.util.List;
 
-import org.carcv.core.model.file.FileCarImage;
+import org.carcv.core.model.AbstractCarImage;
 
 /**
  * @author oskopek
@@ -19,7 +19,7 @@ public interface NumberPlateDetector extends Detector {
      *            - must be loaded!
      * @return String w/ the text of the plate, or null if an error occured
      */
-    public String detectPlateText(final List<FileCarImage> images); //TODO: fix to abstract it
+    public String detectPlateText(final List<? extends AbstractCarImage> images);
 
     /**
      * 
@@ -27,6 +27,6 @@ public interface NumberPlateDetector extends Detector {
      *            - must be loaded!
      * @return String w/ the origin of the plate, or null if an error occured
      */
-    public String detectPlateOrigin(final List<FileCarImage> images);//TODO: fix to abstract it
+    public String detectPlateOrigin(final List<? extends AbstractCarImage> images);
 
 }

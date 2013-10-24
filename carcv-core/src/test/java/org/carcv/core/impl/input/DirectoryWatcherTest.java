@@ -29,7 +29,7 @@ import org.junit.Test;
  * 
  */
 @Ignore
-public class FileDiscovererTest { //TODO: rework into DirectoryWatcher and Loader test 
+public class DirectoryWatcherTest { //TODO 1 Make into DirectoryWatcher and Loader test 
 
     Path rootPath;
     /*

@@ -3,7 +3,7 @@
  */
 package org.carcv.core.model;
 
-import java.awt.Image;
+import java.awt.image.BufferedImage;
 
 /**
  * @author oskopek
@@ -19,5 +19,5 @@ public abstract class AbstractCarImage extends AbstractModel implements AutoClos
     /**
      * @return the image
      */
-    public abstract Image getImage();
+    public abstract BufferedImage getImage();
 }

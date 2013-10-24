@@ -34,7 +34,7 @@ import org.carcv.core.model.PersistablePath;
  * 
  */
 @Embeddable
-public class FileCarImage extends AbstractCarImage { //TODO: add test of new filecarimage
+public class FileCarImage extends AbstractCarImage { //TODO 2 Add test of PersistablePath in FileCarImage
 
     /**
      * 
@@ -60,8 +60,8 @@ public class FileCarImage extends AbstractCarImage { //TODO: add test of new fil
     }
 
     public void loadImage(InputStream inStream) throws IOException {
-
-        /*//TODO fix loading of image
+        //TODO 3 Fix loading of image
+        /*
         ImageInputStream imageStream = ImageIO.createImageInputStream(inStream);
         ImageReader reader = ImageIO.getImageReaders(imageStream).next();
         ImageReadParam param = reader.getDefaultReadParam();
