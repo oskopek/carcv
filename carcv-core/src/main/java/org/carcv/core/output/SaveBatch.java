@@ -3,7 +3,7 @@
  */
 package org.carcv.core.output;
 
-import java.util.ArrayList;
+import java.util.List;
 
 import org.carcv.core.model.AbstractEntry;
 
@@ -18,5 +18,5 @@ public interface SaveBatch {
      * @param batch
      * @return false if save was unsuccessful, true if successful
      */
-    public boolean save(final ArrayList<? extends AbstractEntry> batch);
+    public boolean save(final List<? extends AbstractEntry> batch);
 }

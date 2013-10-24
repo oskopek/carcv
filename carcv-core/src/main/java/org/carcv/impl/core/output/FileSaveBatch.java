@@ -7,7 +7,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.ArrayList;
+import java.util.List;
 import java.util.Properties;
 
 import org.carcv.core.model.AbstractEntry;
@@ -34,14 +34,14 @@ public class FileSaveBatch implements SaveBatch { //TODO: test FileSaveBatch
      * @see org.carcv.core.output.SaveBatch#save(java.util.ArrayList)
      */
     @Override
-    public boolean save(final ArrayList<? extends AbstractEntry> batch) {
+    public boolean save(final List<? extends AbstractEntry> batch) {
         @SuppressWarnings("unchecked")
-        final ArrayList<FileEntry> fileBatch = (ArrayList<FileEntry>) batch;
+        final List<FileEntry> fileBatch = (List<FileEntry>) batch;
 
-        return saveFileEntry(fileBatch);
+        return saveFileBatch(fileBatch);
     }
 
-    public boolean saveFileEntry(final ArrayList<FileEntry> fileBatch) {
+    public boolean saveFileBatch(final List<FileEntry> fileBatch) {
         for (FileEntry entry : fileBatch) {
             try {
                 saveFileEntry(entry);

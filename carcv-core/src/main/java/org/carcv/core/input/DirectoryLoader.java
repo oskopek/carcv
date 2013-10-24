@@ -46,7 +46,7 @@ public class DirectoryLoader {
         return new FileEntry(cd, images);
     }
     
-    private static CarData loadCarData(Path directory) throws IOException {
+    private static CarData loadCarData(Path directory) throws IOException { //TODO: see FileSaveBatch#saveFileEntry and adjust properties
         Properties p = new Properties();
         
         Path info = Paths.get(directory.toString(), infoFileName);
