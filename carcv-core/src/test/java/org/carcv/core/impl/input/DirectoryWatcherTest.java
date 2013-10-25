@@ -6,7 +6,6 @@ package org.carcv.core.impl.input;
 import static org.junit.Assert.*;
 
 import java.io.IOException;
-import java.io.InputStream;
 import java.nio.file.FileVisitResult;
 import java.nio.file.FileVisitor;
 import java.nio.file.Files;
@@ -14,15 +13,10 @@ import java.nio.file.Path;
 import java.nio.file.attribute.BasicFileAttributes;
 import java.nio.file.attribute.FileAttribute;
 import java.nio.file.attribute.PosixFilePermission;
-import java.nio.file.attribute.PosixFilePermissions;
 import java.util.Set;
-import java.util.TreeSet;
 
-import org.carcv.core.model.file.FileCarImage;
 import org.junit.After;
-import org.junit.Before;
 import org.junit.Ignore;
-import org.junit.Test;
 
 /**
  * @author oskopek
@@ -37,6 +31,7 @@ public class DirectoryWatcherTest { //TODO 1 Make into DirectoryWatcher and Load
 
     private FileImageQueue queue;
      */
+    @SuppressWarnings("unused")
     private FileAttribute<Set<PosixFilePermission>> permissions;
 
     /**
