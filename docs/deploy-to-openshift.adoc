@@ -15,5 +15,6 @@
 . Commit again: `git commit -a`
 
 . Push! `git push origin master`
+.. It actually initiates `mvn clean package -DskipTests -Popenshift` -- if you want to see the openshift-customized package yourself
 
 . See the results at: http://yournick-appname.rhcloud.com
