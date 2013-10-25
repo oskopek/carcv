@@ -1,4 +1,4 @@
-# CarCV - Car recognizing and speed calculating platform
+# CarCV Core - Car recognizing and speed calculating platform
 
 Copyright (C) 2012-2013, Ondrej Skopek. All rights reserved.
 

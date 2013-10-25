@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import net.sf.jasperreports.engine.JRException;
 
-import org.carcv.core.model.AbstractEntry;
+import org.carcv.core.model.file.FileEntry;
 import org.carcv.web.beans.EntryBean;
 import org.carcv.web.reports.BasicReportGenerator;
 
@@ -43,9 +43,9 @@ public class GenerateReport extends HttpServlet {
         //generate
         long entryId = Long.parseLong(request.getParameter("entry_id"));
 
-        AbstractEntry abstractEntry = entryBean.findById(entryId);
+        FileEntry fileEntry = entryBean.findById(entryId);
 
-        BasicReportGenerator brg = new BasicReportGenerator(abstractEntry, "/reports/speed_report.jasper", "Myjava",
+        BasicReportGenerator brg = new BasicReportGenerator(fileEntry, "/reports/speed_report.jasper", "Myjava",
                 "TestReport");
 
         brg.exportStream(filename, response.getOutputStream());
@@ -59,7 +59,7 @@ public class GenerateReport extends HttpServlet {
         try {
             processRequest(request, response);
         } catch (JRException e) {
-            // TODO This shouldn't be here: security reasons
+            //TODO 3 DEBUG-ONLY! - security reasons
             e.printStackTrace();
         }
     }
@@ -72,7 +72,7 @@ public class GenerateReport extends HttpServlet {
         try {
             processRequest(request, response);
         } catch (JRException e) {
-            // TODO This shouldn't be here: security reasons
+            //TODO 3 DEBUG-ONLY! - security reasons
             e.printStackTrace();
         }
     }

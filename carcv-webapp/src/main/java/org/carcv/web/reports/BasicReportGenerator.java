@@ -23,7 +23,7 @@ import net.sf.jasperreports.engine.export.JRPdfExporter;
 
 import org.carcv.core.model.Address;
 import org.carcv.core.model.CarData;
-import org.carcv.core.model.AbstractEntry;
+import org.carcv.core.model.file.FileEntry;
 
 /**
  * @author oskopek
@@ -33,10 +33,7 @@ public class BasicReportGenerator {
 
     JasperPrint filledReportPrint;
 
-    private final String previewURL = "reports/OpenCV_Logo_with_text.png"; //TODO: add real handling of video
-    private final String videoURL = "/tmp/test/video.h264";
-
-    public BasicReportGenerator(AbstractEntry e, String templateFilename, String reportBuilderLocation,
+    public BasicReportGenerator(FileEntry e, String templateFilename, String reportBuilderLocation,
             String reportName) throws JRException {
 
         Map<String, Object> values = new HashMap<String, Object>();
@@ -58,11 +55,11 @@ public class BasicReportGenerator {
         String dataLocation = add.print();
 
         // parameters.put("id", Long.toString(data.getId()));
-        parameters.put("previewURL", previewURL);
+        parameters.put("previewURL", e.getCarImages().get(0).getFilepath());
         parameters.put("date", dateFormat.format(data.getTimestamp()));
         parameters.put("location", dataLocation);
         parameters.put("LPNumber", data.getNumberPlate().getText());
-        parameters.put("videoURL", videoURL);
+        parameters.put("videoURL", "/servlet/GenerateVideo?entry_id=" + e.getId());
         parameters.put("time", timeFormat.format(data.getTimestamp()));
         parameters.put("speed", Double.toString(data.getSpeed().getSpeed()) + " "
                 + data.getSpeed().getUnit().toString());
