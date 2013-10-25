@@ -1,0 +1,19 @@
+== Deploying the CarCV WebApp to Openshift
+
+. Create your own app on http://openshift.com
+
+. Install `rhc` - the guide is on the Openshift website
+
+. Pull the git repo using `rhc git-clone`
+
+. Remove everything in the folder and issue `git -a commit`
+
+. Add the GitHub remote: `git remote add upstream http://github.com/oskopek/carcv.git`
+
+. Pull: `git pull upstream master`
+
+. Commit again: `git commit -a`
+
+. Push! `git push origin master`
+
+. See the results at: http://yournick-appname.rhcloud.com
