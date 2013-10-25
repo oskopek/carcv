@@ -5,10 +5,11 @@ package org.carcv.core.model.file;
 
 import java.util.List;
 
-import javax.persistence.ElementCollection;
+import javax.persistence.CascadeType;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.OneToMany;
 import javax.validation.constraints.NotNull;
 
 import org.carcv.core.model.CarData;
@@ -52,7 +53,7 @@ public class FileEntry extends AbstractEntry {
 
     @Override
     @NotNull
-    @ElementCollection(fetch = FetchType.EAGER)
+    @OneToMany(cascade=CascadeType.ALL, fetch = FetchType.EAGER, targetEntity=FileCarImage.class)
     public List<FileCarImage> getCarImages() {
         return carImages;
     }
