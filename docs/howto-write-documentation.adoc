@@ -1,0 +1,8 @@
+== How-to write documentation in CarCV Core
+
+=== How-to write TODOs
+
+In a comment:
+
+* *Syntax*: `TODO (priority - 1->3 ) message`
+* *Example*: `TODO 2 This exception shouldn't be swallowed`

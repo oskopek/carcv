@@ -4,7 +4,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta name="generator" content="Asciidoctor 0.1.4">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>How-to configure standalone.xml for a JBoss/Wildfly deployment</title>
+<title>How-to setup your build environment for CarCV</title>
 <style>
 /* Asciidoctor default stylesheet | MIT License | http://asciidoctor.org */
 article, aside, details, figcaption, figure, footer, header, hgroup, main, nav, section, summary { display: block; }
@@ -362,32 +362,60 @@ span.icon > [class^="icon-"], span.icon > [class*=" icon-"] { cursor: default; }
 </head>
 <body class="article">
 <div id="header">
-<h1>How-to configure standalone.xml for a JBoss/Wildfly deployment</h1>
 </div>
 <div id="content">
-<div id="preamble">
+<div class="sect1">
+<h2 id="_how_to_setup_your_build_environment_for_carcv">How-to setup your build environment for CarCV</h2>
 <div class="sectionbody">
-<div class="paragraph">
-<p>Add this security-domain to the list of security-domains in your standalone.xml to enable JAAS:</p>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p><strong>Install Java7</strong></p>
+</li>
+<li>
+<p><strong>Install Maven</strong> - (preferably the latest version you can).
+Usually, your distribution&#8217;s package management repository has it:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Fedora: <code>yum install mvn</code></p>
+</li>
+</ul>
 </div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlight"><code class="xml language-xml">&lt;security-domain name="carcv" cache-type="default"&gt;
-	&lt;authentication&gt;
-		&lt;login-module code="UsersRoles" flag="required"&gt;
-			&lt;module-option name="usersProperties" value="users.properties" /&gt;
-			&lt;module-option name="rolesProperties" value="roles.properties" /&gt;
-		&lt;/login-module&gt;
-	&lt;/authentication&gt;
-&lt;/security-domain&gt;</code></pre>
+</li>
+<li>
+<p><strong>Install an application server - optional</strong> - if you want to run integration tests as part of your <code>carcv-webapp</code> environment, you need to install at least one application server.
+It is recommended to install the latest <strong>Wildfly</strong> release. You should place it into <code>/opt/wildfly/yourWildflyVersionHere</code>
+and create a symlink called <code>/opt/wildfly/latest</code> to point to it.
+<code>ln -s /opt/wildfly/wildfly-8.0.0.Beta1 /opt/wildfly/latest</code></p>
+</li>
+<li>
+<p><strong>Create a directory for data input/output</strong> - the default is <code>$HOME/dev/java/carcv_data/in</code> and <code>$HOME/dev/java/carcv_data/out</code></p>
+</li>
+<li>
+<p><strong>Run the build</strong></p>
+<div class="ulist">
+<ul>
+<li>
+<p>Recomennded: <code>mvn clean install -DskipTests</code></p>
+</li>
+<li>
+<p>Run unit tests: <code>mvn clean install</code></p>
+</li>
+<li>
+<p>Run integration tests: <code>mvn clean install -Pwildfly-it</code></p>
+</li>
+</ul>
 </div>
+</li>
+</ol>
 </div>
 </div>
 </div>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2013-10-25 12:15:51 CEST
+Last updated 2013-10-25 14:29:48 CEST
 </div>
 </div>
 </body>

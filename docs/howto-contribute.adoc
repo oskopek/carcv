@@ -1,0 +1,7 @@
+= How-to contribute code to CarCV
+
+== Learn to get around in the code base
+
+include::howto-write-documentation.adoc[]
+
+include::howto-setup-environment.adoc[]
