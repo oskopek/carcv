@@ -3,6 +3,8 @@
  */
 package org.carcv.web.reports;
 
+import static org.junit.Assert.*;
+
 import java.io.File;
 import java.net.URL;
 import java.nio.file.Paths;
@@ -45,7 +47,11 @@ public class BasicReportGeneratorTest {
 
         CarData carData = new CarData(speed, location, licencePlate, timestamp);
 
-        testEntry = new FileEntry(carData, Arrays.asList(new FileCarImage(Paths.get("/tmp/test/video.h264"))));
+        testEntry = new FileEntry(carData, Arrays.asList(new FileCarImage(Paths.get("reports/OpenCV_Logo_with_text.png"))));
+        testEntry.setId(0l);
+        
+        assertNotNull(testEntry.getCarImages().get(0).getFilepath());
+        assertNotNull(testEntry.getId());
     }
 
     /**
@@ -66,6 +72,8 @@ public class BasicReportGeneratorTest {
         //System.out.println("OutDir: " + test_results_dir.getPath());
 
         String filename = testDir.getPath() + "/test_results/report" + System.currentTimeMillis() + ".pdf";
+        
+        assertNotNull(testEntry.getCarImages().get(0).getFilepath());
 
         BasicReportGenerator brg = new BasicReportGenerator(testEntry, "/reports/speed_report.jasper", "Myjava",
                 "TestReport");

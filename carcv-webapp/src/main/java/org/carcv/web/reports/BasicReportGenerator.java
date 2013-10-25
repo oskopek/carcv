@@ -55,11 +55,11 @@ public class BasicReportGenerator {
         String dataLocation = add.print();
 
         // parameters.put("id", Long.toString(data.getId()));
-        parameters.put("previewURL", e.getCarImages().get(0).getFilepath());
+        parameters.put("previewURL", e.getCarImages().get(0).getFilepath().toString());
         parameters.put("date", dateFormat.format(data.getTimestamp()));
         parameters.put("location", dataLocation);
         parameters.put("LPNumber", data.getNumberPlate().getText());
-        parameters.put("videoURL", "/servlet/GenerateVideo?entry_id=" + e.getId());
+        parameters.put("videoURL", "/servlet/GenerateVideo?entry_id=" + e.getId().toString());
         parameters.put("time", timeFormat.format(data.getTimestamp()));
         parameters.put("speed", Double.toString(data.getSpeed().getSpeed()) + " "
                 + data.getSpeed().getUnit().toString());
