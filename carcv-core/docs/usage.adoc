@@ -1,4 +1,5 @@
-= Using carcv-core
+= Using CarCV Core
+:source-highlighter: coderay
 
 == Using the default implementation of CarRecognizer
 
@@ -11,12 +12,11 @@ For example, in +carcv-webapp+ we use this method in +RecognizerBean+ like this:
 ----
 @Stateless
 public class RecognizerBean {
-    private FileCarRecognizer recognizer = new FileCarRecognizer(Pat inputDirectory, Path outputDirectory);
+    private FileCarRecognizer recognizer = new FileCarRecognizer(Path inputDirectory, Path outputDirectory);
 
     public void recognize() throws IOException {
         recognizer.recognize();
     }
-
 }
 ----
 

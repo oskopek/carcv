@@ -1,5 +1,5 @@
 #!/bin/bash
 
 rm html/*
-asciidoctor *
+asciidoctor *.adoc
 mv *.html html/

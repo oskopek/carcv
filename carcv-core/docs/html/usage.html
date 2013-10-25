@@ -4,7 +4,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta name="generator" content="Asciidoctor 0.1.4">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>How-to contribute code to CarCV</title>
+<title>Using CarCV Core</title>
 <style>
 /* Asciidoctor default stylesheet | MIT License | http://asciidoctor.org */
 article, aside, details, figcaption, figure, footer, header, hgroup, main, nav, section, summary { display: block; }
@@ -451,103 +451,50 @@ span.line-numbers { border-right: 1px solid #E5E5E5; color: #999; display: inlin
 </head>
 <body class="article">
 <div id="header">
-<h1>How-to contribute code to CarCV</h1>
+<h1>Using CarCV Core</h1>
 </div>
 <div id="content">
 <div class="sect1">
-<h2 id="_learn_to_get_around_in_the_code_base">Learn to get around in the code base</h2>
+<h2 id="_using_the_default_implementation_of_carrecognizer">Using the default implementation of CarRecognizer</h2>
 <div class="sectionbody">
-
-</div>
-</div>
-<div class="sect1">
-<h2 id="_how_to_write_documentation_in_carcv_core">How-to write documentation in CarCV Core</h2>
-<div class="sectionbody">
-<div class="sect2">
-<h3 id="_how_to_write_todos">How-to write TODOs</h3>
 <div class="paragraph">
-<p>In a comment:</p>
+<p>To use <code>carcv-core</code> (number plate detection and speed detection) in your application,
+simply instantiate a <code>FileCarRecognizer</code> (the default implementation of <code>CarRecognizer</code>).</p>
 </div>
-<div class="ulist">
-<ul>
-<li>
-<p><strong>Syntax</strong>: <code>TODO (priority - 1-&gt;3 ) message</code></p>
-</li>
-<li>
-<p><strong>Example</strong>: <code>TODO 2 This exception shouldn't be swallowed</code></p>
-</li>
-</ul>
+<div class="paragraph">
+<p>For example, in <code>carcv-webapp</code> we use this method in <code>RecognizerBean</code> like this:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay"><code class="java language-java"><span class="annotation">@Stateless</span>
+<span class="directive">public</span> <span class="type">class</span> <span class="class">RecognizerBean</span> {
+    <span class="directive">private</span> FileCarRecognizer recognizer = <span class="keyword">new</span> FileCarRecognizer(Path inputDirectory, Path outputDirectory);
+
+    <span class="directive">public</span> <span class="type">void</span> recognize() <span class="directive">throws</span> <span class="exception">IOException</span> {
+        recognizer.recognize();
+    }
+}</code></pre>
 </div>
 </div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_how_to_render_documentation">How-to render documentation</h2>
-<div class="sectionbody">
-<div class="olist arabic">
-<ol class="arabic">
-<li>
-<p><strong>Get AsciiDoctor</strong> - <a href="http://asciidoctor.org/#installation">http://asciidoctor.org/#installation</a></p>
-</li>
-<li>
-<p><strong>Run</strong>: <code>render_docs.sh</code></p>
-</li>
-</ol>
+<div class="paragraph">
+<p>This assumes you use a data input and output directory in a filesystem <code>java.nio</code> can access.</p>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_how_to_setup_your_build_environment_for_carcv">How-to setup your build environment for CarCV</h2>
+<h2 id="_using_your_own_implementation_of_carrecognizer">Using your own implementation of CarRecognizer</h2>
 <div class="sectionbody">
-<div class="olist arabic">
-<ol class="arabic">
-<li>
-<p><strong>Install Java7</strong></p>
-</li>
-<li>
-<p><strong>Install Maven</strong> - (preferably the latest version you can).
-Usually, your distribution&#8217;s package management repository has it:</p>
-<div class="ulist">
-<ul>
-<li>
-<p>Fedora: <code>yum install mvn</code></p>
-</li>
-</ul>
-</div>
-</li>
-<li>
-<p><strong>Install an application server - optional</strong> - if you want to run integration tests as part of your <code>carcv-webapp</code> environment, you need to install at least one application server.
-It is recommended to install the latest <strong>Wildfly</strong> release. You should place it into <code>/opt/wildfly/yourWildflyVersionHere</code>
-and create a symlink called <code>/opt/wildfly/latest</code> to point to it.
-<code>ln -s /opt/wildfly/wildfly-8.0.0.Beta1 /opt/wildfly/latest</code></p>
-</li>
-<li>
-<p><strong>Create a directory for data input/output</strong> - the default is <code>$HOME/dev/java/carcv_data/in</code> and <code>$HOME/dev/java/carcv_data/out</code></p>
-</li>
-<li>
-<p><strong>Run the build</strong></p>
-<div class="ulist">
-<ul>
-<li>
-<p>Recomennded: <code>mvn clean install -DskipTests</code></p>
-</li>
-<li>
-<p>Run unit tests: <code>mvn clean install</code></p>
-</li>
-<li>
-<p>Run integration tests: <code>mvn clean install -Pwildfly-it</code></p>
-</li>
-</ul>
-</div>
-</li>
-</ol>
+<div class="paragraph">
+<p>If you wish to implement it yourself, simply extend the <code>CarRecognizer</code> abstract class.
+Notes on implementation details are in the javadoc for <code>CarRecognizer</code>.
+To see the default implementation, see the <code>org.carcv.impl</code> packages.</p>
 </div>
 </div>
 </div>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2013-10-25 15:25:59 CEST
+Last updated 2013-10-25 15:33:53 CEST
 </div>
 </div>
 </body>

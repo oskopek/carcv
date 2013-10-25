@@ -1,15 +1,16 @@
 == How-to configure standalone.xml for a JBoss/Wildfly deployment
+:source-highlighter: coderay
 
 Add this security-domain to the list of security-domains in your standalone.xml to enable JAAS:
 
 [source,xml]
 ----
 <security-domain name="carcv" cache-type="default">
-	<authentication>
-		<login-module code="UsersRoles" flag="required">
-			<module-option name="usersProperties" value="users.properties" />
-			<module-option name="rolesProperties" value="roles.properties" />
-		</login-module>
-	</authentication>
+    <authentication>
+        <login-module code="UsersRoles" flag="required">
+            <module-option name="usersProperties" value="users.properties" />
+            <module-option name="rolesProperties" value="roles.properties" />
+        </login-module>
+    </authentication>
 </security-domain>
 ----
