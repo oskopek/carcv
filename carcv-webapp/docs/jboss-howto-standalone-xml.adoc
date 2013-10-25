@@ -1,8 +1,9 @@
-<?xml version="1.0" encoding="UTF-8"?>
+= How-to configure standalone.xml for a JBoss/Wildfly deployment
 
-##Add this security-domain to the list of security-domains in your standalone.xml to enable JAAS:
+Add this security-domain to the list of security-domains in your standalone.xml to enable JAAS:
 
-```
+[source,xml]
+----
 <security-domain name="carcv" cache-type="default">
 	<authentication>
 		<login-module code="UsersRoles" flag="required">
@@ -11,4 +12,4 @@
 		</login-module>
 	</authentication>
 </security-domain>
-```
+----

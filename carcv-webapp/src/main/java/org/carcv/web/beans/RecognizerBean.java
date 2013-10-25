@@ -18,7 +18,7 @@ import org.carcv.impl.core.recognize.FileCarRecognizer;
 @Stateless
 public class RecognizerBean {
 
-    //TODO: somehow load these
+    //TODO 3 Somehow load these paths from a configuration or something else
     final private static Path inDir = Paths.get("/home/oskopek/dev/java/carcv_data/in");
     final private static Path outDir = Paths.get("/home/oskopek/dev/java/carcv_data/out");
 
