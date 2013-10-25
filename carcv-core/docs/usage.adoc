@@ -1,0 +1,29 @@
+= Using carcv-core
+
+== Using the default implementation of CarRecognizer
+
+To use +carcv-core+ (number plate detection and speed detection) in your application,
+simply instantiate a +FileCarRecognizer+ (the default implementation of +CarRecognizer+).
+
+For example, in +carcv-webapp+ we use this method in +RecognizerBean+ like this:
+
+[source,java]
+----
+@Stateless
+public class RecognizerBean {
+    private FileCarRecognizer recognizer = new FileCarRecognizer(Pat inputDirectory, Path outputDirectory);
+
+    public void recognize() throws IOException {
+        recognizer.recognize();
+    }
+
+}
+----
+
+This assumes you use a data input and output directory in a filesystem +java.nio+ can access.
+
+== Using your own implementation of CarRecognizer
+
+If you wish to implement it yourself, simply extend the +CarRecognizer+ abstract class.
+Notes on implementation details are in the javadoc for +CarRecognizer+. 
+To see the default implementation, see the +org.carcv.impl+ packages.
