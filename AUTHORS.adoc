@@ -15,7 +15,7 @@
 |Matej Rajchl
 |mr.mators11
 |mr.mators11@gmail.com
-|Python OCR and ALPR w/SURF in CPP
+|Python OCR and ALPR w/SURF in carcv-cpp
 
 |Matej Pribis
 |

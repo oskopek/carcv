@@ -30,15 +30,15 @@ For more information, see http://www.sonatype.com/books/m2eclipse-book/reference
 [WARNING]
 ====
 Note: This way of configuring the project is old and deprecated.
-Please read the section link:README/#configuring-the-project-with-the-m2eclipse-plugin[Configuring the project with the m2eclipse plugin] above.
+Please read the section link:#_configuring_the_project_with_the_m2eclipse_plugin[Configuring the project with the m2eclipse plugin] above.
 ====
 
 The maven-eclipse-plugin plugin is a plugin in Maven for Eclipse.
 This is the old way (of which the development has stopped).
 
-Run this command to generate `.project` and `.classpath` files:
+Run this command to generate `.project` and `.classpath` files: 
 
-`$ mvn eclipse:eclipse`
+`mvn eclipse:eclipse`
 
 * Open Eclipse
 * Menu item *Import existing projects*, navigate to the project base directory, select all the projects (= modules) it lists.
@@ -52,7 +52,7 @@ Run this command to generate `.project` and `.classpath` files:
 Building
 --------
 
-* Recomennded: `mvn clean install -DskipTests`
-* To unit tests: `mvn clean install`
-* To run integration tests: `mvn clean install -Pwildfly-it` (see link:docs/howto-setup-environment.adoc[How-to setup your build environment])
+* *Recomennded*: `mvn clean install -DskipTests`
+* To run *unit tests*: `mvn clean install`
+* To run *integration tests*: `mvn clean install -Pwildfly-it` (see link:../docs/html/howto-setup-environment.html[How-to setup your build environment])
 * To *clean*, run: `mvn clean`
