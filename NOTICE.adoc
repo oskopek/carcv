@@ -1,15 +1,28 @@
-CarCV - Car recognizing and speed calculating platform
-Copyright (C) 2012-2013, Ondrej Skopek
+= CarCV - Licensing NOTICE
 
+Copyright (C) 2012-2013, Ondrej Skopek.
 All rights reserved.
 
-All authors are  printed in the AUTHORS file.
+All Authors and Contributors are named in the AUTHORS.adoc file.
 
-This licence is applicable on all files in this directory or any subdirectories.
+== Used libraries
+==== OptaPlanner -- (original README.md)
 
-Used libraries:
+Licensed under the Apache License, Version 2.0 (the "License");
+   you may not use this file except in compliance with the License.
+   You may obtain a copy of the License at
 
-OpenCV:
+       http://www.apache.org/licenses/LICENSE-2.0
+
+   Unless required by applicable law or agreed to in writing, software
+   distributed under the License is distributed on an "AS IS" BASIS,
+   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+   See the License for the specific language governing permissions and
+   limitations under the License.
+
+   
+=== Used libraries -- CarCV CPP
+==== OpenCV
 
 Copyright (c) 2013, OpenCV Developers Team
 All rights reserved.

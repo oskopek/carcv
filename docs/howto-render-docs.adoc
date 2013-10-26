@@ -1,4 +1,4 @@
-== How-to render documentation
+=== How-to render documentation
 
 1. *Get AsciiDoctor* - http://asciidoctor.org/#installation
 

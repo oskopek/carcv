@@ -1,12 +1,18 @@
 = How-to contribute code to CarCV
 :source-highlighter: coderay
 
+== Join our IRC channel
+
+Join *#themeteors* at *irc.freenode.net*
+
 == Learn to get around in the code base
+
+Read through some parts, or look here:
+
+include::goals.adoc[]
 
 include::howto-write-documentation.adoc[]
 
 include::howto-setup-environment.adoc[]
 
 include::deploy-to-openshift.adoc[]
-
-include::goals.adoc[]

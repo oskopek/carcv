@@ -1,4 +1,4 @@
-= Using CarCV Core
+== Using CarCV Core
 :source-highlighter: coderay
 
 == Using the default implementation of CarRecognizer
