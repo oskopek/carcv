@@ -8,7 +8,7 @@ echo ${basedir}
 
 cd ${basedir}
 
-rm -rf html/*
+rm -rf html/
 mkdir html
 mkdir html/core
 mkdir html/cpp
@@ -19,25 +19,25 @@ mkdir html/webapp
 cd ${basedir}
 
 asciidoctor *.adoc
-mv *.html html/
+mv *.html ${basedir}/html/
 
 #Core dir
 
 cd ${basedir}/core
 
 asciidoctor *.adoc
-mv *.html html/core/
+mv *.html ${basedir}/html/core/
 
 #CPP dir
 
 cd ${basedir}/cpp
 
 asciidoctor *.adoc
-mv *.html html/cpp/
+mv *.html ${basedir}/html/cpp/
 
 #WebApp dir
 
 cd ${basedir}/webapp
 
 asciidoctor *.adoc
-mv *.html html/webapp/
+mv *.html ${basedir}/html/webapp/

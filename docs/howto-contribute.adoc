@@ -15,4 +15,4 @@ include::howto-write-documentation.adoc[]
 
 include::howto-setup-environment.adoc[]
 
-include::deploy-to-openshift.adoc[]
+include::webapp/deploy-to-openshift.adoc[]
