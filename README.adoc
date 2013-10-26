@@ -1,4 +1,5 @@
-= CarCV - Car recognizing and speed calculating platform
+== CarCV -- A car recognizing and speed calculation platform
+
 
 Copyright (C) 2012-2013, Ondrej Skopek. All rights reserved.
 
