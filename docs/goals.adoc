@@ -1,0 +1,11 @@
+== Goals for CarCV
+
+If you want to help with any of them, just contact me
+ -- Ondrej Skopek -- at mailto:skopekondrej@gmail.com[skopekondrej@gmail.com]!
+
+* [ ] Finish implementation of Core
+* [ ] Finish demo implementation of WebApp
+* [x] Document everything
+* [ ] Release 1.0.0.Final
+* [ ] Move from BitBucket to GitHub
+* [x] Select an Open Source license
