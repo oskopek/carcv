@@ -1,7 +1,6 @@
 == Goals for CarCV
 
-If you want to help with any of them, just contact me
- -- Ondrej Skopek -- at mailto:skopekondrej@gmail.com[skopekondrej@gmail.com]!
+If you want to help with any of them, just contact me -- Ondrej Skopek -- at mailto:skopekondrej@gmail.com[skopekondrej@gmail.com]!
 
 * [ ] Finish implementation of Core
 * [ ] Finish demo implementation of WebApp
