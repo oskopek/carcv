@@ -2,4 +2,5 @@
 
 . *Get AsciiDoctor* -- http://asciidoctor.org/#installation
 . *CodeRay* syntax hilighting -- `gem install coderay`
-. *Run*: `render_docs.sh`
+. *Make sure to be in the project root directory*
+. *Run*: `./docs/render_docs.sh`
