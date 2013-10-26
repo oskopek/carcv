@@ -2,9 +2,10 @@
 
 If you want to help with any of them, just contact me -- Ondrej Skopek -- at mailto:skopekondrej@gmail.com[skopekondrej@gmail.com]!
 
-* [ ] Finish implementation of Core
-* [ ] Finish demo implementation of WebApp
-* [x] Document everything
+* [ ] Finish basic implementation of Core
+* [ ] Finish basic implementation of WebApp
+* [x] Document functionality
+* [ ] Add missing JavaDoc and refactor existing
 * [ ] Fix links in AsciiDoctor docs after move to GitHub
 * [ ] Release 1.0.0.Final
 * [x] Move from BitBucket to GitHub
