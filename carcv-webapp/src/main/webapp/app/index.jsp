@@ -50,7 +50,8 @@
 				</td>
 			</tr>
 			<tr>
-				<td><a href="/" target="_top" style="position: absolute; left: 40%; text-decoration: none">Admin</a><br></td>
+				<td><a href="/" target="_top"
+					style="position: absolute; left: 40%; text-decoration: none">Admin</a><br></td>
 			</tr>
 			<tr>
 				<td><a href="/servlet/LogoutServlet" target="_top"
@@ -69,4 +70,3 @@
 
 </body>
 </html>
-
