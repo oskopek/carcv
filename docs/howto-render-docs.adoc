@@ -1,5 +1,5 @@
 === How-to render documentation
 
-1. *Get AsciiDoctor* - http://asciidoctor.org/#installation
-
-2. *Run*: `render_docs.sh`
+. *Get AsciiDoctor* -- http://asciidoctor.org/#installation
+. *CodeRay* syntax hilighting -- `gem install coderay`
+. *Run*: `render_docs.sh`

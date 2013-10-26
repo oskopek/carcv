@@ -11,7 +11,7 @@ It is recommended to install the latest *Wildfly* release. You should place it i
 and create a symlink called `/opt/wildfly/latest` to point to it.
 `ln -s /opt/wildfly/wildfly-8.0.0.Beta1 /opt/wildfly/latest`
 
-.. For specific instructions, see: link:webapp/howto-jboss-standalone-xml[Deploy to Openshift]
+.. For specific instructions, see: link:webapp/howto-jboss-standalone-xml.html[Deploy to Openshift]
 
 . *Create a directory for data input/output* - the default is `$HOME/dev/java/carcv_data/in` and `$HOME/dev/java/carcv_data/out`
 

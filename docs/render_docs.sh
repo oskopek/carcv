@@ -2,7 +2,7 @@
 
 basedir=`pwd`
 
-echo ${basedir}
+echo "Current directory:" ${basedir}
 
 #Remove old versions
 
