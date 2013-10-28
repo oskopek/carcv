@@ -1,6 +1,6 @@
-/* 
+/*
  * Copyright 2012 CarCV Development Team
- * 
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -26,13 +26,13 @@ import javax.validation.constraints.NotNull;
 import org.apache.commons.lang.builder.CompareToBuilder;
 
 /**
- * 
+ *
  */
 @MappedSuperclass
 public abstract class AbstractModel implements Serializable, Comparable<AbstractModel> {
 
     /**
-     * 
+     *
      */
     private static final long serialVersionUID = -5140579589148423614L;
 
@@ -58,7 +58,7 @@ public abstract class AbstractModel implements Serializable, Comparable<Abstract
     @Override
     public int compareTo(AbstractModel o) {
         return new CompareToBuilder().append(getClass().getName(), o.getClass().getName()).append(id, o.id)
-                .toComparison();
+            .toComparison();
     }
 
 }

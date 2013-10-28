@@ -1,6 +1,6 @@
-/* 
+/*
  * Copyright 2012 CarCV Development Team
- * 
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -41,7 +41,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 
 /**
- * 
+ *
  */
 @RunWith(Arquillian.class)
 public class PersistenceIT {
@@ -90,14 +90,14 @@ public class PersistenceIT {
         // End entity code
         assertNotNull(entryBean);
 
-        //persist
+        // persist
         entryBean.create(fileEntry);
 
-        //get
+        // get
         FileEntry got = entryBean.getAll().get(0);
         assertEquals(fileEntry, got);
 
-        //check
+        // check
         assertEquals(carImage, got.getCarImages().get(0));
         assertEquals(speed, got.getCarData().getSpeed());
         assertEquals(address, got.getCarData().getAddress());

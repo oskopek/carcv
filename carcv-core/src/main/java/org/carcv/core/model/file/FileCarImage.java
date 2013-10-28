@@ -1,6 +1,6 @@
-/* 
+/*
  * Copyright 2012 CarCV Development Team
- * 
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -40,15 +40,14 @@ import org.carcv.core.model.AbstractCarImage;
 import org.carcv.core.model.PersistablePath;
 
 /**
- * Default behavior is to not load an image from path. To load it, use
- * {@link FileCarImage#loadImage()}
+ * Default behavior is to not load an image from path. To load it, use {@link FileCarImage#loadImage()}
  * 
  */
 @Entity
-public class FileCarImage extends AbstractCarImage { //TODO 2 Add test of PersistablePath in FileCarImage
+public class FileCarImage extends AbstractCarImage { // TODO 2 Add test of PersistablePath in FileCarImage
 
     /**
-     * 
+     *
      */
     private static final long serialVersionUID = 1L;
 
@@ -58,7 +57,7 @@ public class FileCarImage extends AbstractCarImage { //TODO 2 Add test of Persis
 
     @SuppressWarnings("unused")
     private FileCarImage() {
-        //intentionally empty
+        // intentionally empty
     }
 
     public FileCarImage(Path filepath) {
@@ -71,21 +70,19 @@ public class FileCarImage extends AbstractCarImage { //TODO 2 Add test of Persis
     }
 
     public void loadImage(InputStream inStream) throws IOException {
-        //TODO 3 Fix loading of image
+        // TODO 3 Fix loading of image
         /*
-        ImageInputStream imageStream = ImageIO.createImageInputStream(inStream);
-        ImageReader reader = ImageIO.getImageReaders(imageStream).next();
-        ImageReadParam param = reader.getDefaultReadParam();
+         * ImageInputStream imageStream = ImageIO.createImageInputStream(inStream); ImageReader reader =
+         * ImageIO.getImageReaders(imageStream).next(); ImageReadParam param = reader.getDefaultReadParam();
+         * 
+         * reader.setInput(imageStream, true, true);
+         * 
+         * this.image = reader.read(0, param);
+         * 
+         * reader.dispose(); imageStream.close();
+         */
 
-        reader.setInput(imageStream, true, true);
-
-        this.image = reader.read(0, param);
-
-        reader.dispose();
-        imageStream.close();
-        */
-
-        //temp:
+        // temp:
         BufferedImage image = ImageIO.read(inStream);
 
         if (image == null) {
@@ -161,8 +158,7 @@ public class FileCarImage extends AbstractCarImage { //TODO 2 Add test of Persis
     }
 
     /**
-     * @param persistablePath
-     *            the persistablePath to set
+     * @param persistablePath the persistablePath to set
      */
     public void setPersistablePath(PersistablePath persistablePath) {
         this.persistablePath = persistablePath;

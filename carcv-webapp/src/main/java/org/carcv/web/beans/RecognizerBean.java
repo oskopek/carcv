@@ -1,6 +1,6 @@
-/* 
+/*
  * Copyright 2012 CarCV Development Team
- * 
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -25,12 +25,12 @@ import javax.ejb.Stateless;
 import org.carcv.impl.core.recognize.FileCarRecognizer;
 
 /**
- * 
+ *
  */
 @Stateless
 public class RecognizerBean {
 
-    //TODO 3 Somehow load these paths from a configuration or something else
+    // TODO 3 Somehow load these paths from a configuration or something else
     final private static Path inDir = Paths.get("/home/oskopek/dev/java/carcv_data/in");
     final private static Path outDir = Paths.get("/home/oskopek/dev/java/carcv_data/out");
 

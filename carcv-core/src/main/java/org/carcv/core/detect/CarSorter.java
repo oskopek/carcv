@@ -1,6 +1,6 @@
-/* 
+/*
  * Copyright 2012 CarCV Development Team
- * 
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -21,18 +21,18 @@ import java.util.List;
 import org.carcv.core.model.file.FileEntry;
 
 /**
- * 
+ *
  */
 public class CarSorter {
 
     /**
-     * Returns a list of fileEntries from given images in a fileentry directory --> this means you
-     * should probably remove this fileentry from the list after merging this List in.
+     * Returns a list of fileEntries from given images in a fileentry directory --> this means you should probably remove this
+     * fileentry from the list after merging this List in.
      * 
      * @param directory
      * @return
      */
-    public static List<FileEntry> sortIntoCars(FileEntry directory) {//TODO 1 Implement: sort them into multiple FileEntries
+    public static List<FileEntry> sortIntoCars(FileEntry directory) {// TODO 1 Implement: sort them into multiple FileEntries
 
         return null;
     }

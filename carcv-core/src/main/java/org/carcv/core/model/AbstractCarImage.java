@@ -1,6 +1,6 @@
-/* 
+/*
  * Copyright 2012 CarCV Development Team
- * 
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -19,12 +19,12 @@ package org.carcv.core.model;
 import java.awt.image.BufferedImage;
 
 /**
- * 
+ *
  */
 public abstract class AbstractCarImage extends AbstractModel implements AutoCloseable {
 
     /**
-     * 
+     *
      */
     private static final long serialVersionUID = 1L;
 

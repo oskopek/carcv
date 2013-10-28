@@ -1,6 +1,6 @@
-/* 
+/*
  * Copyright 2012 CarCV Development Team
- * 
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -22,25 +22,20 @@ import org.apache.commons.lang.builder.EqualsBuilder;
 import org.apache.commons.lang.builder.HashCodeBuilder;
 
 /**
- * 
+ *
  */
 public abstract class AbstractEntry extends AbstractModel {
 
     /**
-     * 
+     *
      */
     private static final long serialVersionUID = 2309289364991527040L;
 
     /*
-    private CarData carData;
-    private AbstractCarImage carImage;
-    
-    public AbstractEntry(CarData carData, AbstractCarImage carImage) {
-        this.carData = carData;
-        this.carImage = carImage;
-    }
-
-    */
+     * private CarData carData; private AbstractCarImage carImage;
+     * 
+     * public AbstractEntry(CarData carData, AbstractCarImage carImage) { this.carData = carData; this.carImage = carImage; }
+     */
 
     public abstract CarData getCarData();
 
@@ -65,7 +60,7 @@ public abstract class AbstractEntry extends AbstractModel {
         AbstractEntry other = (AbstractEntry) obj;
 
         return new EqualsBuilder().append(getCarImages().size(), other.getCarImages().size())
-                .append(getCarData(), other.getCarData()).isEquals();
+            .append(getCarData(), other.getCarData()).isEquals();
 
     }
 

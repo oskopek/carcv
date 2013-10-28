@@ -1,6 +1,6 @@
-/* 
+/*
  * Copyright 2012 CarCV Development Team
- * 
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -31,7 +31,7 @@ import org.apache.commons.lang.builder.HashCodeBuilder;
 public class Address extends AbstractEmbeddable implements Comparable<Address> {
 
     /**
-	 * 
+	 *
 	 */
     private static final long serialVersionUID = 3193222849089726865L;
 
@@ -67,7 +67,7 @@ public class Address extends AbstractEmbeddable implements Comparable<Address> {
      * @param referenceNumber
      */
     public Address(Double latitude, Double longitude, String city, String postalcode, String street, String country,
-            Integer streetNumber, Integer referenceNumber) {
+        Integer streetNumber, Integer referenceNumber) {
         this.latitude = latitude;
         this.longitude = longitude;
         this.city = city;
@@ -87,7 +87,7 @@ public class Address extends AbstractEmbeddable implements Comparable<Address> {
      * @param referenceNumber
      */
     public Address(String city, String postalcode, String street, String country, Integer streetNumber,
-            Integer referenceNumber) {
+        Integer referenceNumber) {
         this.latitude = 0d;
         this.longitude = 0d;
 
@@ -120,64 +120,56 @@ public class Address extends AbstractEmbeddable implements Comparable<Address> {
     }
 
     /**
-     * @param latitude
-     *            the latitude to set
+     * @param latitude the latitude to set
      */
     public void setLatitude(double latitude) {
         this.latitude = latitude;
     }
 
     /**
-     * @param longitude
-     *            the longitude to set
+     * @param longitude the longitude to set
      */
     public void setLongitude(double longitude) {
         this.longitude = longitude;
     }
 
     /**
-     * @param city
-     *            the city to set
+     * @param city the city to set
      */
     public void setCity(String city) {
         this.city = city;
     }
 
     /**
-     * @param postalcode
-     *            the postalcode to set
+     * @param postalcode the postalcode to set
      */
     public void setPostalCode(String postalcode) {
         this.postalCode = postalcode;
     }
 
     /**
-     * @param street
-     *            the street to set
+     * @param street the street to set
      */
     public void setStreet(String street) {
         this.street = street;
     }
 
     /**
-     * @param country
-     *            the country to set
+     * @param country the country to set
      */
     public void setCountry(String country) {
         this.country = country;
     }
 
     /**
-     * @param streetNumber
-     *            the streetNumber to set
+     * @param streetNumber the streetNumber to set
      */
     public void setStreetNumber(int streetNumber) {
         this.streetNumber = streetNumber;
     }
 
     /**
-     * @param referenceNumber
-     *            the referenceNumber to set
+     * @param referenceNumber the referenceNumber to set
      */
     public void setReferenceNumber(int referenceNumber) {
         this.referenceNumber = referenceNumber;
@@ -231,8 +223,8 @@ public class Address extends AbstractEmbeddable implements Comparable<Address> {
     @Override
     public int hashCode() {
         return new HashCodeBuilder().append(getLatitude()).append(getLongitude()).append(getCity())
-                .append(getPostalCode()).append(getStreet()).append(getCountry()).append(getStreetNumber())
-                .append(getReferenceNumber()).toHashCode();
+            .append(getPostalCode()).append(getStreet()).append(getCountry()).append(getStreetNumber())
+            .append(getReferenceNumber()).toHashCode();
     }
 
     /*
@@ -254,10 +246,10 @@ public class Address extends AbstractEmbeddable implements Comparable<Address> {
         Address other = (Address) obj;
 
         return new EqualsBuilder().append(getLatitude(), other.getLatitude())
-                .append(getLongitude(), other.getLongitude()).append(getCity(), other.getCity())
-                .append(getPostalCode(), other.getPostalCode()).append(getStreet(), other.getStreet())
-                .append(getCountry(), other.getCountry()).append(getStreetNumber(), other.getStreetNumber())
-                .append(getReferenceNumber(), other.getReferenceNumber()).isEquals();
+            .append(getLongitude(), other.getLongitude()).append(getCity(), other.getCity())
+            .append(getPostalCode(), other.getPostalCode()).append(getStreet(), other.getStreet())
+            .append(getCountry(), other.getCountry()).append(getStreetNumber(), other.getStreetNumber())
+            .append(getReferenceNumber(), other.getReferenceNumber()).isEquals();
     }
 
     /**
@@ -267,16 +259,16 @@ public class Address extends AbstractEmbeddable implements Comparable<Address> {
      */
     public String print() {
         return getStreet() + " " + getStreetNumber() + "/" + getReferenceNumber() + "\n" + getPostalCode() + " "
-                + getCity() + "\n" + getCountry();
+            + getCity() + "\n" + getCountry();
     }
 
     @Override
     public int compareTo(Address other) {
         return new CompareToBuilder().append(getLatitude(), other.getLatitude())
-                .append(getLongitude(), other.getLongitude()).append(getCity(), other.getCity())
-                .append(getPostalCode(), other.getPostalCode()).append(getStreet(), other.getStreet())
-                .append(getCountry(), other.getCountry()).append(getStreetNumber(), other.getStreetNumber())
-                .append(getReferenceNumber(), other.getReferenceNumber()).toComparison();
+            .append(getLongitude(), other.getLongitude()).append(getCity(), other.getCity())
+            .append(getPostalCode(), other.getPostalCode()).append(getStreet(), other.getStreet())
+            .append(getCountry(), other.getCountry()).append(getStreetNumber(), other.getStreetNumber())
+            .append(getReferenceNumber(), other.getReferenceNumber()).toComparison();
     }
 
 }

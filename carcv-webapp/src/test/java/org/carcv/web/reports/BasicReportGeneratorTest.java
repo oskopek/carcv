@@ -1,6 +1,6 @@
-/* 
+/*
  * Copyright 2012 CarCV Development Team
- * 
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -38,7 +38,7 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 
 /**
- * 
+ *
  */
 public class BasicReportGeneratorTest {
 
@@ -61,7 +61,7 @@ public class BasicReportGeneratorTest {
 
         testEntry = new FileEntry(carData, Arrays.asList(new FileCarImage(Paths.get("reports/OpenCV_Logo_with_text.png"))));
         testEntry.setId(0l);
-        
+
         assertNotNull(testEntry.getCarImages().get(0).getFilepath());
         assertNotNull(testEntry.getId());
     }
@@ -70,7 +70,7 @@ public class BasicReportGeneratorTest {
      * Test method for
      * {@link org.carcv.web.reports.BasicReportGenerator#buildPDFReport(org.carcv.core.model.AbstractEntry, java.lang.String, java.lang.String, java.lang.String)}
      * .
-     * 
+     *
      * @throws JRException
      */
     @Test
@@ -81,14 +81,14 @@ public class BasicReportGeneratorTest {
         if (!test_results_dir.exists() || !test_results_dir.isDirectory()) {
             test_results_dir.mkdir();
         }
-        //System.out.println("OutDir: " + test_results_dir.getPath());
+        // System.out.println("OutDir: " + test_results_dir.getPath());
 
         String filename = testDir.getPath() + "/test_results/report" + System.currentTimeMillis() + ".pdf";
-        
+
         assertNotNull(testEntry.getCarImages().get(0).getFilepath());
 
         BasicReportGenerator brg = new BasicReportGenerator(testEntry, "/reports/speed_report.jasper", "Myjava",
-                "TestReport");
+            "TestReport");
 
         brg.exportFile(filename);
     }

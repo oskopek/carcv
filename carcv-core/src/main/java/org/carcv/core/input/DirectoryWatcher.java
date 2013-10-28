@@ -1,6 +1,6 @@
-/* 
+/*
  * Copyright 2012 CarCV Development Team
- * 
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -29,61 +29,59 @@ import org.carcv.core.model.file.FileEntry;
  *
  */
 public class DirectoryWatcher {
-    
+
     private Path rootDir;
-    
+
     private List<Path> knownDirs;
-    
+
     private List<FileEntry> entries;
-    
+
     private Integer lastToIndex;
-    
+
     public DirectoryWatcher(Path rootDir) {
         knownDirs = new ArrayList<>();
         entries = new ArrayList<>();
-        
+
         this.rootDir = rootDir;
         this.lastToIndex = 0;
     }
-    
-    
-    
+
     public void discover() throws IOException {
         DirectoryStream<Path> stream = Files.newDirectoryStream(rootDir);
-        
-        for(Path p : stream) {
-            if(!Files.isDirectory(p)) {
+
+        for (Path p : stream) {
+            if (!Files.isDirectory(p)) {
                 continue;
             }
-            
-            if(knownDirs.contains(p)) {
+
+            if (knownDirs.contains(p)) {
                 continue;
             }
-            
+
             knownDirs.add(p);
             FileEntry e = DirectoryLoader.load(p);
             entries.add(e);
         }
     }
-    
+
     public boolean hasNewEntries() {
-        if(lastToIndex>=entries.size()) {
+        if (lastToIndex >= entries.size()) {
             return false;
         } else {
             return true;
         }
     }
-    
+
     public List<FileEntry> getNewEntries() {
-        if(!hasNewEntries()) {
+        if (!hasNewEntries()) {
             return new ArrayList<FileEntry>();
         }
-        
+
         List<FileEntry> newEntries = entries.subList(lastToIndex, entries.size());
         lastToIndex = entries.size();
         return newEntries;
     }
-    
+
     public List<FileEntry> getEntries() {
         return entries;
     }

@@ -1,6 +1,6 @@
-/* 
+/*
  * Copyright 2012 CarCV Development Team
- * 
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -39,14 +39,14 @@ import org.carcv.core.model.CarData;
 import org.carcv.core.model.file.FileEntry;
 
 /**
- * 
+ *
  */
 public class BasicReportGenerator {
 
     JasperPrint filledReportPrint;
 
     public BasicReportGenerator(FileEntry e, String templateFilename, String reportBuilderLocation,
-            String reportName) throws JRException {
+        String reportName) throws JRException {
 
         Map<String, Object> values = new HashMap<String, Object>();
         Map<String, Object> parameters = new HashMap<String, Object>();
@@ -74,7 +74,7 @@ public class BasicReportGenerator {
         parameters.put("videoURL", "/servlet/GenerateVideo?entry_id=" + e.getId().toString());
         parameters.put("time", timeFormat.format(data.getTimestamp()));
         parameters.put("speed", Double.toString(data.getSpeed().getSpeed()) + " "
-                + data.getSpeed().getUnit().toString());
+            + data.getSpeed().getUnit().toString());
 
         // parameters.put
 
@@ -87,7 +87,7 @@ public class BasicReportGenerator {
         // JasperCompileManager.compileReportToFile(templateFilename + ".jrxml",
         // templateFilename + ".jasper");
 
-        // fill with data		
+        // fill with data
         InputStream templateInputStream = getClass().getResourceAsStream(templateFilename);
 
         filledReportPrint = JasperFillManager.fillReport(templateInputStream, parameters, mapDataSource);

@@ -1,6 +1,6 @@
-/* 
+/*
  * Copyright 2012 CarCV Development Team
- * 
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -31,7 +31,7 @@ import org.apache.commons.lang.builder.HashCodeBuilder;
 public class NumberPlate extends AbstractEmbeddable implements Comparable<NumberPlate> {
 
     /**
-	 * 
+	 *
 	 */
     private static final long serialVersionUID = -2507938473851975932L;
 
@@ -62,16 +62,14 @@ public class NumberPlate extends AbstractEmbeddable implements Comparable<Number
     }
 
     /**
-     * @param text
-     *            the text to set
+     * @param text the text to set
      */
     public void setText(String text) {
         this.text = text;
     }
 
     /**
-     * @param origin
-     *            the origin to set
+     * @param origin the origin to set
      */
     public void setOrigin(String origin) {
         this.origin = origin;
@@ -93,10 +91,8 @@ public class NumberPlate extends AbstractEmbeddable implements Comparable<Number
      * @see java.lang.Object#toString()
      */
     /*
-    @Override
-    public String toString() {
-    	return "NumberPlate [text=" + text + ", origin=" + origin + "]";
-    }*/
+     * @Override public String toString() { return "NumberPlate [text=" + text + ", origin=" + origin + "]"; }
+     */
 
     /*
      * (non-Javadoc)

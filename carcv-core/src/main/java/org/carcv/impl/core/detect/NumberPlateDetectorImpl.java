@@ -1,6 +1,6 @@
-/* 
+/*
  * Copyright 2012 CarCV Development Team
- * 
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -70,7 +70,7 @@ public class NumberPlateDetectorImpl implements NumberPlateDetector {
 
     @Override
     public String detectPlateOrigin(final List<? extends AbstractCarImage> images) {
-        return "UN"; //TODO 3 Unimplemented number plate origin
+        return "UN"; // TODO 3 Unimplemented number plate origin
     }
 
     private static String getAverageNumberPlate(final List<String> numberPlates) {

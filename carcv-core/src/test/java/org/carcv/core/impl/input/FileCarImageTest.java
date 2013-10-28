@@ -1,6 +1,6 @@
-/* 
+/*
  * Copyright 2012 CarCV Development Team
- * 
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -32,7 +32,7 @@ import org.junit.Ignore;
 import org.junit.Test;
 
 /**
- * 
+ *
  */
 public class FileCarImageTest {
 
@@ -84,7 +84,7 @@ public class FileCarImageTest {
         try {
             iFile.loadImage();
         } catch (final Exception e) {
-            //System.err.println(e.getMessage() + " - this is expected");
+            // System.err.println(e.getMessage() + " - this is expected");
         }
 
         assertNotNull(iFile);
@@ -105,8 +105,7 @@ public class FileCarImageTest {
     }
 
     /**
-     * Test method for
-     * {@link org.carcv.core.model.file.FileCarImage#loadFragment(java.awt.Rectangle)}.
+     * Test method for {@link org.carcv.core.model.file.FileCarImage#loadFragment(java.awt.Rectangle)}.
      * 
      * @throws IOException
      */
@@ -170,7 +169,7 @@ public class FileCarImageTest {
         try {
             iFile.loadImage();
         } catch (final Exception e) {
-            //System.err.println(e.getMessage() + " - this is expected");
+            // System.err.println(e.getMessage() + " - this is expected");
 
         }
         assertNotNull(iFile);
@@ -198,15 +197,15 @@ public class FileCarImageTest {
         assertNotNull(iFile);
         assertNotNull(iFile.getImage());
 
-        //BufferedImage loaded = iFile.getBufImage();
+        // BufferedImage loaded = iFile.getBufImage();
 
         iFile.close();
         assertNotNull(iFile);
         assertNotNull(iFile.getPersistablePath());
 
-        //BufferedImage closed = iFile.getBufImage();
+        // BufferedImage closed = iFile.getBufImage();
 
-        //TODO 3 How to test if BufferedImage is really flushed?
+        // TODO 3 How to test if BufferedImage is really flushed?
     }
 
 }

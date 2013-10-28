@@ -1,6 +1,6 @@
-/* 
+/*
  * Copyright 2012 CarCV Development Team
- * 
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -17,9 +17,9 @@
 package org.carcv.core.model;
 
 /**
- * <code>SpeedUnit</code>-s: 
+ * <code>SpeedUnit</code>-s:
  * <ul>
- * <li>MPH - miles per hour</li> 
+ * <li>MPH - miles per hour</li>
  * <li>KPH - kilometers per hour</li>
  * <li>MS - meters per second</li>
  * <li>KNOTS - nautical knots</li>

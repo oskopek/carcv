@@ -1,6 +1,6 @@
-/* 
+/*
  * Copyright 2012 CarCV Development Team
- * 
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -34,7 +34,7 @@ import org.apache.commons.lang.builder.HashCodeBuilder;
 public class CarData extends AbstractEmbeddable implements Comparable<CarData> {
 
     /**
-	 * 
+	 *
 	 */
     private static final long serialVersionUID = -2135634243340403587L;
 
@@ -72,8 +72,7 @@ public class CarData extends AbstractEmbeddable implements Comparable<CarData> {
     }
 
     /**
-     * @param speed
-     *            the speed to set
+     * @param speed the speed to set
      */
     public void setSpeed(Speed speed) {
         this.speed = speed;
@@ -86,8 +85,7 @@ public class CarData extends AbstractEmbeddable implements Comparable<CarData> {
     }
 
     /**
-     * @param location
-     *            the location to set
+     * @param location the location to set
      */
     public void setAddress(Address address) {
         this.address = address;
@@ -100,8 +98,7 @@ public class CarData extends AbstractEmbeddable implements Comparable<CarData> {
     }
 
     /**
-     * @param numberPlate
-     *            the numberPlate to set
+     * @param numberPlate the numberPlate to set
      */
     public void setNumberPlate(NumberPlate numberPlate) {
         this.numberPlate = numberPlate;
@@ -116,8 +113,7 @@ public class CarData extends AbstractEmbeddable implements Comparable<CarData> {
     }
 
     /**
-     * @param timestamp
-     *            the timestamp to set
+     * @param timestamp the timestamp to set
      */
     public void setTimestamp(Date timestamp) {
         this.timestamp = timestamp;
@@ -129,13 +125,9 @@ public class CarData extends AbstractEmbeddable implements Comparable<CarData> {
      * @see java.lang.Object#toString()
      */
     /*
-    @Override
-    public String toString() {
-    	return "CarData [id=" + getId() + ", speed=" + speed + ", location="
-    			+ location + ", numberPlate=" + numberPlate + ", timestamp="
-    			+ timestamp + ", video=" + video + "]";
-    }
-    */
+     * @Override public String toString() { return "CarData [id=" + getId() + ", speed=" + speed + ", location=" + location +
+     * ", numberPlate=" + numberPlate + ", timestamp=" + timestamp + ", video=" + video + "]"; }
+     */
 
     /*
      * (non-Javadoc)
@@ -145,7 +137,7 @@ public class CarData extends AbstractEmbeddable implements Comparable<CarData> {
     @Override
     public int hashCode() {
         return new HashCodeBuilder().append(getSpeed()).append(getAddress()).append(getNumberPlate())
-                .append(getTimestamp()).toHashCode();
+            .append(getTimestamp()).toHashCode();
     }
 
     /*
@@ -167,14 +159,14 @@ public class CarData extends AbstractEmbeddable implements Comparable<CarData> {
         CarData other = (CarData) obj;
 
         return new EqualsBuilder().append(getSpeed(), other.getSpeed()).append(getAddress(), other.getAddress())
-                .append(getNumberPlate(), other.getNumberPlate()).append(getTimestamp(), other.getTimestamp())
-                .isEquals();
+            .append(getNumberPlate(), other.getNumberPlate()).append(getTimestamp(), other.getTimestamp())
+            .isEquals();
     }
 
     @Override
     public int compareTo(CarData o) {
         return new CompareToBuilder().append(speed, o.speed).append(address, o.address)
-                .append(numberPlate, o.numberPlate).append(timestamp, o.timestamp).toComparison();
+            .append(numberPlate, o.numberPlate).append(timestamp, o.timestamp).toComparison();
     }
 
 }

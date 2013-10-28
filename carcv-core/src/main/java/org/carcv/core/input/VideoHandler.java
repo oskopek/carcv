@@ -1,6 +1,6 @@
-/* 
+/*
  * Copyright 2012 CarCV Development Team
- * 
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -28,11 +28,11 @@ public abstract class VideoHandler {
     public abstract boolean disectToFrames(Path video, int frameRate) throws IOException;
 
     public abstract boolean disectToFrames(Path dir, Path video, int frameRate) throws IOException;
-    
+
     public abstract void generateVideo(Path imageDir, Path videoPath, int frameRate) throws IOException;
-    
+
     public abstract Path generateVideo(Path imageDir, int frameRate) throws IOException;
-    
+
     public abstract OutputStream generateVideoAsStream(Path imageDir, int frameRate) throws IOException;
 
 }

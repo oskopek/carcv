@@ -1,6 +1,6 @@
-/* 
+/*
  * Copyright 2012 CarCV Development Team
- * 
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -49,20 +49,20 @@ public class GenerateReport extends HttpServlet {
     }
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException,
-            IOException, JRException {
+        IOException, JRException {
         response.setContentType("application/pdf");
         String filename = "report" + System.currentTimeMillis() + ".pdf";
 
-        //If you want it to be downloadable, enable next line:
-        //response.setHeader("Content-Disposition", "attachment; filename=" + fileName);
+        // If you want it to be downloadable, enable next line:
+        // response.setHeader("Content-Disposition", "attachment; filename=" + fileName);
 
-        //generate
+        // generate
         long entryId = Long.parseLong(request.getParameter("entry_id"));
 
         FileEntry fileEntry = entryBean.findById(entryId);
 
         BasicReportGenerator brg = new BasicReportGenerator(fileEntry, "/reports/speed_report.jasper", "Myjava",
-                "TestReport");
+            "TestReport");
 
         brg.exportStream(filename, response.getOutputStream());
 
@@ -75,7 +75,7 @@ public class GenerateReport extends HttpServlet {
         try {
             processRequest(request, response);
         } catch (JRException e) {
-            //TODO 3 DEBUG-ONLY! - security reasons
+            // TODO 3 DEBUG-ONLY! - security reasons
             e.printStackTrace();
         }
     }
@@ -84,11 +84,11 @@ public class GenerateReport extends HttpServlet {
      * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
      */
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException,
-            IOException {
+        IOException {
         try {
             processRequest(request, response);
         } catch (JRException e) {
-            //TODO 3 DEBUG-ONLY! - security reasons
+            // TODO 3 DEBUG-ONLY! - security reasons
             e.printStackTrace();
         }
     }

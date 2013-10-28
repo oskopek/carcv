@@ -1,6 +1,6 @@
-/* 
+/*
  * Copyright 2012 CarCV Development Team
- * 
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -29,13 +29,13 @@ import org.carcv.impl.core.input.FFMPEG_VideoHandler;
 import org.carcv.web.beans.EntryBean;
 
 /**
- * 
+ *
  */
 @WebServlet("/servlet/GenerateVideoServlet")
 public class GenerateVideoServlet extends HttpServlet {
 
     /**
-     * 
+     *
      */
     private static final long serialVersionUID = 6662253349108285886L;
 
@@ -46,10 +46,10 @@ public class GenerateVideoServlet extends HttpServlet {
         response.setContentType("video/h264");
         String filename = "video-" + System.currentTimeMillis() + ".h264";
 
-        //If you want it to be downloadable, enable next line:
+        // If you want it to be downloadable, enable next line:
         response.setHeader("Content-Disposition", "attachment; filename=" + filename);
 
-        //generate
+        // generate
         long entryId = Long.parseLong(request.getParameter("entry_id"));
 
         FileEntry entry = entryBean.findById(entryId);
@@ -66,11 +66,11 @@ public class GenerateVideoServlet extends HttpServlet {
     }
 
     /**
-     * @throws IOException 
+     * @throws IOException
      * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
      */
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException  {
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
         processRequest(request, response);
     }
-    
+
 }

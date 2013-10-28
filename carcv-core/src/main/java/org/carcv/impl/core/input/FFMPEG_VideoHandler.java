@@ -1,6 +1,6 @@
-/* 
+/*
  * Copyright 2012 CarCV Development Team
- * 
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -32,12 +32,12 @@ import org.carcv.core.model.file.FileEntry;
  * {@linkplain https://trac.ffmpeg.org/wiki/Create%20a%20video%20slideshow%20from%20images}
  * 
  */
-public class FFMPEG_VideoHandler extends VideoHandler {//TODO 3 Test FFMPEG video handler
+public class FFMPEG_VideoHandler extends VideoHandler {// TODO 3 Test FFMPEG video handler
 
     final private static int defaultFrameRate = 30;
-    
+
     final private static String image_suffix = ".png";
-    
+
     final private static String video_suffix = ".h264";
 
     public static boolean disectToFrames(Path video) {
@@ -49,7 +49,7 @@ public class FFMPEG_VideoHandler extends VideoHandler {//TODO 3 Test FFMPEG vide
             return false;
         }
     }
-    
+
     public static OutputStream generateVideoAsStream(Path imageDir) {
         FFMPEG_VideoHandler fvd = new FFMPEG_VideoHandler();
         try {
@@ -59,11 +59,11 @@ public class FFMPEG_VideoHandler extends VideoHandler {//TODO 3 Test FFMPEG vide
             return null;
         }
     }
-    
+
     public static void generateVideoAsStream(final FileEntry entry, final OutputStream outStream) throws IOException {
         FFMPEG_VideoHandler fvd = new FFMPEG_VideoHandler();
         Path dir = entry.getCarImages().get(0).getFilepath().getParent();
-        
+
         fvd.generateVideoAsStream(dir, defaultFrameRate, outStream);
     }
 
@@ -101,11 +101,11 @@ public class FFMPEG_VideoHandler extends VideoHandler {//TODO 3 Test FFMPEG vide
     public Path generateVideo(Path imageDir, int frameRate) throws IOException {
         return createVideo(imageDir, frameRate);
     }
-    
+
     public void generateVideoAsStream(Path imageDir, int frameRate, final OutputStream outStream) throws IOException {
         Path tmp = createVideo(imageDir, frameRate);
         Files.copy(tmp, outStream);
-        
+
     }
 
     @Override
@@ -113,7 +113,7 @@ public class FFMPEG_VideoHandler extends VideoHandler {//TODO 3 Test FFMPEG vide
         Path tmp = createVideo(imageDir, frameRate);
         OutputStream ostream = new FileOutputStream(tmp.toFile());
         return ostream;
-        
+
     }
 
     @Override
@@ -121,13 +121,13 @@ public class FFMPEG_VideoHandler extends VideoHandler {//TODO 3 Test FFMPEG vide
         Path tmp = createVideo(imageDir, frameRate);
         Files.move(tmp, videoPath, StandardCopyOption.ATOMIC_MOVE);
     }
-    
+
     private Path createVideo(Path imageDir, int frameRate) throws IOException {
         Path output = Files.createTempFile("video", video_suffix);
 
-        String command = "ffmpeg -r " + frameRate + " -pattern_type glob -i '" + 
-        imageDir.toAbsolutePath().toString() + File.separator + "*" + image_suffix +
-        "' -c:v libx264 -pix_fmt yuv420p " + output.toAbsolutePath().toString();
+        String command = "ffmpeg -r " + frameRate + " -pattern_type glob -i '" +
+            imageDir.toAbsolutePath().toString() + File.separator + "*" + image_suffix +
+            "' -c:v libx264 -pix_fmt yuv420p " + output.toAbsolutePath().toString();
 
         System.out.println("Executing: " + command);
 
@@ -137,7 +137,7 @@ public class FFMPEG_VideoHandler extends VideoHandler {//TODO 3 Test FFMPEG vide
         } catch (InterruptedException e) {
             return null;
         }
-        
+
         return output;
     }
 

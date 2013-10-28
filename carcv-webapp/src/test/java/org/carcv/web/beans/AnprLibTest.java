@@ -1,6 +1,6 @@
-/* 
+/*
  * Copyright 2012 CarCV Development Team
- * 
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -26,7 +26,7 @@ import net.sf.javaanpr.intelligence.Intelligence;
 import org.junit.Test;
 
 /**
- * 
+ *
  */
 public class AnprLibTest {
 
@@ -36,6 +36,6 @@ public class AnprLibTest {
         assertNotNull(intel);
 
         String spz = intel.recognize(new CarSnapshot("img/skoda_oct.jpg"));
-        assertEquals("2SU358F", spz); //actually 2SU358F
+        assertEquals("2SU358F", spz); // actually 2SU358F
     }
 }

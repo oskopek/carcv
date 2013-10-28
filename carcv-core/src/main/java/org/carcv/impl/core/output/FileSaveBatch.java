@@ -1,6 +1,6 @@
-/* 
+/*
  * Copyright 2012 CarCV Development Team
- * 
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -30,20 +30,22 @@ import org.carcv.core.model.file.FileEntry;
 import org.carcv.core.output.SaveBatch;
 
 /**
- * 
+ *
  */
-public class FileSaveBatch implements SaveBatch { //TODO 1 Test FileSaveBatch
+public class FileSaveBatch implements SaveBatch { // TODO 1 Test FileSaveBatch
 
     private Path directory;
 
     /**
-     * 
+     *
      */
     public FileSaveBatch(Path directory) {
         this.directory = directory;
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
+     * 
      * @see org.carcv.core.output.SaveBatch#save(java.util.ArrayList)
      */
     @Override
@@ -59,7 +61,7 @@ public class FileSaveBatch implements SaveBatch { //TODO 1 Test FileSaveBatch
             try {
                 saveFileEntry(entry);
             } catch (IOException e) {
-                //e.printStackTrace();
+                // e.printStackTrace();
                 return false;
             }
         }
@@ -85,16 +87,16 @@ public class FileSaveBatch implements SaveBatch { //TODO 1 Test FileSaveBatch
         p.setProperty("address-lat", e.getCarData().getAddress().getLatitude().toString());
         p.setProperty("address-long", e.getCarData().getAddress().getLongitude().toString());
 
-        p.setProperty("timestamp", e.getCarData().getTimestamp().toString());        
+        p.setProperty("timestamp", e.getCarData().getTimestamp().toString());
 
-        List<FileCarImage> fciList = e.getCarImages();        
+        List<FileCarImage> fciList = e.getCarImages();
         int index = 0;
-        for(Iterator<FileCarImage> i = fciList.iterator(); i.hasNext(); index++) {
+        for (Iterator<FileCarImage> i = fciList.iterator(); i.hasNext(); index++) {
             FileCarImage fci = i.next();
 
             p.setProperty("filepath" + index, fci.getPersistablePath().toString());
         }
-        
+
         Path outFilePath = Paths.get(directory.toString(), fciList.get(0).getFilepath().getFileName().toString());
 
         FileOutputStream fous = new FileOutputStream(outFilePath.toFile());

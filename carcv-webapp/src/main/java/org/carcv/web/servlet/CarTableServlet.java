@@ -1,6 +1,6 @@
-/* 
+/*
  * Copyright 2012 CarCV Development Team
- * 
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -51,11 +51,11 @@ public class CarTableServlet extends HttpServlet {
     }
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException,
-            IOException {
+        IOException {
 
         ArrayList<FileEntry> abstractEntries = (ArrayList<FileEntry>) bean.getAll();
 
-        //write page
+        // write page
         response.setContentType("text/html");
         PrintWriter out = response.getWriter();
 
@@ -97,7 +97,7 @@ public class CarTableServlet extends HttpServlet {
             date = dateFormat.format(e.getCarData().getTimestamp());
             time = timeFormat.format(e.getCarData().getTimestamp());
             licencePlate = e.getCarData().getNumberPlate().getOrigin() + ": "
-                    + e.getCarData().getNumberPlate().getText();
+                + e.getCarData().getNumberPlate().getText();
             location = e.getCarData().getAddress().print();
 
             FileCarImage fci = (FileCarImage) e.getCarImages().get(0);
@@ -116,7 +116,7 @@ public class CarTableServlet extends HttpServlet {
             out.println("<td><a href=\"" + videoURL + "\" target=\"_top\">View video</a></td>");
             out.println("<td><a href=\"" + previewURL + "\" target=\"_top\">View preview</a></td>");
             out.println("<td><a href=\"" + "/servlet/GenerateReport?entry_id=" + e.getId()
-                    + "\" target=\"_top\">Generate report</a></td>");
+                + "\" target=\"_top\">Generate report</a></td>");
             out.println("</tr>");
         }
 
@@ -138,7 +138,7 @@ public class CarTableServlet extends HttpServlet {
      */
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException,
-            IOException {
+        IOException {
         processRequest(request, response);
     }
 

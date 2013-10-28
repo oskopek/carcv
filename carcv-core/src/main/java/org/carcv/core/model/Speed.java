@@ -1,6 +1,6 @@
-/* 
+/*
  * Copyright 2012 CarCV Development Team
- * 
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -24,13 +24,13 @@ import org.apache.commons.lang.builder.EqualsBuilder;
 import org.apache.commons.lang.builder.HashCodeBuilder;
 
 /**
- * 
+ *
  */
 @Embeddable
 public class Speed extends AbstractEmbeddable implements Comparable<Speed> {
 
     /**
-	 * 
+	 *
 	 */
     private static final long serialVersionUID = 1816208535143255888L;
 
@@ -63,14 +63,13 @@ public class Speed extends AbstractEmbeddable implements Comparable<Speed> {
     private SpeedUnit unit;
 
     @NotNull
-    //@Range(min = 0, message = "Speed is less or equal to 0!")
+    // @Range(min = 0, message = "Speed is less or equal to 0!")
     public Double getSpeed() {
         return speed;
     }
 
     /**
-     * @param speed
-     *            the speed to set
+     * @param speed the speed to set
      */
     public void setSpeed(double speed) {
         this.speed = speed;
@@ -82,8 +81,7 @@ public class Speed extends AbstractEmbeddable implements Comparable<Speed> {
     }
 
     /**
-     * @param unit
-     *            the unit to set
+     * @param unit the unit to set
      */
     public void setUnit(SpeedUnit unit) {
         this.unit = unit;
@@ -95,10 +93,8 @@ public class Speed extends AbstractEmbeddable implements Comparable<Speed> {
      * @see java.lang.Object#toString()
      */
     /*
-    @Override
-    public String toString() {
-    	return "Speed [speed=" + speed + ", unit=" + unit + "]";
-    }*/
+     * @Override public String toString() { return "Speed [speed=" + speed + ", unit=" + unit + "]"; }
+     */
 
     /*
      * (non-Javadoc)
@@ -128,7 +124,7 @@ public class Speed extends AbstractEmbeddable implements Comparable<Speed> {
         }
         Speed other = (Speed) obj;
         return new EqualsBuilder().append(this.getSpeed(), other.getSpeed()).append(this.getUnit(), other.getUnit())
-                .isEquals();
+            .isEquals();
     }
 
     public int compareTo(Speed o) {

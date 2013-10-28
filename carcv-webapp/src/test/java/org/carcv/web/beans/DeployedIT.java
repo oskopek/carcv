@@ -1,6 +1,6 @@
-/* 
+/*
  * Copyright 2012 CarCV Development Team
- * 
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -31,7 +31,7 @@ import org.junit.runner.RunWith;
 
 /**
  * Test if the app deploys and EJB CDI Injection works.
- * 
+ *
  */
 @RunWith(Arquillian.class)
 public class DeployedIT {
@@ -49,7 +49,7 @@ public class DeployedIT {
 
         testArchive.addAsResource("arquillian.xml");
 
-        //testArchive.as(ZipExporter.class).exportTo(new File("target/carcv-webapp-test.war"));
+        // testArchive.as(ZipExporter.class).exportTo(new File("target/carcv-webapp-test.war"));
 
         return testArchive;
     }

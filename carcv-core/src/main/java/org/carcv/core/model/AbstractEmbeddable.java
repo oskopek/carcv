@@ -1,6 +1,6 @@
-/* 
+/*
  * Copyright 2012 CarCV Development Team
- * 
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -21,13 +21,13 @@ import java.io.Serializable;
 import javax.persistence.MappedSuperclass;
 
 /**
- * 
+ *
  */
 @MappedSuperclass
 public abstract class AbstractEmbeddable implements Serializable {
 
     /**
-     * 
+     *
      */
     private static final long serialVersionUID = 7435193250078288118L;
 

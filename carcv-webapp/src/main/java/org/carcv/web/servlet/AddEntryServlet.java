@@ -1,6 +1,6 @@
-/* 
+/*
  * Copyright 2012 CarCV Development Team
- * 
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -63,7 +63,7 @@ public class AddEntryServlet extends HttpServlet {
      * @throws IOException
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException,
-            IOException {
+        IOException {
         response.setContentType("text/plain");
         PrintWriter out = response.getWriter();
 
@@ -76,7 +76,7 @@ public class AddEntryServlet extends HttpServlet {
 
         Date timestamp = new Date(System.currentTimeMillis());
 
-        //MediaObject video = new MediaObject("http://test.com/video.h264", MediaType.H264);
+        // MediaObject video = new MediaObject("http://test.com/video.h264", MediaType.H264);
 
         CarData carData = new CarData(speed, address, licencePlate, timestamp);
 
@@ -109,7 +109,7 @@ public class AddEntryServlet extends HttpServlet {
      * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
      */
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException,
-            IOException {
+        IOException {
         processRequest(request, response);
     }
 

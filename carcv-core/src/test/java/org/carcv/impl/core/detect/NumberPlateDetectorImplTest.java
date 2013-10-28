@@ -1,6 +1,6 @@
-/* 
+/*
  * Copyright 2012 CarCV Development Team
- * 
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -30,7 +30,7 @@ import org.junit.Ignore;
 import org.junit.Test;
 
 /**
- * 
+ *
  */
 public class NumberPlateDetectorImplTest {
 
@@ -56,32 +56,29 @@ public class NumberPlateDetectorImplTest {
     }
 
     /**
-     * Test method for
-     * {@link org.carcv.impl.core.detect.NumberPlateDetectorImpl#detect(org.carcv.core.model.AbstractCarImage)}
+     * Test method for {@link org.carcv.impl.core.detect.NumberPlateDetectorImpl#detect(org.carcv.core.model.AbstractCarImage)}
      * .
      */
     @Test
     public void testDetect() {
         String np = detector.detect(Arrays.asList(image));
-        assertEquals("2SU358F", np); //actually should be 2SU3588
+        assertEquals("2SU358F", np); // actually should be 2SU3588
     }
 
     /**
      * Test method for
-     * {@link org.carcv.impl.core.detect.NumberPlateDetectorImpl#detectPlateText(org.carcv.core.model.file.FileCarImage)}
-     * .
+     * {@link org.carcv.impl.core.detect.NumberPlateDetectorImpl#detectPlateText(org.carcv.core.model.file.FileCarImage)} .
      */
     @Test
     public void testDetectPlateText() {
 
         String np = detector.detectPlateText((Arrays.asList(image)));
-        assertEquals("2SU358F", np); //actually should be 2SU3588
+        assertEquals("2SU358F", np); // actually should be 2SU3588
     }
 
     /**
      * Test method for
-     * {@link org.carcv.impl.core.detect.NumberPlateDetectorImpl#detectPlateOrigin(org.carcv.core.model.file.FileCarImage)}
-     * .
+     * {@link org.carcv.impl.core.detect.NumberPlateDetectorImpl#detectPlateOrigin(org.carcv.core.model.file.FileCarImage)} .
      */
     @Test
     @Ignore(value = "Not yet implemented")

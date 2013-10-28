@@ -1,6 +1,6 @@
-/* 
+/*
  * Copyright 2012 CarCV Development Team
- * 
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -21,22 +21,20 @@ import java.util.List;
 import org.carcv.core.model.AbstractCarImage;
 
 /**
- * 
+ *
  */
 public interface NumberPlateDetector extends Detector {
 
     /**
      * 
-     * @param images
-     *            - must be loaded!
+     * @param images - must be loaded!
      * @return String w/ the text of the plate, or null if an error occured
      */
     public String detectPlateText(final List<? extends AbstractCarImage> images);
 
     /**
      * 
-     * @param images
-     *            - must be loaded!
+     * @param images - must be loaded!
      * @return String w/ the origin of the plate, or null if an error occured
      */
     public String detectPlateOrigin(final List<? extends AbstractCarImage> images);

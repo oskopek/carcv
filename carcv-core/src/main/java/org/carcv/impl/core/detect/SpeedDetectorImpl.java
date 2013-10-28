@@ -1,6 +1,6 @@
-/* 
+/*
  * Copyright 2012 CarCV Development Team
- * 
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -22,18 +22,20 @@ import org.carcv.core.detect.SpeedDetector;
 import org.carcv.core.model.AbstractCarImage;
 
 /**
- * 
+ *
  */
-public class SpeedDetectorImpl implements SpeedDetector { //TODO 1 Test and implement SpeedDetectorImpl
+public class SpeedDetectorImpl implements SpeedDetector { // TODO 1 Test and implement SpeedDetectorImpl
 
     /**
-     * 
+     *
      */
     public SpeedDetectorImpl() {
 
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
+     * 
      * @see org.carcv.core.detect.Detector#detect(org.carcv.core.input.CarImage)
      */
     @Override
@@ -41,7 +43,9 @@ public class SpeedDetectorImpl implements SpeedDetector { //TODO 1 Test and impl
         return detectSpeed(images).toString();
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
+     * 
      * @see org.carcv.core.detect.SpeedDetector#detectSpeed(org.carcv.core.input.CarImage)
      */
     @Override

@@ -1,6 +1,6 @@
-/* 
+/*
  * Copyright 2012 CarCV Development Team
- * 
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -29,13 +29,13 @@ import org.carcv.core.model.CarData;
 import org.carcv.core.model.AbstractEntry;
 
 /**
- * 
+ *
  */
 @Entity
 public class FileEntry extends AbstractEntry {
 
     /**
-     * 
+     *
      */
     private static final long serialVersionUID = -8030471101247536237L;
 
@@ -44,7 +44,7 @@ public class FileEntry extends AbstractEntry {
 
     @SuppressWarnings("unused")
     private FileEntry() {
-        //intentionally empty
+        // intentionally empty
     }
 
     /**
@@ -65,22 +65,20 @@ public class FileEntry extends AbstractEntry {
 
     @Override
     @NotNull
-    @OneToMany(cascade=CascadeType.ALL, fetch = FetchType.EAGER, targetEntity=FileCarImage.class)
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, targetEntity = FileCarImage.class)
     public List<FileCarImage> getCarImages() {
         return carImages;
     }
 
     /**
-     * @param carImage
-     *            the carImage to set
+     * @param carImage the carImage to set
      */
     public void setCarImages(List<FileCarImage> carImages) {
         this.carImages = carImages;
     }
 
     /**
-     * @param carData
-     *            the carData to set
+     * @param carData the carData to set
      */
     public void setCarData(CarData carData) {
         this.carData = carData;
@@ -89,7 +87,7 @@ public class FileEntry extends AbstractEntry {
     @Override
     public String toString() {
         return "FileEntry[id=" + getId() + ", carImages.size()=" + carImages.size() + ", carData=" + carData.toString()
-                + "]";
+            + "]";
     }
 
 }

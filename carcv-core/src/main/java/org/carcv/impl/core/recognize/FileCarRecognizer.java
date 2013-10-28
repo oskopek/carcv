@@ -1,6 +1,6 @@
-/* 
+/*
  * Copyright 2012 CarCV Development Team
- * 
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -32,7 +32,7 @@ import org.carcv.impl.core.detect.SpeedDetectorImpl;
 import org.carcv.impl.core.output.FileSaveBatch;
 
 /**
- * 
+ *
  */
 public class FileCarRecognizer extends CarRecognizer {
 
@@ -47,29 +47,30 @@ public class FileCarRecognizer extends CarRecognizer {
 
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
+     * 
      * @see org.carcv.core.recognize.CarRecognizer#recognize()
      */
     @Override
     public void recognize() throws IOException {
         watcher.discover();
-        
-        //this is a batch that contains an entry for every directory -> need to separate it into individual cars
+
+        // this is a batch that contains an entry for every directory -> need to separate it into individual cars
         final ArrayList<FileEntry> batch = (ArrayList<FileEntry>) watcher.getNewEntries();
-        
+
         final ArrayList<FileEntry> result = new ArrayList<>();
-        
-        
+
         ArrayList<FileEntry> directory;
-        for(FileEntry entry : batch) {
+        for (FileEntry entry : batch) {
             directory = new ArrayList<>();
             directory.add(entry);
-            
+
             sortIntoCars(directory);
-            
+
             detectNumberPlates(directory);
             detectSpeeds(directory);
-            
+
             result.addAll(directory);
         }
 
@@ -103,9 +104,9 @@ public class FileCarRecognizer extends CarRecognizer {
             entry.getCarData().setNumberPlate(new NumberPlate(text, origin));
         }
     }
-    
+
     private void sortIntoCars(final ArrayList<FileEntry> batch) {
-        for(FileEntry e : batch) {
+        for (FileEntry e : batch) {
             batch.addAll(CarSorter.sortIntoCars(e));
             batch.remove(e);
         }

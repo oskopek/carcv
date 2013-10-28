@@ -1,6 +1,6 @@
-/* 
+/*
  * Copyright 2012 CarCV Development Team
- * 
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -28,13 +28,13 @@ import org.apache.commons.lang.builder.EqualsBuilder;
 import org.apache.commons.lang.builder.HashCodeBuilder;
 
 /**
- * 
+ *
  */
 @Embeddable
 public class PersistablePath extends AbstractEmbeddable implements Comparable<PersistablePath> {
 
     /**
-     * 
+     *
      */
     private static final long serialVersionUID = -4725972338092448440L;
 
@@ -52,7 +52,9 @@ public class PersistablePath extends AbstractEmbeddable implements Comparable<Pe
         this.pathStr = path.toString();
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
+     * 
      * @see org.carcv.core.model.AbstractModel#equals(java.lang.Object)
      */
     @Override
@@ -65,7 +67,9 @@ public class PersistablePath extends AbstractEmbeddable implements Comparable<Pe
         return new EqualsBuilder().append(this.pathStr, other.pathStr).isEquals();
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
+     * 
      * @see org.carcv.core.model.AbstractModel#hashCode()
      */
     @Override
@@ -82,8 +86,7 @@ public class PersistablePath extends AbstractEmbeddable implements Comparable<Pe
     }
 
     /**
-     * @param path
-     *            the path to set
+     * @param path the path to set
      */
     public void setPath(Path path) {
         this.pathStr = path.toString();
@@ -98,8 +101,7 @@ public class PersistablePath extends AbstractEmbeddable implements Comparable<Pe
     }
 
     /**
-     * @param pathStr
-     *            the pathStr to set
+     * @param pathStr the pathStr to set
      */
     public void setPathStr(String path) {
         this.pathStr = path;
