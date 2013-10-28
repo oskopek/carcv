@@ -35,10 +35,20 @@
         <testSourceDirectory>src/test/java</testSourceDirectory>
         <outputDirectory>target/classes</outputDirectory>
         <testOutputDirectory>target/test-classes</testOutputDirectory>
-        <resources>
+        <resources> <!-- Filters persistence.xml and test-persistence.xml, leaves out the rest -->
             <resource>
                 <directory>src/main/resources</directory>
                 <filtering>true</filtering>
+                <includes>
+                    <include>**/*persistence.xml</include>
+                </includes>
+            </resource>
+            <resource>
+                <directory>src/main/resources</directory>
+                <filtering>false</filtering>
+                <excludes>
+                    <exclude>**/*persistence.xml</exclude>
+                </excludes>
             </resource>
         </resources>
         <testResources>
