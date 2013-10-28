@@ -1,7 +1,7 @@
 = CarCV - Licensing NOTICE
 :numbered:
 
-Copyright (C) 2012-2013, Ondrej Skopek.
+Copyright (C) 2012-2013, CarCV Development Team.
 All rights reserved.
 
 All Authors and Contributors are named in the link:AUTHORS.html[AUTHORS] file.
