@@ -19,6 +19,8 @@
     </prerequisites>
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+
+        <version.carcv-core>1.0.0.Alpha1-SNAPSHOT</version.carcv-core>
         <version.arquillian>1.0.3.Final</version.arquillian>
         <version.shrinkwrap.resolvers>2.0.0</version.shrinkwrap.resolvers>
 
@@ -29,9 +31,24 @@
     </properties>
 
     <build>
-        <finalName>carcv-webapp</finalName>
         <sourceDirectory>src/main/java</sourceDirectory>
         <testSourceDirectory>src/test/java</testSourceDirectory>
+        <outputDirectory>target/classes</outputDirectory>
+        <testOutputDirectory>target/test-classes</testOutputDirectory>
+        <resources>
+            <resource>
+                <directory>src/main/resources</directory>
+                <filtering>true</filtering>
+            </resource>
+        </resources>
+        <testResources>
+            <testResource>
+                <directory>src/test/resources</directory>
+                <filtering>true</filtering>
+            </testResource>
+        </testResources>
+
+        <finalName>carcv-webapp</finalName>
         <plugins>
             <plugin>
                 <artifactId>maven-compiler-plugin</artifactId>
@@ -82,7 +99,7 @@
                     <skipTests>${skipTests}</skipTests>
                     <skipITs>${skipITs}</skipITs>
                     <systemPropertyVariables>
-                        <arquillian.launch>jboss-eap-6</arquillian.launch>
+                        <arquillian.launch>wildfly</arquillian.launch>
                     </systemPropertyVariables>
                 </configuration>
             </plugin>
@@ -93,7 +110,7 @@
         <dependency>
             <groupId>org.carcv.core</groupId>
             <artifactId>carcv-core</artifactId>
-            <version>1.0.0.Alpha1-SNAPSHOT</version>
+            <version>${version.carcv-core}</version>
         </dependency>
         <dependency>
             <groupId>commons-lang</groupId>
