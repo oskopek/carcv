@@ -19,3 +19,5 @@ and create a symlink called `/opt/wildfly/latest` to point to it.
 ** Recomennded: `mvn clean install -DskipTests`
 ** Run unit tests: `mvn clean install`
 ** Run integration tests: `mvn clean install -Pwildfly-it`
+
+. If you plan to *contribute code*, please set-up https://github.com/oskopek/ide-config[IDE coding templates] first 
