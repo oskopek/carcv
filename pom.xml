@@ -7,6 +7,10 @@
     <packaging>pom</packaging>
     <name>CarCV</name>
 
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    </properties>
+
     <modules>
         <module>carcv-core</module>
         <module>carcv-webapp</module>
