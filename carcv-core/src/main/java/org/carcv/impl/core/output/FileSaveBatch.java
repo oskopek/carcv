@@ -87,7 +87,7 @@ public class FileSaveBatch implements SaveBatch { // TODO 1 Test FileSaveBatch
         p.setProperty("address-lat", e.getCarData().getAddress().getLatitude().toString());
         p.setProperty("address-long", e.getCarData().getAddress().getLongitude().toString());
 
-        p.setProperty("timestamp", e.getCarData().getTimestamp().toString());
+        p.setProperty("timestamp", String.valueOf(e.getCarData().getTimestamp().getTime()));
 
         List<FileCarImage> fciList = e.getCarImages();
         int index = 0;

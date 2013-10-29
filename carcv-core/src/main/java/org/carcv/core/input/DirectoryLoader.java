@@ -48,8 +48,6 @@ public class DirectoryLoader {
         for (Path p : contents) {
             if (Files.exists(p) && Files.isRegularFile(p) && isKnownImage(p)) {
                 images.add(new FileCarImage(p));
-
-                System.out.println(p.toString());
             }
         }
 
