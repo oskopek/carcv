@@ -32,8 +32,8 @@ import org.carcv.core.output.SaveBatch;
 /**
  *
  */
-public class FileSaveBatch implements SaveBatch { // TODO 1 Test FileSaveBatch
-
+public class FileSaveBatch implements SaveBatch {
+    
     private Path directory;
 
     /**
