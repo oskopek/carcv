@@ -45,7 +45,7 @@ import org.junit.Test;
 /**
  *
  */
-public class DirectoryWatcherTest { // TODO 1 Finish DirectoryWatcher and Loader test
+public class DirectoryWatcherTest {
 
     private Path rootPath;
 
@@ -122,6 +122,7 @@ public class DirectoryWatcherTest { // TODO 1 Finish DirectoryWatcher and Loader
         List<FileEntry> list1 = watcher.getNewEntries();
         assertEquals(1, list1.size());
         assertEquals(0, watcher.getNewEntries().size());
+        assertFalse(watcher.hasNewEntries());
 
         FileEntry newEntry1 = list1.get(0);
         assertNotNull(newEntry1);
@@ -143,6 +144,7 @@ public class DirectoryWatcherTest { // TODO 1 Finish DirectoryWatcher and Loader
         List<FileEntry> list2 = watcher.getNewEntries();
         assertEquals(1, list2.size());
         assertEquals(0, watcher.getNewEntries().size());
+        assertFalse(watcher.hasNewEntries());
 
         FileEntry newEntry2 = list2.get(0);
         assertNotNull(newEntry2);
@@ -151,12 +153,19 @@ public class DirectoryWatcherTest { // TODO 1 Finish DirectoryWatcher and Loader
         assertNotNull(newImage2);
         assertNotNull(newImage2.getPath());
         assertNull(newImage2.getImage());
+        
+        assertFalse(watcher.hasNewEntries());
 
         assertNotEquals(newEntry1, newEntry2);
         assertEquals(newEntry1.getCarData(), newEntry2.getCarData());
         assertNotEquals(newImage1, newImage2);
         assertNotEquals(newImage1.getPath(), newImage2.getPath());
         assertNotEquals(newFile1, newFile2);
+        assertFalse(watcher.hasNewEntries());
+        
+        //3
+        watcher.discover();
+        assertFalse(watcher.hasNewEntries());
     }
 
     private static void deleteDirectory(Path path) throws IOException {
