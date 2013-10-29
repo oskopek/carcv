@@ -21,7 +21,6 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 
@@ -85,7 +84,7 @@ public class FileSaveBatchTest { // TODO 1 Test FileSaveBatch
             List<FileCarImage> images = new ArrayList<>();
 
             for (int j = 0; j < 10; j++) {
-                FileCarImage f = new FileCarImage(Files.createTempFile(inDir, "testImage", ".carcv.jpg"));
+                FileCarImage f = new FileCarImage(Files.createTempFile(dir, "testImage", ".carcv.jpg"));
                 images.add(f);
             }
 
@@ -100,6 +99,7 @@ public class FileSaveBatchTest { // TODO 1 Test FileSaveBatch
     public void tearDown() throws Exception {
     }
 
+    @SuppressWarnings("unused")
     @Test
     public void castTest() throws Exception {
         final List<FileEntry> fileBatch = (List<FileEntry>) batch;
