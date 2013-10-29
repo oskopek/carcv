@@ -49,8 +49,8 @@ public class SpeedDetectorImpl implements SpeedDetector { // TODO 1 Test and imp
      * @see org.carcv.core.detect.SpeedDetector#detectSpeed(org.carcv.core.input.CarImage)
      */
     @Override
-    public Number detectSpeed(final List<? extends AbstractCarImage> images) {
-        Integer speed = 0;
+    public Double detectSpeed(final List<? extends AbstractCarImage> images) {
+        Double speed = 0d;
 
         return speed;
     }

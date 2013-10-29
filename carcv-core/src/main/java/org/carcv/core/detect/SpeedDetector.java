@@ -25,5 +25,5 @@ import org.carcv.core.model.AbstractCarImage;
  */
 public interface SpeedDetector extends Detector {
 
-    public Number detectSpeed(final List<? extends AbstractCarImage> images);
+    public Double detectSpeed(final List<? extends AbstractCarImage> images);
 }
