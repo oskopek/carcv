@@ -87,12 +87,17 @@ public class FileCarRecognizer extends CarRecognizer {
         }
     }
 
-    private void detectNumberPlates(final ArrayList<FileEntry> batch) throws IOException {
+    private void detectNumberPlates(final ArrayList<FileEntry> batch) {
         NumberPlateDetectorImpl npd = new NumberPlateDetectorImpl();
 
         for (FileEntry entry : batch) {
             for (FileCarImage image : entry.getCarImages()) {
-                image.loadImage();
+                try {
+                    image.loadImage();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                    System.err.println("Failed to load image: " + image.toString());
+                }
             }
 
             String text = npd.detectPlateText(entry.getCarImages());

@@ -56,13 +56,8 @@ public class NumberPlateDetectorImpl implements NumberPlateDetector {
 
         ArrayList<String> numberPlates = new ArrayList<>();
 
-        for (int i = 0; i < images.size(); i++) {
-
-            try {
-                numberPlates.add(i, intel.recognize(new CarSnapshot(images.get(i).getImage())));
-            } catch (Exception e) {
-                return null;
-            }
+        for (AbstractCarImage image : images) {
+            numberPlates.add(intel.recognize(new CarSnapshot(image.getImage())));
         }
 
         return getAverageNumberPlate(numberPlates);
