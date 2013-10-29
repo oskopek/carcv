@@ -1,5 +1,5 @@
 /*
- * Copyright 2012 CarCV Development Team
+ * Copyright 2013 CarCV Development Team
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,50 +18,73 @@ package org.carcv.core.impl.input;
 
 import static org.junit.Assert.*;
 
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.nio.file.FileVisitResult;
 import java.nio.file.FileVisitor;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.nio.file.attribute.BasicFileAttributes;
 import java.nio.file.attribute.FileAttribute;
 import java.nio.file.attribute.PosixFilePermission;
+import java.nio.file.attribute.PosixFilePermissions;
+import java.util.Date;
+import java.util.Properties;
 import java.util.Set;
+import java.util.TreeSet;
 
+import org.carcv.core.input.DirectoryWatcher;
+import org.carcv.core.model.file.FileCarImage;
+import org.carcv.core.model.file.FileEntry;
 import org.junit.After;
-import org.junit.Ignore;
+import org.junit.Before;
+import org.junit.Test;
 
 /**
  *
  */
-@Ignore
 public class DirectoryWatcherTest { // TODO 1 Make into DirectoryWatcher and Loader test
 
-    Path rootPath;
-    /*
-     * private FileDiscoverer fileDiscoverer;
-     * 
-     * private FileImageQueue queue;
-     */
-    @SuppressWarnings("unused")
+    private Path rootPath;
+
+    private DirectoryWatcher watcher;
+
     private FileAttribute<Set<PosixFilePermission>> permissions;
+    
+    private Properties properties;
 
     /**
      * @throws java.lang.Exception
      */
-    /*
-     * @Before public void setUp() throws Exception { queue = new FileImageQueue();
-     * 
-     * rootPath = Files.createTempDirectory("fileDiscovererTestDir");
-     * 
-     * fileDiscoverer = new FileDiscoverer(rootPath, queue);
-     * 
-     * TreeSet<PosixFilePermission> permissions = new TreeSet<>(); PosixFilePermission[] perms = PosixFilePermission.values();
-     * 
-     * for (PosixFilePermission p : perms) { permissions.add(p); }
-     * 
-     * this.permissions = PosixFilePermissions.asFileAttribute(permissions); }
-     */
+    @Before
+    public void setUp() throws Exception {
+        rootPath = Files.createTempDirectory("directoryWatcherTestDir");
+
+        watcher = new DirectoryWatcher(rootPath);
+
+        TreeSet<PosixFilePermission> permissions = new TreeSet<>();
+        PosixFilePermission[] perms = PosixFilePermission.values();
+
+        for (PosixFilePermission p : perms) {
+            permissions.add(p);
+        }
+
+        this.permissions = PosixFilePermissions.asFileAttribute(permissions);
+        
+        //properties
+        properties = new Properties();
+        
+        properties.setProperty("address-lat", new Double(48.5).toString());
+        properties.setProperty("address-long", new Double(17.8).toString());
+        properties.setProperty("address-city", "Myjava");
+        properties.setProperty("address-postalCode", "90701");
+        properties.setProperty("address-street", "Jablonska");
+        properties.setProperty("address-country", "Slovakia");
+        properties.setProperty("address-streetNo", "27");
+        properties.setProperty("address-refNo", "860");        
+        properties.setProperty("timestamp", String.valueOf(new Date(System.currentTimeMillis()).getTime()));
+    }
 
     /**
      * Deletes the temp directory
@@ -78,65 +101,49 @@ public class DirectoryWatcherTest { // TODO 1 Make into DirectoryWatcher and Loa
     }
 
     /**
-     * Test method for {@link org.carcv.impl.core.input.FileDiscoverer#FileDiscoverer(java.nio.file.Path)}.
-     */
-    /*
-     * @Test public void testFileDiscoverer() { FileDiscoverer d = new FileDiscoverer(rootPath, queue);
-     * 
-     * assertNotNull(d); assertNotNull(d.getBaseDirectory()); assertEquals(rootPath, d.getBaseDirectory()); }
-     */
-
-    /**
-     * Test method for {@link org.carcv.impl.core.input.FileDiscoverer#getResourceAsStream(java.lang.String)}.
-     */
-    /*
-     * @SuppressWarnings("deprecation")
-     * 
-     * @Test public void testGetResourceAsStream() { InputStream is = fileDiscoverer.getResourceAsStream("/img/skoda_oct.jpg");
-     * 
-     * assertNotNull(is); }
-     */
-
-    /**
-     * Test method for {@link org.carcv.core.input.FileDiscoverer#getFileDiscoverer()}.
-     */
-    /*
-     * @Test public void testGetFileDiscoverer() { FileDiscoverer test = null;
-     * 
-     * try { test = FileDiscoverer.getFileDiscoverer(); } catch (IllegalStateException e) { assertNull(test); }
-     * 
-     * FileDiscoverer.init(rootPath);
-     * 
-     * test = FileDiscoverer.getFileDiscoverer();
-     * 
-     * assertNotNull(test.getBaseDirectory()); assertNotNull(FileDiscoverer.getFileDiscoverer()); }
-     */
-
-    /**
      * Test method for {@link org.carcv.impl.core.input.FileDiscoverer#discover()}.
      * 
      * @throws IOException
      */
-    /*
-     * @Test public void testFileDiscovery() throws IOException { assertNotNull(fileDiscoverer);
-     * 
-     * Path newFile1 = Files.createTempFile(rootPath, "testFileDiscovery", ".carcv.jpg", permissions); assertNotNull(newFile1);
-     * 
-     * fileDiscoverer.discover();
-     * 
-     * FileCarImage newPath1 = queue.poll(); assertNotNull(newPath1); assertNotNull(newPath1.getPersistablePath());
-     * assertNull(newPath1.getImage());
-     * 
-     * Path newFile2 = Files.createTempFile(rootPath, "testFileDiscovery", ".carcv.jpg", permissions); assertNotNull(newFile2);
-     * 
-     * fileDiscoverer.discover();
-     * 
-     * FileCarImage newPath2 = queue.poll(); assertNotNull(newPath2); assertNotNull(newPath2.getPersistablePath());
-     * assertNull(newPath2.getImage());
-     * 
-     * assertNotEquals(newPath1, newPath2); assertNotEquals(newPath1.getPersistablePath(), newPath2.getPersistablePath());
-     * assertNotEquals(newFile1, newFile2); }
-     */
+
+    @Test
+    public void testFileDiscovery() throws IOException {
+        assertNotNull(watcher);
+
+        //1
+        Path newDir1 = Files.createTempDirectory(rootPath, "testDir", permissions);
+        Path newFile1 = Files.createTempFile(newDir1, "testFileDirWatching", ".carcv.jpg", permissions);
+        Path newPermissions1 = Paths.get(newDir1.toString(), "info.properties");
+        properties.store(new FileOutputStream(newPermissions1.toFile()), "");
+        assertNotNull(newFile1);
+
+        watcher.discover();
+
+        FileEntry newEntry1 = watcher.getNewEntries().get(0);
+        FileCarImage newImage1 = newEntry1.getCarImages().get(0);
+        assertNotNull(newImage1);
+        assertNotNull(newImage1.getPersistablePath());
+        assertNull(newImage1.getImage());
+
+        //2
+        Path newDir2 = Files.createTempDirectory(rootPath, "testDir", permissions);
+        Path newFile2 = Files.createTempFile(newDir2, "testFileDirWatching", ".carcv.jpg", permissions);
+        Path newPermissions2 = Paths.get(newDir2.toString(), "info.properties");
+        properties.store(new FileOutputStream(newPermissions2.toFile()), "");
+        assertNotNull(newFile2);
+
+        watcher.discover();
+
+        FileCarImage newImage2 = watcher.getNewEntries().get(0).getCarImages().get(0);
+        assertNotNull(newImage2);
+        assertNotNull(newImage2.getPersistablePath());
+        assertNull(newImage2.getImage());
+
+        assertNotEquals(newImage1, newImage2);
+        assertNotEquals(newImage1.getPersistablePath(), newImage2.getPersistablePath());
+        assertNotEquals(newFile1, newFile2);
+    }
+
     private static void deleteDirectory(Path path) throws IOException {
         Files.walkFileTree(path, new FileVisitor<Path>() {
 

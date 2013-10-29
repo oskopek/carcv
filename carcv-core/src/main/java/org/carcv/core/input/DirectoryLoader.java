@@ -22,8 +22,6 @@ import java.nio.file.DirectoryStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -50,6 +48,8 @@ public class DirectoryLoader {
         for (Path p : contents) {
             if (Files.exists(p) && Files.isRegularFile(p) && isKnownImage(p)) {
                 images.add(new FileCarImage(p));
+
+                System.out.println(p.toString());
             }
         }
 
@@ -62,6 +62,10 @@ public class DirectoryLoader {
         Properties p = new Properties();
 
         Path info = Paths.get(directory.toString(), infoFileName);
+        
+        if(info == null || !Files.exists(info)) {
+            throw new IOException("Failed to load CarData from info.properties in the new directory");
+        }
 
         p.load(new FileInputStream(info.toFile()));
 
@@ -79,13 +83,7 @@ public class DirectoryLoader {
         Address address = new Address(Double.parseDouble(latitude), Double.parseDouble(longitude), city, postalcode, street,
             country, Integer.parseInt(streetNumber), Integer.parseInt(referenceNumber));
 
-        Date timestamp = null;
-        try {
-            timestamp = SimpleDateFormat.getDateInstance().parse(time);
-        } catch (ParseException e) {
-            e.printStackTrace();
-            System.err.println("Failed to parse timestamp from " + info.toString());
-        }
+        Date timestamp = new Date(Long.parseLong(time));
 
         CarData cd = new CarData(null, address, null, timestamp);
 
@@ -94,7 +92,7 @@ public class DirectoryLoader {
 
     private static boolean isKnownImage(Path p) {
         for (String suffix : knownImageFileSuffixes) {
-            if (p.endsWith(suffix)) {
+            if (p.toString().endsWith(suffix.toLowerCase())) {
                 return true;
             }
         }
