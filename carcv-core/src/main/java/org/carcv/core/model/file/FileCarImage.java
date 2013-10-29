@@ -60,8 +60,8 @@ public class FileCarImage extends AbstractCarImage { // TODO 2 Add test of Persi
         // intentionally empty
     }
 
-    public FileCarImage(Path filepath) {
-        this.persistablePath = new PersistablePath(filepath);
+    public FileCarImage(Path path) {
+        this.persistablePath = new PersistablePath(path);
     }
 
     public void loadImage() throws IOException {
@@ -140,11 +140,11 @@ public class FileCarImage extends AbstractCarImage { // TODO 2 Add test of Persi
      * @return the persistablePath
      */
     @Transient
-    public Path getFilepath() {
+    public Path getPath() {
         return persistablePath.getPath();
     }
 
-    public void setFilepath(Path filepath) {
+    public void setPath(Path filepath) {
         this.persistablePath = new PersistablePath(filepath);
     }
 
@@ -153,14 +153,15 @@ public class FileCarImage extends AbstractCarImage { // TODO 2 Add test of Persi
      */
     @NotNull
     @Embedded
-    public PersistablePath getPersistablePath() {
+    private PersistablePath getPersistablePath() {
         return persistablePath;
     }
 
     /**
      * @param persistablePath the persistablePath to set
      */
-    public void setPersistablePath(PersistablePath persistablePath) {
+    @SuppressWarnings("unused")
+    private void setPersistablePath(PersistablePath persistablePath) {
         this.persistablePath = persistablePath;
     }
 

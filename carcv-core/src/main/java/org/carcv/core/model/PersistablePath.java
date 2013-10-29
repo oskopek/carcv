@@ -89,21 +89,21 @@ public class PersistablePath extends AbstractEmbeddable implements Comparable<Pe
      * @param path the path to set
      */
     public void setPath(Path path) {
-        this.pathStr = path.toString();
+        setPathStr(path.toString());
     }
 
     /**
      * @return the pathStr
      */
     @NotNull
-    public String getPathStr() {
+    private String getPathStr() {
         return pathStr;
     }
 
     /**
      * @param pathStr the pathStr to set
      */
-    public void setPathStr(String path) {
+    private void setPathStr(String path) {
         this.pathStr = path;
     }
 

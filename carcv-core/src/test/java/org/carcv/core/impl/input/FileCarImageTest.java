@@ -141,7 +141,7 @@ public class FileCarImageTest {
 
         iFile.close();
         assertNotNull(iFile);
-        assertNotNull(iFile.getPersistablePath());
+        assertNotNull(iFile.getPath());
         assertNull(iFile.getImage());
 
         assertTrue(Files.deleteIfExists(tmpFile));
@@ -177,7 +177,7 @@ public class FileCarImageTest {
 
         iFile.close();
         assertNotNull(iFile);
-        assertNotNull(iFile.getPersistablePath());
+        assertNotNull(iFile.getPath());
         assertNull(iFile.getImage());
 
         assertTrue(Files.deleteIfExists(tmpFile));
@@ -201,7 +201,7 @@ public class FileCarImageTest {
 
         iFile.close();
         assertNotNull(iFile);
-        assertNotNull(iFile.getPersistablePath());
+        assertNotNull(iFile.getPath());
 
         // BufferedImage closed = iFile.getBufImage();
 

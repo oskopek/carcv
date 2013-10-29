@@ -94,13 +94,13 @@ public class FileSaveBatch implements SaveBatch { // TODO 1 Test FileSaveBatch
         for (Iterator<FileCarImage> i = fciList.iterator(); i.hasNext(); index++) {
             FileCarImage fci = i.next();
 
-            p.setProperty("filepath" + index, fci.getPersistablePath().toString());
+            p.setProperty("filepath" + index, fci.getPath().toString());
         }
 
-        Path outFilePath = Paths.get(directory.toString(), fciList.get(0).getFilepath().getFileName().toString());
+        Path outFilePath = Paths.get(directory.toString(), fciList.get(0).getPath().getFileName().toString());
 
         FileOutputStream fous = new FileOutputStream(outFilePath.toFile());
-        p.store(fous, fciList.get(0).getFilepath().getFileName().toString());
+        p.store(fous, fciList.get(0).getPath().getFileName().toString());
 
     }
 

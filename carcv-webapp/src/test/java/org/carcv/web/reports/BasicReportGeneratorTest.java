@@ -62,7 +62,7 @@ public class BasicReportGeneratorTest {
         testEntry = new FileEntry(carData, Arrays.asList(new FileCarImage(Paths.get("reports/OpenCV_Logo_with_text.png"))));
         testEntry.setId(0l);
 
-        assertNotNull(testEntry.getCarImages().get(0).getFilepath());
+        assertNotNull(testEntry.getCarImages().get(0).getPath());
         assertNotNull(testEntry.getId());
     }
 
@@ -85,7 +85,7 @@ public class BasicReportGeneratorTest {
 
         String filename = testDir.getPath() + "/test_results/report" + System.currentTimeMillis() + ".pdf";
 
-        assertNotNull(testEntry.getCarImages().get(0).getFilepath());
+        assertNotNull(testEntry.getCarImages().get(0).getPath());
 
         BasicReportGenerator brg = new BasicReportGenerator(testEntry, "/reports/speed_report.jasper", "Myjava",
             "TestReport");

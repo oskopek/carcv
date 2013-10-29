@@ -67,7 +67,7 @@ public class BasicReportGenerator {
         String dataLocation = add.print();
 
         // parameters.put("id", Long.toString(data.getId()));
-        parameters.put("previewURL", e.getCarImages().get(0).getFilepath().toString());
+        parameters.put("previewURL", e.getCarImages().get(0).getPath().toString());
         parameters.put("date", dateFormat.format(data.getTimestamp()));
         parameters.put("location", dataLocation);
         parameters.put("LPNumber", data.getNumberPlate().getText());

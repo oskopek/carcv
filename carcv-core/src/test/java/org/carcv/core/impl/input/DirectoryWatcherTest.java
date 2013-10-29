@@ -30,6 +30,7 @@ import java.nio.file.attribute.FileAttribute;
 import java.nio.file.attribute.PosixFilePermission;
 import java.nio.file.attribute.PosixFilePermissions;
 import java.util.Date;
+import java.util.List;
 import java.util.Properties;
 import java.util.Set;
 import java.util.TreeSet;
@@ -101,13 +102,12 @@ public class DirectoryWatcherTest { // TODO 1 Finish DirectoryWatcher and Loader
     }
 
     /**
-     * Test method for {@link org.carcv.impl.core.input.FileDiscoverer#discover()}.
+     * Test method for {@link org.carcv.core.input.DirectoryWatcher#discover()}.
      * 
      * @throws IOException
      */
-
     @Test
-    public void testFileDiscovery() throws IOException {
+    public void testDiscover() throws IOException {
         assertNotNull(watcher);
 
         //1
@@ -118,13 +118,17 @@ public class DirectoryWatcherTest { // TODO 1 Finish DirectoryWatcher and Loader
         assertNotNull(newFile1);
 
         watcher.discover();
+        
+        List<FileEntry> list1 = watcher.getNewEntries();
+        assertEquals(1, list1.size());
+        assertEquals(0, watcher.getNewEntries().size());
 
-        FileEntry newEntry1 = watcher.getNewEntries().get(0);
+        FileEntry newEntry1 = list1.get(0);
         assertNotNull(newEntry1);
         assertNotNull(newEntry1.getCarData());
         FileCarImage newImage1 = newEntry1.getCarImages().get(0);
         assertNotNull(newImage1);
-        assertNotNull(newImage1.getPersistablePath());
+        assertNotNull(newImage1.getPath());
         assertNull(newImage1.getImage());
 
         //2
@@ -136,18 +140,22 @@ public class DirectoryWatcherTest { // TODO 1 Finish DirectoryWatcher and Loader
 
         watcher.discover();
 
-        FileEntry newEntry2 = watcher.getNewEntries().get(0);
+        List<FileEntry> list2 = watcher.getNewEntries();
+        assertEquals(1, list2.size());
+        assertEquals(0, watcher.getNewEntries().size());
+
+        FileEntry newEntry2 = list2.get(0);
         assertNotNull(newEntry2);
         assertNotNull(newEntry2.getCarData());
         FileCarImage newImage2 = newEntry2.getCarImages().get(0);
         assertNotNull(newImage2);
-        assertNotNull(newImage2.getPersistablePath());
+        assertNotNull(newImage2.getPath());
         assertNull(newImage2.getImage());
 
         assertNotEquals(newEntry1, newEntry2);
         assertEquals(newEntry1.getCarData(), newEntry2.getCarData());
         assertNotEquals(newImage1, newImage2);
-        assertNotEquals(newImage1.getPersistablePath(), newImage2.getPersistablePath());
+        assertNotEquals(newImage1.getPath(), newImage2.getPath());
         assertNotEquals(newFile1, newFile2);
     }
 

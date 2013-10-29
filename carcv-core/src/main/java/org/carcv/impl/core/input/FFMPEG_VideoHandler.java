@@ -62,7 +62,7 @@ public class FFMPEG_VideoHandler extends VideoHandler {// TODO 3 Test FFMPEG vid
 
     public static void generateVideoAsStream(final FileEntry entry, final OutputStream outStream) throws IOException {
         FFMPEG_VideoHandler fvd = new FFMPEG_VideoHandler();
-        Path dir = entry.getCarImages().get(0).getFilepath().getParent();
+        Path dir = entry.getCarImages().get(0).getPath().getParent();
 
         fvd.generateVideoAsStream(dir, defaultFrameRate, outStream);
     }
