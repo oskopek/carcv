@@ -44,7 +44,7 @@ import org.junit.Test;
 /**
  *
  */
-public class DirectoryWatcherTest { // TODO 1 Make into DirectoryWatcher and Loader test
+public class DirectoryWatcherTest { // TODO 1 Finish DirectoryWatcher and Loader test
 
     private Path rootPath;
 
@@ -120,6 +120,8 @@ public class DirectoryWatcherTest { // TODO 1 Make into DirectoryWatcher and Loa
         watcher.discover();
 
         FileEntry newEntry1 = watcher.getNewEntries().get(0);
+        assertNotNull(newEntry1);
+        assertNotNull(newEntry1.getCarData());
         FileCarImage newImage1 = newEntry1.getCarImages().get(0);
         assertNotNull(newImage1);
         assertNotNull(newImage1.getPersistablePath());
@@ -134,11 +136,16 @@ public class DirectoryWatcherTest { // TODO 1 Make into DirectoryWatcher and Loa
 
         watcher.discover();
 
-        FileCarImage newImage2 = watcher.getNewEntries().get(0).getCarImages().get(0);
+        FileEntry newEntry2 = watcher.getNewEntries().get(0);
+        assertNotNull(newEntry2);
+        assertNotNull(newEntry2.getCarData());
+        FileCarImage newImage2 = newEntry2.getCarImages().get(0);
         assertNotNull(newImage2);
         assertNotNull(newImage2.getPersistablePath());
         assertNull(newImage2.getImage());
 
+        assertNotEquals(newEntry1, newEntry2);
+        assertEquals(newEntry1.getCarData(), newEntry2.getCarData());
         assertNotEquals(newImage1, newImage2);
         assertNotEquals(newImage1.getPersistablePath(), newImage2.getPersistablePath());
         assertNotEquals(newFile1, newFile2);

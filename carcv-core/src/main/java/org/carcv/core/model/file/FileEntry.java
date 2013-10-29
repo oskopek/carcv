@@ -25,6 +25,8 @@ import javax.persistence.FetchType;
 import javax.persistence.OneToMany;
 import javax.validation.constraints.NotNull;
 
+import org.apache.commons.lang.builder.EqualsBuilder;
+import org.apache.commons.lang.builder.HashCodeBuilder;
 import org.carcv.core.model.CarData;
 import org.carcv.core.model.AbstractEntry;
 
@@ -88,6 +90,48 @@ public class FileEntry extends AbstractEntry {
     public String toString() {
         return "FileEntry[id=" + getId() + ", carImages.size()=" + carImages.size() + ", carData=" + carData.toString()
             + "]";
+    }
+
+    @Override
+    public int hashCode() {
+        HashCodeBuilder hcb = new HashCodeBuilder();
+        
+        hcb.append(getCarData()).append(getCarImages().size());
+        
+        for(FileCarImage fci : getCarImages()) {
+            hcb.append(fci);
+        }
+        
+        return hcb.toHashCode();
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (!(obj instanceof FileEntry)) {
+            return false;
+        }
+        FileEntry other = (FileEntry) obj;
+
+        if(getCarImages().size() != other.getCarImages().size()) {
+            return false;
+        }
+        
+        EqualsBuilder e = new EqualsBuilder().append(getCarData(), other.getCarData());
+        
+        for(int i = 0; i < getCarImages().size(); i++) {
+            e.append(getCarImages().get(i), other.getCarImages().get(i));
+        }
+        
+        return e.isEquals();
+
+
     }
 
 }
