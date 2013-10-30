@@ -20,13 +20,13 @@ import java.io.IOException;
 import java.nio.file.Path;
 import java.util.ArrayList;
 
-import org.carcv.core.detect.CarSorter;
 import org.carcv.core.input.DirectoryWatcher;
 import org.carcv.core.model.NumberPlate;
 import org.carcv.core.model.Speed;
 import org.carcv.core.model.file.FileCarImage;
 import org.carcv.core.model.file.FileEntry;
 import org.carcv.core.recognize.CarRecognizer;
+import org.carcv.impl.core.detect.CarSorterImpl;
 import org.carcv.impl.core.detect.NumberPlateDetectorImpl;
 import org.carcv.impl.core.detect.SpeedDetectorImpl;
 import org.carcv.impl.core.output.FileSaveBatch;
@@ -111,9 +111,9 @@ public class FileCarRecognizer extends CarRecognizer {
     }
 
     private void sortIntoCars(final ArrayList<FileEntry> batch) {
-        for (FileEntry e : batch) {
-            batch.addAll(CarSorter.sortIntoCars(e));
-            batch.remove(e);
+        for (FileEntry dir : batch) {
+            batch.addAll(CarSorterImpl.getInstance().sortIntoCars(dir));
+            batch.remove(dir);
         }
     }
 

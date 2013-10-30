@@ -91,7 +91,7 @@ public class FileCarRecognizerTest {
      * @throws IOException
      */
     @Test
-    @Ignore
+    @Ignore      //TODO remove @Ignore
     public void testRecognize() throws IOException {
         assertNotNull(recognizer);
         assertTrue(DirectoryWatcher.isDirEmpty(inDir));
