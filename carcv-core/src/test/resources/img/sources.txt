@@ -1,0 +1,2 @@
+test_041.jpg - JavaANPR, https://github.com/oskopek/javaanpr
+skoda_oct.jpg - 
