@@ -136,12 +136,12 @@ public class FileCarRecognizerTest {
         Path testDir = Files.createTempDirectory(inDir, "testBatchDir");
         
         //First image
-        Path imagePath = Paths.get(testDir.toString(), "testImage1-" + System.currentTimeMillis() +".jpg");
+        Path imagePath1 = Paths.get(testDir.toString(), "testImage1-" + System.currentTimeMillis() +".jpg");
         
-        Files.copy(getClass().getResourceAsStream("/img/skoda_oct.jpg"), imagePath);
+        Files.copy(getClass().getResourceAsStream("/img/skoda_oct.jpg"), imagePath1);
         
-        assertFalse(DirectoryWatcher.isDirEmpty(imagePath.getParent()));
-        assertTrue(Files.exists(imagePath));
+        assertFalse(DirectoryWatcher.isDirEmpty(imagePath1.getParent()));
+        assertTrue(Files.exists(imagePath1));
         
         //Second image equal to first but different path and file
         Path imagePath2 = Paths.get(testDir.toString(), "testImage2-" + System.currentTimeMillis() +".jpg");

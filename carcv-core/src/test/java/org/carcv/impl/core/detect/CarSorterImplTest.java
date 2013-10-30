@@ -39,7 +39,7 @@ import org.junit.Test;
  */
 public class CarSorterImplTest {
     
-    private Path imagePath, imagePath2;
+    private Path imagePath1, imagePath2;
 
     /**
      * @throws java.lang.Exception
@@ -48,14 +48,14 @@ public class CarSorterImplTest {
     public void setUp() throws Exception {
         Path p = Files.createTempDirectory("CarSorterImplTest"); 
         
-        imagePath = Paths.get(p.toString(), "testImage" + System.currentTimeMillis() +".jpg");
+        imagePath1 = Paths.get(p.toString(), "testImage1-" + System.currentTimeMillis() +".jpg");
         
-        Files.copy(getClass().getResourceAsStream("/img/skoda_oct.jpg"), imagePath);
+        Files.copy(getClass().getResourceAsStream("/img/skoda_oct.jpg"), imagePath1);
         
-        assertFalse(DirectoryWatcher.isDirEmpty(imagePath.getParent()));
-        assertTrue(Files.exists(imagePath));
+        assertFalse(DirectoryWatcher.isDirEmpty(imagePath1.getParent()));
+        assertTrue(Files.exists(imagePath1));
         
-        imagePath2 = Paths.get(p.toString(), "testImage2" + System.currentTimeMillis() +".jpg");
+        imagePath2 = Paths.get(p.toString(), "testImage2-" + System.currentTimeMillis() +".jpg");
         
         Files.copy(getClass().getResourceAsStream("/img/skoda_oct.jpg"), imagePath2);
         
@@ -69,7 +69,7 @@ public class CarSorterImplTest {
      */
     @After
     public void tearDown() throws Exception {
-        DirectoryWatcher.deleteDirectory(imagePath.getParent());
+        DirectoryWatcher.deleteDirectory(imagePath1.getParent());
     }
 
     /**
@@ -79,14 +79,14 @@ public class CarSorterImplTest {
     @Test
     public void testSortIntoCars() throws IOException {
         //Add a third image, that isn't of the same car as the two before
-        Path imagePath3 = Paths.get(imagePath.getParent().toString(), "testImage3" + System.currentTimeMillis() +".jpg");
+        Path imagePath3 = Paths.get(imagePath1.getParent().toString(), "testImage3-" + System.currentTimeMillis() +".jpg");
         
         Files.copy(getClass().getResourceAsStream("/img/test_041.jpg"), imagePath3);
         
         assertFalse(DirectoryWatcher.isDirEmpty(imagePath3.getParent()));
         assertTrue(Files.exists(imagePath3));
         
-        FileCarImage fci1 = new FileCarImage(imagePath);
+        FileCarImage fci1 = new FileCarImage(imagePath1);
         FileCarImage fci2 = new FileCarImage(imagePath2);
         FileCarImage fci3 = new FileCarImage(imagePath3);
         
@@ -118,7 +118,7 @@ public class CarSorterImplTest {
         assertEquals(batch.getCarImages().size(), counter);
         
         assertEquals(2, result.get(0).getCarImages().size());
-        assertEquals(imagePath, result.get(0).getCarImages().get(0).getPath());
+        assertEquals(imagePath1, result.get(0).getCarImages().get(0).getPath());
         assertEquals(imagePath2, result.get(0).getCarImages().get(1).getPath());
         
         
@@ -137,7 +137,7 @@ public class CarSorterImplTest {
     @Test
     public void testCarsEqualsFileCarImageFileCarImage() throws IOException {
         
-        FileCarImage img1 = new FileCarImage(imagePath);
+        FileCarImage img1 = new FileCarImage(imagePath1);
         FileCarImage img2 = new FileCarImage(imagePath2);
         
         img1.loadImage();
@@ -156,7 +156,7 @@ public class CarSorterImplTest {
     @Test
     public void testCarsEqualsFileCarImageString() throws IOException {
         String real = "2SU3588";
-        FileCarImage image = new FileCarImage(imagePath);
+        FileCarImage image = new FileCarImage(imagePath1);
         
         image.loadImage();
         
