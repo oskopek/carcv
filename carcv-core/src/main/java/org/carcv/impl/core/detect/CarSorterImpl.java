@@ -60,8 +60,6 @@ public class CarSorterImpl extends CarSorter {
     
     private boolean numberPlateProbabilityEquals(String onePlate, String twoPlate) {
         int dist = levenshteinDistance(onePlate, twoPlate);
-        
-        System.out.println(dist);
 
         return dist < CarSorterImpl.equalityDistanceCoef;
     }
