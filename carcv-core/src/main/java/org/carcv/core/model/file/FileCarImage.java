@@ -153,7 +153,6 @@ public class FileCarImage extends AbstractCarImage {
      */
     @NotNull
     @Embedded
-    @SuppressWarnings("unused")
     private PersistablePath getPersistablePath() {
         return persistablePath;
     }

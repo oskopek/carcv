@@ -109,7 +109,6 @@ public class FileSaveBatchTest { // TODO 1 Test FileSaveBatch
         // */
     }
 
-    @SuppressWarnings("unused")
     @Test
     public void castTest() throws Exception {
         // final List<FileEntry> fileBatch = (List<FileEntry>) batch;
