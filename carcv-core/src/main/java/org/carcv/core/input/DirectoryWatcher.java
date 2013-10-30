@@ -17,9 +17,8 @@
 package org.carcv.core.input;
 
 import java.io.IOException;
-import java.nio.file.DirectoryStream;
-import java.nio.file.Files;
-import java.nio.file.Path;
+import java.nio.file.*;
+import java.nio.file.attribute.BasicFileAttributes;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -74,7 +73,7 @@ public class DirectoryWatcher {
 
     public List<FileEntry> getNewEntries() {
         if (!hasNewEntries()) {
-            return new ArrayList<FileEntry>();
+            return new ArrayList<>();
         }
 
         List<FileEntry> newEntries = entries.subList(lastToIndex, entries.size());
@@ -84,5 +83,74 @@ public class DirectoryWatcher {
 
     public List<FileEntry> getEntries() {
         return entries;
+    }
+
+    /**
+     * Deletes given path (directory) and everything under it recursively.
+     *
+     * <p>Similar to <code>rm -rf path</code></p>
+     *
+     * <p><strong>USE WITH CAUTION!</strong></p>
+     *
+     * @param path the path to delete
+     * @throws IOException
+     */
+    public static void deleteDirectory(Path path) throws IOException {
+        Files.walkFileTree(path, new FileVisitor<Path>() {
+
+            @Override
+            public FileVisitResult postVisitDirectory(Path dir, IOException exc) throws IOException {
+                // System.out.println("Deleting directory :" + dir);
+                Files.delete(dir);
+                return FileVisitResult.CONTINUE;
+            }
+
+            @Override
+            public FileVisitResult preVisitDirectory(Path dir, BasicFileAttributes attrs) throws IOException {
+                return FileVisitResult.CONTINUE;
+            }
+
+            @Override
+            public FileVisitResult visitFile(Path file, BasicFileAttributes attrs) throws IOException {
+                // System.out.println("Deleting file: " + file);
+                Files.delete(file);
+                return FileVisitResult.CONTINUE;
+            }
+
+            @Override
+            public FileVisitResult visitFileFailed(Path file, IOException exc) throws IOException {
+                // System.out.println(exc.toString());
+                return FileVisitResult.CONTINUE;
+            }
+        });
+    }
+
+    /**
+     * Check if directory is empty
+     * @param dir a Path that isDirectory()
+     * @return true if directory contains no files/directories
+     * @throws IOException
+     */
+    public static boolean isDirEmpty(Path dir) throws IOException {
+        if(!Files.isDirectory(dir)) {
+            throw new IllegalArgumentException("Path " + dir + " is not a directory");
+        }
+
+        DirectoryStream<Path> ds = Files.newDirectoryStream(dir);
+
+        int counter = 0;
+        for (Path p : ds) {
+            if (Files.exists(p)) {
+                counter++;
+            } else {
+                throw new IllegalStateException("Path was loaded from dir but the file doesn't exist!");
+            }
+        }
+
+        if (counter == 0) {
+            return true;
+        }
+
+        return false;
     }
 }

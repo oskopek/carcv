@@ -24,6 +24,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import org.carcv.core.input.DirectoryWatcher;
 import org.carcv.core.model.AbstractEntry;
 import org.carcv.core.model.Address;
 import org.carcv.core.model.CarData;
@@ -97,12 +98,21 @@ public class FileSaveBatchTest { // TODO 1 Test FileSaveBatch
      */
     @After
     public void tearDown() throws Exception {
+        // /*
+        DirectoryWatcher.deleteDirectory(inDir);
+        assertFalse(Files.exists(inDir));
+        assertFalse(Files.isDirectory(inDir));
+
+        DirectoryWatcher.deleteDirectory(outDir);
+        assertFalse(Files.exists(outDir));
+        assertFalse(Files.isDirectory(outDir));
+        // */
     }
 
     @SuppressWarnings("unused")
     @Test
     public void castTest() throws Exception {
-        final List<FileEntry> fileBatch = (List<FileEntry>) batch;
+        // final List<FileEntry> fileBatch = (List<FileEntry>) batch;
         
         final FileEntry e = batch.get(0);
         final AbstractEntry ae = e;

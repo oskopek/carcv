@@ -53,7 +53,7 @@ public class FileCarImageTest {
     }
 
     /**
-     * @throws java.lang.Exception
+     *
      */
     @After
     public void tearDown() {
@@ -62,18 +62,18 @@ public class FileCarImageTest {
     }
 
     /**
-     * Test method for {@link org.carcv.core.model.file.FileCarImage#ImageFile(java.nio.file.Path)}.
+     * Test method for {@link org.carcv.core.model.file.FileCarImage#FileCarImage(java.nio.file.Path)}
      * 
      * @throws IOException
      */
     @Test
-    public void testImageFile() throws IOException {
+    public void testFileCarImage() throws IOException {
 
         Path tmpFile = null;
         try {
             tmpFile = Files.createTempFile("imageFile", ".carcv.jpg");
         } catch (IOException e) {
-            System.err.println("Failed to create temp file");
+            fail("Failed to create temp file");
             e.printStackTrace();
         }
         assertNotNull(tmpFile);
@@ -81,11 +81,17 @@ public class FileCarImageTest {
         FileCarImage iFile = new FileCarImage(tmpFile);
         assertNotNull(iFile);
 
+        Exception ex = null;
+        assertNull(ex);
+
         try {
             iFile.loadImage();
         } catch (final Exception e) {
+            //this should actually occur here:
+            ex = e;
             // System.err.println(e.getMessage() + " - this is expected");
         }
+        assertNotNull(ex);
 
         assertNotNull(iFile);
         assertNull(iFile.getImage());
@@ -131,8 +137,8 @@ public class FileCarImageTest {
         try {
             tmpFile = Files.createTempFile("imageFile", ".carcv.jpg");
         } catch (IOException e) {
-            System.err.println("Failed to create temp file");
             e.printStackTrace();
+            fail("Failed to create temp file");
         }
         assertNotNull(tmpFile);
 
@@ -158,20 +164,27 @@ public class FileCarImageTest {
         try {
             tmpFile = Files.createTempFile("imageFile", ".carcv.jpg");
         } catch (IOException e) {
-            System.err.println("Failed to create temp file");
             e.printStackTrace();
+            fail("Failed to create temp file");
         }
         assertNotNull(tmpFile);
 
         FileCarImage iFile = new FileCarImage(tmpFile);
         assertNotNull(iFile);
 
+        Exception ex = null;
+        assertNull(ex);
+
         try {
             iFile.loadImage();
         } catch (final Exception e) {
+            //this should actually occur:
+            ex = e;
             // System.err.println(e.getMessage() + " - this is expected");
 
         }
+        assertNotNull(ex);
+
         assertNotNull(iFile);
         assertNull(iFile.getImage());
 
@@ -206,6 +219,20 @@ public class FileCarImageTest {
         // BufferedImage closed = iFile.getBufImage();
 
         // TODO 3 How to test if BufferedImage is really flushed?
+    }
+
+    @Test
+    public void testPath() throws IOException {
+        FileCarImage iFile = new FileCarImage(filepath);
+        assertNotNull(iFile);
+
+        assertNotNull(iFile.getPath());
+        assertEquals(filepath, iFile.getPath());
+
+        iFile.setPath(Files.createTempFile("test",".carcv.jpg"));
+        assertNotEquals(iFile.getPath(), filepath);
+
+        assertTrue(Files.deleteIfExists(iFile.getPath()));
     }
 
 }

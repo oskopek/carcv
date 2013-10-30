@@ -18,13 +18,18 @@ package org.carcv.impl.core.recognize;
 
 import static org.junit.Assert.*;
 
+import java.io.FileOutputStream;
 import java.io.IOException;
-import java.nio.file.DirectoryStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.Date;
+import java.util.Properties;
 
+import org.carcv.core.input.DirectoryWatcher;
 import org.junit.After;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 
 /**
@@ -38,6 +43,8 @@ public class FileCarRecognizerTest {
 
     private FileCarRecognizer recognizer;
 
+    private Properties properties;
+
     /**
      * @throws java.lang.Exception
      */
@@ -47,6 +54,19 @@ public class FileCarRecognizerTest {
         outDir = Files.createTempDirectory("outDir");
 
         recognizer = new FileCarRecognizer(inDir, outDir);
+
+        //properties
+        properties = new Properties();
+
+        properties.setProperty("address-lat", Double.toString(48.5));
+        properties.setProperty("address-long", Double.toString(17.8));
+        properties.setProperty("address-city", "Bratislava");
+        properties.setProperty("address-postalCode", "93221");
+        properties.setProperty("address-street", "Hrušková");
+        properties.setProperty("address-country", "Slovakia");
+        properties.setProperty("address-streetNo", "32");
+        properties.setProperty("address-refNo", "1010");
+        properties.setProperty("timestamp", String.valueOf(new Date(System.currentTimeMillis()).getTime()));
     }
 
     /**
@@ -54,6 +74,15 @@ public class FileCarRecognizerTest {
      */
     @After
     public void tearDown() throws Exception {
+        // /*
+        DirectoryWatcher.deleteDirectory(inDir);
+        assertFalse(Files.exists(inDir));
+        assertFalse(Files.isDirectory(inDir));
+
+        DirectoryWatcher.deleteDirectory(outDir);
+        assertFalse(Files.exists(outDir));
+        assertFalse(Files.isDirectory(outDir));
+        // */
     }
 
     /**
@@ -62,37 +91,31 @@ public class FileCarRecognizerTest {
      * @throws IOException
      */
     @Test
+    @Ignore
     public void testRecognize() throws IOException {
         assertNotNull(recognizer);
-        assertTrue(isDirEmpty(inDir));
-        assertTrue(isDirEmpty(outDir));
+        assertTrue(DirectoryWatcher.isDirEmpty(inDir));
+        assertTrue(DirectoryWatcher.isDirEmpty(outDir));
 
         recognizer.recognize();
 
-        assertTrue(isDirEmpty(inDir));
-        assertTrue(isDirEmpty(outDir));
+        assertTrue(DirectoryWatcher.isDirEmpty(inDir));
+        assertTrue(DirectoryWatcher.isDirEmpty(outDir));
 
-        // TODO 1 Finish testRecognize() in FileCarRecognizerTest
+        // Add a new batch
+        Path dir1 = Files.createTempDirectory(inDir, "testDir");
+        // TODO 1 Test a real image (skoda_oct.jpg) in FileCarRecognizerTest
+        Path file1 = Files.createTempFile(dir1, "testFileDirWatching", ".carcv.jpg");
+        Path permissions1 = Paths.get(dir1.toString(), "info.properties");
+        properties.store(new FileOutputStream(permissions1.toFile()), "");
+        assertNotNull(file1);
 
+        assertFalse(DirectoryWatcher.isDirEmpty(inDir));
+        assertTrue(DirectoryWatcher.isDirEmpty(outDir));
+
+        recognizer.recognize();
+
+        assertFalse(DirectoryWatcher.isDirEmpty(inDir));
+        assertFalse(DirectoryWatcher.isDirEmpty(outDir));
     }
-
-    private boolean isDirEmpty(Path dir) throws IOException {
-        DirectoryStream<Path> ds = Files.newDirectoryStream(dir);
-
-        int counter = 0;
-        for (Path p : ds) {
-            if (Files.exists(p)) {
-                counter++;
-            } else {
-                throw new IllegalStateException("Path was loaded from dir but the file doesn't exist!");
-            }
-        }
-
-        if (counter == 0) {
-            return true;
-        }
-
-        return false;
-    }
-
 }

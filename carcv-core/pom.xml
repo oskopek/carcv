@@ -75,7 +75,7 @@
             <artifactId>jboss-javaee-6.0</artifactId>
             <version>1.0.0.Final</version>
             <type>pom</type>
-            <scope>provided</scope> <!-- TODO 1 may cause problems in .jar package -->
+            <scope>provided</scope> <!-- TODO 3 may cause problems in .jar package -->
         </dependency>
     </dependencies>
 

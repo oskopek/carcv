@@ -44,7 +44,7 @@ import org.carcv.core.model.PersistablePath;
  * 
  */
 @Entity
-public class FileCarImage extends AbstractCarImage { // TODO 2 Add test of PersistablePath in FileCarImage
+public class FileCarImage extends AbstractCarImage {
 
     /**
      *
@@ -70,7 +70,7 @@ public class FileCarImage extends AbstractCarImage { // TODO 2 Add test of Persi
     }
 
     public void loadImage(InputStream inStream) throws IOException {
-        // TODO 3 Fix loading of image
+        // TODO 3 Fix loading of images
         /*
          * ImageInputStream imageStream = ImageIO.createImageInputStream(inStream); ImageReader reader =
          * ImageIO.getImageReaders(imageStream).next(); ImageReadParam param = reader.getDefaultReadParam();
@@ -153,6 +153,7 @@ public class FileCarImage extends AbstractCarImage { // TODO 2 Add test of Persi
      */
     @NotNull
     @Embedded
+    @SuppressWarnings("unused")
     private PersistablePath getPersistablePath() {
         return persistablePath;
     }

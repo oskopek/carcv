@@ -57,7 +57,7 @@ public class FileCarRecognizer extends CarRecognizer {
         watcher.discover();
 
         // this is a batch that contains an entry for every directory -> need to separate it into individual cars
-        final ArrayList<FileEntry> batch = (ArrayList<FileEntry>) watcher.getNewEntries();
+        final ArrayList<FileEntry> batch = new ArrayList<>(watcher.getNewEntries());
 
         final ArrayList<FileEntry> result = new ArrayList<>();
 
@@ -81,7 +81,7 @@ public class FileCarRecognizer extends CarRecognizer {
         SpeedDetectorImpl sd = new SpeedDetectorImpl();
 
         for (FileEntry entry : batch) {
-            Double d = (Double) sd.detectSpeed(entry.getCarImages());
+            Double d = sd.detectSpeed(entry.getCarImages());
 
             entry.getCarData().setSpeed(new Speed(d));
         }
