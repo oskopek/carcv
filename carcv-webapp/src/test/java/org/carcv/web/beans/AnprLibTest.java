@@ -35,7 +35,7 @@ public class AnprLibTest {
         Intelligence intel = new Intelligence();
         assertNotNull(intel);
 
-        String spz = intel.recognize(new CarSnapshot("img/skoda_oct.jpg"));
+        String spz = intel.recognize(new CarSnapshot("/img/skoda_oct.jpg"));
         assertEquals("2SU358F", spz); // actually 2SU358F
     }
 }
