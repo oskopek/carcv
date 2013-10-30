@@ -28,7 +28,6 @@ import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
-import org.junit.Ignore;
 import org.junit.Test;
 
 /**
@@ -112,15 +111,6 @@ public class SpeedDetectorImplTest {
         assertEquals(Double.valueOf(12), res); // TODO 3 This constant should probably be removed from testDetectSpeed()
         
         assertEquals(res, detector.detectSpeed(images));
-    }
-
-    /**
-     * Test method for {@link org.carcv.impl.core.detect.SpeedDetectorImpl#detectSpeed(java.util.List)}.
-     */
-    @Test
-    @Ignore
-    public void testDetectSpeedReal() {
-        fail("Not yet implemented");
     }
 
 }
