@@ -1,5 +1,5 @@
 /*
- * Copyright [yyyy] [name of copyright owner]
+ * Copyright 2013 CarCV Development Team
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -125,6 +125,9 @@ public class CarSorterImplTest {
         assertEquals(1, result.get(1).getCarImages().size());
         assertEquals(imagePath3, result.get(1).getCarImages().get(0).getPath());
         
+        fci1.close();
+        fci2.close();
+        fci3.close();        
     }
 
     /**

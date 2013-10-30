@@ -53,7 +53,13 @@ public class CarSorterImpl extends CarSorter {
         }
         images.get(images.size()-1).close();
         
-        //TODO 1 Should close also all images in List<FileEntry> list?
+        //TODO 2 Should close all images in List<FileEntry> list or are they closed already?
+        for(FileEntry f : list) {
+            for(FileCarImage i : f.getCarImages()) {
+                i.close();
+            }
+        }
+        
         return list;
     }
 
