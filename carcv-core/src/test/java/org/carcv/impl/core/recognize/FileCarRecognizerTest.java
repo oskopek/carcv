@@ -85,6 +85,7 @@ public class FileCarRecognizerTest {
     }
 
     /**
+     * Test of recognizing one input image in one batch<BR>
      * Test method for {@link org.carcv.impl.core.recognize.FileCarRecognizer#recognize()}.
      * 
      * @throws IOException
@@ -113,6 +114,57 @@ public class FileCarRecognizerTest {
         assertFalse(DirectoryWatcher.isDirEmpty(inDir));
         assertTrue(DirectoryWatcher.isDirEmpty(outDir));
 
+        recognizer.recognize();
+
+        assertFalse(DirectoryWatcher.isDirEmpty(inDir));
+        assertFalse(DirectoryWatcher.isDirEmpty(outDir));
+        
+        //TODO 3 Assert that the output is indeed what we expect - for now, checked only manual in /tmp
+    }
+    
+    /**
+     * Test of recognizing multiple (three) input images in one batch
+     * @throws IOException
+     */
+    @Test
+    public void testMultipleRecognize() throws IOException {
+        assertNotNull(recognizer);
+        assertTrue(DirectoryWatcher.isDirEmpty(inDir));
+        assertTrue(DirectoryWatcher.isDirEmpty(outDir));
+        
+        //new batch dir
+        Path testDir = Files.createTempDirectory(inDir, "testBatchDir");
+        
+        //First image
+        Path imagePath = Paths.get(testDir.toString(), "testImage1-" + System.currentTimeMillis() +".jpg");
+        
+        Files.copy(getClass().getResourceAsStream("/img/skoda_oct.jpg"), imagePath);
+        
+        assertFalse(DirectoryWatcher.isDirEmpty(imagePath.getParent()));
+        assertTrue(Files.exists(imagePath));
+        
+        //Second image equal to first but different path and file
+        Path imagePath2 = Paths.get(testDir.toString(), "testImage2-" + System.currentTimeMillis() +".jpg");
+        
+        Files.copy(getClass().getResourceAsStream("/img/skoda_oct.jpg"), imagePath2);
+        
+        assertFalse(DirectoryWatcher.isDirEmpty(imagePath2.getParent()));
+        assertTrue(Files.exists(imagePath2));
+        
+      //Add a third image, that isn't of the same car as the two before
+        Path imagePath3 = Paths.get(testDir.toString(), "testImage3-" + System.currentTimeMillis() +".jpg");
+        
+        Files.copy(getClass().getResourceAsStream("/img/test_041.jpg"), imagePath3);
+        
+        assertFalse(DirectoryWatcher.isDirEmpty(imagePath3.getParent()));
+        assertTrue(Files.exists(imagePath3));
+        
+        //Properties
+        Path permissions1 = Paths.get(testDir.toString(), "info.properties");
+        properties.store(new FileOutputStream(permissions1.toFile()), "");
+        assertTrue(Files.exists(permissions1));
+        
+        //Discover
         recognizer.recognize();
 
         assertFalse(DirectoryWatcher.isDirEmpty(inDir));
