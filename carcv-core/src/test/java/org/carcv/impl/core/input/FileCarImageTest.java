@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package org.carcv.core.impl.input;
+package org.carcv.impl.core.input;
 
 import static org.junit.Assert.*;
 
