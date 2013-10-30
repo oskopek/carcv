@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Arrays;
 
-public class CarSorterImpl extends CarSorter {  // TODO 1 Test CarSorterImpl
+public class CarSorterImpl extends CarSorter {
 
     private static CarSorterImpl instance = new CarSorterImpl();
 
@@ -47,6 +47,33 @@ public class CarSorterImpl extends CarSorter {  // TODO 1 Test CarSorterImpl
     public boolean carsEquals(FileCarImage one, FileCarImage two) {
         return numberPlateProbabilityEquals(one, two);
     }
+    
+    @Override
+    public boolean carsEquals(FileCarImage one, String twoPlate) {
+        return numberPlateProbabilityEquals(one, twoPlate);
+    }
+    
+    @Override
+    public boolean carsEquals(String onePlate, String twoPlate) {
+        return numberPlateProbabilityEquals(onePlate, twoPlate);
+    }
+    
+    private boolean numberPlateProbabilityEquals(String onePlate, String twoPlate) {
+        int dist = levenshteinDistance(onePlate, twoPlate);
+        
+        System.out.println(dist);
+
+        return dist < CarSorterImpl.equalityDistanceCoef;
+    }
+    
+    private boolean numberPlateProbabilityEquals(FileCarImage one, String twoPlate) {
+        NumberPlateDetectorImpl npd = new NumberPlateDetectorImpl();
+        ArrayList<FileCarImage> oneList = new ArrayList<>();
+        oneList.add(one);
+        String onePlate = npd.detectPlateText(oneList);
+
+        return numberPlateProbabilityEquals(onePlate, twoPlate);
+    }
 
     private boolean numberPlateProbabilityEquals(FileCarImage one, FileCarImage two) {
         NumberPlateDetectorImpl npd = new NumberPlateDetectorImpl();
@@ -60,9 +87,7 @@ public class CarSorterImpl extends CarSorter {  // TODO 1 Test CarSorterImpl
         String onePlate = npd.detectPlateText(oneList);
         String twoPlate = npd.detectPlateText(twoList);
 
-        int dist = levenshteinDistance(onePlate, twoPlate);
-
-        return dist < CarSorterImpl.equalityDistanceCoef;
+        return numberPlateProbabilityEquals(onePlate, twoPlate);
     }
 
     private static int levenshteinDistance(String s, String t)

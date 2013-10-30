@@ -29,6 +29,7 @@ import java.util.Properties;
 import org.carcv.core.input.DirectoryWatcher;
 import org.junit.After;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 
 /**
@@ -73,7 +74,7 @@ public class FileCarRecognizerTest {
      */
     @After
     public void tearDown() throws Exception {
-         /*
+        // /*
         DirectoryWatcher.deleteDirectory(inDir);
         assertFalse(Files.exists(inDir));
         assertFalse(Files.isDirectory(inDir));
@@ -81,7 +82,7 @@ public class FileCarRecognizerTest {
         DirectoryWatcher.deleteDirectory(outDir);
         assertFalse(Files.exists(outDir));
         assertFalse(Files.isDirectory(outDir));
-         */
+        // */
     }
 
     /**
@@ -90,7 +91,7 @@ public class FileCarRecognizerTest {
      * @throws IOException
      */
     @Test
-    //@Ignore      //TODO remove @Ignore
+    @Ignore      //TODO remove @Ignore
     public void testRecognize() throws IOException {
         assertNotNull(recognizer);
         assertTrue(DirectoryWatcher.isDirEmpty(inDir));

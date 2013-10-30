@@ -36,4 +36,8 @@ public abstract class CarSorter {
     public abstract List<FileEntry> sortIntoCars(FileEntry batchDir);
 
     public abstract boolean carsEquals(FileCarImage one, FileCarImage two);
+    
+    public abstract boolean carsEquals(FileCarImage one, String twoPlate);
+    
+    public abstract boolean carsEquals(String onePlate, String twoPlate);
 }
