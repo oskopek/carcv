@@ -29,7 +29,6 @@ import java.util.Properties;
 import org.carcv.core.input.DirectoryWatcher;
 import org.junit.After;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 
 /**
@@ -74,7 +73,7 @@ public class FileCarRecognizerTest {
      */
     @After
     public void tearDown() throws Exception {
-        // /*
+         /*
         DirectoryWatcher.deleteDirectory(inDir);
         assertFalse(Files.exists(inDir));
         assertFalse(Files.isDirectory(inDir));
@@ -82,7 +81,7 @@ public class FileCarRecognizerTest {
         DirectoryWatcher.deleteDirectory(outDir);
         assertFalse(Files.exists(outDir));
         assertFalse(Files.isDirectory(outDir));
-        // */
+         */
     }
 
     /**
@@ -91,7 +90,7 @@ public class FileCarRecognizerTest {
      * @throws IOException
      */
     @Test
-    @Ignore      //TODO remove @Ignore
+    //@Ignore      //TODO remove @Ignore
     public void testRecognize() throws IOException {
         assertNotNull(recognizer);
         assertTrue(DirectoryWatcher.isDirEmpty(inDir));
@@ -104,8 +103,10 @@ public class FileCarRecognizerTest {
 
         // Add a new batch
         Path dir1 = Files.createTempDirectory(inDir, "testDir");
-        // TODO 1 Test a real image (skoda_oct.jpg) in FileCarRecognizerTest
-        Path file1 = Files.createTempFile(dir1, "testFileDirWatching", ".carcv.jpg");
+        Path file1 = Paths.get(dir1.toString(), "dirWatchingTestFile-" + System.currentTimeMillis() + ".carcv.jpg");
+
+        Files.copy(getClass().getResourceAsStream("/img/skoda_oct.jpg"), file1); //uses the actual skoda_oct.jpg image
+        
         Path permissions1 = Paths.get(dir1.toString(), "info.properties");
         properties.store(new FileOutputStream(permissions1.toFile()), "");
         assertNotNull(file1);

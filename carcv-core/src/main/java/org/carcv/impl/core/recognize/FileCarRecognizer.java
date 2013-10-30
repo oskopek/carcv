@@ -62,6 +62,7 @@ public class FileCarRecognizer extends CarRecognizer {
         final ArrayList<FileEntry> result = new ArrayList<>();
 
         ArrayList<FileEntry> directory;
+        
         for (FileEntry entry : batch) {
             directory = new ArrayList<>();
             directory.add(entry);
@@ -110,11 +111,14 @@ public class FileCarRecognizer extends CarRecognizer {
         }
     }
 
-    private void sortIntoCars(final ArrayList<FileEntry> batch) {
+    private void sortIntoCars(ArrayList<FileEntry> batch) {
+        ArrayList<FileEntry> res = new ArrayList<>(); // prevents ConcurrentModificationException
         for (FileEntry dir : batch) {
-            batch.addAll(CarSorterImpl.getInstance().sortIntoCars(dir));
-            batch.remove(dir);
+            res.addAll(CarSorterImpl.getInstance().sortIntoCars(dir));
         }
+        
+        batch.clear();
+        batch.addAll(res); // puts the new entries back to original arraylist
     }
 
 }
