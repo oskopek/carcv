@@ -17,12 +17,16 @@ package org.carcv.impl.core.output;
 
 import static org.junit.Assert.*;
 
+import java.io.IOException;
+import java.nio.file.DirectoryStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Properties;
+import java.util.Random;
 
 import org.carcv.core.input.DirectoryWatcher;
 import org.carcv.core.model.AbstractEntry;
@@ -33,16 +37,13 @@ import org.carcv.core.model.Speed;
 import org.carcv.core.model.file.FileCarImage;
 import org.carcv.core.model.file.FileEntry;
 import org.junit.After;
-import org.junit.AfterClass;
 import org.junit.Before;
-import org.junit.BeforeClass;
-import org.junit.Ignore;
 import org.junit.Test;
 
 /**
  *
  */
-public class FileSaveBatchTest { // TODO 1 Test FileSaveBatch
+public class FileSaveBatchTest {
 
     private Path inDir;
 
@@ -50,19 +51,7 @@ public class FileSaveBatchTest { // TODO 1 Test FileSaveBatch
 
     private List<FileEntry> batch;
 
-    /**
-     * @throws java.lang.Exception
-     */
-    @BeforeClass
-    public static void setUpBeforeClass() throws Exception {
-    }
-
-    /**
-     * @throws java.lang.Exception
-     */
-    @AfterClass
-    public static void tearDownAfterClass() throws Exception {
-    }
+    private FileSaveBatch saver;
 
     /**
      * @throws java.lang.Exception
@@ -70,27 +59,33 @@ public class FileSaveBatchTest { // TODO 1 Test FileSaveBatch
     @Before
     public void setUp() throws Exception {
 
+        Random r = new Random();
+
         inDir = Files.createTempDirectory("inDir");
         outDir = Files.createTempDirectory("outDir");
 
         batch = new ArrayList<>();
 
+        Path dir = Files.createTempDirectory(Paths.get(inDir.toString()), "testBatch");
+
         for (int i = 0; i < 10; i++) {
 
-            Path dir = Files.createTempDirectory(Paths.get(inDir.toString()), "batch" + i);
-
-            CarData cd = new CarData(new Speed(0d), new Address("Bratislava", "93221", "Hruskova", "Slovakia", 32),
-                new NumberPlate(""), new Date(System.currentTimeMillis()));
+            CarData cd =
+                new CarData(new Speed(r.nextDouble() * 50), new Address("Bratislava", "93221", "Hrušková", "Slovakia", 32),
+                    new NumberPlate("SK" + r.nextInt(900) + 100 + "AA"), new Date(System.currentTimeMillis()));
 
             List<FileCarImage> images = new ArrayList<>();
 
             for (int j = 0; j < 10; j++) {
-                FileCarImage f = new FileCarImage(Files.createTempFile(dir, "testImage", ".carcv.jpg"));
+                FileCarImage f = new FileCarImage(Files.createTempFile(dir, "testImage-", ".carcv.jpg"));
                 images.add(f);
             }
 
             batch.add(new FileEntry(cd, images));
+
         }
+
+        saver = new FileSaveBatch(outDir);
     }
 
     /**
@@ -111,32 +106,56 @@ public class FileSaveBatchTest { // TODO 1 Test FileSaveBatch
 
     @Test
     public void castTest() throws Exception {
-        // final List<FileEntry> fileBatch = (List<FileEntry>) batch;
-        
+        final ArrayList<FileEntry> fileBatch = (ArrayList<FileEntry>) batch;
+        assertEquals(batch.size(), fileBatch.size());
+        for (int i = 0; i < batch.size(); i++) {
+            assertEquals(batch.get(i), fileBatch.get(i));
+        }
+
         final FileEntry e = batch.get(0);
         final AbstractEntry ae = e;
         assertEquals(e, ae);
-        
+
         final FileEntry fe = (FileEntry) ae;
         assertEquals(e, fe);
     }
 
     /**
-     * Test method for {@link org.carcv.impl.core.output.FileSaveBatch#save(java.util.List)}.
-     */
-    @Test
-    @Ignore
-    public void testSave() {
-        fail("Not yet implemented");
-    }
-
-    /**
      * Test method for {@link org.carcv.impl.core.output.FileSaveBatch#saveFileBatch(java.util.List)}.
+     * 
+     * @throws IOException
      */
     @Test
-    @Ignore
-    public void testSaveFileBatch() {
-        fail("Not yet implemented");
+    public void testSaveFileBatch() throws IOException {
+        assertFalse(DirectoryWatcher.isDirEmpty(inDir));
+        assertTrue(DirectoryWatcher.isDirEmpty(outDir));
+
+        saver.save(batch);
+
+        assertFalse(DirectoryWatcher.isDirEmpty(inDir));
+        assertFalse(DirectoryWatcher.isDirEmpty(outDir));
+
+        DirectoryStream<Path> ds = Files.newDirectoryStream(outDir);
+        int counter = 0;
+        for (Path p : ds) {
+            if (!Files.exists(p) || !Files.isRegularFile(p)) {
+                fail("Path " + p + " was supposed to be a properties file, but an error occured while checking.");
+            }
+            counter++;
+
+            Properties props = new Properties();
+            props.load(Files.newInputStream(p));
+
+            final String base = "filepath";
+            for (int i = 0; i < 100; i++) {
+                if (i >= 10) {
+                    assertNull(props.getProperty(base + i));
+                } else {
+                    assertNotNull(props.getProperty(base + i));
+                }
+            }
+        }
+        assertEquals(batch.size(), counter);
     }
 
 }
