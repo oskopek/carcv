@@ -34,7 +34,7 @@ import org.carcv.core.model.file.FileEntry;
  */
 public class FFMPEG_VideoHandler extends VideoHandler {// TODO 3 Test FFMPEG video handler
 
-    final private static int defaultFrameRate = 30;
+    final public static int defaultFrameRate = 30;
 
     final private static String image_suffix = ".png";
 
