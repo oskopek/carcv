@@ -81,7 +81,7 @@ public class CarSorterImplTest {
      */
     @Test
     @Ignore
-    public void testSortIntoCars() { // TODO 1 test SortIntoCars
+    public void testSortIntoCars() { // TODO 1 Finish test SortIntoCars
         fail("Not yet implemented");
     }
 
