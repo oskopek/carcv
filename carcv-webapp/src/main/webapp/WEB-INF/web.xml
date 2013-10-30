@@ -18,6 +18,7 @@
         <display-name>user</display-name>
         <web-resource-collection>
             <web-resource-name>user_pages</web-resource-name>
+            <description>User</description>
             <url-pattern>/app/*</url-pattern>
             <url-pattern>/servlet/*</url-pattern>
         </web-resource-collection>
@@ -33,7 +34,7 @@
         <display-name>admin</display-name>
         <web-resource-collection>
             <web-resource-name>admin_pages</web-resource-name>
-            <description></description>
+            <description>Administrator</description>
             <url-pattern>/admin/*</url-pattern>
             <url-pattern>/admin/servlet/*</url-pattern>
             <url-pattern>/test/*</url-pattern>

@@ -16,8 +16,10 @@
 
 package org.carcv.core.detect;
 
+import java.util.ArrayList;
 import java.util.List;
 
+import org.carcv.core.model.file.FileCarImage;
 import org.carcv.core.model.file.FileEntry;
 
 /**
@@ -29,12 +31,32 @@ public class CarSorter {
      * Returns a list of fileEntries from given images in a fileentry directory --> this means you should probably remove this
      * fileentry from the list after merging this List in.
      * 
-     * @param directory
+     * @param batchDir
      * @return
      */
-    public static List<FileEntry> sortIntoCars(FileEntry directory) {// TODO 1 Implement: sort them into multiple FileEntries
+    public static List<FileEntry> sortIntoCars(FileEntry batchDir) {// TODO 1 Implement: sort them into multiple FileEntries
+        List<FileEntry> list = new ArrayList<>();
 
-        return null;
+        List<FileCarImage> images = batchDir.getCarImages();
+
+        for(int i = 1; i < images.size(); i++) {
+            boolean equals = carsEquals(images.get(i-1), images.get(i));
+
+            if(equals) {
+
+            }
+
+        }
+
+        return list;
+    }
+
+    public static boolean carsEquals(FileCarImage one, FileCarImage two) {
+        return numberPlateProbabilityCompare(one. two);
+    }
+
+    private static boolean numberPlateProbabilityCompare(FileCarImage one, FileCarImage two) {
+        return true;
     }
 
 }

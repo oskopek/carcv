@@ -79,7 +79,7 @@ public class BasicReportGeneratorTest {
 
         File test_results_dir = new File(testDir.getPath() + "/test_results/");
         if (!test_results_dir.exists() || !test_results_dir.isDirectory()) {
-            test_results_dir.mkdir();
+            assertTrue(test_results_dir.mkdir());
         }
         // System.out.println("OutDir: " + test_results_dir.getPath());
 

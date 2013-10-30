@@ -100,7 +100,7 @@ public class CarTableServlet extends HttpServlet {
                 + e.getCarData().getNumberPlate().getText();
             location = e.getCarData().getAddress().print();
 
-            FileCarImage fci = (FileCarImage) e.getCarImages().get(0);
+            FileCarImage fci = e.getCarImages().get(0);
             previewURL = fci.getPath().toString();
 
             videoURL = "/servlet/GenerateVideoServlet?entry_id=" + e.getId();

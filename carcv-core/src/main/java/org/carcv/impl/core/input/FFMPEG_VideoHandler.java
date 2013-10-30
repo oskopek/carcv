@@ -111,9 +111,7 @@ public class FFMPEG_VideoHandler extends VideoHandler {// TODO 3 Test FFMPEG vid
     @Override
     public OutputStream generateVideoAsStream(Path imageDir, int frameRate) throws IOException {
         Path tmp = createVideo(imageDir, frameRate);
-        OutputStream ostream = new FileOutputStream(tmp.toFile());
-        return ostream;
-
+        return new FileOutputStream(tmp.toFile());
     }
 
     @Override

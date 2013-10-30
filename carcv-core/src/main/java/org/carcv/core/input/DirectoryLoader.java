@@ -83,9 +83,7 @@ public class DirectoryLoader {
 
         Date timestamp = new Date(Long.parseLong(time));
 
-        CarData cd = new CarData(null, address, null, timestamp);
-
-        return cd;
+        return new CarData(null, address, null, timestamp);
     }
 
     private static boolean isKnownImage(Path p) {

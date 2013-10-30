@@ -64,11 +64,7 @@ public class DirectoryWatcher {
     }
 
     public boolean hasNewEntries() {
-        if (lastToIndex >= entries.size()) {
-            return false;
-        } else {
-            return true;
-        }
+        return lastToIndex < entries.size();
     }
 
     public List<FileEntry> getNewEntries() {
@@ -147,10 +143,6 @@ public class DirectoryWatcher {
             }
         }
 
-        if (counter == 0) {
-            return true;
-        }
-
-        return false;
+        return counter == 0;
     }
 }

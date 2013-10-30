@@ -57,8 +57,6 @@ public class AddEntryServlet extends HttpServlet {
 
     /**
      * @see HibernateUtilTest#saveAndQueryTest()
-     * @param request
-     * @param response
      * @throws ServletException
      * @throws IOException
      */
