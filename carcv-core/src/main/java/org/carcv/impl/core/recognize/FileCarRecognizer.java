@@ -114,11 +114,16 @@ public class FileCarRecognizer extends CarRecognizer {
     private void sortIntoCars(ArrayList<FileEntry> batch) {
         ArrayList<FileEntry> res = new ArrayList<>(); // prevents ConcurrentModificationException
         for (FileEntry dir : batch) {
-            res.addAll(CarSorterImpl.getInstance().sortIntoCars(dir));
+            try {
+                res.addAll(CarSorterImpl.getInstance().sortIntoCars(dir));
+            } catch (IOException e) {
+                System.err.println("Failed to load images in FileEntry at " + dir.getCarImages().get(0).getPath());
+                e.printStackTrace();
+            }
         }
         
         batch.clear();
-        batch.addAll(res); // puts the new entries back to original arraylist
+        batch.addAll(res); // puts the new entries back to original ArrayList
     }
 
 }

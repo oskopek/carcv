@@ -21,14 +21,17 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.ArrayList;
+import java.util.Date;
 
 import org.carcv.core.input.DirectoryWatcher;
+import org.carcv.core.model.Address;
+import org.carcv.core.model.CarData;
+import org.carcv.core.model.Speed;
 import org.carcv.core.model.file.FileCarImage;
+import org.carcv.core.model.file.FileEntry;
 import org.junit.After;
-import org.junit.AfterClass;
 import org.junit.Before;
-import org.junit.BeforeClass;
-import org.junit.Ignore;
 import org.junit.Test;
 
 /**
@@ -36,21 +39,7 @@ import org.junit.Test;
  */
 public class CarSorterImplTest {
     
-    private Path imagePath;
-
-    /**
-     * @throws java.lang.Exception
-     */
-    @BeforeClass
-    public static void setUpBeforeClass() throws Exception {
-    }
-
-    /**
-     * @throws java.lang.Exception
-     */
-    @AfterClass
-    public static void tearDownAfterClass() throws Exception {
-    }
+    private Path imagePath, imagePath2;
 
     /**
      * @throws java.lang.Exception
@@ -66,6 +55,13 @@ public class CarSorterImplTest {
         assertFalse(DirectoryWatcher.isDirEmpty(imagePath.getParent()));
         assertTrue(Files.exists(imagePath));
         
+        imagePath2 = Paths.get(p.toString(), "testImage2" + System.currentTimeMillis() +".jpg");
+        
+        Files.copy(getClass().getResourceAsStream("/img/skoda_oct.jpg"), imagePath2);
+        
+        assertFalse(DirectoryWatcher.isDirEmpty(imagePath2.getParent()));
+        assertTrue(Files.exists(imagePath2));
+        
     }
 
     /**
@@ -78,11 +74,57 @@ public class CarSorterImplTest {
 
     /**
      * Test method for {@link org.carcv.impl.core.detect.CarSorterImpl#sortIntoCars(org.carcv.core.model.file.FileEntry)}.
+     * @throws IOException 
      */
     @Test
-    @Ignore
-    public void testSortIntoCars() { // TODO 1 Finish test SortIntoCars
-        fail("Not yet implemented");
+    public void testSortIntoCars() throws IOException {
+        //Add a third image, that isn't of the same car as the two before
+        Path imagePath3 = Paths.get(imagePath.getParent().toString(), "testImage3" + System.currentTimeMillis() +".jpg");
+        
+        Files.copy(getClass().getResourceAsStream("/img/test_041.jpg"), imagePath3);
+        
+        assertFalse(DirectoryWatcher.isDirEmpty(imagePath3.getParent()));
+        assertTrue(Files.exists(imagePath3));
+        
+        FileCarImage fci1 = new FileCarImage(imagePath);
+        FileCarImage fci2 = new FileCarImage(imagePath2);
+        FileCarImage fci3 = new FileCarImage(imagePath3);
+        
+        ArrayList<FileCarImage> images = new ArrayList<>(3);
+        images.add(fci1);
+        images.add(fci2);
+        images.add(fci3);
+        
+        assertEquals(3, images.size());
+        
+        CarData carData = new CarData(new Speed(20.1), 
+                                new Address("Bratislava", "92231", "Hrušková", "Slovakia", 32), 
+                                null, 
+                                new Date(System.currentTimeMillis()));        
+        FileEntry batch = new FileEntry(carData, images);
+        
+        assertEquals(3, batch.getCarImages().size());
+        assertNotNull(batch.getCarData());
+        
+        ArrayList<FileEntry> result = (ArrayList<FileEntry>) CarSorterImpl.getInstance().sortIntoCars(batch);
+        
+        assertEquals(2, result.size());
+        
+        int counter = 0;
+        for(FileEntry f : result) {
+            counter += f.getCarImages().size();
+        }
+        assertEquals(3, batch.getCarImages().size());
+        assertEquals(batch.getCarImages().size(), counter);
+        
+        assertEquals(2, result.get(0).getCarImages().size());
+        assertEquals(imagePath, result.get(0).getCarImages().get(0).getPath());
+        assertEquals(imagePath2, result.get(0).getCarImages().get(1).getPath());
+        
+        
+        assertEquals(1, result.get(1).getCarImages().size());
+        assertEquals(imagePath3, result.get(1).getCarImages().get(0).getPath());
+        
     }
 
     /**
@@ -91,14 +133,6 @@ public class CarSorterImplTest {
      */
     @Test
     public void testCarsEqualsFileCarImageFileCarImage() throws IOException {
-        Path p = imagePath.getParent();
-        
-        Path imagePath2 = Paths.get(p.toString(), "testImage2" + System.currentTimeMillis() +".jpg");
-        
-        Files.copy(getClass().getResourceAsStream("/img/skoda_oct.jpg"), imagePath2);
-        
-        assertFalse(DirectoryWatcher.isDirEmpty(imagePath2.getParent()));
-        assertTrue(Files.exists(imagePath2));
         
         FileCarImage img1 = new FileCarImage(imagePath);
         FileCarImage img2 = new FileCarImage(imagePath2);

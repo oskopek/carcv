@@ -16,6 +16,7 @@
 
 package org.carcv.core.detect;
 
+import java.io.IOException;
 import java.util.List;
 
 import org.carcv.core.model.file.FileCarImage;
@@ -33,7 +34,7 @@ public abstract class CarSorter {
      * @param batchDir the directory where all images reside
      * @return a list of individual real cars in multiple FileEntry-s
      */
-    public abstract List<FileEntry> sortIntoCars(FileEntry batchDir);
+    public abstract List<FileEntry> sortIntoCars(FileEntry batchDir) throws IOException;
 
     public abstract boolean carsEquals(FileCarImage one, FileCarImage two);
     

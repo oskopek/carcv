@@ -4,6 +4,7 @@ import org.carcv.core.detect.CarSorter;
 import org.carcv.core.model.file.FileCarImage;
 import org.carcv.core.model.file.FileEntry;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Arrays;
@@ -23,23 +24,36 @@ public class CarSorterImpl extends CarSorter {
     }
 
     @Override
-    public List<FileEntry> sortIntoCars(FileEntry batchDir)  {
-        List<FileEntry> list = new ArrayList<>();
+    public List<FileEntry> sortIntoCars(FileEntry batchDir) throws IOException  {
+        ArrayList<FileEntry> list = new ArrayList<>();
 
-        List<FileCarImage> images = batchDir.getCarImages();
-
-
+        ArrayList<FileCarImage> images = (ArrayList<FileCarImage>) batchDir.getCarImages();
+        
+        //Before for-loop:
+        images.get(0).loadImage(); //Load first image
+        ArrayList<FileCarImage> temp = new ArrayList<>();
+        temp.add(images.get(0));
+        list.add(new FileEntry(batchDir.getCarData(), temp)); //Add first FileEntry
+        
         for(int i = 1; i < images.size(); i++) {
+            images.get(i).loadImage();
+            
             boolean equals = this.carsEquals(images.get(i-1), images.get(i));
 
             if(equals) { // if images are of same car, add the image to the last known car
-                list.get(list.size()-1).getCarImages().add(images.get(i));
+                ArrayList<FileCarImage> f = (ArrayList<FileCarImage>) list.get(list.size()-1).getCarImages();
+                f.add(images.get(i));
             } else { // else create a new entry with the image
-                list.add(new FileEntry(batchDir.getCarData(), Arrays.asList(images.get(i))));
+                ArrayList<FileCarImage> temp2 = new ArrayList<>();
+                temp2.add(images.get(i));
+                list.add(new FileEntry(batchDir.getCarData(), temp2));
             }
-
+            
+            images.get(i-1).close();
         }
-
+        images.get(images.size()-1).close();
+        
+        //TODO 1 Should close also all images in List<FileEntry> list?
         return list;
     }
 
