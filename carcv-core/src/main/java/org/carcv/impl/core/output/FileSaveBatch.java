@@ -49,24 +49,17 @@ public class FileSaveBatch implements SaveBatch {
      * @see org.carcv.core.output.SaveBatch#save(java.util.ArrayList)
      */
     @Override
-    public boolean save(final List<? extends AbstractEntry> batch) {
+    public void save(final List<? extends AbstractEntry> batch) throws IOException {
         @SuppressWarnings("unchecked")
         final List<FileEntry> fileBatch = (List<FileEntry>) batch;
 
-        return saveFileBatch(fileBatch);
+        saveFileBatch(fileBatch);
     }
 
-    public boolean saveFileBatch(final List<FileEntry> fileBatch) {
+    public void saveFileBatch(final List<FileEntry> fileBatch) throws IOException {
         for (FileEntry entry : fileBatch) {
-            try {
                 saveFileEntry(entry);
-            } catch (IOException e) {
-                // e.printStackTrace();
-                return false;
-            }
         }
-
-        return true;
     }
 
     private void saveFileEntry(FileEntry e) throws IOException {
@@ -97,7 +90,7 @@ public class FileSaveBatch implements SaveBatch {
             p.setProperty("filepath" + index, fci.getPath().toString());
         }
 
-        Path outFilePath = Paths.get(directory.toString(), fciList.get(0).getPath().getFileName().toString());
+        Path outFilePath = Paths.get(directory.toString(), fciList.get(0).getPath().getFileName().toString() + ".properties");
 
         FileOutputStream fous = new FileOutputStream(outFilePath.toFile());
         p.store(fous, fciList.get(0).getPath().getFileName().toString());
