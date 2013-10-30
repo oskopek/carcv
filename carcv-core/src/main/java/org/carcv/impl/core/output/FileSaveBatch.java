@@ -20,7 +20,6 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Properties;
 
@@ -83,11 +82,9 @@ public class FileSaveBatch implements SaveBatch {
         p.setProperty("timestamp", String.valueOf(e.getCarData().getTimestamp().getTime()));
 
         List<FileCarImage> fciList = e.getCarImages();
-        int index = 0;
-        for (Iterator<FileCarImage> i = fciList.iterator(); i.hasNext(); index++) {
-            FileCarImage fci = i.next();
-
-            p.setProperty("filepath" + index, fci.getPath().toString());
+        
+        for(int i = 0; i < fciList.size(); i++) {
+            p.setProperty("filepath" + i, fciList.get(i).getPath().toString());
         }
 
         Path outFilePath = Paths.get(directory.toString(), fciList.get(0).getPath().getFileName().toString() + ".properties");
