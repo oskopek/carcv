@@ -12,6 +12,8 @@ public class CarSorterImpl extends CarSorter {  // TODO 1 Test CarSorterImpl
 
     private static CarSorterImpl instance = new CarSorterImpl();
 
+    final private static int equalityDistanceCoef = 3;
+
     private CarSorterImpl() {
 
     }
@@ -60,7 +62,7 @@ public class CarSorterImpl extends CarSorter {  // TODO 1 Test CarSorterImpl
 
         int dist = levenshteinDistance(onePlate, twoPlate);
 
-        return dist<3;
+        return dist < CarSorterImpl.equalityDistanceCoef;
     }
 
     private static int levenshteinDistance(String s, String t)
