@@ -33,8 +33,8 @@
         </p>
         <table style="border: 0px;">
             <tr style="text-align: center;">
-                <td><a href="/" target="_top"
-                    style="position: absolute; left: 25%; text-align: center; text-decoration: none">Car database</a><br></td>
+                <td><a href="/servlet/RefreshServlet" target="_top"
+                    style="position: absolute; left: 30%; text-align: center; text-decoration: none">Refresh DB</a><br></td>
             </tr>
             <tr style="text-align: center;">
                 <td><a href="/" target="_top" style="position: absolute; left: 35%; text-decoration: none">Settings</a><br>
