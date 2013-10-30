@@ -73,7 +73,7 @@ public class FileCarRecognizerTest {
      */
     @After
     public void tearDown() throws Exception {
-         /* // uncomment this to view results in /tmp - NOTE: pollutes tmp directory!
+        // /* // uncomment this to view results in /tmp - NOTE: pollutes tmp directory!
         DirectoryWatcher.deleteDirectory(inDir);
         assertFalse(Files.exists(inDir));
         assertFalse(Files.isDirectory(inDir));
@@ -81,7 +81,7 @@ public class FileCarRecognizerTest {
         DirectoryWatcher.deleteDirectory(outDir);
         assertFalse(Files.exists(outDir));
         assertFalse(Files.isDirectory(outDir));
-         */
+        // */
     }
 
     /**
