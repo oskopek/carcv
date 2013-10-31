@@ -50,8 +50,14 @@
         </table>
     </div>
 
-    <div id="center-norm">
-        <iframe style="width: 99%; height: 98.5%; border: 5px solid #B0C4DE" src="/servlet/CarTableServlet"></iframe>
+    <div id="center-login">
+        <h2>Upload some images to be recognized</h2><br>
+        <form method="post" target="_top" action="/servlet/UploadServlet" enctype="multipart/form-data">
+            <p>
+                Select files: <input type="file" accept="image/*" name="file">
+            </p>
+            <input type="submit" style="position: relative; left: 25%;" value="Upload">
+        </form>
     </div>
 
     <div id="footer"></div>
