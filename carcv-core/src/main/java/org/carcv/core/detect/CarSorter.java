@@ -23,22 +23,44 @@ import org.carcv.core.model.file.FileCarImage;
 import org.carcv.core.model.file.FileEntry;
 
 /**
- *
+ * Provides methods for arranging a sequence of images (video frames) into groups
+ * of individual real cars depicted in them. *
  */
 public abstract class CarSorter {
 
     /**
-     * Returns a list of fileEntries from given images in a fileentry directory --> this means you should probably remove this
-     * fileentry from the list after merging this List in.
+     * Turn the FileEntry directly loaded from input directory (containing all images from a given video)
+     * into several FileEntry-s, corresponding to the individual real cars on the video. 
      *
-     * @param batchDir the directory where all images reside
-     * @return a list of individual real cars in multiple FileEntry-s
+     * @param batchEntry <code>FileEntry</code> containing all images from the new batch
+     * 
+     * @return individual real cars as a list of <code>FileEntry</code>-s
      */
-    public abstract List<FileEntry> sortIntoCars(FileEntry batchDir) throws IOException;
+    public abstract List<FileEntry> sortIntoCars(FileEntry batchEntry) throws IOException;
 
+    /**
+     * Wrapper method for {@link CarSorter#carsEquals(String, String)}.
+     * 
+     * @param one <code>A FileCarImage</code>, has to have a valid filePath set, not null
+     * @param two <code>A FileCarImage</code>, has to have a valid filePath set, not null
+     * @return true if it is probable that the cars on the two <code>FileCarImage</code>s are equal
+     */
     public abstract boolean carsEquals(FileCarImage one, FileCarImage two);
 
+    /**
+     * Wrapper method for {@link CarSorter#carsEquals(String, String)}.
+     *
+     * @param one <code>A FileCarImage</code>, has to have a valid filePath set, not null
+     * @param twoPlate Text of the number plate of the second Car to compare
+     */
     public abstract boolean carsEquals(FileCarImage one, String twoPlate);
 
+    /**
+     * Compare the two images, return true if the two images are of the equal car.
+     * 
+     * @param onePlate Text of the number plate of the first Car to compare
+     * @param twoPlate Text of the number plate of the second Car to compare
+     * @return
+     */
     public abstract boolean carsEquals(String onePlate, String twoPlate);
 }
