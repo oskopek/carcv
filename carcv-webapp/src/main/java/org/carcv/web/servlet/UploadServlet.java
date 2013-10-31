@@ -49,9 +49,6 @@ public class UploadServlet extends HttpServlet { //TODO 1 Test UploadServlet
     @EJB
     private StorageBean storageBean;
 
-    // @EJB
-    // private RecognizerBean recognizerBean;
-
     protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException,
         IOException, FileUploadException {
         //response.sendRedirect("/app/working.jsp"); // TODO 3 Do Something similar to this
@@ -78,7 +75,7 @@ public class UploadServlet extends HttpServlet { //TODO 1 Test UploadServlet
             }
         }
 
-        // recognizerBean.recognize(); // TODO 2 should we? probably yes
+        // recognizerBean.recognize(); // TODO 2 should we? probably no
         response.sendRedirect("/app/upload_complete.jsp"); // redirect to completed
 
     }
