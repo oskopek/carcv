@@ -31,8 +31,10 @@ import org.carcv.impl.core.recognize.FileCarRecognizer;
  */
 public class Main {
     
-    private static Path inDir = Paths.get("/home/oskopek/dev/java/carcv_data/in");
-    private static Path outDir = Paths.get("/home/oskopek/dev/java/carcv_data/out");
+    final private static String envHOME = System.getenv("HOME");
+    
+    private static Path inDir = Paths.get(envHOME + "/dev/java/carcv_data/in");
+    private static Path outDir = Paths.get(envHOME + "/dev/java/carcv_data/out");
 
     private FileCarRecognizer recognizer;
 
