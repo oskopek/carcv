@@ -65,8 +65,13 @@ public class FileCarImage extends AbstractCarImage {
     }
 
     public void loadImage() throws IOException {
-        InputStream inStream = Files.newInputStream(persistablePath.getPath(), StandardOpenOption.READ);
-        loadImage(inStream);
+        if(Files.exists(getPath()) && Files.isRegularFile(getPath()) ) {
+            InputStream inStream = Files.newInputStream(persistablePath.getPath());
+            loadImage(inStream);
+            return;
+        }
+        
+        throw new IOException("Image at " + getPath().toString() + " doesn't exist or is invalid.");
     }
 
     public void loadImage(InputStream inStream) throws IOException {
@@ -83,10 +88,14 @@ public class FileCarImage extends AbstractCarImage {
          */
 
         // temp:
+        if(inStream==null) {
+            throw new IOException("InputStream to load image is null");
+        }
+        
         BufferedImage image = ImageIO.read(inStream);
 
         if (image == null) {
-            throw new NullPointerException("Failed to load image " + persistablePath);
+            throw new IOException("Failed to load image " + persistablePath);
         }
 
         BufferedImage outimage = new BufferedImage(image.getWidth(), image.getHeight(), BufferedImage.TYPE_INT_RGB);

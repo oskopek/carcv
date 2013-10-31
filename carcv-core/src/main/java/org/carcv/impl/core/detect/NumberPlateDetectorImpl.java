@@ -51,6 +51,8 @@ public class NumberPlateDetectorImpl implements NumberPlateDetector {
         try {
             intel = new Intelligence();
         } catch (ParserConfigurationException | SAXException | IOException e) {
+            System.err.println("Error occured while detecting plate text!");
+            e.printStackTrace();
             return null;
         }
 
