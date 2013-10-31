@@ -35,7 +35,7 @@ import org.carcv.core.model.file.FileEntry;
 /**
  *
  */
-public class DirectoryLoader { //TODO 1 Doesn't load images when disconnected, wtf?
+public class DirectoryLoader {
 
     final public static String[] knownImageFileSuffixes = { ".png", ".jpg" };
     final public static String infoFileName = "info.properties";
