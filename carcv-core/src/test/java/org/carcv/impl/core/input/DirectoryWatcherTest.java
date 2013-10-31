@@ -42,7 +42,7 @@ public class DirectoryWatcherTest {
     private Path rootPath;
 
     private DirectoryWatcher watcher;
-    
+
     private Properties properties;
 
     /**
@@ -53,8 +53,8 @@ public class DirectoryWatcherTest {
         rootPath = Files.createTempDirectory("directoryWatcherTestDir");
 
         watcher = new DirectoryWatcher(rootPath);
-        
-        //properties
+
+        // properties
         properties = new Properties();
 
         properties.setProperty("address-lat", Double.toString(48.5));
@@ -70,7 +70,7 @@ public class DirectoryWatcherTest {
 
     /**
      * Deletes the temp directory
-     * 
+     *
      * @throws java.lang.Exception
      */
     @After
@@ -84,14 +84,14 @@ public class DirectoryWatcherTest {
 
     /**
      * Test method for {@link org.carcv.core.input.DirectoryWatcher#discover()}.
-     * 
+     *
      * @throws IOException
      */
     @Test
     public void testDiscover() throws IOException {
         assertNotNull(watcher);
 
-        //1
+        // 1
         Path newDir1 = Files.createTempDirectory(rootPath, "testDir");
         Path newFile1 = Files.createTempFile(newDir1, "testFileDirWatching", ".carcv.jpg");
         Path newPermissions1 = Paths.get(newDir1.toString(), "info.properties");
@@ -99,7 +99,7 @@ public class DirectoryWatcherTest {
         assertNotNull(newFile1);
 
         watcher.discover();
-        
+
         List<FileEntry> list1 = watcher.getNewEntries();
         assertEquals(1, list1.size());
         assertEquals(0, watcher.getNewEntries().size());
@@ -113,7 +113,7 @@ public class DirectoryWatcherTest {
         assertNotNull(newImage1.getPath());
         assertNull(newImage1.getImage());
 
-        //2
+        // 2
         Path newDir2 = Files.createTempDirectory(rootPath, "testDir");
         Path newFile2 = Files.createTempFile(newDir2, "testFileDirWatching", ".carcv.jpg");
         Path newPermissions2 = Paths.get(newDir2.toString(), "info.properties");
@@ -134,7 +134,7 @@ public class DirectoryWatcherTest {
         assertNotNull(newImage2);
         assertNotNull(newImage2.getPath());
         assertNull(newImage2.getImage());
-        
+
         assertFalse(watcher.hasNewEntries());
 
         assertNotEquals(newEntry1, newEntry2);
@@ -143,8 +143,8 @@ public class DirectoryWatcherTest {
         assertNotEquals(newImage1.getPath(), newImage2.getPath());
         assertNotEquals(newFile1, newFile2);
         assertFalse(watcher.hasNewEntries());
-        
-        //3
+
+        // 3
         watcher.discover();
         assertFalse(watcher.hasNewEntries());
     }

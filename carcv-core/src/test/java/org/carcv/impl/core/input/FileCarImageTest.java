@@ -63,7 +63,7 @@ public class FileCarImageTest {
 
     /**
      * Test method for {@link org.carcv.core.model.file.FileCarImage#FileCarImage(java.nio.file.Path)}
-     * 
+     *
      * @throws IOException
      */
     @Test
@@ -87,7 +87,7 @@ public class FileCarImageTest {
         try {
             iFile.loadImage();
         } catch (final Exception e) {
-            //this should actually occur here:
+            // this should actually occur here:
             ex = e;
             // System.err.println(e.getMessage() + " - this is expected");
         }
@@ -100,7 +100,7 @@ public class FileCarImageTest {
 
     /**
      * Test method for {@link org.carcv.core.model.file.FileCarImage#loadImage()}.
-     * 
+     *
      * @throws IOException
      */
     @Test
@@ -112,7 +112,7 @@ public class FileCarImageTest {
 
     /**
      * Test method for {@link org.carcv.core.model.file.FileCarImage#loadFragment(java.awt.Rectangle)}.
-     * 
+     *
      * @throws IOException
      */
     @Test
@@ -128,7 +128,7 @@ public class FileCarImageTest {
 
     /**
      * Test method for {@link org.carcv.core.model.file.FileCarImage#close()}.
-     * 
+     *
      * @throws IOException
      */
     @Test
@@ -155,7 +155,7 @@ public class FileCarImageTest {
 
     /**
      * Test method for {@link org.carcv.core.model.file.FileCarImage#close()}.
-     * 
+     *
      * @throws IOException
      */
     @Test
@@ -178,7 +178,7 @@ public class FileCarImageTest {
         try {
             iFile.loadImage();
         } catch (final Exception e) {
-            //this should actually occur:
+            // this should actually occur:
             ex = e;
             // System.err.println(e.getMessage() + " - this is expected");
 
@@ -198,7 +198,7 @@ public class FileCarImageTest {
 
     /**
      * Test method for {@link org.carcv.core.model.file.FileCarImage#close()}.
-     * 
+     *
      * @throws IOException
      */
     @Test
@@ -229,7 +229,7 @@ public class FileCarImageTest {
         assertNotNull(iFile.getPath());
         assertEquals(filepath, iFile.getPath());
 
-        iFile.setPath(Files.createTempFile("test",".carcv.jpg"));
+        iFile.setPath(Files.createTempFile("test", ".carcv.jpg"));
         assertNotEquals(iFile.getPath(), filepath);
 
         assertTrue(Files.deleteIfExists(iFile.getPath()));

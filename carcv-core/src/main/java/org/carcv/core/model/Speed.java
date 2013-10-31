@@ -50,7 +50,7 @@ public class Speed extends AbstractEmbeddable implements Comparable<Speed> {
 
     /**
      * Default unit = SpeedUnit.KPH (kilometers per hour)
-     * 
+     *
      * @param speed
      */
     public Speed(Double speed) {
@@ -89,7 +89,7 @@ public class Speed extends AbstractEmbeddable implements Comparable<Speed> {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see java.lang.Object#toString()
      */
     /*
@@ -98,7 +98,7 @@ public class Speed extends AbstractEmbeddable implements Comparable<Speed> {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see java.lang.Object#hashCode()
      */
     @Override
@@ -108,7 +108,7 @@ public class Speed extends AbstractEmbeddable implements Comparable<Speed> {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see java.lang.Object#equals(java.lang.Object)
      */
     @Override

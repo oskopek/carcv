@@ -122,7 +122,7 @@ public class FileSaveBatchTest {
 
     /**
      * Test method for {@link org.carcv.impl.core.output.FileSaveBatch#saveFileBatch(java.util.List)}.
-     * 
+     *
      * @throws IOException
      */
     @Test

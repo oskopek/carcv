@@ -32,7 +32,7 @@ import org.carcv.core.output.SaveBatch;
  *
  */
 public class FileSaveBatch implements SaveBatch {
-    
+
     private Path directory;
 
     /**
@@ -44,7 +44,7 @@ public class FileSaveBatch implements SaveBatch {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see org.carcv.core.output.SaveBatch#save(java.util.ArrayList)
      */
     @Override
@@ -57,7 +57,7 @@ public class FileSaveBatch implements SaveBatch {
 
     public void saveFileBatch(final List<FileEntry> fileBatch) throws IOException {
         for (FileEntry entry : fileBatch) {
-                saveFileEntry(entry);
+            saveFileEntry(entry);
         }
     }
 
@@ -82,8 +82,8 @@ public class FileSaveBatch implements SaveBatch {
         p.setProperty("timestamp", String.valueOf(e.getCarData().getTimestamp().getTime()));
 
         List<FileCarImage> fciList = e.getCarImages();
-        
-        for(int i = 0; i < fciList.size(); i++) {
+
+        for (int i = 0; i < fciList.size(); i++) {
             p.setProperty("filepath" + i, fciList.get(i).getPath().toString());
         }
 

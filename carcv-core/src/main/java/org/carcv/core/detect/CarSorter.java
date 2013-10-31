@@ -30,15 +30,15 @@ public abstract class CarSorter {
     /**
      * Returns a list of fileEntries from given images in a fileentry directory --> this means you should probably remove this
      * fileentry from the list after merging this List in.
-     * 
+     *
      * @param batchDir the directory where all images reside
      * @return a list of individual real cars in multiple FileEntry-s
      */
     public abstract List<FileEntry> sortIntoCars(FileEntry batchDir) throws IOException;
 
     public abstract boolean carsEquals(FileCarImage one, FileCarImage two);
-    
+
     public abstract boolean carsEquals(FileCarImage one, String twoPlate);
-    
+
     public abstract boolean carsEquals(String onePlate, String twoPlate);
 }

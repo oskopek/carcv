@@ -25,7 +25,7 @@ import org.apache.commons.lang.builder.HashCodeBuilder;
 
 /**
  * A basic getter/setter POJO implementation of Address, JPA annotated
- * 
+ *
  */
 @Embeddable
 public class Address extends AbstractEmbeddable implements Comparable<Address> {
@@ -217,7 +217,7 @@ public class Address extends AbstractEmbeddable implements Comparable<Address> {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see java.lang.Object#hashCode()
      */
     @Override
@@ -229,7 +229,7 @@ public class Address extends AbstractEmbeddable implements Comparable<Address> {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see java.lang.Object#equals(java.lang.Object)
      */
     @Override
@@ -254,7 +254,7 @@ public class Address extends AbstractEmbeddable implements Comparable<Address> {
 
     /**
      * Prints address in post-format
-     * 
+     *
      * @return
      */
     public String print() {

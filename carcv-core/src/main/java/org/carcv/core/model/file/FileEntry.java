@@ -95,13 +95,13 @@ public class FileEntry extends AbstractEntry {
     @Override
     public int hashCode() {
         HashCodeBuilder hcb = new HashCodeBuilder();
-        
+
         hcb.append(getCarData()).append(getCarImages().size());
-        
-        for(FileCarImage fci : getCarImages()) {
+
+        for (FileCarImage fci : getCarImages()) {
             hcb.append(fci);
         }
-        
+
         return hcb.toHashCode();
     }
 
@@ -119,18 +119,17 @@ public class FileEntry extends AbstractEntry {
         }
         FileEntry other = (FileEntry) obj;
 
-        if(getCarImages().size() != other.getCarImages().size()) {
+        if (getCarImages().size() != other.getCarImages().size()) {
             return false;
         }
-        
+
         EqualsBuilder e = new EqualsBuilder().append(getCarData(), other.getCarData());
-        
-        for(int i = 0; i < getCarImages().size(); i++) {
+
+        for (int i = 0; i < getCarImages().size(); i++) {
             e.append(getCarImages().get(i), other.getCarImages().get(i));
         }
-        
-        return e.isEquals();
 
+        return e.isEquals();
 
     }
 

@@ -30,7 +30,7 @@ import org.carcv.core.model.file.FileEntry;
 
 /**
  * {@linkplain https://trac.ffmpeg.org/wiki/Create%20a%20video%20slideshow%20from%20images}
- * 
+ *
  */
 public class FFMPEG_VideoHandler extends VideoHandler {// TODO 3 Test FFMPEG video handler
 

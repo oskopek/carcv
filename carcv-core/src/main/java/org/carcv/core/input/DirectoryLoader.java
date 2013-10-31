@@ -60,8 +60,8 @@ public class DirectoryLoader {
         Properties p = new Properties();
 
         Path info = Paths.get(directory.toString(), infoFileName);
-        
-        if(info == null || !Files.exists(info)) {
+
+        if (info == null || !Files.exists(info)) {
             throw new IOException("Failed to load CarData from info.properties in the new directory");
         }
 

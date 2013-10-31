@@ -41,7 +41,7 @@ import org.carcv.core.model.PersistablePath;
 
 /**
  * Default behavior is to not load an image from path. To load it, use {@link FileCarImage#loadImage()}
- * 
+ *
  */
 @Entity
 public class FileCarImage extends AbstractCarImage {
@@ -65,12 +65,12 @@ public class FileCarImage extends AbstractCarImage {
     }
 
     public void loadImage() throws IOException {
-        if(Files.exists(getPath()) && Files.isRegularFile(getPath()) ) {
+        if (Files.exists(getPath()) && Files.isRegularFile(getPath())) {
             InputStream inStream = Files.newInputStream(persistablePath.getPath());
             loadImage(inStream);
             return;
         }
-        
+
         throw new IOException("Image at " + getPath().toString() + " doesn't exist or is invalid.");
     }
 
@@ -79,19 +79,19 @@ public class FileCarImage extends AbstractCarImage {
         /*
          * ImageInputStream imageStream = ImageIO.createImageInputStream(inStream); ImageReader reader =
          * ImageIO.getImageReaders(imageStream).next(); ImageReadParam param = reader.getDefaultReadParam();
-         * 
+         *
          * reader.setInput(imageStream, true, true);
-         * 
+         *
          * this.image = reader.read(0, param);
-         * 
+         *
          * reader.dispose(); imageStream.close();
          */
 
         // temp:
-        if(inStream==null) {
+        if (inStream == null) {
             throw new IOException("InputStream to load image is null");
         }
-        
+
         BufferedImage image = ImageIO.read(inStream);
 
         if (image == null) {

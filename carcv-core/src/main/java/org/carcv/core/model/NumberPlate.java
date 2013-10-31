@@ -25,7 +25,7 @@ import org.apache.commons.lang.builder.HashCodeBuilder;
 
 /**
  * Country of origin and text of a given Licence Plate
- * 
+ *
  */
 @Embeddable
 public class NumberPlate extends AbstractEmbeddable implements Comparable<NumberPlate> {
@@ -87,7 +87,7 @@ public class NumberPlate extends AbstractEmbeddable implements Comparable<Number
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see java.lang.Object#toString()
      */
     /*
@@ -96,7 +96,7 @@ public class NumberPlate extends AbstractEmbeddable implements Comparable<Number
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see java.lang.Object#hashCode()
      */
     @Override
@@ -106,7 +106,7 @@ public class NumberPlate extends AbstractEmbeddable implements Comparable<Number
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see java.lang.Object#equals(java.lang.Object)
      */
     @Override

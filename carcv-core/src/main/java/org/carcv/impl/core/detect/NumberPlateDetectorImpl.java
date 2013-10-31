@@ -35,7 +35,7 @@ import org.xml.sax.SAXException;
 
 /**
  * Image must be loaded!
- * 
+ *
  */
 public class NumberPlateDetectorImpl implements NumberPlateDetector {
 

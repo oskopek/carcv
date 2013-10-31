@@ -54,7 +54,7 @@ public class FileCarRecognizerTest {
 
         recognizer = new FileCarRecognizer(inDir, outDir);
 
-        //properties
+        // properties
         properties = new Properties();
 
         properties.setProperty("address-lat", Double.toString(48.5));
@@ -87,7 +87,7 @@ public class FileCarRecognizerTest {
     /**
      * Test of recognizing one input image in one batch<BR>
      * Test method for {@link org.carcv.impl.core.recognize.FileCarRecognizer#recognize()}.
-     * 
+     *
      * @throws IOException
      */
     @Test
@@ -105,8 +105,8 @@ public class FileCarRecognizerTest {
         Path dir1 = Files.createTempDirectory(inDir, "testDir");
         Path file1 = Paths.get(dir1.toString(), "dirWatchingTestFile-" + System.currentTimeMillis() + ".carcv.jpg");
 
-        Files.copy(getClass().getResourceAsStream("/img/skoda_oct.jpg"), file1); //uses the actual skoda_oct.jpg image
-        
+        Files.copy(getClass().getResourceAsStream("/img/skoda_oct.jpg"), file1); // uses the actual skoda_oct.jpg image
+
         Path permissions1 = Paths.get(dir1.toString(), "info.properties");
         properties.store(new FileOutputStream(permissions1.toFile()), "");
         assertNotNull(file1);
@@ -118,12 +118,13 @@ public class FileCarRecognizerTest {
 
         assertFalse(DirectoryWatcher.isDirEmpty(inDir));
         assertFalse(DirectoryWatcher.isDirEmpty(outDir));
-        
-        //TODO 3 Assert that the output is indeed what we expect - for now, checked only manual in /tmp
+
+        // TODO 3 Assert that the output is indeed what we expect - for now, checked only manual in /tmp
     }
-    
+
     /**
      * Test of recognizing multiple (three) input images in one batch
+     *
      * @throws IOException
      */
     @Test
@@ -131,45 +132,45 @@ public class FileCarRecognizerTest {
         assertNotNull(recognizer);
         assertTrue(DirectoryWatcher.isDirEmpty(inDir));
         assertTrue(DirectoryWatcher.isDirEmpty(outDir));
-        
-        //new batch dir
+
+        // new batch dir
         Path testDir = Files.createTempDirectory(inDir, "testBatchDir");
-        
-        //First image
-        Path imagePath1 = Paths.get(testDir.toString(), "testImage1-" + System.currentTimeMillis() +".jpg");
-        
+
+        // First image
+        Path imagePath1 = Paths.get(testDir.toString(), "testImage1-" + System.currentTimeMillis() + ".jpg");
+
         Files.copy(getClass().getResourceAsStream("/img/skoda_oct.jpg"), imagePath1);
-        
+
         assertFalse(DirectoryWatcher.isDirEmpty(imagePath1.getParent()));
         assertTrue(Files.exists(imagePath1));
-        
-        //Second image equal to first but different path and file
-        Path imagePath2 = Paths.get(testDir.toString(), "testImage2-" + System.currentTimeMillis() +".jpg");
-        
+
+        // Second image equal to first but different path and file
+        Path imagePath2 = Paths.get(testDir.toString(), "testImage2-" + System.currentTimeMillis() + ".jpg");
+
         Files.copy(getClass().getResourceAsStream("/img/skoda_oct.jpg"), imagePath2);
-        
+
         assertFalse(DirectoryWatcher.isDirEmpty(imagePath2.getParent()));
         assertTrue(Files.exists(imagePath2));
-        
-      //Add a third image, that isn't of the same car as the two before
-        Path imagePath3 = Paths.get(testDir.toString(), "testImage3-" + System.currentTimeMillis() +".jpg");
-        
+
+        // Add a third image, that isn't of the same car as the two before
+        Path imagePath3 = Paths.get(testDir.toString(), "testImage3-" + System.currentTimeMillis() + ".jpg");
+
         Files.copy(getClass().getResourceAsStream("/img/test_041.jpg"), imagePath3);
-        
+
         assertFalse(DirectoryWatcher.isDirEmpty(imagePath3.getParent()));
         assertTrue(Files.exists(imagePath3));
-        
-        //Properties
+
+        // Properties
         Path permissions1 = Paths.get(testDir.toString(), "info.properties");
         properties.store(new FileOutputStream(permissions1.toFile()), "");
         assertTrue(Files.exists(permissions1));
-        
-        //Discover
+
+        // Discover
         recognizer.recognize();
 
         assertFalse(DirectoryWatcher.isDirEmpty(inDir));
         assertFalse(DirectoryWatcher.isDirEmpty(outDir));
-        
-        //TODO 3 Assert that the output is indeed what we expect - for now, checked only manual in /tmp
+
+        // TODO 3 Assert that the output is indeed what we expect - for now, checked only manual in /tmp
     }
 }

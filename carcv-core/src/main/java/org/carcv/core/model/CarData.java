@@ -28,7 +28,7 @@ import org.apache.commons.lang.builder.HashCodeBuilder;
 
 /**
  * An expression of Data collected
- * 
+ *
  */
 @Embeddable
 public class CarData extends AbstractEmbeddable implements Comparable<CarData>, Cloneable {
@@ -121,7 +121,7 @@ public class CarData extends AbstractEmbeddable implements Comparable<CarData>, 
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see java.lang.Object#toString()
      */
     /*
@@ -131,7 +131,7 @@ public class CarData extends AbstractEmbeddable implements Comparable<CarData>, 
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see java.lang.Object#hashCode()
      */
     @Override
@@ -142,7 +142,7 @@ public class CarData extends AbstractEmbeddable implements Comparable<CarData>, 
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see java.lang.Object#equals(java.lang.Object)
      */
     @Override
@@ -168,13 +168,15 @@ public class CarData extends AbstractEmbeddable implements Comparable<CarData>, 
         return new CompareToBuilder().append(speed, o.speed).append(address, o.address)
             .append(numberPlate, o.numberPlate).append(timestamp, o.timestamp).toComparison();
     }
-    
+
     @Override
     public Object clone() {
         Speed s = getSpeed() == null ? null : new Speed(getSpeed().getSpeed(), getSpeed().getUnit());
-        Address a = getAddress() == null ? null : new Address(address.getCity(), address.getPostalCode(), address.getStreet(), address.getCountry(), address.getStreetNumber(), address.getReferenceNumber());
-        NumberPlate np = getNumberPlate() == null ? null : new NumberPlate(getNumberPlate().getText(), getNumberPlate().getOrigin());
-        
+        Address a = getAddress() == null ? null : new Address(address.getCity(), address.getPostalCode(), address.getStreet(),
+            address.getCountry(), address.getStreetNumber(), address.getReferenceNumber());
+        NumberPlate np = getNumberPlate() == null ? null : new NumberPlate(getNumberPlate().getText(), getNumberPlate()
+            .getOrigin());
+
         return new CarData(s, a, np, (Date) getTimestamp().clone());
     }
 

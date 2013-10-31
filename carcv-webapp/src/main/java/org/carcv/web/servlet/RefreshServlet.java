@@ -33,32 +33,33 @@ import org.carcv.web.beans.RecognizerBean;
 public class RefreshServlet extends HttpServlet {
 
     /**
-     * 
+     *
      */
     private static final long serialVersionUID = 27981339847573356L;
-    
+
     @EJB
     private RecognizerBean recognizerBean;
 
-    protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        response.sendRedirect("/app/working.jsp"); //TODO 2 Will this work?
+    protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException,
+        IOException {
+        response.sendRedirect("/app/working.jsp"); // TODO 2 Will this work?
         recognizerBean.recognize();
-        //TODO 1 Finish
-        response.sendRedirect(request.getHeader("referer")); //redirect back where you came from
-        
+        // TODO 1 Finish
+        response.sendRedirect(request.getHeader("referer")); // redirect back where you came from
+
     }
 
     /**
      * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
      */
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-            processRequest(request, response);
+        processRequest(request, response);
     }
 
     /**
      * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
      */
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-            processRequest(request, response);
+        processRequest(request, response);
     }
 }

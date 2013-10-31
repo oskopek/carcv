@@ -41,42 +41,42 @@ public class CarSorterImpl extends CarSorter {
     }
 
     @Override
-    public List<FileEntry> sortIntoCars(FileEntry batchDir) throws IOException  {
+    public List<FileEntry> sortIntoCars(FileEntry batchDir) throws IOException {
         ArrayList<FileEntry> list = new ArrayList<>();
 
         ArrayList<FileCarImage> images = (ArrayList<FileCarImage>) batchDir.getCarImages();
-        
-        //Before for-loop:
-        images.get(0).loadImage(); //Load first image
+
+        // Before for-loop:
+        images.get(0).loadImage(); // Load first image
         ArrayList<FileCarImage> temp = new ArrayList<>();
         temp.add(images.get(0));
-        list.add(new FileEntry((CarData) batchDir.getCarData().clone(), temp)); //Add first FileEntry
-        
-        for(int i = 1; i < images.size(); i++) {
-            images.get(i).loadImage();
-            
-            boolean equals = this.carsEquals(images.get(i-1), images.get(i));
+        list.add(new FileEntry((CarData) batchDir.getCarData().clone(), temp)); // Add first FileEntry
 
-            if(equals) { // if images are of same car, add the image to the last known car
-                ArrayList<FileCarImage> f = (ArrayList<FileCarImage>) list.get(list.size()-1).getCarImages();
+        for (int i = 1; i < images.size(); i++) {
+            images.get(i).loadImage();
+
+            boolean equals = this.carsEquals(images.get(i - 1), images.get(i));
+
+            if (equals) { // if images are of same car, add the image to the last known car
+                ArrayList<FileCarImage> f = (ArrayList<FileCarImage>) list.get(list.size() - 1).getCarImages();
                 f.add(images.get(i));
             } else { // else create a new entry with the image
                 ArrayList<FileCarImage> temp2 = new ArrayList<>();
                 temp2.add(images.get(i));
                 list.add(new FileEntry((CarData) batchDir.getCarData().clone(), temp2));
             }
-            
-            images.get(i-1).close();
+
+            images.get(i - 1).close();
         }
-        images.get(images.size()-1).close();
-        
-        //TODO 2 Should close all images in List<FileEntry> list or are they closed already?
-        for(FileEntry f : list) {
-            for(FileCarImage i : f.getCarImages()) {
+        images.get(images.size() - 1).close();
+
+        // TODO 2 Should close all images in List<FileEntry> list or are they closed already?
+        for (FileEntry f : list) {
+            for (FileCarImage i : f.getCarImages()) {
                 i.close();
             }
         }
-        
+
         return list;
     }
 
@@ -84,43 +84,43 @@ public class CarSorterImpl extends CarSorter {
     public boolean carsEquals(FileCarImage one, FileCarImage two) {
         return numberPlateProbabilityEquals(one, two);
     }
-    
+
     @Override
     public boolean carsEquals(FileCarImage one, String twoPlate) {
         return numberPlateProbabilityEquals(one, twoPlate);
     }
-    
+
     @Override
     public boolean carsEquals(String onePlate, String twoPlate) {
         return numberPlateProbabilityEquals(onePlate, twoPlate);
     }
-    
+
     private boolean numberPlateProbabilityEquals(String onePlate, String twoPlate) {
         int dist = levenshteinDistance(onePlate, twoPlate);
 
         return dist < CarSorterImpl.equalityDistanceCoef;
     }
-    
+
     private boolean numberPlateProbabilityEquals(FileCarImage one, String twoPlate) {
         try {
             one.loadImage();
-        }  catch (IOException e) {
+        } catch (IOException e) {
             System.err.println("Failed to load image for CarSorterImpl!");
             e.printStackTrace();
         }
-        
+
         NumberPlateDetectorImpl npd = new NumberPlateDetectorImpl();
         ArrayList<FileCarImage> oneList = new ArrayList<>();
         oneList.add(one);
         String onePlate = npd.detectPlateText(oneList);
-        
+
         one.close();
 
         return numberPlateProbabilityEquals(onePlate, twoPlate);
     }
 
     private boolean numberPlateProbabilityEquals(FileCarImage one, FileCarImage two) {
-        
+
         try {
             one.loadImage();
             two.loadImage();
@@ -128,11 +128,11 @@ public class CarSorterImpl extends CarSorter {
             System.err.println("Failed to load images for CarSorterImpl!");
             e.printStackTrace();
         }
-        
-        if(one.getImage() == null || two.getImage() == null) {
+
+        if (one.getImage() == null || two.getImage() == null) {
             System.err.println("Images are null in CarSorterImpl!");
         }
-        
+
         NumberPlateDetectorImpl npd = new NumberPlateDetectorImpl();
 
         ArrayList<FileCarImage> oneList = new ArrayList<>();
@@ -143,7 +143,7 @@ public class CarSorterImpl extends CarSorter {
 
         String onePlate = npd.detectPlateText(oneList);
         String twoPlate = npd.detectPlateText(twoList);
-        
+
         one.close();
         two.close();
 
@@ -153,9 +153,12 @@ public class CarSorterImpl extends CarSorter {
     private static int levenshteinDistance(String s, String t)
     {
         // degenerate cases
-        if (s.equals(t)) return 0;
-        if (s.length() == 0) return t.length();
-        if (t.length() == 0) return s.length();
+        if (s.equals(t))
+            return 0;
+        if (s.length() == 0)
+            return t.length();
+        if (t.length() == 0)
+            return s.length();
 
         // create two work vectors of integer distances
         int[] v0 = new int[t.length() + 1];
@@ -172,7 +175,7 @@ public class CarSorterImpl extends CarSorter {
             // calculate v1 (current row distances) from the previous row v0
 
             // first element of v1 is A[i+1][0]
-            //   edit distance is delete (i+1) chars from s to match empty t
+            // edit distance is delete (i+1) chars from s to match empty t
             v1[0] = i + 1;
 
             // use formula to fill in the rest of the row
@@ -183,8 +186,8 @@ public class CarSorterImpl extends CarSorter {
             }
 
             // copy v1 (current row) to v0 (previous row) for next iteration
-            //for (int j = 0; j < v0.length; j++)
-            //    v0[j] = v1[j];
+            // for (int j = 0; j < v0.length; j++)
+            // v0[j] = v1[j];
 
             v0 = Arrays.copyOfRange(v1, 0, v0.length);
         }

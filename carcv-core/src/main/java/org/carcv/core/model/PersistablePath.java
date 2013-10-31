@@ -54,7 +54,7 @@ public class PersistablePath extends AbstractEmbeddable implements Comparable<Pe
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see org.carcv.core.model.AbstractModel#equals(java.lang.Object)
      */
     @Override
@@ -69,7 +69,7 @@ public class PersistablePath extends AbstractEmbeddable implements Comparable<Pe
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see org.carcv.core.model.AbstractModel#hashCode()
      */
     @Override

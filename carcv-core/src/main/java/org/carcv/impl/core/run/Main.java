@@ -30,9 +30,9 @@ import org.carcv.impl.core.recognize.FileCarRecognizer;
  *
  */
 public class Main {
-    
+
     final private static String envHOME = System.getenv("HOME");
-    
+
     private static Path inDir = Paths.get(envHOME + "/dev/java/carcv_data/in");
     private static Path outDir = Paths.get(envHOME + "/dev/java/carcv_data/out");
 
@@ -44,64 +44,63 @@ public class Main {
 
     /**
      * @param args
-     * @throws IOException 
+     * @throws IOException
      */
     public static void main(String[] args) throws IOException {
         final String dashes = "-------------------------------------------------------------------------------";
-        
+
         System.out.println();
         System.out.println(dashes);
         System.out.println("\tRunning CarCV Core demo command-line interface");
         System.out.println(dashes);
         System.out.println();
-        
-        for(int i = 0; i < args.length; i++) {
+
+        for (int i = 0; i < args.length; i++) {
             if (args[i].startsWith("--out=")) {
                 String out = args[i].split("--out=")[0];
-                
+
                 System.out.println("Parsed output directory:\t" + out);
-                
+
                 outDir = Paths.get(out);
             }
             if (args[i].startsWith("--in=")) {
                 String in = args[i].split("--in=")[0];
-                
+
                 System.out.println("Parsed input directory:\t" + in);
-                
+
                 inDir = Paths.get(in);
             }
         }
-        
+
         System.out.println("Assuming input directory is at:\t\t" + inDir.toString());
         System.out.println("Assuming output directory is at:\t" + outDir.toString());
-        
+
         System.out.print("\nCreating demo info.properties... ");
         Properties props = createDemoProperties();
         DirectoryStream<Path> batchDirs = Files.newDirectoryStream(inDir);
-        for(Path p : batchDirs) {
+        for (Path p : batchDirs) {
             Path infoFile = Paths.get(p.toString(), "info.properties");
-            
+
             props.store(new FileOutputStream(infoFile.toFile()), "Demo info.properties");
         }
         System.out.println("done.");
-        
-        
+
         Main m = new Main();
         m.run();
     }
-    
+
     private void run() throws IOException {
         System.out.println("\nCreating FileCarRecognizer instance");
         recognizer = new FileCarRecognizer(inDir, outDir);
-        
+
         System.out.print("\nRecognizing... ");
         recognizer.recognize();
         System.out.println("done.");
-        
+
         System.out.println("\nFor results see the output directory:\t" + outDir.toString());
         System.out.println();
     }
-    
+
     private static Properties createDemoProperties() {
         Properties properties = new Properties();
 
@@ -114,7 +113,7 @@ public class Main {
         properties.setProperty("address-streetNo", "32");
         properties.setProperty("address-refNo", "1010");
         properties.setProperty("timestamp", String.valueOf(new Date(System.currentTimeMillis()).getTime()));
-        
+
         return properties;
     }
 

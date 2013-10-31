@@ -34,11 +34,11 @@ import org.junit.Test;
  *
  */
 public class SpeedDetectorImplTest {
-    
+
     private SpeedDetectorImpl detector;
     private ArrayList<FileCarImage> images;
     private Path tmpDir;
-    
+
     /**
      * @throws java.lang.Exception
      */
@@ -59,22 +59,22 @@ public class SpeedDetectorImplTest {
     @Before
     public void setUp() throws Exception {
         detector = new SpeedDetectorImpl();
-        
+
         images = new ArrayList<>();
-        
+
         tmpDir = Files.createTempDirectory("SpeedDetectorImplTestDir");
 
         for (int j = 0; j < 10; j++) {
-            /* // Would be useful if the SpeedDetector actually looked at the image file 
-            Path p = Paths.get(tmpDir.toString(), "testImage-" + j + ".carcv.jpg");
-            
-            Files.copy(getClass().getResourceAsStream("/img/test_041.jpg"), p);
-            assertTrue(Files.exists(p) && Files.isRegularFile(p));
-            
-            FileCarImage f = new FileCarImage(p);
-            images.add(f);
-            */
-            
+            /*
+             * // Would be useful if the SpeedDetector actually looked at the image file Path p = Paths.get(tmpDir.toString(),
+             * "testImage-" + j + ".carcv.jpg");
+             *
+             * Files.copy(getClass().getResourceAsStream("/img/test_041.jpg"), p); assertTrue(Files.exists(p) &&
+             * Files.isRegularFile(p));
+             *
+             * FileCarImage f = new FileCarImage(p); images.add(f);
+             */
+
             FileCarImage f = new FileCarImage(Files.createTempFile(tmpDir, "testImage-", ".carc.jpg"));
             images.add(f);
         }
@@ -104,12 +104,12 @@ public class SpeedDetectorImplTest {
     public void testDetectSpeed() {
         Double res = detector.detectSpeed(images);
         assertNotEquals(0d, res);
-        
-        Double expected = ((double) images.size()/FFMPEG_VideoHandler.defaultFrameRate)*3.6*10;
-        
+
+        Double expected = ((double) images.size() / FFMPEG_VideoHandler.defaultFrameRate) * 3.6 * 10;
+
         assertEquals(expected, res);
         assertEquals(Double.valueOf(12), res); // TODO 3 This constant should probably be removed from testDetectSpeed()
-        
+
         assertEquals(res, detector.detectSpeed(images));
     }
 

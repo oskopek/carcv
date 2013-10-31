@@ -49,7 +49,7 @@ public class FileCarRecognizer extends CarRecognizer {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see org.carcv.core.recognize.CarRecognizer#recognize()
      */
     @Override
@@ -62,7 +62,7 @@ public class FileCarRecognizer extends CarRecognizer {
         final ArrayList<FileEntry> result = new ArrayList<>();
 
         ArrayList<FileEntry> directory;
-        
+
         for (FileEntry entry : batch) {
             directory = new ArrayList<>();
             directory.add(entry);
@@ -80,10 +80,10 @@ public class FileCarRecognizer extends CarRecognizer {
 
     private void detectSpeeds(ArrayList<FileEntry> batch) {
         SpeedDetectorImpl sd = new SpeedDetectorImpl();
-        
+
         for (FileEntry entry : batch) {
             Double d = sd.detectSpeed(entry.getCarImages());
-            
+
             entry.getCarData().setSpeed(new Speed(d));
         }
     }
@@ -121,7 +121,7 @@ public class FileCarRecognizer extends CarRecognizer {
                 e.printStackTrace();
             }
         }
-        
+
         batch.clear();
         batch.addAll(res); // puts the new entries back to original ArrayList
     }

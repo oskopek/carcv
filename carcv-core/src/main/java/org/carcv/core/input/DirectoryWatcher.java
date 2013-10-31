@@ -84,9 +84,13 @@ public class DirectoryWatcher {
     /**
      * Deletes given path (directory) and everything under it recursively.
      *
-     * <p>Similar to <code>rm -rf path</code></p>
+     * <p>
+     * Similar to <code>rm -rf path</code>
+     * </p>
      *
-     * <p><strong>USE WITH CAUTION!</strong></p>
+     * <p>
+     * <strong>USE WITH CAUTION!</strong>
+     * </p>
      *
      * @param path the path to delete
      * @throws IOException
@@ -123,12 +127,13 @@ public class DirectoryWatcher {
 
     /**
      * Check if directory is empty
+     *
      * @param dir a Path that isDirectory()
      * @return true if directory contains no files/directories
      * @throws IOException
      */
     public static boolean isDirEmpty(Path dir) throws IOException {
-        if(!Files.isDirectory(dir)) {
+        if (!Files.isDirectory(dir)) {
             throw new IllegalArgumentException("Path " + dir + " is not a directory");
         }
 
