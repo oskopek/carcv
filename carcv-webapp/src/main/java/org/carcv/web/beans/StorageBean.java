@@ -21,16 +21,23 @@ import java.io.OutputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.List;
 
+import javax.ejb.EJB;
 import javax.ejb.Stateless;
+
+import org.carcv.core.model.file.FileEntry;
 
 /**
  *
  */
 @Stateless
 public class StorageBean {
+    
+    @EJB
+    private EntryBean entryBean;
 
-    private String prefix = System.getenv("$OPENSHIFT_DATA_DIR");
+    private final String prefix = System.getenv("$OPENSHIFT_DATA_DIR");
     
     private final Path inDir = Paths.get(prefix, "carcv_data/in");
     
@@ -61,10 +68,16 @@ public class StorageBean {
         return Files.createDirectory(Paths.get(inDir.toString(), "batch-" + System.currentTimeMillis()));
     }
     
-    public void storeToDirectory(InputStream is, String fileName, Path dir) throws IOException {
+    public void storeImageToDirectory(InputStream is, String fileName, Path dir) throws IOException {
         Path file = Files.createFile(Paths.get(dir.toString(), fileName));
         
         saveToFile(is, Files.newOutputStream(file));
+    }
+    
+
+    
+    public void storeBatchToDatabase(List<FileEntry> list) {
+        entryBean.create((FileEntry[]) list.toArray());
     }
     
     private void saveToFile(InputStream from, OutputStream outputStream) {

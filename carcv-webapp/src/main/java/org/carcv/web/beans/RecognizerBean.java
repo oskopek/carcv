@@ -18,10 +18,12 @@ package org.carcv.web.beans;
 
 import java.io.IOException;
 import java.nio.file.Path;
+import java.util.List;
 
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 
+import org.carcv.core.model.file.FileEntry;
 import org.carcv.impl.core.recognize.FileCarRecognizer;
 
 /**
@@ -39,7 +41,8 @@ public class RecognizerBean {
     private FileCarRecognizer recognizer = new FileCarRecognizer(inDir, outDir);
 
     public void recognize() throws IOException {
-        recognizer.recognize();
+        List<FileEntry> list = recognizer.listRecognize();
+        storageBean.storeBatchToDatabase(list);
     }
 
 }

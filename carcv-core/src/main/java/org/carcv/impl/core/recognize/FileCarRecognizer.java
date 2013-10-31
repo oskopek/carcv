@@ -19,6 +19,7 @@ package org.carcv.impl.core.recognize;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.util.ArrayList;
+import java.util.List;
 
 import org.carcv.core.input.DirectoryWatcher;
 import org.carcv.core.model.NumberPlate;
@@ -54,6 +55,10 @@ public class FileCarRecognizer extends CarRecognizer {
      */
     @Override
     public void recognize() throws IOException {
+        listRecognize();
+    }
+    
+    public List<FileEntry> listRecognize() throws IOException {
         watcher.discover();
 
         // this is a batch that contains an entry for every directory -> need to separate it into individual cars
@@ -76,6 +81,8 @@ public class FileCarRecognizer extends CarRecognizer {
         }
 
         saver.save(result);
+        
+        return result;
     }
 
     private void detectSpeeds(ArrayList<FileEntry> batch) {

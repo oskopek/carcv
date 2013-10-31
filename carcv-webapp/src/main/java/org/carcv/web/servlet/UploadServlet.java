@@ -74,7 +74,7 @@ public class UploadServlet extends HttpServlet { //TODO 1 Test UploadServlet
                 String fileName = FilenameUtils.getName(item.getName());
                 InputStream fileContent = item.getInputStream();
                 
-                storageBean.storeToDirectory(fileContent, fileName, batchDir);
+                storageBean.storeImageToDirectory(fileContent, fileName, batchDir);
             }
         }
 
