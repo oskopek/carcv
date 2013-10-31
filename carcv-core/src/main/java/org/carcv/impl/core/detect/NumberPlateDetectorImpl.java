@@ -34,10 +34,28 @@ import org.carcv.core.model.AbstractCarImage;
 import org.xml.sax.SAXException;
 
 /**
- * Image must be loaded!
+ * A Singleton implementation of <code>NumberPlateDetector</code> based on
+ * <a href="https://github.com/oskopek/javaanpr.git">JavaANPR</a>.
+ * 
+ * <p>Make sure all images are loaded in advance!
  *
  */
-public class NumberPlateDetectorImpl implements NumberPlateDetector {
+public class NumberPlateDetectorImpl extends NumberPlateDetector {
+    
+    private static NumberPlateDetectorImpl detector = new NumberPlateDetectorImpl();
+    
+    private NumberPlateDetectorImpl() {
+        
+    }
+    
+    /**
+     * Returns a reference to the static singleton instantiation of NumberPlateDetectorImpl
+     * 
+     * @return reference to static NumberPlateDetectorImpl instance
+     */
+    public static NumberPlateDetectorImpl getInstance() {
+        return detector;
+    }
 
     @Override
     public String detect(final List<? extends AbstractCarImage> images) {

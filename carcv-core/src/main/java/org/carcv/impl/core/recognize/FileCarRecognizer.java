@@ -86,7 +86,7 @@ public class FileCarRecognizer extends CarRecognizer {
     }
 
     private void detectSpeeds(ArrayList<FileEntry> batch) {
-        SpeedDetectorImpl sd = new SpeedDetectorImpl();
+        SpeedDetectorImpl sd = SpeedDetectorImpl.getInstance();
 
         for (FileEntry entry : batch) {
             Double d = sd.detectSpeed(entry.getCarImages());
@@ -96,7 +96,7 @@ public class FileCarRecognizer extends CarRecognizer {
     }
 
     private void detectNumberPlates(ArrayList<FileEntry> batch) {
-        NumberPlateDetectorImpl npd = new NumberPlateDetectorImpl();
+        NumberPlateDetectorImpl npd = NumberPlateDetectorImpl.getInstance();
 
         for (FileEntry entry : batch) {
             for (FileCarImage image : entry.getCarImages()) {

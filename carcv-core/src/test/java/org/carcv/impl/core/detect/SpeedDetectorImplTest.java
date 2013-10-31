@@ -58,7 +58,7 @@ public class SpeedDetectorImplTest {
      */
     @Before
     public void setUp() throws Exception {
-        detector = new SpeedDetectorImpl();
+        detector = SpeedDetectorImpl.getInstance();
 
         images = new ArrayList<>();
 

@@ -59,7 +59,7 @@ public class NumberPlateDetectorImplTest {
         image.loadImage();
         assertNotNull(image.getImage());
 
-        detector = new NumberPlateDetectorImpl();
+        detector = NumberPlateDetectorImpl.getInstance();
         assertNotNull(detector);
     }
 

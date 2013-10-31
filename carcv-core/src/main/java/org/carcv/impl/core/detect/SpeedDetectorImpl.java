@@ -23,32 +23,33 @@ import org.carcv.core.model.AbstractCarImage;
 import org.carcv.impl.core.input.FFMPEG_VideoHandler;
 
 /**
- *
+ * A Singleton implementation of a SpeedDetector based on a simple, non-precise equation:
+ * 
+ * <p><code>speed = (numberOfImagesInList / {@link FFMPEG_VideoHandler#defaultFrameRate defaultFrameRate})
+ * * 10 (meters; default value) * 3.6 (conversion rate from ms to kph)</code>
  */
-public class SpeedDetectorImpl implements SpeedDetector { // TODO 2 Add the complex speed calculation method
+public class SpeedDetectorImpl extends SpeedDetector { // TODO 2 Add the complex speed calculation method
+    
+    private static SpeedDetectorImpl detector = new SpeedDetectorImpl();
 
-    /**
-     *
-     */
-    public SpeedDetectorImpl() {
+    private SpeedDetectorImpl() {
 
     }
-
-    /*
-     * (non-Javadoc)
-     *
-     * @see org.carcv.core.detect.Detector#detect(org.carcv.core.input.CarImage)
+    
+    /**
+     * Returns a reference to the static singleton instantiation of SpeedDetectorImpl
+     * 
+     * @return reference to static SpeedDetectorImpl instance
      */
+    public static SpeedDetectorImpl getInstance() {
+        return detector;
+    }
+
     @Override
     public String detect(final List<? extends AbstractCarImage> images) {
         return detectSpeed(images).toString();
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see org.carcv.core.detect.SpeedDetector#detectSpeed(org.carcv.core.input.CarImage)
-     */
     @Override
     public Double detectSpeed(final List<? extends AbstractCarImage> images) {
         // speed = (numOfImages/frameRate) * 3.6 (conversion rate from ms^-1 to kph) * 10 (meters, in which car is in speed box)

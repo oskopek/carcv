@@ -24,13 +24,16 @@ import org.carcv.core.model.file.FileEntry;
 
 /**
  * Provides methods for arranging a sequence of images (video frames) into groups
- * of individual real cars depicted in them. *
+ * of individual real cars depicted in them.
+ * 
  */
 public abstract class CarSorter {
 
     /**
-     * Turn the FileEntry directly loaded from input directory (containing all images from a given video)
+     * Turns the FileEntry directly loaded from input directory (containing all images from a given video)
      * into several FileEntry-s, corresponding to the individual real cars on the video. 
+     * 
+     * <p>Be careful to clone the CarData when assigning it from <code>batchEntry</code> to all new FileEntries.
      *
      * @param batchEntry <code>FileEntry</code> containing all images from the new batch
      * 
@@ -56,11 +59,11 @@ public abstract class CarSorter {
     public abstract boolean carsEquals(FileCarImage one, String twoPlate);
 
     /**
-     * Compare the two images, return true if the two images are of the equal car.
+     * Compares two images, returns true if the two images are of the same car.
      * 
      * @param onePlate Text of the number plate of the first Car to compare
      * @param twoPlate Text of the number plate of the second Car to compare
-     * @return
+     * @return true if the two images are of the same car
      */
     public abstract boolean carsEquals(String onePlate, String twoPlate);
 }
