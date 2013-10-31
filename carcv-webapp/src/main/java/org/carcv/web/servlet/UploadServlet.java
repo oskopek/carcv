@@ -33,14 +33,13 @@ import org.apache.commons.fileupload.FileUploadException;
 import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
 import org.apache.commons.io.FilenameUtils;
-import org.carcv.web.beans.RecognizerBean;
 import org.carcv.web.beans.StorageBean;
 
 /**
  *
  */
 @WebServlet("/servlet/UploadServlet")
-public class UploadServlet extends HttpServlet {
+public class UploadServlet extends HttpServlet { //TODO 1 Test UploadServlet
 
     /**
      *
@@ -50,8 +49,8 @@ public class UploadServlet extends HttpServlet {
     @EJB
     private StorageBean storageBean;
 
-    @EJB
-    private RecognizerBean recognizerBean;
+    // @EJB
+    // private RecognizerBean recognizerBean;
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException,
         IOException, FileUploadException {
@@ -64,14 +63,14 @@ public class UploadServlet extends HttpServlet {
             if (item.isFormField()) {
                 // Process regular form field (input type="text|radio|checkbox|etc", select, etc).
                 
-                //String fieldName = item.getFieldName();
-                //String fieldValue = item.getString();
+                // String fieldName = item.getFieldName();
+                // String fieldValue = item.getString();
 
                 continue;
                 
             } else {
                 // Process form file field (input type="file").
-                //String fieldName = item.getFieldName();
+                // String fieldName = item.getFieldName();
                 String fileName = FilenameUtils.getName(item.getName());
                 InputStream fileContent = item.getInputStream();
                 
@@ -79,8 +78,8 @@ public class UploadServlet extends HttpServlet {
             }
         }
 
-        recognizerBean.recognize(); // should we? probably yes
-        response.sendRedirect(request.getHeader("referer")); // redirect back where you came from
+        // recognizerBean.recognize(); // TODO 2 should we? probably yes
+        response.sendRedirect("/app/upload_complete.jsp"); // redirect to completed
 
     }
 
