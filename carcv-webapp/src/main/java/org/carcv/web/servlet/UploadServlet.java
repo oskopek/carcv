@@ -19,7 +19,6 @@ import java.io.IOException;
 
 import javax.ejb.EJB;
 import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -29,21 +28,22 @@ import org.carcv.web.beans.RecognizerBean;
 /**
  *
  */
-@WebServlet("/servlet/RefreshServlet")
-public class RefreshServlet extends HttpServlet {
-
+public class UploadServlet extends HttpServlet {
+    
     /**
      * 
      */
-    private static final long serialVersionUID = 27981339847573356L;
+    private static final long serialVersionUID = 8953603165824574044L;
     
     @EJB
     private RecognizerBean recognizerBean;
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         response.sendRedirect("/app/working.jsp"); //TODO 2 Will this work?
-        recognizerBean.recognize();
-        //TODO 1 Finish
+        
+        //TODO 1 Upload all files from ?directory= 
+        
+        recognizerBean.recognize(); //should we? probably yes
         response.sendRedirect(request.getHeader("referer")); //redirect back where you came from
         
     }
