@@ -13,9 +13,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package org.carcv.web.servlet;
 
 import java.io.IOException;
+import java.io.InputStream;
+import java.nio.file.Path;
+import java.util.List;
 
 import javax.ejb.EJB;
 import javax.servlet.ServletException;
@@ -24,7 +28,13 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.commons.fileupload.FileItem;
+import org.apache.commons.fileupload.FileUploadException;
+import org.apache.commons.fileupload.disk.DiskFileItemFactory;
+import org.apache.commons.fileupload.servlet.ServletFileUpload;
+import org.apache.commons.io.FilenameUtils;
 import org.carcv.web.beans.RecognizerBean;
+import org.carcv.web.beans.StorageBean;
 
 /**
  *
@@ -36,15 +46,38 @@ public class UploadServlet extends HttpServlet {
      *
      */
     private static final long serialVersionUID = 8953603165824574044L;
+    
+    @EJB
+    private StorageBean storageBean;
 
     @EJB
     private RecognizerBean recognizerBean;
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException,
-        IOException {
-        response.sendRedirect("/app/working.jsp"); // TODO 2 Will this work?
+        IOException, FileUploadException {
+        //response.sendRedirect("/app/working.jsp"); // TODO 3 Do Something similar to this
+        
+        Path batchDir = storageBean.createBatchDirectory();
+        
+        List<FileItem> items = new ServletFileUpload(new DiskFileItemFactory()).parseRequest(request);
+        for (FileItem item : items) {
+            if (item.isFormField()) {
+                // Process regular form field (input type="text|radio|checkbox|etc", select, etc).
+                
+                //String fieldName = item.getFieldName();
+                //String fieldValue = item.getString();
 
-        // TODO 1 Upload all files from ?directory=
+                continue;
+                
+            } else {
+                // Process form file field (input type="file").
+                //String fieldName = item.getFieldName();
+                String fileName = FilenameUtils.getName(item.getName());
+                InputStream fileContent = item.getInputStream();
+                
+                storageBean.storeToDirectory(fileContent, fileName, batchDir);
+            }
+        }
 
         recognizerBean.recognize(); // should we? probably yes
         response.sendRedirect(request.getHeader("referer")); // redirect back where you came from
@@ -55,13 +88,23 @@ public class UploadServlet extends HttpServlet {
      * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
      */
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        processRequest(request, response);
+        try {
+            processRequest(request, response);
+        } catch (FileUploadException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
     }
 
     /**
      * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
      */
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        processRequest(request, response);
+        try {
+            processRequest(request, response);
+        } catch (FileUploadException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
     }
 }

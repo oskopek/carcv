@@ -18,8 +18,8 @@ package org.carcv.web.beans;
 
 import java.io.IOException;
 import java.nio.file.Path;
-import java.nio.file.Paths;
 
+import javax.ejb.EJB;
 import javax.ejb.Stateless;
 
 import org.carcv.impl.core.recognize.FileCarRecognizer;
@@ -29,10 +29,12 @@ import org.carcv.impl.core.recognize.FileCarRecognizer;
  */
 @Stateless
 public class RecognizerBean {
+    
+    @EJB
+    private StorageBean storageBean;
 
-    // TODO 3 Somehow load these paths from a configuration or something else
-    final private static Path inDir = Paths.get("/home/oskopek/dev/java/carcv_data/in");
-    final private static Path outDir = Paths.get("/home/oskopek/dev/java/carcv_data/out");
+    final private Path inDir = storageBean.getInputDirectory();
+    final private Path outDir = storageBean.getOutputDirectory();
 
     private FileCarRecognizer recognizer = new FileCarRecognizer(inDir, outDir);
 
