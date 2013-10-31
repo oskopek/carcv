@@ -15,9 +15,14 @@
  */
 package org.carcv.impl.core.run;
 
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.nio.file.DirectoryStream;
+import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.Date;
+import java.util.Properties;
 
 import org.carcv.impl.core.recognize.FileCarRecognizer;
 
@@ -40,6 +45,14 @@ public class Main {
      * @throws IOException 
      */
     public static void main(String[] args) throws IOException {
+        final String dashes = "-------------------------------------------------------------------------------";
+        
+        System.out.println();
+        System.out.println(dashes);
+        System.out.println("\tRunning CarCV Core demo command-line interface");
+        System.out.println(dashes);
+        System.out.println();
+        
         for(int i = 0; i < args.length; i++) {
             if (args[i].startsWith("--out=")) {
                 String out = args[i].split("--out=")[0];
@@ -56,19 +69,51 @@ public class Main {
                 inDir = Paths.get(in);
             }
         }
+        
+        System.out.println("Assuming input directory is at:\t\t" + inDir.toString());
+        System.out.println("Assuming output directory is at:\t" + outDir.toString());
+        
+        System.out.print("\nCreating demo info.properties... ");
+        Properties props = createDemoProperties();
+        DirectoryStream<Path> batchDirs = Files.newDirectoryStream(inDir);
+        for(Path p : batchDirs) {
+            Path infoFile = Paths.get(p.toString(), "info.properties");
+            
+            props.store(new FileOutputStream(infoFile.toFile()), "Demo info.properties");
+        }
+        System.out.println("done.");
+        
+        
         Main m = new Main();
         m.run();
     }
     
-    public void run() throws IOException {
-        System.out.println("Creating FileCarRecognizer instance");
+    private void run() throws IOException {
+        System.out.println("\nCreating FileCarRecognizer instance");
         recognizer = new FileCarRecognizer(inDir, outDir);
         
-        System.out.print("Recognizing... ");
+        System.out.print("\nRecognizing... ");
         recognizer.recognize();
+        System.out.println("done.");
         
-        System.out.println("Done.");
-        System.out.println("\nSee the results at: " + outDir.toString());
+        System.out.println("\nFor results see the output directory:\t" + outDir.toString());
+        System.out.println();
+    }
+    
+    private static Properties createDemoProperties() {
+        Properties properties = new Properties();
+
+        properties.setProperty("address-lat", Double.toString(48.5));
+        properties.setProperty("address-long", Double.toString(17.8));
+        properties.setProperty("address-city", "Bratislava");
+        properties.setProperty("address-postalCode", "93221");
+        properties.setProperty("address-street", "Hrušková");
+        properties.setProperty("address-country", "Slovakia");
+        properties.setProperty("address-streetNo", "32");
+        properties.setProperty("address-refNo", "1010");
+        properties.setProperty("timestamp", String.valueOf(new Date(System.currentTimeMillis()).getTime()));
+        
+        return properties;
     }
 
 }

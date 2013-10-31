@@ -71,6 +71,13 @@ public class FileCarRecognizer extends CarRecognizer {
 
             detectNumberPlates(directory);
             detectSpeeds(directory);
+            
+            for(FileEntry f : directory) {
+                System.out.println();
+                System.out.println(f.getCarImages().size());
+                System.out.println(f.getCarData().getSpeed().getSpeed());
+                System.out.println(f.getCarData().getNumberPlate().getText());
+            }
 
             result.addAll(directory);
         }
@@ -78,17 +85,17 @@ public class FileCarRecognizer extends CarRecognizer {
         saver.save(result);
     }
 
-    private void detectSpeeds(final ArrayList<FileEntry> batch) {
+    private void detectSpeeds(ArrayList<FileEntry> batch) {
         SpeedDetectorImpl sd = new SpeedDetectorImpl();
-
+        
         for (FileEntry entry : batch) {
             Double d = sd.detectSpeed(entry.getCarImages());
-
-            entry.getCarData().setSpeed(new Speed(d));
+            
+            entry.getCarData().setSpeed(new Speed(d)); //TODO 1 Speed is always 2.4 no matter what is the output of this
         }
     }
 
-    private void detectNumberPlates(final ArrayList<FileEntry> batch) {
+    private void detectNumberPlates(ArrayList<FileEntry> batch) {
         NumberPlateDetectorImpl npd = new NumberPlateDetectorImpl();
 
         for (FileEntry entry : batch) {

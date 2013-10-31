@@ -31,7 +31,7 @@ import org.apache.commons.lang.builder.HashCodeBuilder;
  * 
  */
 @Embeddable
-public class CarData extends AbstractEmbeddable implements Comparable<CarData> {
+public class CarData extends AbstractEmbeddable implements Comparable<CarData>, Cloneable {
 
     /**
 	 *
@@ -167,6 +167,15 @@ public class CarData extends AbstractEmbeddable implements Comparable<CarData> {
     public int compareTo(CarData o) {
         return new CompareToBuilder().append(speed, o.speed).append(address, o.address)
             .append(numberPlate, o.numberPlate).append(timestamp, o.timestamp).toComparison();
+    }
+    
+    @Override
+    public Object clone() {
+        Speed s = getSpeed() == null ? null : new Speed(getSpeed().getSpeed(), getSpeed().getUnit());
+        Address a = getAddress() == null ? null : new Address(address.getCity(), address.getPostalCode(), address.getStreet(), address.getCountry(), address.getStreetNumber(), address.getReferenceNumber());
+        NumberPlate np = getNumberPlate() == null ? null : new NumberPlate(getNumberPlate().getText(), getNumberPlate().getOrigin());
+        
+        return new CarData(s, a, np, (Date) getTimestamp().clone());
     }
 
 }

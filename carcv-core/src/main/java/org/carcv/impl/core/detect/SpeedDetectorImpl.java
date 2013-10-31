@@ -52,7 +52,7 @@ public class SpeedDetectorImpl implements SpeedDetector { //TODO 2 Add the compl
     @Override
     public Double detectSpeed(final List<? extends AbstractCarImage> images) {
         //speed = (numOfImages/frameRate) * 3.6 (conversion rate from ms^-1 to kph) * 10 (meters, in which car is in speed box)
-        return ((double) images.size()/FFMPEG_VideoHandler.defaultFrameRate) * 3.6d * 10;
+        return ((double) images.size()/ (double) FFMPEG_VideoHandler.defaultFrameRate) * 3.6d * 10d;
     }
 
 }

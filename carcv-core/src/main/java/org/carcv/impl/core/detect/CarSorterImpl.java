@@ -17,6 +17,7 @@
 package org.carcv.impl.core.detect;
 
 import org.carcv.core.detect.CarSorter;
+import org.carcv.core.model.CarData;
 import org.carcv.core.model.file.FileCarImage;
 import org.carcv.core.model.file.FileEntry;
 
@@ -49,7 +50,7 @@ public class CarSorterImpl extends CarSorter {
         images.get(0).loadImage(); //Load first image
         ArrayList<FileCarImage> temp = new ArrayList<>();
         temp.add(images.get(0));
-        list.add(new FileEntry(batchDir.getCarData(), temp)); //Add first FileEntry
+        list.add(new FileEntry((CarData) batchDir.getCarData().clone(), temp)); //Add first FileEntry
         
         for(int i = 1; i < images.size(); i++) {
             images.get(i).loadImage();
@@ -62,7 +63,7 @@ public class CarSorterImpl extends CarSorter {
             } else { // else create a new entry with the image
                 ArrayList<FileCarImage> temp2 = new ArrayList<>();
                 temp2.add(images.get(i));
-                list.add(new FileEntry(batchDir.getCarData(), temp2));
+                list.add(new FileEntry((CarData) batchDir.getCarData().clone(), temp2));
             }
             
             images.get(i-1).close();
@@ -101,15 +102,37 @@ public class CarSorterImpl extends CarSorter {
     }
     
     private boolean numberPlateProbabilityEquals(FileCarImage one, String twoPlate) {
+        try {
+            one.loadImage();
+        }  catch (IOException e) {
+            System.err.println("Failed to load image for CarSorterImpl!");
+            e.printStackTrace();
+        }
+        
         NumberPlateDetectorImpl npd = new NumberPlateDetectorImpl();
         ArrayList<FileCarImage> oneList = new ArrayList<>();
         oneList.add(one);
         String onePlate = npd.detectPlateText(oneList);
+        
+        one.close();
 
         return numberPlateProbabilityEquals(onePlate, twoPlate);
     }
 
     private boolean numberPlateProbabilityEquals(FileCarImage one, FileCarImage two) {
+        
+        try {
+            one.loadImage();
+            two.loadImage();
+        } catch (IOException e) {
+            System.err.println("Failed to load images for CarSorterImpl!");
+            e.printStackTrace();
+        }
+        
+        if(one.getImage() == null || two.getImage() == null) {
+            System.err.println("Images are null in CarSorterImpl!");
+        }
+        
         NumberPlateDetectorImpl npd = new NumberPlateDetectorImpl();
 
         ArrayList<FileCarImage> oneList = new ArrayList<>();
@@ -120,6 +143,9 @@ public class CarSorterImpl extends CarSorter {
 
         String onePlate = npd.detectPlateText(oneList);
         String twoPlate = npd.detectPlateText(twoList);
+        
+        one.close();
+        two.close();
 
         return numberPlateProbabilityEquals(onePlate, twoPlate);
     }
