@@ -20,9 +20,12 @@ import static org.junit.Assert.*;
 
 import java.io.IOException;
 import java.net.URISyntaxException;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Arrays;
 
+import org.carcv.core.input.DirectoryWatcher;
 import org.carcv.core.model.file.FileCarImage;
 import org.junit.After;
 import org.junit.Before;
@@ -40,8 +43,18 @@ public class NumberPlateDetectorImplTest {
 
     @Before
     public void setUp() throws IOException, URISyntaxException {
-        image = new FileCarImage(Paths.get(getClass().getResource("/img/skoda_oct.jpg").toURI()));
+        Path tmpDir = Files.createTempDirectory("NumberPlateDetectorImplTest");
+        assertTrue(Files.exists(tmpDir) && Files.isDirectory(tmpDir));
+
+        Path tmpImage = Paths.get(tmpDir.toString(), "testImage.jpg");
+        assertFalse(Files.exists(tmpImage) && Files.isRegularFile(tmpImage));
+
+        Files.copy(getClass().getResourceAsStream("/img/skoda_oct.jpg"), tmpImage);
+        assertTrue(Files.exists(tmpImage) && Files.isRegularFile(tmpImage));
+
+        image = new FileCarImage(tmpImage);
         assertNotNull(image);
+        assertNull(image.getImage());
 
         image.loadImage();
         assertNotNull(image.getImage());
@@ -51,8 +64,9 @@ public class NumberPlateDetectorImplTest {
     }
 
     @After
-    public void tearDown() {
+    public void tearDown() throws IOException {
         image.close();
+        DirectoryWatcher.deleteDirectory(image.getPath().getParent());
     }
 
     /**
