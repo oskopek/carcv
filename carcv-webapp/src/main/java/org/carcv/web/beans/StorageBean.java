@@ -37,7 +37,7 @@ public class StorageBean {
     @EJB
     private EntryBean entryBean;
 
-    private final String prefix = System.getenv("$OPENSHIFT_DATA_DIR"); //TODO 1 Returns null on openshift
+    private final String prefix = System.getenv("OPENSHIFT_DATA_DIR"); //TODO 1 Returns null on openshift
     
     private final Path inDir = Paths.get(prefix, "carcv_data/in");
     
