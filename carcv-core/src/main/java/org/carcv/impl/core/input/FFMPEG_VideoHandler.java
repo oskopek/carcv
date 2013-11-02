@@ -33,6 +33,8 @@ import org.carcv.core.model.file.FileEntry;
  *
  */
 public class FFMPEG_VideoHandler extends VideoHandler {// TODO 3 Test FFMPEG video handler
+    
+    //TODO 2 Revise implementation for new IO directory structure
 
     final public static int defaultFrameRate = 30;
 
