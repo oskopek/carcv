@@ -37,13 +37,13 @@ public class StorageBean {
     @EJB
     private EntryBean entryBean;
 
-    private final String prefix = System.getenv("OPENSHIFT_DATA_DIR"); //TODO 1 Returns null on openshift
+    private final String prefix = System.getenv("OPENSHIFT_DATA_DIR");
     
     private final Path inDir = Paths.get(prefix, "carcv_data/in");
     
     private final Path outDir = Paths.get("prefix", "carcv_data/out");
     
-    private void assertDirCreated(Path p) {
+    private void assertDirCreated(Path p) {        
         if(!Files.exists(p) || !Files.isDirectory(p)) {
             try {
                 Files.createDirectories(p);
@@ -65,10 +65,13 @@ public class StorageBean {
     }
     
     public Path createBatchDirectory() throws IOException {
+        assertDirCreated(inDir);
+        assertDirCreated(outDir);
         return Files.createDirectory(Paths.get(inDir.toString(), "batch-" + System.currentTimeMillis()));
     }
     
     public void storeImageToDirectory(InputStream is, String fileName, Path dir) throws IOException {
+        assertDirCreated(dir);
         Path file = Files.createFile(Paths.get(dir.toString(), fileName));
         
         saveToFile(is, Files.newOutputStream(file));
