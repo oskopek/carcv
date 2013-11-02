@@ -31,7 +31,7 @@ import org.carcv.impl.core.recognize.FileCarRecognizer;
  */
 @Stateless
 public class RecognizerBean {
-    
+
     @EJB
     private StorageBean storageBean;
 

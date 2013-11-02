@@ -39,38 +39,38 @@ import org.carcv.web.beans.StorageBean;
  *
  */
 @WebServlet("/servlet/UploadServlet")
-public class UploadServlet extends HttpServlet { //TODO 1 Test UploadServlet
+public class UploadServlet extends HttpServlet { // TODO 1 Test UploadServlet
 
     /**
      *
      */
     private static final long serialVersionUID = 8953603165824574044L;
-    
+
     @EJB
     private StorageBean storageBean;
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException,
         IOException, FileUploadException {
-        //response.sendRedirect("/app/working.jsp"); // TODO 3 Do Something similar to this
-        
+        // response.sendRedirect("/app/working.jsp"); // TODO 3 Do Something similar to this
+
         Path batchDir = storageBean.createBatchDirectory();
-        
+
         List<FileItem> items = new ServletFileUpload(new DiskFileItemFactory()).parseRequest(request);
         for (FileItem item : items) {
             if (item.isFormField()) {
                 // Process regular form field (input type="text|radio|checkbox|etc", select, etc).
-                
+
                 // String fieldName = item.getFieldName();
                 // String fieldValue = item.getString();
 
                 continue;
-                
+
             } else {
                 // Process form file field (input type="file").
                 // String fieldName = item.getFieldName();
                 String fileName = FilenameUtils.getName(item.getName());
                 InputStream fileContent = item.getInputStream();
-                
+
                 storageBean.storeImageToDirectory(fileContent, fileName, batchDir);
             }
         }

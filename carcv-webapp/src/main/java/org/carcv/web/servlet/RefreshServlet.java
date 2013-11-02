@@ -30,7 +30,7 @@ import org.carcv.web.beans.RecognizerBean;
  *
  */
 @WebServlet("/servlet/RefreshServlet")
-public class RefreshServlet extends HttpServlet { //TODO 1 Test RefreshServlet
+public class RefreshServlet extends HttpServlet { // TODO 1 Test RefreshServlet
 
     /**
      *
@@ -42,8 +42,8 @@ public class RefreshServlet extends HttpServlet { //TODO 1 Test RefreshServlet
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException,
         IOException {
-        //response.sendRedirect("/app/working.jsp"); // TODO 3 Will this work? No, do something similar
-        
+        // response.sendRedirect("/app/working.jsp"); // TODO 3 Will this work? No, do something similar
+
         recognizerBean.recognize();
         response.sendRedirect(request.getHeader("referer")); // redirect back where you came from
 

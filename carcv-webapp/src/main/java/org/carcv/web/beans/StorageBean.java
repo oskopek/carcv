@@ -13,6 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package org.carcv.web.beans;
 
 import java.io.IOException;
@@ -33,18 +34,18 @@ import org.carcv.core.model.file.FileEntry;
  */
 @Stateless
 public class StorageBean {
-    
+
     @EJB
     private EntryBean entryBean;
 
     private final String prefix = System.getenv("OPENSHIFT_DATA_DIR");
-    
+
     private final Path inDir = Paths.get(prefix, "carcv_data/in");
-    
+
     private final Path outDir = Paths.get("prefix", "carcv_data/out");
-    
-    private void assertDirCreated(Path p) {        
-        if(!Files.exists(p) || !Files.isDirectory(p)) {
+
+    private void assertDirCreated(Path p) {
+        if (!Files.exists(p) || !Files.isDirectory(p)) {
             try {
                 Files.createDirectories(p);
             } catch (IOException e) {
@@ -53,46 +54,44 @@ public class StorageBean {
             }
         }
     }
-    
+
     public Path getInputDirectory() {
         assertDirCreated(inDir);
         return inDir;
     }
-    
+
     public Path getOutputDirectory() {
         assertDirCreated(outDir);
         return outDir;
     }
-    
+
     public Path createBatchDirectory() throws IOException {
         assertDirCreated(inDir);
         assertDirCreated(outDir);
         return Files.createDirectory(Paths.get(inDir.toString(), "batch-" + System.currentTimeMillis()));
     }
-    
+
     public void storeImageToDirectory(InputStream is, String fileName, Path dir) throws IOException {
         assertDirCreated(dir);
         Path file = Files.createFile(Paths.get(dir.toString(), fileName));
-        
+
         saveToFile(is, Files.newOutputStream(file));
     }
-    
 
-    
     public void storeBatchToDatabase(List<FileEntry> list) {
         entryBean.create((FileEntry[]) list.toArray());
     }
-    
+
     private void saveToFile(InputStream from, OutputStream outputStream) {
         try {
-     
+
             int read = 0;
             byte[] bytes = new byte[1024];
-     
+
             while ((read = from.read(bytes)) != -1) {
                 outputStream.write(bytes, 0, read);
             }
-     
+
         } catch (IOException e) {
             e.printStackTrace();
         } finally {
@@ -110,13 +109,8 @@ public class StorageBean {
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
-     
+
             }
         }
     }
-    
-    
-    
-    
-
 }
