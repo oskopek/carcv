@@ -78,7 +78,7 @@ public class AddEntryServlet extends HttpServlet {
 
         CarData carData = new CarData(speed, address, licencePlate, timestamp);
 
-        FileEntry testEntry = new FileEntry(carData, Arrays.asList(new FileCarImage(Paths.get("/tmp/test/video.h264"))));
+        FileEntry testEntry = new FileEntry(carData, Arrays.asList(new FileCarImage(Paths.get("/tmp/test/image.jpg"))));
 
         // End entity code
         out.println(testEntry.toString());

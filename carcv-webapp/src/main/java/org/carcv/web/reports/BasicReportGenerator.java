@@ -18,6 +18,8 @@ package org.carcv.web.reports;
 
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -67,7 +69,16 @@ public class BasicReportGenerator {
         String dataLocation = add.print();
 
         // parameters.put("id", Long.toString(data.getId()));
-        parameters.put("previewURL", e.getCarImages().get(0).getPath().toString());
+        
+        Path imagePath = e.getCarImages().get(0).getPath();
+        
+        if(Files.exists(imagePath) && Files.isRegularFile(imagePath)) {
+            parameters.put("previewURL", imagePath.toString());
+        } else {
+            parameters.put("previewURL", "/reports/OpenCV_Logo_with_text.png");
+        }
+        
+
         parameters.put("date", dateFormat.format(data.getTimestamp()));
         parameters.put("location", dataLocation);
         parameters.put("LPNumber", data.getNumberPlate().getText());
