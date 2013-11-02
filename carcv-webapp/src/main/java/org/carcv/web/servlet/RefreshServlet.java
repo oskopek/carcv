@@ -30,7 +30,7 @@ import org.carcv.web.beans.RecognizerBean;
  *
  */
 @WebServlet("/servlet/RefreshServlet")
-public class RefreshServlet extends HttpServlet { // TODO 1 Test RefreshServlet
+public class RefreshServlet extends HttpServlet { // TODO 1 Test RefreshServlet - crashes because of RecognizerBean bug
     
     /**
      * 
