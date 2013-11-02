@@ -98,7 +98,7 @@ public class CarTableServlet extends HttpServlet {
             time = timeFormat.format(e.getCarData().getTimestamp());
             licencePlate = e.getCarData().getNumberPlate().getOrigin() + ": "
                 + e.getCarData().getNumberPlate().getText();
-            location = e.getCarData().getAddress().print();
+            location = e.getCarData().getAddress().printBR();
 
             FileCarImage fci = e.getCarImages().get(0);
             previewURL = fci.getPath().toString();

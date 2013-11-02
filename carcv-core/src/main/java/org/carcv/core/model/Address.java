@@ -25,7 +25,7 @@ import org.apache.commons.lang.builder.HashCodeBuilder;
 
 /**
  * A basic getter/setter POJO implementation of Address, JPA annotated
- *
+ * 
  */
 @Embeddable
 public class Address extends AbstractEmbeddable implements Comparable<Address> {
@@ -217,7 +217,7 @@ public class Address extends AbstractEmbeddable implements Comparable<Address> {
 
     /*
      * (non-Javadoc)
-     *
+     * 
      * @see java.lang.Object#hashCode()
      */
     @Override
@@ -229,7 +229,7 @@ public class Address extends AbstractEmbeddable implements Comparable<Address> {
 
     /*
      * (non-Javadoc)
-     *
+     * 
      * @see java.lang.Object#equals(java.lang.Object)
      */
     @Override
@@ -253,13 +253,29 @@ public class Address extends AbstractEmbeddable implements Comparable<Address> {
     }
 
     /**
-     * Prints address in post-format
-     *
+     * Prints address in post-format, lines ending with '\n'
+     * 
      * @return
      */
     public String print() {
-        return getStreet() + " " + getStreetNumber() + "/" + getReferenceNumber() + "\n" + getPostalCode() + " "
-            + getCity() + "\n" + getCountry();
+        return printDelimeter("\n");
+    }
+
+    /**
+     * Prints the string with the '<code>&lt;br&gt;</code>' tag instead of '\n'
+     * <p>
+     * To be used in HTML pages.
+     * 
+     * @return a string representation of the Address separated by '<code>&lt;br&gt;</code>'
+     * @see #print()
+     */
+    public String printBR() {
+        return printDelimeter("<br>");
+    }
+
+    private String printDelimeter(String delimeter) {
+        return getStreet() + " " + getStreetNumber() + "/" + getReferenceNumber() + delimeter + getPostalCode() + " "
+            + getCity() + delimeter + getCountry();
     }
 
     @Override
