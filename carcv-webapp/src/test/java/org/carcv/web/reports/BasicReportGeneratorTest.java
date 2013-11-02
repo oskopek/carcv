@@ -19,8 +19,11 @@ package org.carcv.web.reports;
 import static org.junit.Assert.*;
 
 import java.io.File;
+import java.io.IOException;
 import java.net.URL;
-import java.nio.file.Paths;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.StandardCopyOption;
 import java.util.Arrays;
 import java.util.Date;
 
@@ -34,7 +37,8 @@ import org.carcv.core.model.SpeedUnit;
 import org.carcv.core.model.file.FileCarImage;
 import org.carcv.core.model.file.FileEntry;
 import org.carcv.web.reports.BasicReportGenerator;
-import org.junit.BeforeClass;
+import org.junit.After;
+import org.junit.Before;
 import org.junit.Test;
 
 /**
@@ -47,8 +51,8 @@ public class BasicReportGeneratorTest {
     /**
      * @throws java.lang.Exception
      */
-    @BeforeClass
-    public static void setUpBeforeClass() throws Exception {
+    @Before
+    public void setUp() throws Exception {
         Speed speed = new Speed(80d, SpeedUnit.KPH);
 
         Address location = new Address("Myjava", "90701", "Jablonská", "Slovakia", 27, 860);
@@ -58,13 +62,26 @@ public class BasicReportGeneratorTest {
         Date timestamp = new Date(System.currentTimeMillis());
 
         CarData carData = new CarData(speed, location, licencePlate, timestamp);
+        
+        String imageResource = "/reports/OpenCV_Logo_with_text.png";
+        
+        Path imagePath =  Files.createTempFile("testImage-", ".png");
+        Files.copy(getClass().getResourceAsStream(imageResource), imagePath, StandardCopyOption.REPLACE_EXISTING);
 
-        testEntry = new FileEntry(carData, Arrays.asList(new FileCarImage(Paths.get("reports/OpenCV_Logo_with_text.png"))));
+        assertTrue(Files.exists(imagePath));
+        assertTrue(Files.isRegularFile(imagePath));
+
+        testEntry = new FileEntry(carData, Arrays.asList(new FileCarImage(imagePath)));
         testEntry.setId(0l);
 
         assertNotNull(testEntry.getCarImages().get(0).getPath());
         assertNotNull(testEntry.getId());
     }
+    
+    @After
+    public void tearDown() throws IOException {
+        Files.delete(testEntry.getCarImages().get(0).getPath());
+    } 
 
     /**
      * Test method for
@@ -86,6 +103,8 @@ public class BasicReportGeneratorTest {
         String filename = testDir.getPath() + "/test_results/report" + System.currentTimeMillis() + ".pdf";
 
         assertNotNull(testEntry.getCarImages().get(0).getPath());
+        assertTrue(Files.exists(testEntry.getCarImages().get(0).getPath()));
+        assertTrue(Files.isRegularFile(testEntry.getCarImages().get(0).getPath()));
 
         BasicReportGenerator brg = new BasicReportGenerator(testEntry, "/reports/speed_report.jasper", "Myjava",
             "TestReport");
