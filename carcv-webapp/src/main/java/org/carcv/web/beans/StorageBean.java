@@ -40,9 +40,9 @@ public class StorageBean {
 
     private final String prefix = System.getenv("OPENSHIFT_DATA_DIR");
 
-    private final Path inDir = Paths.get(prefix, "carcv_data/in");
+    private final Path inDir = Paths.get(prefix, "carcv_data", "in");
 
-    private final Path outDir = Paths.get("prefix", "carcv_data/out");
+    private final Path outDir = Paths.get("prefix", "carcv_data", "out");
 
     private void assertDirCreated(Path p) {
         if (!Files.exists(p) || !Files.isDirectory(p)) {
