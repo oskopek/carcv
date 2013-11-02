@@ -31,11 +31,11 @@ import org.carcv.web.beans.RecognizerBean;
  */
 @WebServlet("/servlet/RefreshServlet")
 public class RefreshServlet extends HttpServlet { // TODO 1 Test RefreshServlet
-
+    
     /**
-     *
+     * 
      */
-    private static final long serialVersionUID = 27981339847573356L;
+    private static final long serialVersionUID = -235344099282905675L;
 
     @EJB
     private RecognizerBean recognizerBean;
@@ -44,7 +44,12 @@ public class RefreshServlet extends HttpServlet { // TODO 1 Test RefreshServlet
         IOException {
         // response.sendRedirect("/app/working.jsp"); // TODO 3 Will this work? No, do something similar
 
+        System.out.println("[RefreshServlet]\tStarting recognizing...");
+        
         recognizerBean.recognize();
+        
+        System.out.println("[RefreshServlet]\tDone recognizing! Redirecting...");
+        
         response.sendRedirect(request.getHeader("referer")); // redirect back where you came from
 
     }
@@ -52,6 +57,7 @@ public class RefreshServlet extends HttpServlet { // TODO 1 Test RefreshServlet
     /**
      * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
      */
+    @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         processRequest(request, response);
     }
@@ -59,6 +65,7 @@ public class RefreshServlet extends HttpServlet { // TODO 1 Test RefreshServlet
     /**
      * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
      */
+    @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         processRequest(request, response);
     }

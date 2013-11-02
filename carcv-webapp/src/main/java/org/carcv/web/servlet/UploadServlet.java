@@ -39,7 +39,7 @@ import org.carcv.web.beans.StorageBean;
  *
  */
 @WebServlet("/servlet/UploadServlet")
-public class UploadServlet extends HttpServlet { // TODO 1 Test UploadServlet
+public class UploadServlet extends HttpServlet {
 
     /**
      *
@@ -83,6 +83,7 @@ public class UploadServlet extends HttpServlet { // TODO 1 Test UploadServlet
     /**
      * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
      */
+    @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         try {
             processRequest(request, response);
@@ -95,6 +96,7 @@ public class UploadServlet extends HttpServlet { // TODO 1 Test UploadServlet
     /**
      * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
      */
+    @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         try {
             processRequest(request, response);
