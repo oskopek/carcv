@@ -48,7 +48,7 @@ public class BasicReportGenerator {
     JasperPrint filledReportPrint;
 
     public BasicReportGenerator(FileEntry e, String templateFilename, String reportBuilderLocation,
-        String reportName) throws JRException {
+        String reportName, String hostURL) throws JRException {
 
         Map<String, Object> values = new HashMap<String, Object>();
         Map<String, Object> parameters = new HashMap<String, Object>();
@@ -81,7 +81,7 @@ public class BasicReportGenerator {
         parameters.put("date", dateFormat.format(data.getTimestamp()));
         parameters.put("location", dataLocation);
         parameters.put("LPNumber", data.getNumberPlate().getText());
-        parameters.put("videoURL", "/servlet/GenerateVideo?entry_id=" + e.getId().toString());
+        parameters.put("videoURL", hostURL + "/servlet/GenerateVideo?entry_id=" + e.getId().toString());
         parameters.put("time", timeFormat.format(data.getTimestamp()));
         parameters.put("speed", Double.toString(data.getSpeed().getSpeed()) + " "
             + data.getSpeed().getUnit().toString());

@@ -107,7 +107,7 @@ public class BasicReportGeneratorTest {
         assertTrue(Files.isRegularFile(testEntry.getCarImages().get(0).getPath()));
 
         BasicReportGenerator brg = new BasicReportGenerator(testEntry, "/reports/speed_report.jasper", "Myjava",
-            "TestReport");
+            "TestReport", "https://carcv-oskopek.rhcloud.com");
 
         brg.exportFile(filename);
     }
