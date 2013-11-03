@@ -62,7 +62,7 @@ public class GenerateReport extends HttpServlet {
         FileEntry fileEntry = entryBean.findById(entryId);
         
         //host URL
-        String hostURL = request.getProtocol().split("/")[0] + request.getServerName();
+        String hostURL = request.getScheme() + "://" +  request.getServerName();
 
         BasicReportGenerator brg = new BasicReportGenerator(fileEntry, "/reports/speed_report.jasper", "Myjava",
             "TestReport", hostURL);
