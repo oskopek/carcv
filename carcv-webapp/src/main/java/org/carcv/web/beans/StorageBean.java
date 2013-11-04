@@ -37,8 +37,10 @@ public class StorageBean {
 
     @EJB
     private EntryBean entryBean;
+    
+    public static final String envVariable = "OPENSHIFT_DATA_DIR";
 
-    private final String prefix = System.getenv("OPENSHIFT_DATA_DIR");
+    private final String prefix = System.getenv(envVariable);
 
     private final Path inDir = Paths.get(prefix, "carcv_data", "in");
 
