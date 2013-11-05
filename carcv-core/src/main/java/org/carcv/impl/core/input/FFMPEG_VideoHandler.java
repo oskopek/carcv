@@ -29,19 +29,31 @@ import org.carcv.core.input.VideoHandler;
 import org.carcv.core.model.file.FileEntry;
 
 /**
- * {@linkplain https://trac.ffmpeg.org/wiki/Create%20a%20video%20slideshow%20from%20images}
+ * An implementation of a VideoHandler using FFMPEG using {@link Runtime#exec(String)}.
+ * <p>
+ * The details about using it are here:
+ * <a href="https://trac.ffmpeg.org/wiki/Create%20a%20video%20slideshow%20from%20images">FFMPEG Wiki</a>
  *
  */
 public class FFMPEG_VideoHandler extends VideoHandler {// TODO 3 Test FFMPEG video handler
     
     //TODO 2 Revise implementation for new IO directory structure
 
+    /**
+     * A constant referencing the default frame rate of all videos.
+     */
     final public static int defaultFrameRate = 30;
 
     final private static String image_suffix = ".png";
 
     final private static String video_suffix = ".h264";
 
+    /**
+     * Turns the <code>video</code> into a 
+     * 
+     * @param video Path of the video file
+     * @return true if the method was successful
+     */
     public static boolean disectToFrames(Path video) {
         FFMPEG_VideoHandler fvd = new FFMPEG_VideoHandler();
         try {
