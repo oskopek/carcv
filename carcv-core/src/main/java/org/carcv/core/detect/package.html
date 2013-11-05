@@ -1,5 +1,13 @@
 <html>
 <body>
-
+Provides an abstraction of basic detection objects.
+All Detectors implement the {@link Detector} interface.
+<p>
+These are three types of objects used for the three stages of detection:
+<ol>
+<li>Sorting of video frames into real cars -- {@link CarSorter}
+<li>Detection of {@link NumberPlate}s -- {@link NumberPlateDetector} 
+<li>Detection of car {@link Speed} -- {@link SpeedDetector}
+</ol>
 </body>
 </html>
