@@ -33,11 +33,11 @@ import org.carcv.core.model.file.FileEntry;
  * <p>
  * The details about using it are here:
  * <a href="https://trac.ffmpeg.org/wiki/Create%20a%20video%20slideshow%20from%20images">FFMPEG Wiki</a>
+ * <p>
+ * <strong>TODO 1 Revise implementation for new IO directory structure, test and update javadoc</strong>
  *
  */
-public class FFMPEG_VideoHandler extends VideoHandler {// TODO 3 Test FFMPEG video handler
-    
-    //TODO 2 Revise implementation for new IO directory structure
+public class FFMPEG_VideoHandler extends VideoHandler {
 
     /**
      * A constant referencing the default frame rate of all videos.
