@@ -51,8 +51,11 @@
     </div>
 
     <div id="center-login">
-        <h1>Upload complete!</h1><br>
-        <h2><a href="/app/index.jsp">Go back</a> to the main page</h2>
+        <h1>Upload complete!</h1>
+        <br>
+        <h2>
+            <a href="/app/index.jsp">Go back</a> to the main page
+        </h2>
     </div>
 
     <div id="footer"></div>

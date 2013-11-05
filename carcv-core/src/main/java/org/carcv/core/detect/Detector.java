@@ -21,14 +21,14 @@ import java.util.List;
 import org.carcv.core.model.AbstractCarImage;
 
 /**
- * Abstraction of a detector, given a list of <code>CarImage</code>s,
- * detects what it should and returns a String representation.
+ * Abstraction of a detector, given a list of <code>CarImage</code>s, detects what it should and returns a String
+ * representation.
  */
 public interface Detector {
 
     /**
      * Detects a value based on the input list of images.
-     *  
+     * 
      * @param images A non-null list of <code>CarImage</code>s
      * @return A String representation of the detected value
      */

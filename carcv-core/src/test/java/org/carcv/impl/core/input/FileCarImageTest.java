@@ -63,7 +63,7 @@ public class FileCarImageTest {
 
     /**
      * Test method for {@link org.carcv.core.model.file.FileCarImage#FileCarImage(java.nio.file.Path)}
-     *
+     * 
      * @throws IOException
      */
     @Test
@@ -100,7 +100,7 @@ public class FileCarImageTest {
 
     /**
      * Test method for {@link org.carcv.core.model.file.FileCarImage#loadImage()}.
-     *
+     * 
      * @throws IOException
      */
     @Test
@@ -112,7 +112,7 @@ public class FileCarImageTest {
 
     /**
      * Test method for {@link org.carcv.core.model.file.FileCarImage#loadFragment(java.awt.Rectangle)}.
-     *
+     * 
      * @throws IOException
      */
     @Test
@@ -128,7 +128,7 @@ public class FileCarImageTest {
 
     /**
      * Test method for {@link org.carcv.core.model.file.FileCarImage#close()}.
-     *
+     * 
      * @throws IOException
      */
     @Test
@@ -155,7 +155,7 @@ public class FileCarImageTest {
 
     /**
      * Test method for {@link org.carcv.core.model.file.FileCarImage#close()}.
-     *
+     * 
      * @throws IOException
      */
     @Test
@@ -198,7 +198,7 @@ public class FileCarImageTest {
 
     /**
      * Test method for {@link org.carcv.core.model.file.FileCarImage#close()}.
-     *
+     * 
      * @throws IOException
      */
     @Test

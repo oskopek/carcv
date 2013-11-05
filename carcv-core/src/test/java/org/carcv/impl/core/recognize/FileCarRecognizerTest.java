@@ -87,7 +87,7 @@ public class FileCarRecognizerTest {
     /**
      * Test of recognizing one input image in one batch<BR>
      * Test method for {@link org.carcv.impl.core.recognize.FileCarRecognizer#recognize()}.
-     *
+     * 
      * @throws IOException
      */
     @Test
@@ -124,7 +124,7 @@ public class FileCarRecognizerTest {
 
     /**
      * Test of recognizing multiple (three) input images in one batch
-     *
+     * 
      * @throws IOException
      */
     @Test

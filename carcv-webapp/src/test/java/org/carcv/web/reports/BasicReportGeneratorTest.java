@@ -62,10 +62,10 @@ public class BasicReportGeneratorTest {
         Date timestamp = new Date(System.currentTimeMillis());
 
         CarData carData = new CarData(speed, location, licencePlate, timestamp);
-        
+
         String imageResource = "/reports/OpenCV_Logo_with_text.png";
-        
-        Path imagePath =  Files.createTempFile("testImage-", ".png");
+
+        Path imagePath = Files.createTempFile("testImage-", ".png");
         Files.copy(getClass().getResourceAsStream(imageResource), imagePath, StandardCopyOption.REPLACE_EXISTING);
 
         assertTrue(Files.exists(imagePath));
@@ -77,17 +77,17 @@ public class BasicReportGeneratorTest {
         assertNotNull(testEntry.getCarImages().get(0).getPath());
         assertNotNull(testEntry.getId());
     }
-    
+
     @After
     public void tearDown() throws IOException {
         Files.delete(testEntry.getCarImages().get(0).getPath());
-    } 
+    }
 
     /**
      * Test method for
      * {@link org.carcv.web.reports.BasicReportGenerator#buildPDFReport(org.carcv.core.model.AbstractEntry, java.lang.String, java.lang.String, java.lang.String)}
      * .
-     * 
+     *
      * @throws JRException
      */
     @Test

@@ -50,14 +50,14 @@ public class FileCarRecognizer extends CarRecognizer {
 
     /*
      * (non-Javadoc)
-     *
+     * 
      * @see org.carcv.core.recognize.CarRecognizer#recognize()
      */
     @Override
     public void recognize() throws IOException {
         listRecognize();
     }
-    
+
     public List<FileEntry> listRecognize() throws IOException {
         watcher.discover();
 
@@ -81,7 +81,7 @@ public class FileCarRecognizer extends CarRecognizer {
         }
 
         saver.save(result);
-        
+
         return result;
     }
 

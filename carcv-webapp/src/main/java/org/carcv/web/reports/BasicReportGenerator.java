@@ -69,15 +69,15 @@ public class BasicReportGenerator {
         String dataLocation = add.print();
 
         // parameters.put("id", Long.toString(data.getId()));
-        
+
         Path imagePath = e.getCarImages().get(0).getPath().toAbsolutePath();
-        
-        if(Files.exists(imagePath) && Files.isRegularFile(imagePath)) {
+
+        if (Files.exists(imagePath) && Files.isRegularFile(imagePath)) {
             parameters.put("previewURL", imagePath.toString());
         } else {
             parameters.put("previewURL", "/reports/OpenCV_Logo_with_text.png");
         }
-        
+
         parameters.put("date", dateFormat.format(data.getTimestamp()));
         parameters.put("location", dataLocation);
         parameters.put("LPNumber", data.getNumberPlate().getText());

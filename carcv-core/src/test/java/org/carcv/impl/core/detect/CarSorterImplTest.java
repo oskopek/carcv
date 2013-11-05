@@ -74,7 +74,7 @@ public class CarSorterImplTest {
 
     /**
      * Test method for {@link org.carcv.impl.core.detect.CarSorterImpl#sortIntoCars(org.carcv.core.model.file.FileEntry)}.
-     *
+     * 
      * @throws IOException
      */
     @Test
@@ -134,7 +134,7 @@ public class CarSorterImplTest {
      * Test method for
      * {@link org.carcv.impl.core.detect.CarSorterImpl#carsEquals(org.carcv.core.model.file.FileCarImage, org.carcv.core.model.file.FileCarImage)}
      * .
-     *
+     * 
      * @throws IOException
      */
     @Test
@@ -155,7 +155,7 @@ public class CarSorterImplTest {
     /**
      * Test method for
      * {@link org.carcv.impl.core.detect.CarSorterImpl#carsEquals(org.carcv.core.model.file.FileCarImage, java.lang.String)}.
-     *
+     * 
      * @throws IOException
      */
     @Test

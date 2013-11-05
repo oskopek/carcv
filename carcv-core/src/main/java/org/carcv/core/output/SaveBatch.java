@@ -27,7 +27,7 @@ import org.carcv.core.model.AbstractEntry;
 public interface SaveBatch {
 
     /**
-     *
+     * 
      * @param batch
      */
     public void save(final List<? extends AbstractEntry> batch) throws IOException;

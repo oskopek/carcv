@@ -31,11 +31,11 @@ import org.carcv.core.model.file.FileEntry;
 /**
  * An implementation of a VideoHandler using FFMPEG using {@link Runtime#exec(String)}.
  * <p>
- * The details about using it are here:
- * <a href="https://trac.ffmpeg.org/wiki/Create%20a%20video%20slideshow%20from%20images">FFMPEG Wiki</a>
+ * The details about using it are here: <a
+ * href="https://trac.ffmpeg.org/wiki/Create%20a%20video%20slideshow%20from%20images">FFMPEG Wiki</a>
  * <p>
  * <strong>TODO 1 Revise implementation for new IO directory structure, test and update javadoc</strong>
- *
+ * 
  */
 public class FFMPEG_VideoHandler extends VideoHandler {
 
@@ -49,7 +49,7 @@ public class FFMPEG_VideoHandler extends VideoHandler {
     final private static String video_suffix = ".h264";
 
     /**
-     * Turns the <code>video</code> into a 
+     * Turns the <code>video</code> into a
      * 
      * @param video Path of the video file
      * @return true if the method was successful

@@ -30,7 +30,7 @@ public abstract class AbstractEntry extends AbstractModel {
 
     /*
      * private CarData carData; private AbstractCarImage carImage;
-     *
+     * 
      * public AbstractEntry(CarData carData, AbstractCarImage carImage) { this.carData = carData; this.carImage = carImage; }
      */
 

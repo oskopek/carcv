@@ -68,10 +68,10 @@ public class SpeedDetectorImplTest {
             /*
              * // Would be useful if the SpeedDetector actually looked at the image file Path p = Paths.get(tmpDir.toString(),
              * "testImage-" + j + ".carcv.jpg");
-             *
+             * 
              * Files.copy(getClass().getResourceAsStream("/img/test_041.jpg"), p); assertTrue(Files.exists(p) &&
              * Files.isRegularFile(p));
-             *
+             * 
              * FileCarImage f = new FileCarImage(p); images.add(f);
              */
 

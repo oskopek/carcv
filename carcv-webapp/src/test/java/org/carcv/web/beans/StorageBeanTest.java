@@ -36,10 +36,10 @@ import org.junit.Test;
  * Test class for {@link StorageBean}
  */
 public class StorageBeanTest { // TODO 1 Fill the StorageBeanTest
-    
+
     @EJB
     private StorageBean storageBean;
-    
+
     private Path rootDir;
 
     /**
@@ -48,7 +48,12 @@ public class StorageBeanTest { // TODO 1 Fill the StorageBeanTest
     @Before
     public void setUp() throws Exception {
         Path p = Files.createTempDirectory("storageBeanDataDir");
-        Process setenv = Runtime.getRuntime().exec("export " + StorageBean.envVariable + "=" + p.toAbsolutePath().toString());  //TODO 1 How to solve this?
+        Process setenv = Runtime.getRuntime().exec("export " + StorageBean.envVariable + "=" + p.toAbsolutePath().toString()); // TODO
+                                                                                                                               // 1
+                                                                                                                               // How
+                                                                                                                               // to
+                                                                                                                               // solve
+                                                                                                                               // this?
         try {
             setenv.waitFor();
         } catch (InterruptedException e) {
@@ -88,21 +93,23 @@ public class StorageBeanTest { // TODO 1 Fill the StorageBeanTest
 
     /**
      * Test method for {@link org.carcv.web.beans.StorageBean#createBatchDirectory()}.
-     * @throws IOException 
+     *
+     * @throws IOException
      */
     @Test
     public void testCreateBatchDirectory() throws IOException {
         Path p = storageBean.createBatchDirectory();
         assertFalse(DirectoryWatcher.isDirEmpty(storageBean.getInputDirectory()));
         DirectoryStream<Path> stream = Files.newDirectoryStream(storageBean.getInputDirectory());
-        
-        for(Path dir : stream) { //there should only be one directory, therefore the assertion should be true
+
+        for (Path dir : stream) { // there should only be one directory, therefore the assertion should be true
             assertEquals(p, dir);
         }
     }
 
     /**
-     * Test method for {@link org.carcv.web.beans.StorageBean#storeImageToDirectory(java.io.InputStream, java.lang.String, java.nio.file.Path)}.
+     * Test method for
+     * {@link org.carcv.web.beans.StorageBean#storeImageToDirectory(java.io.InputStream, java.lang.String, java.nio.file.Path)}.
      */
     @Test
     @Ignore

@@ -31,9 +31,9 @@ import org.carcv.web.beans.RecognizerBean;
  */
 @WebServlet("/servlet/RefreshServlet")
 public class RefreshServlet extends HttpServlet { // TODO 1 Test RefreshServlet - crashes because of RecognizerBean bug
-    
+
     /**
-     * 
+     *
      */
     private static final long serialVersionUID = -235344099282905675L;
 
@@ -45,11 +45,11 @@ public class RefreshServlet extends HttpServlet { // TODO 1 Test RefreshServlet 
         // response.sendRedirect("/app/working.jsp"); // TODO 3 Will this work? No, do something similar
 
         System.out.println("[RefreshServlet]\tStarting recognizing...");
-        
+
         recognizerBean.recognize();
-        
+
         System.out.println("[RefreshServlet]\tDone recognizing! Redirecting...");
-        
+
         response.sendRedirect(request.getHeader("referer")); // redirect back where you came from
 
     }

@@ -27,12 +27,13 @@ import java.util.List;
 import java.util.Arrays;
 
 /**
- * Provides a Singleton probabilistic implementation of <code>CarSorter</code> based on the
- * <a href="http://en.wikipedia.org/wiki/Levenshtein_distance#Iterative_with_two_matrix_rows">Levenshtein Distance</a>
- * between the two number plate Strings.
- *  
- * <p>This class is a Singleton, not meant to be instantiated. 
- *  
+ * Provides a Singleton probabilistic implementation of <code>CarSorter</code> based on the <a
+ * href="http://en.wikipedia.org/wiki/Levenshtein_distance#Iterative_with_two_matrix_rows">Levenshtein Distance</a> between the
+ * two number plate Strings.
+ * 
+ * <p>
+ * This class is a Singleton, not meant to be instantiated.
+ * 
  * @see CarSorterImpl#getInstance()
  */
 public class CarSorterImpl extends CarSorter {
@@ -55,8 +56,7 @@ public class CarSorterImpl extends CarSorter {
     }
 
     /**
-     * Sorts cars into separate FileEntries.
-     * Automatically loads and closes images internally on-demand.
+     * Sorts cars into separate FileEntries. Automatically loads and closes images internally on-demand.
      */
     @Override
     public List<FileEntry> sortIntoCars(FileEntry batchDir) throws IOException {

@@ -21,16 +21,16 @@ import java.util.List;
 import org.carcv.core.model.AbstractCarImage;
 
 /**
- * Abstraction of a Number Plate detector. 
- * Detects the text of the plate, and the country of origin.
+ * Abstraction of a Number Plate detector. Detects the text of the plate, and the country of origin.
  * 
- * <p>The list of input images should try to be of the same (in real life) car.  
+ * <p>
+ * The list of input images should try to be of the same (in real life) car.
  */
 public abstract class NumberPlateDetector implements Detector {
 
     /**
-     * Detects the text (usually an alpha-numerical String) of the Number Plate.
-     * The text is a unique identification number (plate number) registered in a specific country.
+     * Detects the text (usually an alpha-numerical String) of the Number Plate. The text is a unique identification number
+     * (plate number) registered in a specific country.
      * 
      * 
      * @param images Must be non-null, loaded externally!
@@ -40,7 +40,7 @@ public abstract class NumberPlateDetector implements Detector {
 
     /**
      * Detects the country where the Number Plate is registered.
-     *
+     * 
      * @param images Must be non-null, loaded externally!
      * @return A String containing the shortcut for the country of origin of the plate, or null if an error occurred
      */

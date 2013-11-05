@@ -22,12 +22,13 @@ import org.carcv.core.model.AbstractCarImage;
 import org.carcv.core.model.SpeedUnit;
 
 /**
- * Abstraction of a speed detector.
- * Detects (calculates) the speed of a given car on the list of input images.
+ * Abstraction of a speed detector. Detects (calculates) the speed of a given car on the list of input images.
  * 
- * <p>The list of input images should try to be of the same (in real life) car.
+ * <p>
+ * The list of input images should try to be of the same (in real life) car.
  * 
- * <p>The default speed measuring unit is {@link SpeedUnit#KPH} (kilometers per hour, km/h, kmh^-1, ...)
+ * <p>
+ * The default speed measuring unit is {@link SpeedUnit#KPH} (kilometers per hour, km/h, kmh^-1, ...)
  */
 public abstract class SpeedDetector implements Detector {
 

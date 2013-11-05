@@ -51,7 +51,8 @@
     </div>
 
     <div id="center-login">
-        <h2>Upload some images to be recognized</h2><br>
+        <h2>Upload some images to be recognized</h2>
+        <br>
         <form method="post" target="_top" action="/servlet/UploadServlet" enctype="multipart/form-data">
             <p>
                 Select files: <input type="file" accept="image/*" name="file">

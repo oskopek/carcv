@@ -25,17 +25,18 @@ import org.carcv.impl.core.input.FFMPEG_VideoHandler;
 /**
  * A Singleton implementation of a SpeedDetector based on a simple, non-precise equation:
  * 
- * <p><code>speed = (numberOfImagesInList / {@link FFMPEG_VideoHandler#defaultFrameRate defaultFrameRate})
+ * <p>
+ * <code>speed = (numberOfImagesInList / {@link FFMPEG_VideoHandler#defaultFrameRate defaultFrameRate})
  * * 10 (meters; default value) * 3.6 (conversion rate from ms to kph)</code>
  */
 public class SpeedDetectorImpl extends SpeedDetector { // TODO 2 Add the complex speed calculation method
-    
+
     private static SpeedDetectorImpl detector = new SpeedDetectorImpl();
 
     private SpeedDetectorImpl() {
 
     }
-    
+
     /**
      * Returns a reference to the static singleton instantiation of SpeedDetectorImpl
      * 

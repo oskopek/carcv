@@ -37,7 +37,7 @@ public class StorageBean {
 
     @EJB
     private EntryBean entryBean;
-    
+
     public static final String envVariable = "OPENSHIFT_DATA_DIR";
 
     private final String prefix = System.getenv(envVariable);

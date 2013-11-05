@@ -60,9 +60,9 @@ public class GenerateReport extends HttpServlet {
         long entryId = Long.parseLong(request.getParameter("entry_id"));
 
         FileEntry fileEntry = entryBean.findById(entryId);
-        
-        //host URL
-        String hostURL = request.getScheme() + "://" +  request.getServerName();
+
+        // host URL
+        String hostURL = request.getScheme() + "://" + request.getServerName();
 
         BasicReportGenerator brg = new BasicReportGenerator(fileEntry, "/reports/speed_report.jasper", "Myjava",
             "TestReport", hostURL);

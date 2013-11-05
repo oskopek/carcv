@@ -31,7 +31,7 @@ import org.junit.runner.RunWith;
 
 /**
  * Test if the app deploys and EJB CDI Injection works.
- * 
+ *
  */
 @RunWith(Arquillian.class)
 public class DeployedIT {

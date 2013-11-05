@@ -70,8 +70,7 @@ public class NumberPlateDetectorImplTest {
     }
 
     /**
-     * Test method for {@link org.carcv.impl.core.detect.NumberPlateDetectorImpl#detect(java.util.List)}
-     * .
+     * Test method for {@link org.carcv.impl.core.detect.NumberPlateDetectorImpl#detect(java.util.List)} .
      */
     @Test
     public void testDetect() {
@@ -80,8 +79,7 @@ public class NumberPlateDetectorImplTest {
     }
 
     /**
-     * Test method for
-     * {@link org.carcv.impl.core.detect.NumberPlateDetectorImpl#detectPlateText(java.util.List)} .
+     * Test method for {@link org.carcv.impl.core.detect.NumberPlateDetectorImpl#detectPlateText(java.util.List)} .
      */
     @Test
     public void testDetectPlateText() {
@@ -91,8 +89,7 @@ public class NumberPlateDetectorImplTest {
     }
 
     /**
-     * Test method for
-     * {@link org.carcv.impl.core.detect.NumberPlateDetectorImpl#detectPlateOrigin(java.util.List)} .
+     * Test method for {@link org.carcv.impl.core.detect.NumberPlateDetectorImpl#detectPlateOrigin(java.util.List)} .
      */
     @Test
     @Ignore(value = "Not yet implemented")
