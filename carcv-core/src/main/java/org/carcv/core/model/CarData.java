@@ -52,11 +52,11 @@ public class CarData extends AbstractEmbeddable implements Comparable<CarData>, 
     }
 
     /**
+     * 
      * @param speed
      * @param address
      * @param numberPlate
      * @param timestamp
-     * @param video
      */
     public CarData(Speed speed, Address address, NumberPlate numberPlate, Date timestamp) {
         this.speed = speed;
@@ -85,7 +85,7 @@ public class CarData extends AbstractEmbeddable implements Comparable<CarData>, 
     }
 
     /**
-     * @param location the location to set
+     * @param address the address to set
      */
     public void setAddress(Address address) {
         this.address = address;

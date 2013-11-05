@@ -255,7 +255,7 @@ public class Address extends AbstractEmbeddable implements Comparable<Address> {
     /**
      * Prints address in post-format, lines ending with '\n'
      * 
-     * @return
+     * @return a string representation of the Address separated by '\n'
      */
     public String print() {
         return printDelimeter("\n");

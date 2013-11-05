@@ -73,7 +73,7 @@ public class FileEntry extends AbstractEntry {
     }
 
     /**
-     * @param carImage the carImage to set
+     * @param carImages the carImages to set
      */
     public void setCarImages(List<FileCarImage> carImages) {
         this.carImages = carImages;
