@@ -18,17 +18,29 @@ package org.carcv.core.recognize;
 
 import java.io.IOException;
 
+import org.carcv.core.detect.CarSorter;
+import org.carcv.core.detect.NumberPlateDetector;
+import org.carcv.core.detect.SpeedDetector;
+import org.carcv.core.input.DirectoryWatcher;
+import org.carcv.core.model.AbstractEntry;
+import org.carcv.core.output.SaveBatch;
+
 /**
- *
+ * An abstraction of the recognizing process.
  */
 public abstract class CarRecognizer {
 
     /**
-     * This method is supposed to read new <code>Entry</code>-s from one or more data source, detect individual cars, detect
-     * their speed and number plate, afterwards writing <code>CarData</code> (possibly the <code>List of CarImage-s</code> too)
-     * to one or more data sources. <BR>
-     * Getting the data afterwards is the responsibility of your client externally from the input/output datasources.
-     * 
+     * This method is reads new <code>Entry</code>-s (any object that extends {@link AbstractEntry}) from one or more data
+     * source, detects individual cars, detects their speed and number plate, afterwards saves them to one or more data sources.
+     * <p>
+     * Getting the data afterwards is the responsibility of your client externally from the input/output data sources.
+     *
+     * @see DirectoryWatcher#getNewEntries()
+     * @see CarSorter#sortIntoCars(org.carcv.core.model.file.FileEntry)
+     * @see NumberPlateDetector#detectPlateOrigin(java.util.List)
+     * @see SpeedDetector#detectSpeed(java.util.List)
+     * @see SaveBatch#save(java.util.List)
      * @throws IOException
      */
     public abstract void recognize() throws IOException;

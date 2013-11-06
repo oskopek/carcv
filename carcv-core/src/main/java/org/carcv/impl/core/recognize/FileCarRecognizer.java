@@ -48,9 +48,10 @@ public class FileCarRecognizer extends CarRecognizer {
 
     }
 
-    /*
-     * (non-Javadoc)
-     * 
+    /**
+     * Wrapper method for {@link #listRecognize()}.
+     *
+     * @see #listRecognize()
      * @see org.carcv.core.recognize.CarRecognizer#recognize()
      */
     @Override
@@ -58,6 +59,13 @@ public class FileCarRecognizer extends CarRecognizer {
         listRecognize();
     }
 
+    /**
+     * Implementation of {@link CarRecognizer#recognize()} using {@link FileEntry}-s.
+     *
+     * @see CarRecognizer#recognize()
+     * @return the List of <code>FileEntry</code>-s (the batch) after the recognition process
+     * @throws IOException if an error occurred during loading or saving of the batch
+     */
     public List<FileEntry> listRecognize() throws IOException {
         watcher.discover();
 
@@ -85,6 +93,12 @@ public class FileCarRecognizer extends CarRecognizer {
         return result;
     }
 
+    /**
+     * Supervises the Speed detection stage.
+     *
+     * @see SpeedDetectorImpl#detectSpeed(List)
+     * @param batch the batch to detect Speed in
+     */
     private void detectSpeeds(ArrayList<FileEntry> batch) {
         SpeedDetectorImpl sd = SpeedDetectorImpl.getInstance();
 
@@ -95,6 +109,13 @@ public class FileCarRecognizer extends CarRecognizer {
         }
     }
 
+    /**
+     * Supervises the NumberPlate detection stage.
+     *
+     * @see NumberPlateDetectorImpl#detectPlateText(List)
+     * @see NumberPlateDetectorImpl#detectPlateOrigin(List)
+     * @param batch the batch to detect NumberPlates in
+     */
     private void detectNumberPlates(ArrayList<FileEntry> batch) {
         NumberPlateDetectorImpl npd = NumberPlateDetectorImpl.getInstance();
 
@@ -118,6 +139,12 @@ public class FileCarRecognizer extends CarRecognizer {
         }
     }
 
+    /**
+     * Supervises the sorting stage.
+     *
+     * @see CarSorterImpl#sortIntoCars(FileEntry)
+     * @param batch the batch to sort into cars
+     */
     private void sortIntoCars(ArrayList<FileEntry> batch) {
         ArrayList<FileEntry> res = new ArrayList<>(); // prevents ConcurrentModificationException
         for (FileEntry dir : batch) {
