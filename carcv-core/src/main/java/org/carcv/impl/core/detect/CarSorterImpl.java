@@ -30,10 +30,10 @@ import java.util.Arrays;
  * Provides a Singleton probabilistic implementation of <code>CarSorter</code> based on the <a
  * href="http://en.wikipedia.org/wiki/Levenshtein_distance#Iterative_with_two_matrix_rows">Levenshtein Distance</a> between the
  * two number plate Strings.
- * 
+ *
  * <p>
  * This class is a Singleton, not meant to be instantiated.
- * 
+ *
  * @see CarSorterImpl#getInstance()
  */
 public class CarSorterImpl extends CarSorter {
@@ -48,7 +48,7 @@ public class CarSorterImpl extends CarSorter {
 
     /**
      * Returns a reference to the static singleton instantiation of CarSorterImpl
-     * 
+     *
      * @return reference to static CarSorterImpl instance
      */
     public static CarSorterImpl getInstance() {

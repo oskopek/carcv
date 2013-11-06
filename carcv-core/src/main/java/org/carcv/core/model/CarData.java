@@ -28,7 +28,7 @@ import org.apache.commons.lang.builder.HashCodeBuilder;
 
 /**
  * An expression of Data collected
- * 
+ *
  */
 @Embeddable
 public class CarData extends AbstractEmbeddable implements Comparable<CarData>, Cloneable {
@@ -52,7 +52,7 @@ public class CarData extends AbstractEmbeddable implements Comparable<CarData>, 
     }
 
     /**
-     * 
+     *
      * @param speed
      * @param address
      * @param numberPlate
@@ -121,7 +121,7 @@ public class CarData extends AbstractEmbeddable implements Comparable<CarData>, 
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see java.lang.Object#toString()
      */
     /*
@@ -131,7 +131,7 @@ public class CarData extends AbstractEmbeddable implements Comparable<CarData>, 
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see java.lang.Object#hashCode()
      */
     @Override
@@ -142,7 +142,7 @@ public class CarData extends AbstractEmbeddable implements Comparable<CarData>, 
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see java.lang.Object#equals(java.lang.Object)
      */
     @Override

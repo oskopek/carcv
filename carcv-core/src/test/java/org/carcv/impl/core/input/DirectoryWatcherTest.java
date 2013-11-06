@@ -70,7 +70,7 @@ public class DirectoryWatcherTest {
 
     /**
      * Deletes the temp directory
-     * 
+     *
      * @throws java.lang.Exception
      */
     @After
@@ -84,7 +84,7 @@ public class DirectoryWatcherTest {
 
     /**
      * Test method for {@link org.carcv.core.input.DirectoryWatcher#discover()}.
-     * 
+     *
      * @throws IOException
      */
     @Test

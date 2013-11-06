@@ -28,7 +28,7 @@ public interface Detector {
 
     /**
      * Detects a value based on the input list of images.
-     * 
+     *
      * @param images A non-null list of <code>CarImage</code>s
      * @return A String representation of the detected value
      */

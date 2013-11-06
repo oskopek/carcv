@@ -36,10 +36,10 @@ import org.xml.sax.SAXException;
 /**
  * A Singleton implementation of <code>NumberPlateDetector</code> based on <a
  * href="https://github.com/oskopek/javaanpr.git">JavaANPR</a>.
- * 
+ *
  * <p>
  * Make sure all images are loaded in advance!
- * 
+ *
  */
 public class NumberPlateDetectorImpl extends NumberPlateDetector {
 
@@ -51,7 +51,7 @@ public class NumberPlateDetectorImpl extends NumberPlateDetector {
 
     /**
      * Returns a reference to the static singleton instantiation of NumberPlateDetectorImpl
-     * 
+     *
      * @return reference to static NumberPlateDetectorImpl instance
      */
     public static NumberPlateDetectorImpl getInstance() {

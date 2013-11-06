@@ -35,7 +35,7 @@ import org.carcv.core.model.file.FileEntry;
  * href="https://trac.ffmpeg.org/wiki/Create%20a%20video%20slideshow%20from%20images">FFMPEG Wiki</a>
  * <p>
  * <strong>TODO 1 Revise implementation for new IO directory structure, test and update javadoc</strong>
- * 
+ *
  */
 public class FFMPEG_VideoHandler extends VideoHandler {
 
@@ -50,7 +50,7 @@ public class FFMPEG_VideoHandler extends VideoHandler {
 
     /**
      * Turns the <code>video</code> into a
-     * 
+     *
      * @param video Path of the video file
      * @return true if the method was successful
      */

@@ -41,7 +41,7 @@ import org.carcv.core.model.PersistablePath;
 
 /**
  * Default behavior is to not load an image from path. To load it, use {@link FileCarImage#loadImage()}
- * 
+ *
  */
 @Entity
 public class FileCarImage extends AbstractCarImage {
@@ -79,11 +79,11 @@ public class FileCarImage extends AbstractCarImage {
         /*
          * ImageInputStream imageStream = ImageIO.createImageInputStream(inStream); ImageReader reader =
          * ImageIO.getImageReaders(imageStream).next(); ImageReadParam param = reader.getDefaultReadParam();
-         * 
+         *
          * reader.setInput(imageStream, true, true);
-         * 
+         *
          * this.image = reader.read(0, param);
-         * 
+         *
          * reader.dispose(); imageStream.close();
          */
 
