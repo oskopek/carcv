@@ -27,7 +27,7 @@ import java.util.Properties;
 import org.carcv.impl.core.recognize.FileCarRecognizer;
 
 /**
- *
+ * Provides a demo command line implementation of CarCV Core functionality.
  */
 public class Main {
 
@@ -38,11 +38,25 @@ public class Main {
 
     private FileCarRecognizer recognizer;
 
+    /**
+     * A wrapper method that runs {@link FileCarRecognizer#recognize()} on the private FileCarRecognizer instance
+     *
+     * @throws IOException
+     * @deprecated Unused, unneeded, to be removed ASAP
+     */
     public void recognize() throws IOException {
         recognizer.recognize();
     }
 
     /**
+     * Main method for demo command line implementation. The preferred way to invoke it is to run <code>mvn exec:java</code>
+     * <p>
+     * Possible arguments:
+     * <ul>
+     * <li>--out=OUTPUT_DIR
+     * <li>--in=INPUT_DIR
+     * </ul>
+     *
      * @param args
      * @throws IOException
      */
@@ -89,6 +103,11 @@ public class Main {
         m.run();
     }
 
+    /**
+     * Actually goes through the whole recognition process a {@link FileCarRecognizer} normally would.
+     *
+     * @throws IOException
+     */
     private void run() throws IOException {
         System.out.println("\nCreating FileCarRecognizer instance");
         recognizer = new FileCarRecognizer(inDir, outDir);
@@ -101,6 +120,11 @@ public class Main {
         System.out.println();
     }
 
+    /**
+     * Creates a sample Properties object to be used as <code>info.properties</code> in a input batch folder
+     *
+     * @return an example of a <code>info.properties</code> Properties object
+     */
     private static Properties createDemoProperties() {
         Properties properties = new Properties();
 
