@@ -29,23 +29,31 @@ import org.carcv.core.model.file.FileEntry;
 import org.carcv.core.output.SaveBatch;
 
 /**
- *
+ * An implementation of <code>SaveBatch</code> that stores batches into files.
+ * <p>
+ * <strong>Note</strong>: This implementation only stores a properties files containing all needed info about cars in the batch.
+ * <p>
+ * Actual paths of {@link FileCarImage}s are referenced inside the properties files, as filepath0, filepath1, ...
  */
 public class FileSaveBatch implements SaveBatch {
 
     private Path directory;
 
     /**
+     * Initializes the FileSaveBatch with an output directory path.
      *
+     * @param directory path of the directory where all output will be stored
      */
     public FileSaveBatch(Path directory) {
         this.directory = directory;
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see org.carcv.core.output.SaveBatch#save(java.util.ArrayList)
+    /**
+     * Wrapper method for {@link #saveFileBatch(List)}.
+     *
+     * @see #saveFileBatch(List)
+     * @see org.carcv.core.output.SaveBatch#save(java.util.List)
+     * @throws IOException if an error during the save occurs
      */
     @Override
     public void save(final List<? extends AbstractEntry> batch) throws IOException {
@@ -55,13 +63,46 @@ public class FileSaveBatch implements SaveBatch {
         saveFileBatch(fileBatch);
     }
 
+    /**
+     * Invokes {@link #saveFileEntry(FileEntry)} for all {@link FileEntry}-s in the batch.
+     *
+     * @see #saveFileEntry(FileEntry)
+     * @param fileBatch the batch to save
+     * @throws IOException if an error during the save occurs
+     */
     public void saveFileBatch(final List<FileEntry> fileBatch) throws IOException {
         for (FileEntry entry : fileBatch) {
             saveFileEntry(entry);
         }
     }
 
-    private void saveFileEntry(FileEntry e) throws IOException {
+    /**
+     * Saves the {@link FileEntry} into a properties file into the output directory.
+     * <p>
+     * TODO 1 Add naming conventions
+     * <p>
+     * List of properties:
+     * <ul>
+     * <li>numberplate-origin
+     * <li>numberplate-text
+     * <li>speed-value
+     * <li>speed-unit
+     * <li>address-city
+     * <li>address-street
+     * <li>address-streetNo
+     * <li>address-country
+     * <li>address-refNo
+     * <li>address-postalCode
+     * <li>address-lat
+     * <li>address-long
+     * <li>timestamp
+     * <li>filepath0 -> filepathN
+     * </ul>
+     *
+     * @param e the FileEntry to save
+     * @throws IOException if an error during the save occurs
+     */
+    public void saveFileEntry(FileEntry e) throws IOException {
         Properties p = new Properties();
 
         p.setProperty("numberplate-origin", e.getCarData().getNumberPlate().getOrigin());

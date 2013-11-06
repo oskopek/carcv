@@ -36,6 +36,7 @@ public interface SaveBatch {
      * Saves the batch according to the implementation details.
      *
      * @param batch a List of anything that extends <code>AbstractEntry</code>
+     * @throws IOException if an error during the save occurs
      */
     public void save(final List<? extends AbstractEntry> batch) throws IOException;
 }
