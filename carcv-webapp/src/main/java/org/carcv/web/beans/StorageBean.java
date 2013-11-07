@@ -91,8 +91,9 @@ public class StorageBean {
         saveToFile(is, Files.newOutputStream(file));
     }
 
-    public void storeBatchToDatabase(List<FileEntry> list) {
-        entryBean.create((FileEntry[]) list.toArray());
+    public void storeBatchToDatabase(final List<FileEntry> list) {
+        FileEntry[] array = new FileEntry[list.size()];
+        entryBean.create(list.toArray(array));
     }
 
     private void saveToFile(InputStream from, OutputStream outputStream) {
