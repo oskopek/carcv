@@ -18,8 +18,11 @@ package org.carcv.web.servlet;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.nio.file.Files;
 import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.List;
+import java.util.Properties;
 
 import javax.ejb.EJB;
 import javax.servlet.ServletException;
@@ -33,6 +36,8 @@ import org.apache.commons.fileupload.FileUploadException;
 import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
 import org.apache.commons.io.FilenameUtils;
+import org.carcv.core.io.DirectoryLoader;
+import org.carcv.impl.core.run.Main;
 import org.carcv.web.beans.StorageBean;
 
 /**
@@ -74,6 +79,10 @@ public class UploadServlet extends HttpServlet {
                 storageBean.storeImageToDirectory(fileContent, fileName, batchDir);
             }
         }
+
+        Properties demo = Main.createDemoProperties();
+        Path props = Paths.get(batchDir.toString(), DirectoryLoader.infoFileName);
+        demo.store(Files.newOutputStream(props), "Demo properties"); // TODO 1 How to get real properties?
 
         // recognizerBean.recognize(); // TODO 2 should we? probably no
         response.sendRedirect("/app/upload_complete.jsp"); // redirect to completed

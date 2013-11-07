@@ -125,7 +125,7 @@ public class Main {
      *
      * @return an example of a <code>info.properties</code> Properties object
      */
-    private static Properties createDemoProperties() {
+    public static Properties createDemoProperties() {
         Properties properties = new Properties();
 
         properties.setProperty("address-lat", Double.toString(48.5));

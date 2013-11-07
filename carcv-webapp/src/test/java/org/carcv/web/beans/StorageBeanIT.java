@@ -72,12 +72,6 @@ public class StorageBeanIT { // TODO 1 Fill the StorageBeanIT
      */
     @Before
     public void setUp() throws Exception {
-        /*
-         * Path p = Files.createTempDirectory("storageBeanDataDir"); Process setenv = Runtime.getRuntime().exec("export " +
-         * StorageBean.envVariable + "=" + p.toAbsolutePath().toString()); // TODO // this? try { setenv.waitFor(); } catch
-         * (InterruptedException e) { System.err.println("Failed to set env. variable " + StorageBean.envVariable + "=" +
-         * p.toAbsolutePath().toString()); e.printStackTrace(); }
-         */
         String property = System.getProperty(StorageBean.JbossDataDirProperty);
         rootDir = Paths.get(property, "carcv_data");
     }
