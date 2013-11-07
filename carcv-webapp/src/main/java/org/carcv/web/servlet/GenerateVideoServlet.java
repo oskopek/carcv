@@ -25,7 +25,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.carcv.core.model.file.FileEntry;
-import org.carcv.impl.core.input.FFMPEG_VideoHandler;
+import org.carcv.impl.core.io.FFMPEG_VideoHandler;
 import org.carcv.web.beans.EntryBean;
 
 /**

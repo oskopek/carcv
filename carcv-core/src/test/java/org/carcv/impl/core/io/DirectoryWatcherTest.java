@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package org.carcv.impl.core.input;
+package org.carcv.impl.core.io;
 
 import static org.junit.Assert.*;
 
@@ -27,7 +27,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Properties;
 
-import org.carcv.core.input.DirectoryWatcher;
+import org.carcv.core.io.DirectoryWatcher;
 import org.carcv.core.model.file.FileCarImage;
 import org.carcv.core.model.file.FileEntry;
 import org.junit.After;
@@ -83,7 +83,7 @@ public class DirectoryWatcherTest {
     }
 
     /**
-     * Test method for {@link org.carcv.core.input.DirectoryWatcher#discover()}.
+     * Test method for {@link org.carcv.core.io.DirectoryWatcher#discover()}.
      *
      * @throws IOException
      */

@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package org.carcv.impl.core.input;
+package org.carcv.impl.core.io;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -25,7 +25,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 
-import org.carcv.core.input.VideoHandler;
+import org.carcv.core.io.VideoHandler;
 import org.carcv.core.model.file.FileEntry;
 
 /**

@@ -25,7 +25,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Arrays;
 
-import org.carcv.core.input.DirectoryWatcher;
+import org.carcv.core.io.DirectoryWatcher;
 import org.carcv.core.model.file.FileCarImage;
 import org.junit.After;
 import org.junit.Before;

@@ -21,7 +21,7 @@ import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.carcv.core.input.DirectoryWatcher;
+import org.carcv.core.io.DirectoryWatcher;
 import org.carcv.core.model.NumberPlate;
 import org.carcv.core.model.Speed;
 import org.carcv.core.model.file.FileCarImage;
@@ -30,7 +30,7 @@ import org.carcv.core.recognize.CarRecognizer;
 import org.carcv.impl.core.detect.CarSorterImpl;
 import org.carcv.impl.core.detect.NumberPlateDetectorImpl;
 import org.carcv.impl.core.detect.SpeedDetectorImpl;
-import org.carcv.impl.core.output.FileSaveBatch;
+import org.carcv.impl.core.io.FileSaveBatch;
 
 /**
  *

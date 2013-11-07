@@ -20,7 +20,7 @@ import java.util.List;
 
 import org.carcv.core.detect.SpeedDetector;
 import org.carcv.core.model.AbstractCarImage;
-import org.carcv.impl.core.input.FFMPEG_VideoHandler;
+import org.carcv.impl.core.io.FFMPEG_VideoHandler;
 
 /**
  * A Singleton implementation of a SpeedDetector based on a simple, non-precise equation:

@@ -21,9 +21,9 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.ArrayList;
 
-import org.carcv.core.input.DirectoryWatcher;
+import org.carcv.core.io.DirectoryWatcher;
 import org.carcv.core.model.file.FileCarImage;
-import org.carcv.impl.core.input.FFMPEG_VideoHandler;
+import org.carcv.impl.core.io.FFMPEG_VideoHandler;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;

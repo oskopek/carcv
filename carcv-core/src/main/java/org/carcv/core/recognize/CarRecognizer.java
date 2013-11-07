@@ -21,9 +21,9 @@ import java.io.IOException;
 import org.carcv.core.detect.CarSorter;
 import org.carcv.core.detect.NumberPlateDetector;
 import org.carcv.core.detect.SpeedDetector;
-import org.carcv.core.input.DirectoryWatcher;
+import org.carcv.core.io.DirectoryWatcher;
+import org.carcv.core.io.SaveBatch;
 import org.carcv.core.model.AbstractEntry;
-import org.carcv.core.output.SaveBatch;
 
 /**
  * An abstraction of the recognizing process.

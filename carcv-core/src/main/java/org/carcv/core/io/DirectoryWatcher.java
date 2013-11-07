@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package org.carcv.core.input;
+package org.carcv.core.io;
 
 import java.io.IOException;
 import java.nio.file.*;

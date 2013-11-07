@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package org.carcv.impl.core.output;
+package org.carcv.impl.core.io;
 
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -23,10 +23,10 @@ import java.nio.file.Paths;
 import java.util.List;
 import java.util.Properties;
 
+import org.carcv.core.io.SaveBatch;
 import org.carcv.core.model.AbstractEntry;
 import org.carcv.core.model.file.FileCarImage;
 import org.carcv.core.model.file.FileEntry;
-import org.carcv.core.output.SaveBatch;
 
 /**
  * An implementation of <code>SaveBatch</code> that stores batches into files.
@@ -52,7 +52,7 @@ public class FileSaveBatch implements SaveBatch {
      * Wrapper method for {@link #saveFileBatch(List)}.
      *
      * @see #saveFileBatch(List)
-     * @see org.carcv.core.output.SaveBatch#save(java.util.List)
+     * @see org.carcv.core.io.SaveBatch#save(java.util.List)
      * @throws IOException if an error during the save occurs
      */
     @Override

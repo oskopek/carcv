@@ -26,7 +26,7 @@ import java.nio.file.Paths;
 
 import javax.ejb.EJB;
 
-import org.carcv.core.input.DirectoryWatcher;
+import org.carcv.core.io.DirectoryWatcher;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Ignore;

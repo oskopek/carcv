@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.carcv.impl.core.output;
+package org.carcv.impl.core.io;
 
 import static org.junit.Assert.*;
 
@@ -28,7 +28,7 @@ import java.util.List;
 import java.util.Properties;
 import java.util.Random;
 
-import org.carcv.core.input.DirectoryWatcher;
+import org.carcv.core.io.DirectoryWatcher;
 import org.carcv.core.model.AbstractEntry;
 import org.carcv.core.model.Address;
 import org.carcv.core.model.CarData;
@@ -36,6 +36,7 @@ import org.carcv.core.model.NumberPlate;
 import org.carcv.core.model.Speed;
 import org.carcv.core.model.file.FileCarImage;
 import org.carcv.core.model.file.FileEntry;
+import org.carcv.impl.core.io.FileSaveBatch;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -121,7 +122,7 @@ public class FileSaveBatchTest {
     }
 
     /**
-     * Test method for {@link org.carcv.impl.core.output.FileSaveBatch#saveFileBatch(java.util.List)}.
+     * Test method for {@link org.carcv.impl.core.io.FileSaveBatch#saveFileBatch(java.util.List)}.
      *
      * @throws IOException
      */
