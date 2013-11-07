@@ -24,6 +24,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
 
+import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 
@@ -38,13 +39,23 @@ public class StorageBean {
     @EJB
     private EntryBean entryBean;
 
-    public static final String envVariable = "OPENSHIFT_DATA_DIR";
+    // public static final String envVariable = "OPENSHIFT_DATA_DIR";
 
-    private final String prefix = System.getenv(envVariable);
+    public static final String JbossDataDirProperty = "jboss.server.data.dir";
 
-    private final Path inDir = Paths.get(prefix, "carcv_data", "in");
+    private String prefix;
 
-    private final Path outDir = Paths.get("prefix", "carcv_data", "out");
+    private Path inDir;
+
+    private Path outDir;
+
+    @PostConstruct
+    private void init() {
+        prefix = System.getProperty(JbossDataDirProperty);
+        System.out.println(prefix);
+        inDir = Paths.get(prefix, "carcv_data", "in");
+        outDir = Paths.get(prefix, "carcv_data", "out");
+    }
 
     private void assertDirCreated(Path p) {
         if (!Files.exists(p) || !Files.isDirectory(p)) {
