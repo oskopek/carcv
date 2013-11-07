@@ -41,6 +41,7 @@ public class StorageBean {
 
     // public static final String envVariable = "OPENSHIFT_DATA_DIR";
 
+    // TODO 1 Should use OPENSHIFT_DATA_DIR - use custom server property
     public static final String JbossDataDirProperty = "jboss.server.data.dir";
 
     private String prefix;
@@ -52,7 +53,6 @@ public class StorageBean {
     @PostConstruct
     private void init() {
         prefix = System.getProperty(JbossDataDirProperty);
-        System.out.println(prefix);
         inDir = Paths.get(prefix, "carcv_data", "in");
         outDir = Paths.get(prefix, "carcv_data", "out");
     }

@@ -20,6 +20,7 @@ import java.io.IOException;
 import java.nio.file.Path;
 import java.util.List;
 
+import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 
@@ -35,14 +36,19 @@ public class RecognizerBean {
     @EJB
     private StorageBean storageBean;
 
-    final private Path inDir = storageBean.getInputDirectory();
-    final private Path outDir = storageBean.getOutputDirectory();
+    private Path inDir;
+    private Path outDir;
+    private FileCarRecognizer recognizer;
 
-    private FileCarRecognizer recognizer = new FileCarRecognizer(inDir, outDir);
+    @PostConstruct
+    private void init() {
+        inDir = storageBean.getInputDirectory();
+        outDir = storageBean.getOutputDirectory();
+        recognizer = new FileCarRecognizer(inDir, outDir);
+    }
 
     public void recognize() throws IOException {
         List<FileEntry> list = recognizer.listRecognize();
         storageBean.storeBatchToDatabase(list);
     }
-
 }
