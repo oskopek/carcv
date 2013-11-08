@@ -31,33 +31,38 @@ import org.carcv.core.model.CarData;
 import org.carcv.core.model.AbstractEntry;
 
 /**
- *
+ * An implementation of AbstractEntry using CarData and FileCarImages.
  */
 @Entity
 public class FileEntry extends AbstractEntry {
 
-    /**
-     *
-     */
     private static final long serialVersionUID = -8030471101247536237L;
 
     private List<FileCarImage> carImages;
     private CarData carData;
 
+    /**
+     * A private default constructor used for persistence.
+     */
     @SuppressWarnings("unused")
     private FileEntry() {
         // intentionally empty
     }
 
     /**
-     * @param carData
-     * @param carImages
+     * A constructor for FileEntry specifying CarData and a list of FileCarImages.
+     *
+     * @param carData instance of CarData corresponding to the given car
+     * @param carImages a list of images of the car
      */
     public FileEntry(CarData carData, List<FileCarImage> carImages) {
         this.carData = carData;
         this.carImages = carImages;
     }
 
+    /**
+     * @return CarData of this FileEntry
+     */
     @Override
     @NotNull
     @Embedded
@@ -65,6 +70,9 @@ public class FileEntry extends AbstractEntry {
         return carData;
     }
 
+    /**
+     * @return a list of FileCarImages of this FileEntry
+     */
     @Override
     @NotNull
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, targetEntity = FileCarImage.class)
@@ -73,14 +81,14 @@ public class FileEntry extends AbstractEntry {
     }
 
     /**
-     * @param carImages the carImages to set
+     * @param carImages the list of FileCarImages to set
      */
     public void setCarImages(List<FileCarImage> carImages) {
         this.carImages = carImages;
     }
 
     /**
-     * @param carData the carData to set
+     * @param carData the CarData to set
      */
     public void setCarData(CarData carData) {
         this.carData = carData;

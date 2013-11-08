@@ -29,14 +29,12 @@ import org.apache.commons.lang.builder.HashCodeBuilder;
 import org.carcv.core.model.AbstractEmbeddable;
 
 /**
- *
+ * An internal persistable Path object storing the Path as a String. The {@link #getPath()} method returns a Path constructed
+ * from the String.
  */
 @Embeddable
 class PersistablePath extends AbstractEmbeddable implements Comparable<PersistablePath> {
 
-    /**
-     *
-     */
     private static final long serialVersionUID = -4725972338092448440L;
 
     private String pathStr;
@@ -45,10 +43,20 @@ class PersistablePath extends AbstractEmbeddable implements Comparable<Persistab
     private PersistablePath() {
     }
 
+    /**
+     * A constructor using String.
+     *
+     * @param path the path to set
+     */
     public PersistablePath(String path) {
         this.pathStr = path;
     }
 
+    /**
+     * A constructor using Path.
+     *
+     * @param path Path to set
+     */
     public PersistablePath(Path path) {
         this.pathStr = path.toString();
     }
@@ -79,7 +87,9 @@ class PersistablePath extends AbstractEmbeddable implements Comparable<Persistab
     }
 
     /**
-     * @return the path
+     * Returns a Path constructed from {@link #getPathStr()} using {@link Paths#get(String, String...)}
+     *
+     * @return a Path constructed from the pathStr
      */
     @Transient
     public Path getPath() {
@@ -87,7 +97,9 @@ class PersistablePath extends AbstractEmbeddable implements Comparable<Persistab
     }
 
     /**
-     * @param path the path to set
+     * Sets {@link #setPathStr(String)} using path.toString()
+     *
+     * @param path the path to set pathStr as
      */
     public void setPath(Path path) {
         setPathStr(path.toString());
