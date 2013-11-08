@@ -36,7 +36,7 @@ import org.carcv.core.model.NumberPlate;
 import org.carcv.core.model.Speed;
 import org.carcv.core.model.file.FileCarImage;
 import org.carcv.core.model.file.FileEntry;
-import org.carcv.impl.core.io.FileSaveBatch;
+import org.carcv.impl.core.io.FileSaver;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -44,7 +44,7 @@ import org.junit.Test;
 /**
  *
  */
-public class FileSaveBatchTest {
+public class FileSaverTest {
 
     private Path inDir;
 
@@ -52,7 +52,7 @@ public class FileSaveBatchTest {
 
     private List<FileEntry> batch;
 
-    private FileSaveBatch saver;
+    private FileSaver saver;
 
     /**
      * @throws java.lang.Exception
@@ -86,7 +86,7 @@ public class FileSaveBatchTest {
 
         }
 
-        saver = new FileSaveBatch(outDir);
+        saver = new FileSaver(outDir);
     }
 
     /**
@@ -122,7 +122,7 @@ public class FileSaveBatchTest {
     }
 
     /**
-     * Test method for {@link org.carcv.impl.core.io.FileSaveBatch#saveFileBatch(java.util.List)}.
+     * Test method for {@link org.carcv.impl.core.io.FileSaver#saveFileBatch(java.util.List)}.
      *
      * @throws IOException
      */

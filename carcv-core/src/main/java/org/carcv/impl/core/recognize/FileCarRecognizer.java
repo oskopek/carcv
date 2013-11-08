@@ -30,12 +30,12 @@ import org.carcv.core.recognize.CarRecognizer;
 import org.carcv.impl.core.detect.CarSorterImpl;
 import org.carcv.impl.core.detect.NumberPlateDetectorImpl;
 import org.carcv.impl.core.detect.SpeedDetectorImpl;
-import org.carcv.impl.core.io.FileSaveBatch;
+import org.carcv.impl.core.io.FileSaver;
 
 /**
  * An implementation of {@link FileCarRecognizer} using {@link FileEntry}.
  * <p>
- * It uses {@link DirectoryWatcher} for input and {@link FileSaveBatch} for output. For the different stages of recognition, it
+ * It uses {@link DirectoryWatcher} for input and {@link FileSaver} for output. For the different stages of recognition, it
  * uses:
  * <ul>
  * <li>Sorting - {@link CarSorterImpl}
@@ -47,7 +47,7 @@ public class FileCarRecognizer extends CarRecognizer {
 
     private DirectoryWatcher watcher;
 
-    private FileSaveBatch saver;
+    private FileSaver saver;
 
     /**
      * Constructor for use with input/output directories.
@@ -57,7 +57,7 @@ public class FileCarRecognizer extends CarRecognizer {
      */
     public FileCarRecognizer(Path inDir, Path outDir) {
         watcher = new DirectoryWatcher(inDir);
-        saver = new FileSaveBatch(outDir);
+        saver = new FileSaver(outDir);
     }
 
     /**

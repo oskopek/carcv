@@ -118,7 +118,7 @@ public class FileCarImage extends AbstractCarImage {
 
         BufferedImage outimage = new BufferedImage(image.getWidth(), image.getHeight(), BufferedImage.TYPE_INT_RGB);
 
-        Graphics2D g = outimage.createGraphics(); // TODO 3 wtf is this for?
+        Graphics2D g = outimage.createGraphics(); // TODO 3 Is this needed?
         g.drawImage(image, 0, 0, null);
         g.dispose();
 

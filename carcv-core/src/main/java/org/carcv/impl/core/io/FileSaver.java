@@ -23,28 +23,28 @@ import java.nio.file.Paths;
 import java.util.List;
 import java.util.Properties;
 
-import org.carcv.core.io.SaveBatch;
+import org.carcv.core.io.Saver;
 import org.carcv.core.model.AbstractEntry;
 import org.carcv.core.model.file.FileCarImage;
 import org.carcv.core.model.file.FileEntry;
 
 /**
- * An implementation of <code>SaveBatch</code> that stores batches into files.
+ * An implementation of <code>Saver</code> that stores batches into files.
  * <p>
  * <strong>Note</strong>: This implementation only stores a properties files containing all needed info about cars in the batch.
  * <p>
  * Actual paths of {@link FileCarImage}s are referenced inside the properties files, as filepath0, filepath1, ...
  */
-public class FileSaveBatch implements SaveBatch {
+public class FileSaver implements Saver {
 
     private Path directory;
 
     /**
-     * Initializes the FileSaveBatch with an output directory path.
+     * Initializes the FileSaver with an output directory path.
      *
      * @param directory path of the directory where all output will be stored
      */
-    public FileSaveBatch(Path directory) {
+    public FileSaver(Path directory) {
         this.directory = directory;
     }
 
@@ -52,7 +52,7 @@ public class FileSaveBatch implements SaveBatch {
      * Wrapper method for {@link #saveFileBatch(List)}.
      *
      * @see #saveFileBatch(List)
-     * @see org.carcv.core.io.SaveBatch#save(java.util.List)
+     * @see org.carcv.core.io.Saver#save(java.util.List)
      * @throws IOException if an error during the save occurs
      */
     @Override
@@ -79,7 +79,7 @@ public class FileSaveBatch implements SaveBatch {
     /**
      * Saves the {@link FileEntry} into a properties file into the output directory.
      * <p>
-     * TODO 1 Add naming conventions
+     * The name of the output file is <code>e.hashCode() + "-" + System.currentTimeMillis()</code>
      * <p>
      * List of properties:
      * <ul>
@@ -102,7 +102,7 @@ public class FileSaveBatch implements SaveBatch {
      * @param e the FileEntry to save
      * @throws IOException if an error during the save occurs
      */
-    public void saveFileEntry(FileEntry e) throws IOException { // TODO 1 Fix file naming
+    public void saveFileEntry(FileEntry e) throws IOException {
         Properties p = new Properties();
 
         p.setProperty("numberplate-origin", e.getCarData().getNumberPlate().getOrigin());
@@ -128,7 +128,7 @@ public class FileSaveBatch implements SaveBatch {
             p.setProperty("filepath" + i, fciList.get(i).getFilepath().toString());
         }
 
-        Path outFilePath = Paths.get(directory.toString(), fciList.get(0).getFilepath().getFileName().toString()
+        Path outFilePath = Paths.get(directory.toString(), e.hashCode() + "-" + System.currentTimeMillis()
             + ".properties");
 
         FileOutputStream fous = new FileOutputStream(outFilePath.toFile());

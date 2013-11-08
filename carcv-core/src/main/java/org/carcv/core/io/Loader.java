@@ -1,5 +1,5 @@
 /*
- * Copyright 2012 CarCV Development Team
+ * Copyright 2013 CarCV Development Team
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -22,20 +22,28 @@ import java.util.List;
 import org.carcv.core.model.AbstractEntry;
 
 /**
- * An interface for any object that wants to save a batch (java.util.List) of {@link AbstractEntry}-s. The output form and
+ * An interface for any object that wants to load a batch (java.util.List) of {@link AbstractEntry}-s. The input data source and
  * method are responsibilities of the implementation.
  * <p>
- * If you implement this interface, it is considered good conduct to implement a complementing Loader (TODO 1 add Loader
+ * If you implement this interface, it is considered good conduct to implement a complementing {@link Saver}
  * interface and link here) too. The saving/loading shouldn't in any way lose data contained in the <code>AbstractEntry</code>
  * -s. You are also encouraged to add other, more specific saving methods.
  */
-public interface SaveBatch {
+public interface Loader {
 
     /**
-     * Saves the batch according to the implementation details.
+     * Loads all batches according to the implementation details.
      *
-     * @param batch a List of anything that extends <code>AbstractEntry</code>
      * @throws IOException if an error during the save occurs
+     * @return a list of AbstractEntry-s that were loaded from the data source
      */
-    public void save(final List<? extends AbstractEntry> batch) throws IOException;
+    public List<? extends AbstractEntry> loadAll() throws IOException;
+    
+    /**
+     * Loads all batches since last load of new batches according to the implementation details.
+     *
+     * @throws IOException if an error during the save occurs
+     * @return a list of AbstractEntry-s that were loaded from the data source
+     */
+    public List<? extends AbstractEntry> loadNew() throws IOException;
 }

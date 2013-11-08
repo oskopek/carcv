@@ -105,12 +105,9 @@ public class SpeedDetectorImplTest {
         Double res = detector.detectSpeed(images);
         assertNotEquals(0d, res);
 
-        Double expected = ((double) images.size() / FFMPEG_VideoHandler.defaultFrameRate) * 3.6 * 10;
+        Double expected = ((double) images.size() / FFMPEG_VideoHandler.defaultFrameRate) * 3.6 * images.size();
 
         assertEquals(expected, res);
-        assertEquals(Double.valueOf(12), res); // TODO 3 This constant check should probably be removed from testDetectSpeed()
-
         assertEquals(res, detector.detectSpeed(images));
     }
-
 }

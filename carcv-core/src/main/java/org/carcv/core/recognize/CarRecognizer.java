@@ -22,7 +22,7 @@ import org.carcv.core.detect.CarSorter;
 import org.carcv.core.detect.NumberPlateDetector;
 import org.carcv.core.detect.SpeedDetector;
 import org.carcv.core.io.DirectoryWatcher;
-import org.carcv.core.io.SaveBatch;
+import org.carcv.core.io.Saver;
 import org.carcv.core.model.AbstractEntry;
 
 /**
@@ -40,7 +40,7 @@ public abstract class CarRecognizer {
      * @see CarSorter#sortIntoCars(org.carcv.core.model.file.FileEntry)
      * @see NumberPlateDetector#detectPlateOrigin(java.util.List)
      * @see SpeedDetector#detectSpeed(java.util.List)
-     * @see SaveBatch#save(java.util.List)
+     * @see Saver#save(java.util.List)
      * @throws IOException
      */
     public abstract void recognize() throws IOException;

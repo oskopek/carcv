@@ -22,12 +22,13 @@ import java.nio.file.attribute.BasicFileAttributes;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.carcv.core.model.AbstractEntry;
 import org.carcv.core.model.file.FileEntry;
 
 /**
  *
  */
-public class DirectoryWatcher {
+public class DirectoryWatcher implements Loader {
 
     private Path rootDir;
 
@@ -149,5 +150,21 @@ public class DirectoryWatcher {
         }
 
         return counter == 0;
+    }
+
+    /**
+     * Calls {@link #getEntries()}.
+     */
+    @Override
+    public List<? extends AbstractEntry> loadAll() throws IOException {
+        return getEntries();
+    }
+
+    /**
+     * Calls {@link #getNewEntries()}.
+     */
+    @Override
+    public List<? extends AbstractEntry> loadNew() throws IOException {
+        return getNewEntries();
     }
 }
