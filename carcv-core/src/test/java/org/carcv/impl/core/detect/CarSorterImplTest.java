@@ -119,11 +119,11 @@ public class CarSorterImplTest {
         assertEquals(batch.getCarImages().size(), counter);
 
         assertEquals(2, result.get(0).getCarImages().size());
-        assertEquals(imagePath1, result.get(0).getCarImages().get(0).getPath());
-        assertEquals(imagePath2, result.get(0).getCarImages().get(1).getPath());
+        assertEquals(imagePath1, result.get(0).getCarImages().get(0).getFilepath());
+        assertEquals(imagePath2, result.get(0).getCarImages().get(1).getFilepath());
 
         assertEquals(1, result.get(1).getCarImages().size());
-        assertEquals(imagePath3, result.get(1).getCarImages().get(0).getPath());
+        assertEquals(imagePath3, result.get(1).getCarImages().get(0).getFilepath());
 
         fci1.close();
         fci2.close();

@@ -102,7 +102,7 @@ public class FileSaveBatch implements SaveBatch {
      * @param e the FileEntry to save
      * @throws IOException if an error during the save occurs
      */
-    public void saveFileEntry(FileEntry e) throws IOException {
+    public void saveFileEntry(FileEntry e) throws IOException { // TODO 1 Fix file naming
         Properties p = new Properties();
 
         p.setProperty("numberplate-origin", e.getCarData().getNumberPlate().getOrigin());
@@ -125,13 +125,14 @@ public class FileSaveBatch implements SaveBatch {
         List<FileCarImage> fciList = e.getCarImages();
 
         for (int i = 0; i < fciList.size(); i++) {
-            p.setProperty("filepath" + i, fciList.get(i).getPath().toString());
+            p.setProperty("filepath" + i, fciList.get(i).getFilepath().toString());
         }
 
-        Path outFilePath = Paths.get(directory.toString(), fciList.get(0).getPath().getFileName().toString() + ".properties");
+        Path outFilePath = Paths.get(directory.toString(), fciList.get(0).getFilepath().getFileName().toString()
+            + ".properties");
 
         FileOutputStream fous = new FileOutputStream(outFilePath.toFile());
-        p.store(fous, fciList.get(0).getPath().getFileName().toString());
+        p.store(fous, fciList.get(0).getFilepath().getFileName().toString());
 
     }
 

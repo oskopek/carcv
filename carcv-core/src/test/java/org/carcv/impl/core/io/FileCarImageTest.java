@@ -147,7 +147,7 @@ public class FileCarImageTest {
 
         iFile.close();
         assertNotNull(iFile);
-        assertNotNull(iFile.getPath());
+        assertNotNull(iFile.getFilepath());
         assertNull(iFile.getImage());
 
         assertTrue(Files.deleteIfExists(tmpFile));
@@ -190,7 +190,7 @@ public class FileCarImageTest {
 
         iFile.close();
         assertNotNull(iFile);
-        assertNotNull(iFile.getPath());
+        assertNotNull(iFile.getFilepath());
         assertNull(iFile.getImage());
 
         assertTrue(Files.deleteIfExists(tmpFile));
@@ -214,7 +214,7 @@ public class FileCarImageTest {
 
         iFile.close();
         assertNotNull(iFile);
-        assertNotNull(iFile.getPath());
+        assertNotNull(iFile.getFilepath());
 
         // BufferedImage closed = iFile.getBufImage();
 
@@ -226,13 +226,13 @@ public class FileCarImageTest {
         FileCarImage iFile = new FileCarImage(filepath);
         assertNotNull(iFile);
 
-        assertNotNull(iFile.getPath());
-        assertEquals(filepath, iFile.getPath());
+        assertNotNull(iFile.getFilepath());
+        assertEquals(filepath, iFile.getFilepath());
 
-        iFile.setPath(Files.createTempFile("test", ".carcv.jpg"));
-        assertNotEquals(iFile.getPath(), filepath);
+        iFile.setFilepath(Files.createTempFile("test", ".carcv.jpg"));
+        assertNotEquals(iFile.getFilepath(), filepath);
 
-        assertTrue(Files.deleteIfExists(iFile.getPath()));
+        assertTrue(Files.deleteIfExists(iFile.getFilepath()));
     }
 
 }

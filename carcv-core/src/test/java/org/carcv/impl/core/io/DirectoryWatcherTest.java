@@ -110,7 +110,7 @@ public class DirectoryWatcherTest {
         assertNotNull(newEntry1.getCarData());
         FileCarImage newImage1 = newEntry1.getCarImages().get(0);
         assertNotNull(newImage1);
-        assertNotNull(newImage1.getPath());
+        assertNotNull(newImage1.getFilepath());
         assertNull(newImage1.getImage());
 
         // 2
@@ -132,7 +132,7 @@ public class DirectoryWatcherTest {
         assertNotNull(newEntry2.getCarData());
         FileCarImage newImage2 = newEntry2.getCarImages().get(0);
         assertNotNull(newImage2);
-        assertNotNull(newImage2.getPath());
+        assertNotNull(newImage2.getFilepath());
         assertNull(newImage2.getImage());
 
         assertFalse(watcher.hasNewEntries());
@@ -140,7 +140,7 @@ public class DirectoryWatcherTest {
         assertNotEquals(newEntry1, newEntry2);
         assertEquals(newEntry1.getCarData(), newEntry2.getCarData());
         assertNotEquals(newImage1, newImage2);
-        assertNotEquals(newImage1.getPath(), newImage2.getPath());
+        assertNotEquals(newImage1.getFilepath(), newImage2.getFilepath());
         assertNotEquals(newFile1, newFile2);
         assertFalse(watcher.hasNewEntries());
 

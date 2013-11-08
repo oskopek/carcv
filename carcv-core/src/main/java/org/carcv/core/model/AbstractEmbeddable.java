@@ -21,14 +21,11 @@ import java.io.Serializable;
 import javax.persistence.MappedSuperclass;
 
 /**
- *
+ * The base class for all Embeddables. It is recommended for subclasses to implement Comparable with the given type.
  */
 @MappedSuperclass
 public abstract class AbstractEmbeddable implements Serializable {
 
-    /**
-     *
-     */
     private static final long serialVersionUID = 7435193250078288118L;
 
     @Override
@@ -36,5 +33,4 @@ public abstract class AbstractEmbeddable implements Serializable {
 
     @Override
     public abstract int hashCode();
-
 }

@@ -37,43 +37,61 @@ import javax.validation.constraints.NotNull;
 import org.apache.commons.lang.builder.EqualsBuilder;
 import org.apache.commons.lang.builder.HashCodeBuilder;
 import org.carcv.core.model.AbstractCarImage;
-import org.carcv.core.model.PersistablePath;
 
 /**
- * Default behavior is to not load an image from path. To load it, use {@link FileCarImage#loadImage()}
+ * An implementation of AbstractCarImage using images from the file system.
+ * <p>
+ * Default behavior is to not load an image from path along the construction of the object. To load it, use
+ * {@link FileCarImage#loadImage()} or any other load method in FileCarImage.
  *
+ * @see AbstractCarImage
  */
 @Entity
 public class FileCarImage extends AbstractCarImage {
 
-    /**
-     *
-     */
-    private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 7110565734692075416L;
 
     private BufferedImage image;
-
     private PersistablePath persistablePath;
 
+    /**
+     * A default constructor used for persistence.
+     */
     @SuppressWarnings("unused")
     private FileCarImage() {
         // intentionally empty
     }
 
-    public FileCarImage(Path path) {
-        this.persistablePath = new PersistablePath(path);
+    /**
+     * Creates a new instance of FileCarImage of an image on the file system with the given Path. Doesn't load the image, you
+     * are responsible for calling {@link #loadImage()} and {@link #close()} on demand.
+     *
+     * @param filepath the Path of the image in the file system
+     */
+    public FileCarImage(Path filepath) {
+        this.persistablePath = new PersistablePath(filepath);
     }
 
+    /**
+     * Loads the image from {@link #getFilepath() filepath} into memory. Calls {@link #loadImage(InputStream)} internally.
+     *
+     * @throws IOException if an error during loading occurs
+     */
     public void loadImage() throws IOException {
-        if (Files.exists(getPath()) && Files.isRegularFile(getPath())) {
+        if (Files.exists(getFilepath()) && Files.isRegularFile(getFilepath())) {
             InputStream inStream = Files.newInputStream(persistablePath.getPath());
             loadImage(inStream);
             return;
         }
-
-        throw new IOException("Image at " + getPath().toString() + " doesn't exist or is invalid.");
+        throw new IOException("Image at " + getFilepath().toString() + " doesn't exist or is invalid.");
     }
 
+    /**
+     * Reads the image in inStream into a BufferedImage. Uses {@link ImageIO}.
+     *
+     * @param inStream the InputStream from which to load the image
+     * @throws IOException if an error during loading occurs
+     */
     public void loadImage(InputStream inStream) throws IOException {
         // TODO 3 Fix loading of images
         /*
@@ -100,22 +118,34 @@ public class FileCarImage extends AbstractCarImage {
 
         BufferedImage outimage = new BufferedImage(image.getWidth(), image.getHeight(), BufferedImage.TYPE_INT_RGB);
 
-        Graphics2D g = outimage.createGraphics();
+        Graphics2D g = outimage.createGraphics(); // TODO 3 wtf is this for?
         g.drawImage(image, 0, 0, null);
         g.dispose();
 
         this.image = outimage;
-
         inStream.close();
     }
 
+    /**
+     * Loads a part corresponding to the rectangular region from the image into memory. Calls
+     * {@link #loadFragment(InputStream, Rectangle)} internally.
+     *
+     * @param rect specifies the rectangular region to load as the image
+     * @throws IOException if an error during loading occurs
+     */
     public void loadFragment(Rectangle rect) throws IOException {
         InputStream inStream = Files.newInputStream(persistablePath.getPath(), StandardOpenOption.READ);
         loadFragment(inStream, rect);
     }
 
+    /**
+     * Reads a rectangular region from an image in the inStream.
+     *
+     * @param inStream the InputStream from which to load the image fraction
+     * @param rect specifies the rectangular region to load as the image
+     * @throws IOException if an error during loading occurs
+     */
     public void loadFragment(InputStream inStream, Rectangle rect) throws IOException {
-
         ImageInputStream imageStream = ImageIO.createImageInputStream(inStream);
         ImageReader reader = ImageIO.getImageReaders(imageStream).next();
         ImageReadParam param = reader.getDefaultReadParam();
@@ -137,6 +167,8 @@ public class FileCarImage extends AbstractCarImage {
     }
 
     /**
+     * Gets the image instance. Note, this field is transient (not persisted).
+     *
      * @return the image
      */
     @Override
@@ -146,18 +178,32 @@ public class FileCarImage extends AbstractCarImage {
     }
 
     /**
-     * @return the persistablePath
+     * Returns the Path of the FileCarImage. This isn't a traditional getter, it is handled by an internal object, but works
+     * exactly like one.
+     *
+     * @see PersistablePath#getPath()
+     * @return the Path of the FileCarImage on the current file system
      */
     @Transient
-    public Path getPath() {
+    public Path getFilepath() {
         return persistablePath.getPath();
     }
 
-    public void setPath(Path filepath) {
+    /**
+     * Sets the Path of the FileCarImage. This isn't a traditional setter, an internal object handles it, but works exactly like
+     * one.
+     *
+     * @see PersistablePath#setPath(Path)
+     * @param filepath the Path of the FileCarImage on the current file system
+     */
+    public void setFilepath(Path filepath) {
         this.persistablePath = new PersistablePath(filepath);
     }
 
     /**
+     * Is private because the PersistablePath class is used just as a protected internal implementation. Only used for
+     * persistence.
+     *
      * @return the persistablePath
      */
     @NotNull
@@ -167,6 +213,9 @@ public class FileCarImage extends AbstractCarImage {
     }
 
     /**
+     * Is private because the PersistablePath class is used just as a protected internal implementation. Only used for
+     * persistence.
+     *
      * @param persistablePath the persistablePath to set
      */
     @SuppressWarnings("unused")
@@ -178,11 +227,9 @@ public class FileCarImage extends AbstractCarImage {
     public boolean equals(Object o) {
         if (o instanceof FileCarImage) {
             FileCarImage f = (FileCarImage) o;
-
             return new EqualsBuilder().append(image, f.image).append(persistablePath, f.persistablePath).isEquals();
         }
         return false;
-
     }
 
     @Override

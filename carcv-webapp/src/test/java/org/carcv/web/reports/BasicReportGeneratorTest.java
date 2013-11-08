@@ -74,13 +74,13 @@ public class BasicReportGeneratorTest {
         testEntry = new FileEntry(carData, Arrays.asList(new FileCarImage(imagePath)));
         testEntry.setId(0l);
 
-        assertNotNull(testEntry.getCarImages().get(0).getPath());
+        assertNotNull(testEntry.getCarImages().get(0).getFilepath());
         assertNotNull(testEntry.getId());
     }
 
     @After
     public void tearDown() throws IOException {
-        Files.delete(testEntry.getCarImages().get(0).getPath());
+        Files.delete(testEntry.getCarImages().get(0).getFilepath());
     }
 
     /**
@@ -102,9 +102,9 @@ public class BasicReportGeneratorTest {
 
         String filename = testDir.getPath() + "/test_results/report" + System.currentTimeMillis() + ".pdf";
 
-        assertNotNull(testEntry.getCarImages().get(0).getPath());
-        assertTrue(Files.exists(testEntry.getCarImages().get(0).getPath()));
-        assertTrue(Files.isRegularFile(testEntry.getCarImages().get(0).getPath()));
+        assertNotNull(testEntry.getCarImages().get(0).getFilepath());
+        assertTrue(Files.exists(testEntry.getCarImages().get(0).getFilepath()));
+        assertTrue(Files.isRegularFile(testEntry.getCarImages().get(0).getFilepath()));
 
         BasicReportGenerator brg = new BasicReportGenerator(testEntry, "/reports/speed_report.jasper", "Myjava",
             "TestReport", "https://carcv-oskopek.rhcloud.com");

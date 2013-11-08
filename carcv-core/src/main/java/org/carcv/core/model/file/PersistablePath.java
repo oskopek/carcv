@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package org.carcv.core.model;
+package org.carcv.core.model.file;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -26,12 +26,13 @@ import javax.validation.constraints.NotNull;
 import org.apache.commons.lang.builder.CompareToBuilder;
 import org.apache.commons.lang.builder.EqualsBuilder;
 import org.apache.commons.lang.builder.HashCodeBuilder;
+import org.carcv.core.model.AbstractEmbeddable;
 
 /**
  *
  */
 @Embeddable
-public class PersistablePath extends AbstractEmbeddable implements Comparable<PersistablePath> {
+class PersistablePath extends AbstractEmbeddable implements Comparable<PersistablePath> {
 
     /**
      *
@@ -111,5 +112,4 @@ public class PersistablePath extends AbstractEmbeddable implements Comparable<Pe
     public int compareTo(PersistablePath o) {
         return new CompareToBuilder().append(pathStr, o.pathStr).toComparison();
     }
-
 }

@@ -19,13 +19,11 @@ package org.carcv.core.model;
 import java.awt.image.BufferedImage;
 
 /**
- *
+ * An abstraction for a video frame (image). All implementations need to handle the loading/saving (best on-demand) of the image
+ * from the chosen data source.
  */
 public abstract class AbstractCarImage extends AbstractModel implements AutoCloseable {
 
-    /**
-     *
-     */
     private static final long serialVersionUID = 1L;
 
     /**

@@ -19,23 +19,20 @@ package org.carcv.core.model;
 import java.util.List;
 
 /**
- *
+ * An abstraction of an entry object, which is a virtual complex of CarData and corresponding list of video frames (images).
  */
 public abstract class AbstractEntry extends AbstractModel {
 
-    /**
-     *
-     */
     private static final long serialVersionUID = 2309289364991527040L;
 
-    /*
-     * private CarData carData; private AbstractCarImage carImage;
-     *
-     * public AbstractEntry(CarData carData, AbstractCarImage carImage) { this.carData = carData; this.carImage = carImage; }
+    /**
+     * @return the CarData object corresponding to the Entry
      */
-
     public abstract CarData getCarData();
 
+    /**
+     * @return the list of CarImages corresponding to the Entry
+     */
     public abstract List<? extends AbstractCarImage> getCarImages();
 
     @Override
@@ -43,5 +40,4 @@ public abstract class AbstractEntry extends AbstractModel {
 
     @Override
     public abstract boolean equals(Object obj);
-
 }

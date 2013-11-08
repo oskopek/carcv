@@ -66,7 +66,7 @@ public class NumberPlateDetectorImplTest {
     @After
     public void tearDown() throws IOException {
         image.close();
-        DirectoryWatcher.deleteDirectory(image.getPath().getParent());
+        DirectoryWatcher.deleteDirectory(image.getFilepath().getParent());
     }
 
     /**

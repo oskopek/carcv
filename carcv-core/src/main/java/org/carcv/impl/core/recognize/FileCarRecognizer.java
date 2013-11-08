@@ -160,7 +160,7 @@ public class FileCarRecognizer extends CarRecognizer {
             try {
                 res.addAll(CarSorterImpl.getInstance().sortIntoCars(dir));
             } catch (IOException e) {
-                System.err.println("Failed to load images in FileEntry at " + dir.getCarImages().get(0).getPath());
+                System.err.println("Failed to load images in FileEntry at " + dir.getCarImages().get(0).getFilepath());
                 e.printStackTrace();
             }
         }

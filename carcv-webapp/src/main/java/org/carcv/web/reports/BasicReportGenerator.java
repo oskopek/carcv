@@ -70,7 +70,7 @@ public class BasicReportGenerator {
 
         // parameters.put("id", Long.toString(data.getId()));
 
-        Path imagePath = e.getCarImages().get(0).getPath().toAbsolutePath();
+        Path imagePath = e.getCarImages().get(0).getFilepath().toAbsolutePath();
 
         if (Files.exists(imagePath) && Files.isRegularFile(imagePath)) {
             parameters.put("previewURL", imagePath.toString());
