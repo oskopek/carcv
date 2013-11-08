@@ -33,7 +33,15 @@ import org.carcv.impl.core.detect.SpeedDetectorImpl;
 import org.carcv.impl.core.io.FileSaveBatch;
 
 /**
- *
+ * An implementation of {@link FileCarRecognizer} using {@link FileEntry}.
+ * <p>
+ * It uses {@link DirectoryWatcher} for input and {@link FileSaveBatch} for output. For the different stages of recognition, it
+ * uses:
+ * <ul>
+ * <li>Sorting - {@link CarSorterImpl}
+ * <li>Speed - {@link SpeedDetectorImpl}
+ * <li>NumberPlates - {@link NumberPlateDetectorImpl}
+ * </ul>
  */
 public class FileCarRecognizer extends CarRecognizer {
 
@@ -41,11 +49,15 @@ public class FileCarRecognizer extends CarRecognizer {
 
     private FileSaveBatch saver;
 
+    /**
+     * Constructor for use with input/output directories.
+     *
+     * @param inDir the path to use as input directory
+     * @param outDir the path to use as output directory
+     */
     public FileCarRecognizer(Path inDir, Path outDir) {
         watcher = new DirectoryWatcher(inDir);
-
         saver = new FileSaveBatch(outDir);
-
     }
 
     /**
@@ -73,7 +85,6 @@ public class FileCarRecognizer extends CarRecognizer {
         final ArrayList<FileEntry> batch = new ArrayList<>(watcher.getNewEntries());
 
         final ArrayList<FileEntry> result = new ArrayList<>();
-
         ArrayList<FileEntry> directory;
 
         for (FileEntry entry : batch) {
@@ -81,7 +92,6 @@ public class FileCarRecognizer extends CarRecognizer {
             directory.add(entry);
 
             sortIntoCars(directory);
-
             detectNumberPlates(directory);
             detectSpeeds(directory);
 
@@ -89,7 +99,6 @@ public class FileCarRecognizer extends CarRecognizer {
         }
 
         saver.save(result);
-
         return result;
     }
 
@@ -159,5 +168,4 @@ public class FileCarRecognizer extends CarRecognizer {
         batch.clear();
         batch.addAll(res); // puts the new entries back to original ArrayList
     }
-
 }

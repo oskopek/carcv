@@ -26,7 +26,7 @@ import org.carcv.core.io.SaveBatch;
 import org.carcv.core.model.AbstractEntry;
 
 /**
- * An abstraction of the recognizing process.
+ * An abstraction of the recognition process.
  */
 public abstract class CarRecognizer {
 
@@ -44,5 +44,4 @@ public abstract class CarRecognizer {
      * @throws IOException
      */
     public abstract void recognize() throws IOException;
-
 }
