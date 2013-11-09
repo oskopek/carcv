@@ -26,7 +26,7 @@ import org.carcv.core.model.AbstractEntry;
 import org.carcv.core.model.file.FileEntry;
 
 /**
- *
+ * Provides methods for discovery of new files recursively under a root directory.
  */
 public class DirectoryWatcher implements Loader {
 
@@ -38,6 +38,11 @@ public class DirectoryWatcher implements Loader {
 
     private Integer lastToIndex;
 
+    /**
+     * A constructor for DirectoryWatcher that sets a root directory.
+     *
+     * @param rootDir the Path from which to recursively discover new files
+     */
     public DirectoryWatcher(Path rootDir) {
         knownDirs = new ArrayList<>();
         entries = new ArrayList<>();
@@ -46,6 +51,12 @@ public class DirectoryWatcher implements Loader {
         this.lastToIndex = 0;
     }
 
+    /**
+     * Discovers new batches in the root directory and adds them to the List of Entries. Runs {@link DirectoryLoader#load(Path)}
+     * on every newly discovered file.
+     *
+     * @throws IOException if an error during discovery occurs
+     */
     public void discover() throws IOException {
         DirectoryStream<Path> stream = Files.newDirectoryStream(rootDir);
 
@@ -64,10 +75,20 @@ public class DirectoryWatcher implements Loader {
         }
     }
 
+    /**
+     * A check if List of Entries has at least one new Entry.
+     *
+     * @return true if the Entries List contains at least one new Entry
+     */
     public boolean hasNewEntries() {
         return lastToIndex < entries.size();
     }
 
+    /**
+     * Gets all Entries from the List that haven't yet been returned.
+     *
+     * @return the list of entries since last call of this method
+     */
     public List<FileEntry> getNewEntries() {
         if (!hasNewEntries()) {
             return new ArrayList<>();
@@ -78,20 +99,19 @@ public class DirectoryWatcher implements Loader {
         return newEntries;
     }
 
+    /**
+     * @return the list of entries
+     */
     public List<FileEntry> getEntries() {
         return entries;
     }
 
     /**
      * Deletes given path (directory) and everything under it recursively.
-     *
      * <p>
      * Similar to <code>rm -rf path</code>
-     * </p>
-     *
      * <p>
      * <strong>USE WITH CAUTION!</strong>
-     * </p>
      *
      * @param path the path to delete
      * @throws IOException
@@ -127,9 +147,9 @@ public class DirectoryWatcher implements Loader {
     }
 
     /**
-     * Check if directory is empty
+     * Checks if directory is empty.
      *
-     * @param dir a Path that isDirectory()
+     * @param dir a Path that {@link Files#isDirectory(Path, LinkOption...) isDirectory}
      * @return true if directory contains no files/directories
      * @throws IOException
      */

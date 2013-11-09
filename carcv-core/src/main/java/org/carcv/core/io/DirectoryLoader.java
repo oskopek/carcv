@@ -33,13 +33,32 @@ import org.carcv.core.model.file.FileCarImage;
 import org.carcv.core.model.file.FileEntry;
 
 /**
- *
+ * Provides methods for loading CarData from a directory containing a {@link #infoFileName info file}.
  */
 public class DirectoryLoader {
 
+    /**
+     * An array of String representation of image file suffixes.
+     */
     final public static String[] knownImageFileSuffixes = { ".png", ".jpg" };
+
+    /**
+     * The default name of the info file.
+     */
     final public static String infoFileName = "info.properties";
 
+    private DirectoryLoader() {
+        // intentionally empty
+    }
+
+    /**
+     * Loads the FileEntry with all {@link #knownImageFileSuffixes known images} and CarData from the {@value #infoFileName}
+     * file in the <code>directory</code>.
+     *
+     * @param directory Path to the directory to load from
+     * @return the loaded FileEntry
+     * @throws IOException if an error during loading occurs
+     */
     public static FileEntry load(Path directory) throws IOException {
         DirectoryStream<Path> contents = Files.newDirectoryStream(directory);
 
@@ -56,6 +75,13 @@ public class DirectoryLoader {
         return new FileEntry(cd, images);
     }
 
+    /**
+     * Loads the CarData from the {@value #infoFileName} in <code>directory</code>.
+     *
+     * @param directory from which to load CarData
+     * @return a new CarData object from the directory properties
+     * @throws IOException if an error during loading occurs
+     */
     private static CarData loadCarData(Path directory) throws IOException {
         Properties p = new Properties();
 
@@ -86,6 +112,12 @@ public class DirectoryLoader {
         return new CarData(null, address, null, timestamp);
     }
 
+    /**
+     * Checks the file if it is an image with known image file format from {@link #knownImageFileSuffixes}.
+     *
+     * @param p Path to check
+     * @return true if the file at Path p is of a known image file format
+     */
     private static boolean isKnownImage(Path p) {
         for (String suffix : knownImageFileSuffixes) {
             if (p.toString().endsWith(suffix.toLowerCase())) {
@@ -94,5 +126,4 @@ public class DirectoryLoader {
         }
         return false;
     }
-
 }
