@@ -21,18 +21,56 @@ import java.io.OutputStream;
 import java.nio.file.Path;
 
 /**
- * It is encouraged to use a script to split up into frames images externally
+ * An abstraction of an object that handles splitting a video into frames of a video and rebuilding it from the frames later.
  */
 public abstract class VideoHandler {
 
-    public abstract boolean disectToFrames(Path video, int frameRate) throws IOException;
+    /**
+     * Splits video into frames with a frame rate.
+     * 
+     * @param video Path of the input video file
+     * @param frameRate number of frames per second
+     * @return true if the splitting finished successfully
+     * @throws IOException if an error during loading video or saving images occurred
+     */
+    public abstract boolean splitIntoFrames(Path video, int frameRate) throws IOException;
 
-    public abstract boolean disectToFrames(Path dir, Path video, int frameRate) throws IOException;
+    /**
+     * Splits video into frames with a frame rate.
+     * 
+     * @param video Path of the input video file
+     * @param frameRate number of frames per second
+     * @param dir directory where output files will be saved
+     * @return true if the splitting finished successfully
+     * @throws IOException if an error during loading video or saving images occurred
+     */
+    public abstract boolean splitIntoFrames(Path video, int frameRate, Path imageDir) throws IOException;
 
-    public abstract void generateVideo(Path imageDir, Path videoPath, int frameRate) throws IOException;
+    /**
+     * Creates a video from all images in a directory.
+     * 
+     * @param imageDir directory from which to load images
+     * @param video Path of the output video file
+     * @param frameRate number of frames per second
+     * @throws IOException if an error during loading images or saving of the video
+     */
+    public abstract void generateVideo(Path imageDir, int frameRate, Path video) throws IOException;
 
+    /**
+     * Creates a video from all images in a directory.
+     * 
+     * @param imageDir directory from which to load images
+     * @param frameRate number of frames per second
+     * @throws IOException if an error during loading images or saving of the video
+     */
     public abstract Path generateVideo(Path imageDir, int frameRate) throws IOException;
 
+    /**
+     * Creates a video from all images in a directory.
+     * 
+     * @param imageDir directory from which to load images
+     * @param frameRate number of frames per second
+     * @throws IOException if an error during loading images or creating the video
+     */
     public abstract OutputStream generateVideoAsStream(Path imageDir, int frameRate) throws IOException;
-
 }
