@@ -32,6 +32,8 @@ import org.apache.commons.lang.builder.HashCodeBuilder;
  */
 @Embeddable
 public class CarData extends AbstractEmbeddable implements Comparable<CarData>, Cloneable {
+    
+    // TODO 1 Finish Address, CarData, NumberPlate and Speed javadoc
 
     /**
 	 *
