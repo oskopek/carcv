@@ -41,12 +41,22 @@ import org.carcv.core.model.CarData;
 import org.carcv.core.model.file.FileEntry;
 
 /**
- *
+ * Provides functionality for filling and exporting a report.
  */
 public class BasicReportGenerator {
 
     JasperPrint filledReportPrint;
 
+    /**
+     * Constructs a basic report from the parameters.
+     *
+     * @param e the FileEntry from which to fill the data
+     * @param templateFilename the template report to fill
+     * @param reportBuilderLocation the place where report is being built (physical, real)
+     * @param reportName the title of the report
+     * @param hostURL url of the domain that is generating the report
+     * @throws JRException if an error during the generation occurs
+     */
     public BasicReportGenerator(FileEntry e, String templateFilename, String reportBuilderLocation,
         String reportName, String hostURL) throws JRException {
 
@@ -104,6 +114,12 @@ public class BasicReportGenerator {
 
     }
 
+    /**
+     * Exports the report to a file in PDF format.
+     *
+     * @param filename file path of the exported report
+     * @throws JRException if an error during exporting occurs
+     */
     public void exportFile(String filename) throws JRException {
         JRExporter exporter = new JRPdfExporter();
 
@@ -116,6 +132,12 @@ public class BasicReportGenerator {
         return;
     }
 
+    /**
+     * Writes the report into the OutputStream in PDF format.
+     *
+     * @param filename filename of the exported report
+     * @throws JRException if an error during exporting occurs
+     */
     public void exportStream(String filename, OutputStream out) throws JRException {
 
         JRExporter exporter = new JRPdfExporter();
@@ -127,5 +149,4 @@ public class BasicReportGenerator {
 
         exporter.exportReport();
     }
-
 }
