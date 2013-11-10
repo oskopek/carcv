@@ -24,15 +24,14 @@ import org.apache.commons.lang.builder.EqualsBuilder;
 import org.apache.commons.lang.builder.HashCodeBuilder;
 
 /**
- * Country of origin and text of a given Licence Plate
- *
+ * An abstraction of a number plate.
+ * <p>
+ * The text is the actual text printed on the number plate. The origin represents the country in which the number plate was
+ * issued.
  */
 @Embeddable
 public class NumberPlate extends AbstractEmbeddable implements Comparable<NumberPlate> {
 
-    /**
-	 *
-	 */
     private static final long serialVersionUID = -2507938473851975932L;
 
     private String text;
@@ -45,8 +44,10 @@ public class NumberPlate extends AbstractEmbeddable implements Comparable<Number
     }
 
     /**
-     * @param text
-     * @param origin
+     * Constructs an initialized NumberPlate object.
+     *
+     * @param text the text to set
+     * @param origin the origin to set
      */
     public NumberPlate(String text, String origin) {
         this.text = text;
@@ -54,7 +55,11 @@ public class NumberPlate extends AbstractEmbeddable implements Comparable<Number
     }
 
     /**
-     * @param text
+     * Constructs an initialized NumberPlate object.
+     * <p>
+     * The origin is set to an empty String.
+     *
+     * @param text the text to set
      */
     public NumberPlate(String text) {
         this.text = text;
@@ -75,11 +80,21 @@ public class NumberPlate extends AbstractEmbeddable implements Comparable<Number
         this.origin = origin;
     }
 
+    /**
+     * Text is the main part of the number plate, the actual String depicted on it.
+     *
+     * @return the text
+     */
     @NotNull
     public String getText() {
         return text;
     }
 
+    /**
+     * Origin of the plate is a two character long String derived from the NumberPlate text syntax - the issuer.
+     *
+     * @return the origin
+     */
     @NotNull
     public String getOrigin() {
         return origin;
@@ -90,9 +105,10 @@ public class NumberPlate extends AbstractEmbeddable implements Comparable<Number
      *
      * @see java.lang.Object#toString()
      */
-    /*
-     * @Override public String toString() { return "NumberPlate [text=" + text + ", origin=" + origin + "]"; }
-     */
+    @Override
+    public String toString() {
+        return "NumberPlate [text=" + getText() + ", origin=" + getOrigin() + "]";
+    }
 
     /*
      * (non-Javadoc)
@@ -128,5 +144,4 @@ public class NumberPlate extends AbstractEmbeddable implements Comparable<Number
     public int compareTo(NumberPlate o) {
         return new CompareToBuilder().append(text, o.text).append(origin, o.origin).toComparison();
     }
-
 }

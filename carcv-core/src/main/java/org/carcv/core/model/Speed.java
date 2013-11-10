@@ -24,24 +24,38 @@ import org.apache.commons.lang.builder.EqualsBuilder;
 import org.apache.commons.lang.builder.HashCodeBuilder;
 
 /**
- *
+ * An abstraction of the speed a car is moving at, along with it's unit.
  */
 @Embeddable
 public class Speed extends AbstractEmbeddable implements Comparable<Speed> {
 
-    /**
-	 *
-	 */
     private static final long serialVersionUID = 1816208535143255888L;
+
+    private Double speed;
+    private SpeedUnit unit;
 
     @SuppressWarnings("unused")
     private Speed() {
-        // hibernate constructor stub
+        // persistence constructor stub
     }
 
     /**
-     * @param speed
-     * @param unit
+     * Constructs an initialized Speed object.
+     * <p>
+     * Initializes with the default unit - {@link SpeedUnit#KPH}
+     *
+     * @param speed the speed to set
+     */
+    public Speed(Double speed) {
+        this.speed = speed;
+        this.unit = SpeedUnit.KPH;
+    }
+
+    /**
+     * Constructs an initialized Speed object.
+     *
+     * @param speed the speed to set
+     * @param unit the unit to set
      */
     public Speed(Double speed, SpeedUnit unit) {
         this.speed = speed;
@@ -49,19 +63,8 @@ public class Speed extends AbstractEmbeddable implements Comparable<Speed> {
     }
 
     /**
-     * Default unit = SpeedUnit.KPH (kilometers per hour)
-     *
-     * @param speed
+     * @return the speed
      */
-    public Speed(Double speed) {
-        this.speed = speed;
-        this.unit = SpeedUnit.KPH;
-    }
-
-    private Double speed;
-
-    private SpeedUnit unit;
-
     @NotNull
     // @Range(min = 0, message = "Speed is less or equal to 0!")
     public Double getSpeed() {
@@ -75,12 +78,21 @@ public class Speed extends AbstractEmbeddable implements Comparable<Speed> {
         this.speed = speed;
     }
 
+    /**
+     * A value from {@link SpeedUnit}.
+     *
+     * @see SpeedUnit
+     * @return the unit
+     */
     @NotNull
     public SpeedUnit getUnit() {
         return unit;
     }
 
     /**
+     * Set a value from {@link SpeedUnit}.
+     *
+     * @see SpeedUnit
      * @param unit the unit to set
      */
     public void setUnit(SpeedUnit unit) {
@@ -92,9 +104,10 @@ public class Speed extends AbstractEmbeddable implements Comparable<Speed> {
      *
      * @see java.lang.Object#toString()
      */
-    /*
-     * @Override public String toString() { return "Speed [speed=" + speed + ", unit=" + unit + "]"; }
-     */
+    @Override
+    public String toString() {
+        return "Speed [speed=" + getSpeed().toString() + ", unit=" + getUnit().toString() + "]";
+    }
 
     /*
      * (non-Javadoc)
@@ -127,8 +140,8 @@ public class Speed extends AbstractEmbeddable implements Comparable<Speed> {
             .isEquals();
     }
 
+    @Override
     public int compareTo(Speed o) {
         return new CompareToBuilder().append(speed, o.speed).append(unit, o.unit).toComparison();
     }
-
 }

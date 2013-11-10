@@ -24,31 +24,22 @@ import org.apache.commons.lang.builder.EqualsBuilder;
 import org.apache.commons.lang.builder.HashCodeBuilder;
 
 /**
- * A basic getter/setter POJO implementation of Address, JPA annotated
- *
+ * A basic implementation of an Address.
+ * <p>
+ * Provides basic getters and setters only.
  */
 @Embeddable
 public class Address extends AbstractEmbeddable implements Comparable<Address> {
 
-    /**
-	 *
-	 */
     private static final long serialVersionUID = 3193222849089726865L;
 
     private Double latitude;
-
     private Double longitude;
-
     private String city;
-
     private String postalCode;
-
     private String street;
-
     private String country;
-
     private Integer streetNumber;
-
     private Integer referenceNumber;
 
     @SuppressWarnings("unused")
@@ -57,14 +48,16 @@ public class Address extends AbstractEmbeddable implements Comparable<Address> {
     }
 
     /**
-     * @param latitude
-     * @param longitude
-     * @param city
-     * @param postalcode
-     * @param street
-     * @param country
-     * @param streetNumber
-     * @param referenceNumber
+     * Creates an initialized Address object.
+     *
+     * @param latitude the latitude to set
+     * @param longitude the longitude to set
+     * @param city the city to set
+     * @param postalcode the postal code to set
+     * @param street the street to set
+     * @param country the country to set
+     * @param streetNumber the street number to set
+     * @param referenceNumber the reference number to set
      */
     public Address(Double latitude, Double longitude, String city, String postalcode, String street, String country,
         Integer streetNumber, Integer referenceNumber) {
@@ -79,12 +72,16 @@ public class Address extends AbstractEmbeddable implements Comparable<Address> {
     }
 
     /**
-     * @param city
-     * @param postalcode
-     * @param street
-     * @param country
-     * @param streetNumber
-     * @param referenceNumber
+     * Creates an initialized Address object.
+     * <p>
+     * The latitude and longitude are initialized to 0d.
+     *
+     * @param city the city to set
+     * @param postalcode the postal code to set
+     * @param street the street to set
+     * @param country the country to set
+     * @param streetNumber the street number to set
+     * @param referenceNumber the reference number to set
      */
     public Address(String city, String postalcode, String street, String country, Integer streetNumber,
         Integer referenceNumber) {
@@ -100,11 +97,15 @@ public class Address extends AbstractEmbeddable implements Comparable<Address> {
     }
 
     /**
-     * @param city
-     * @param postalcode
-     * @param street
-     * @param country
-     * @param streetNumber
+     * Creates an initialized Address object.
+     * <p>
+     * The latitude and longitude are initialized to 0d. The referenceNumber is initialized to 0.
+     *
+     * @param city the city to set
+     * @param postalcode the postal code to set
+     * @param street the street to set
+     * @param country the country to set
+     * @param streetNumber the street number to set
      */
     public Address(String city, String postalcode, String street, String country, Integer streetNumber) {
         this.latitude = 0d;
@@ -141,7 +142,7 @@ public class Address extends AbstractEmbeddable implements Comparable<Address> {
     }
 
     /**
-     * @param postalcode the postalcode to set
+     * @param postalcode the postal code to set
      */
     public void setPostalCode(String postalcode) {
         this.postalCode = postalcode;
@@ -162,54 +163,78 @@ public class Address extends AbstractEmbeddable implements Comparable<Address> {
     }
 
     /**
-     * @param streetNumber the streetNumber to set
+     * @param streetNumber the street number to set
      */
     public void setStreetNumber(int streetNumber) {
         this.streetNumber = streetNumber;
     }
 
     /**
-     * @param referenceNumber the referenceNumber to set
+     * @param referenceNumber the reference number to set
      */
     public void setReferenceNumber(int referenceNumber) {
         this.referenceNumber = referenceNumber;
     }
 
+    /**
+     * @return the latitude
+     */
     @NotNull
     public Double getLatitude() {
         return latitude;
     }
 
+    /**
+     * @return the longitude
+     */
     @NotNull
     public Double getLongitude() {
         return longitude;
     }
 
+    /**
+     * @return the city
+     */
     @NotNull
     public String getCity() {
         return city;
     }
 
+    /**
+     * @return the street
+     */
     @NotNull
     public String getStreet() {
         return street;
     }
 
+    /**
+     * @return the country
+     */
     @NotNull
     public String getCountry() {
         return country;
     }
 
+    /**
+     * @return the postal code
+     */
     @NotNull
     public String getPostalCode() {
         return postalCode;
     }
 
+    /**
+     * @return the street number
+     */
     @NotNull
     public Integer getStreetNumber() {
         return streetNumber;
     }
 
+    /**
+     * @return the reference number
+     */
     @NotNull
     public Integer getReferenceNumber() {
         return referenceNumber;
@@ -253,26 +278,33 @@ public class Address extends AbstractEmbeddable implements Comparable<Address> {
     }
 
     /**
-     * Prints address in post-format, lines ending with '\n'
+     * Prints the Address in a post-compliant format, lines ending with '\n'
      *
-     * @return a string representation of the Address separated by '\n'
+     * @see #printBR()
+     * @return a String representation of the Address separated by '\n'
      */
     public String print() {
         return printDelimeter("\n");
     }
 
     /**
-     * Prints the string with the '<code>&lt;br&gt;</code>' tag instead of '\n'
+     * Prints the Address with the '<code>&lt;br&gt;</code>' tag instead of '\n'
      * <p>
      * To be used in HTML pages.
      *
-     * @return a string representation of the Address separated by '<code>&lt;br&gt;</code>'
      * @see #print()
+     * @return a String representation of the Address separated by '<code>&lt;br&gt;</code>'
      */
     public String printBR() {
         return printDelimeter("<br>");
     }
 
+    /**
+     * Prints the Address with the <code>delimeter</code> as each new line character.
+     *
+     * @param delimeter the String to place as new line characters
+     * @return a post-compliant formatted String representation of the Address
+     */
     private String printDelimeter(String delimeter) {
         return getStreet() + " " + getStreetNumber() + "/" + getReferenceNumber() + delimeter + getPostalCode() + " "
             + getCity() + delimeter + getCountry();
@@ -287,4 +319,8 @@ public class Address extends AbstractEmbeddable implements Comparable<Address> {
             .append(getReferenceNumber(), other.getReferenceNumber()).toComparison();
     }
 
+    @Override
+    public String toString() {
+        return printDelimeter(", ");
+    }
 }

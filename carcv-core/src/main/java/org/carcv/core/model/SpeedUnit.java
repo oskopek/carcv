@@ -17,12 +17,14 @@
 package org.carcv.core.model;
 
 /**
- * <code>SpeedUnit</code>-s:
+ * The default unit to use is {@link #KPH}.
+ *
+ * All values of <code>SpeedUnit</code>:
  * <ul>
- * <li>MPH - miles per hour</li>
- * <li>KPH - kilometers per hour</li>
- * <li>MS - meters per second</li>
- * <li>KNOTS - nautical knots</li>
+ * <li>MPH - miles per hour
+ * <li>KPH - kilometers per hour
+ * <li>MS - meters per second
+ * <li>KNOTS - nautical knots
  * </ul>
  */
 public enum SpeedUnit {

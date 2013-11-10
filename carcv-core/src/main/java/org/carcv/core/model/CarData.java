@@ -27,17 +27,13 @@ import org.apache.commons.lang.builder.EqualsBuilder;
 import org.apache.commons.lang.builder.HashCodeBuilder;
 
 /**
- * An expression of Data collected
- *
+ * An abstraction of all data and information about the car.
+ * <p>
+ * Provides just basic getters and setters.
  */
 @Embeddable
 public class CarData extends AbstractEmbeddable implements Comparable<CarData>, Cloneable {
-    
-    // TODO 1 Finish Address, CarData, NumberPlate and Speed javadoc
 
-    /**
-	 *
-	 */
     private static final long serialVersionUID = -2135634243340403587L;
 
     private Speed speed;
@@ -54,11 +50,12 @@ public class CarData extends AbstractEmbeddable implements Comparable<CarData>, 
     }
 
     /**
+     * Constructs an initialized CarData object.
      *
-     * @param speed
-     * @param address
-     * @param numberPlate
-     * @param timestamp
+     * @param speed the Spped object to set
+     * @param address the Address object to set
+     * @param numberPlate the NumberPlate object to set
+     * @param timestamp the timestamp to set
      */
     public CarData(Speed speed, Address address, NumberPlate numberPlate, Date timestamp) {
         this.speed = speed;
@@ -67,6 +64,9 @@ public class CarData extends AbstractEmbeddable implements Comparable<CarData>, 
         this.timestamp = timestamp;
     }
 
+    /**
+     * @return the speed
+     */
     @NotNull
     @Embedded
     public Speed getSpeed() {
@@ -80,6 +80,9 @@ public class CarData extends AbstractEmbeddable implements Comparable<CarData>, 
         this.speed = speed;
     }
 
+    /**
+     * @return the address
+     */
     @NotNull
     @Embedded
     public Address getAddress() {
@@ -93,6 +96,9 @@ public class CarData extends AbstractEmbeddable implements Comparable<CarData>, 
         this.address = address;
     }
 
+    /**
+     * @return the numberPlate
+     */
     @NotNull
     @Embedded
     public NumberPlate getNumberPlate() {
@@ -126,10 +132,12 @@ public class CarData extends AbstractEmbeddable implements Comparable<CarData>, 
      *
      * @see java.lang.Object#toString()
      */
-    /*
-     * @Override public String toString() { return "CarData [id=" + getId() + ", speed=" + speed + ", location=" + location +
-     * ", numberPlate=" + numberPlate + ", timestamp=" + timestamp + ", video=" + video + "]"; }
-     */
+
+    @Override
+    public String toString() {
+        return "CarData [speed=" + getSpeed().toString() + ", address=" + getAddress().toString() +
+            ", numberPlate=" + getNumberPlate().toString() + ", timestamp=" + getTimestamp().toString() + "]";
+    }
 
     /*
      * (non-Javadoc)
@@ -181,5 +189,4 @@ public class CarData extends AbstractEmbeddable implements Comparable<CarData>, 
 
         return new CarData(s, a, np, (Date) getTimestamp().clone());
     }
-
 }
