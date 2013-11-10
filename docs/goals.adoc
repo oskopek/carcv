@@ -2,7 +2,7 @@
 
 If you want to help with any of them, just contact me -- Ondrej Skopek -- at mailto:skopekondrej@gmail.com[skopekondrej@gmail.com]!
 
-* [ ] Finish basic implementation of Core
+* [x] Finish basic implementation of Core
 * [ ] Finish basic implementation of WebApp
 * [x] Document functionality
 * [ ] Add missing JavaDoc and refactor existing
