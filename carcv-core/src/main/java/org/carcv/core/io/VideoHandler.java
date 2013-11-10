@@ -40,7 +40,7 @@ public abstract class VideoHandler {
      *
      * @param video Path of the input video file
      * @param frameRate number of frames per second
-     * @param dir directory where output files will be saved
+     * @param imageDir directory where output files will be saved
      * @return true if the splitting finished successfully
      * @throws IOException if an error during loading video or saving images occurs
      */
