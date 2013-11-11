@@ -36,26 +36,22 @@ import org.carcv.core.model.Speed;
 import org.carcv.core.model.SpeedUnit;
 import org.carcv.core.model.file.FileCarImage;
 import org.carcv.core.model.file.FileEntry;
-import org.carcv.web.beans.*;
+import org.carcv.web.beans.EntryBean;
 
 /**
- * Servlet implementation class AddEntryServlet
+ * A Servlet that adds a demo entry to DB
  */
 @WebServlet("/test/AddEntryServlet")
 public class AddEntryServlet extends HttpServlet {
-    private static final long serialVersionUID = 1L;
+
+    private static final long serialVersionUID = -3438220547423577335L;
 
     @EJB
     private EntryBean entryBean;
 
     /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public AddEntryServlet() {
-        super();
-    }
-
-    /**
+     * Creates a demo FileEntry and stores it to db.
+     *
      * @see HibernateUtilTest#saveAndQueryTest()
      * @throws ServletException
      * @throws IOException
@@ -67,37 +63,29 @@ public class AddEntryServlet extends HttpServlet {
 
         // Entity code
         Speed speed = new Speed(80d, SpeedUnit.KPH);
-
         Address address = new Address("Myjava", "90701", "Jablonská", "Slovakia", 27, 860);
-
         NumberPlate licencePlate = new NumberPlate("MY-077AU", "SK");
-
         Date timestamp = new Date(System.currentTimeMillis());
-
-        // MediaObject video = new MediaObject("http://test.com/video.h264", MediaType.H264);
-
         CarData carData = new CarData(speed, address, licencePlate, timestamp);
 
         FileEntry testEntry = new FileEntry(carData, Arrays.asList(new FileCarImage(Paths.get("/tmp/test/image.jpg"))));
-
         // End entity code
         out.println(testEntry.toString());
 
         entryBean.create(testEntry);
-
         out.println("Saved");
         out.println(testEntry.toString());
-
         long entry_id = testEntry.getId();
         out.println("Id=" + entry_id);
-
         // now retrieve
-        out.println(entryBean.findById(entry_id).toString());
-
+        out.println("Retrieved: " + entryBean.findById(entry_id).toString());
     }
 
     /**
      * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+     * @see #processRequest(HttpServletRequest, HttpServletResponse)
+     * @throws ServletException
+     * @throws IOException
      */
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         processRequest(request, response);
@@ -105,10 +93,12 @@ public class AddEntryServlet extends HttpServlet {
 
     /**
      * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+     * @see #processRequest(HttpServletRequest, HttpServletResponse)
+     * @throws ServletException
+     * @throws IOException
      */
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException,
         IOException {
         processRequest(request, response);
     }
-
 }

@@ -41,19 +41,23 @@ import org.carcv.impl.core.run.Main;
 import org.carcv.web.beans.StorageBean;
 
 /**
- *
+ * A Servlet that uploads images to a new batch input directory.
  */
 @WebServlet("/servlet/UploadServlet")
 public class UploadServlet extends HttpServlet {
 
-    /**
-     *
-     */
     private static final long serialVersionUID = 8953603165824574044L;
 
     @EJB
     private StorageBean storageBean;
 
+    /**
+     * @param request the HttpServletRequest
+     * @param response the HttpServletResponse
+     * @throws ServletException
+     * @throws IOException
+     * @throws FileUploadException if an error during upload occurs
+     */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException,
         IOException, FileUploadException {
         // response.sendRedirect("/app/working.jsp"); // TODO 3 Do Something similar to this
@@ -86,10 +90,10 @@ public class UploadServlet extends HttpServlet {
 
         // recognizerBean.recognize(); // TODO 2 should we? probably no
         response.sendRedirect("/app/upload_complete.jsp"); // redirect to completed
-
     }
 
     /**
+     * @see #processRequest(HttpServletRequest, HttpServletResponse)
      * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
      */
     @Override
@@ -103,6 +107,7 @@ public class UploadServlet extends HttpServlet {
     }
 
     /**
+     * @see #processRequest(HttpServletRequest, HttpServletResponse)
      * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
      */
     @Override

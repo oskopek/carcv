@@ -29,19 +29,23 @@ import org.carcv.impl.core.io.FFMPEG_VideoHandler;
 import org.carcv.web.beans.EntryBean;
 
 /**
- *
+ * A Servlet that generates a video from a list of images using
+ * {@link FFMPEG_VideoHandler#generateVideoAsStream(FileEntry, java.io.OutputStream)}.
  */
 @WebServlet("/servlet/GenerateVideoServlet")
 public class GenerateVideoServlet extends HttpServlet {
 
-    /**
-     *
-     */
     private static final long serialVersionUID = 6662253349108285886L;
 
     @EJB
     private EntryBean entryBean;
 
+    /**
+     *
+     * @param request the HttpServletRequest
+     * @param response the HttpServletResponse
+     * @throws IOException
+     */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws IOException {
         response.setContentType("video/h264");
         String filename = "video-" + System.currentTimeMillis() + ".h264";
@@ -51,14 +55,13 @@ public class GenerateVideoServlet extends HttpServlet {
 
         // generate
         long entryId = Long.parseLong(request.getParameter("entry_id"));
-
         FileEntry entry = entryBean.findById(entryId);
 
         FFMPEG_VideoHandler.generateVideoAsStream(entry, response.getOutputStream());
-
     }
 
     /**
+     * @see #processRequest(HttpServletRequest, HttpServletResponse)
      * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
      */
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
@@ -66,11 +69,10 @@ public class GenerateVideoServlet extends HttpServlet {
     }
 
     /**
-     * @throws IOException
+     * @see #processRequest(HttpServletRequest, HttpServletResponse)
      * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
      */
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
         processRequest(request, response);
     }
-
 }

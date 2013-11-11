@@ -34,22 +34,23 @@ import org.carcv.core.model.file.FileEntry;
 import org.carcv.web.beans.EntryBean;
 
 /**
- * Servlet implementation class CarTableServlet
+ * A Servlet that retrieves all FileEntries from the database and formats them into a nice table.
  */
 @WebServlet("/servlet/CarTableServlet")
 public class CarTableServlet extends HttpServlet {
-    private static final long serialVersionUID = 1L;
+
+    private static final long serialVersionUID = 650302178430670688L;
 
     @EJB
     private EntryBean bean;
 
     /**
-     * @see HttpServlet#HttpServlet()
+     * @see CarTableServlet
+     * @param request the HttpServletRequest
+     * @param response the HttpServletResponse
+     * @throws ServletException
+     * @throws IOException
      */
-    public CarTableServlet() {
-        super();
-    }
-
     protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException,
         IOException {
 
@@ -127,6 +128,7 @@ public class CarTableServlet extends HttpServlet {
 
     /**
      * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+     * @see #processRequest(HttpServletRequest, HttpServletResponse)
      */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -135,11 +137,11 @@ public class CarTableServlet extends HttpServlet {
 
     /**
      * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+     * @see #processRequest(HttpServletRequest, HttpServletResponse)
      */
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException,
         IOException {
         processRequest(request, response);
     }
-
 }

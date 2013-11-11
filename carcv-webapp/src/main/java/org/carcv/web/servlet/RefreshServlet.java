@@ -27,34 +27,34 @@ import javax.servlet.http.HttpServletResponse;
 import org.carcv.web.beans.RecognizerBean;
 
 /**
- *
+ * A Servlet that calls {@link RecognizerBean#recognize()} and redirects back to referrer.
  */
 @WebServlet("/servlet/RefreshServlet")
 public class RefreshServlet extends HttpServlet { // TODO 1 Test RefreshServlet - crashes because of RecognizerBean bug
 
-    /**
-     *
-     */
     private static final long serialVersionUID = -235344099282905675L;
 
     @EJB
     private RecognizerBean recognizerBean;
 
+    /**
+     * @param request the HttpServletRequest
+     * @param response the HttpServletResponse
+     * @throws ServletException
+     * @throws IOException
+     */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException,
         IOException {
         // response.sendRedirect("/app/working.jsp"); // TODO 3 Will this work? No, do something similar
 
         System.out.println("[RefreshServlet]\tStarting recognizing...");
-
         recognizerBean.recognize();
-
         System.out.println("[RefreshServlet]\tDone recognizing! Redirecting...");
-
         response.sendRedirect(request.getHeader("referer")); // redirect back where you came from
-
     }
 
     /**
+     * @see #processRequest(HttpServletRequest, HttpServletResponse)
      * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
      */
     @Override
@@ -63,6 +63,7 @@ public class RefreshServlet extends HttpServlet { // TODO 1 Test RefreshServlet 
     }
 
     /**
+     * @see #processRequest(HttpServletRequest, HttpServletResponse)
      * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
      */
     @Override

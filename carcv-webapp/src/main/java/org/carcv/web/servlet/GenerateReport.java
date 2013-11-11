@@ -32,22 +32,24 @@ import org.carcv.web.beans.EntryBean;
 import org.carcv.web.reports.BasicReportGenerator;
 
 /**
- * Servlet implementation class GenerateReport
+ * A Servlet that generates a report with {@link BasicReportGenerator} using the <code>entry_id</code> parameter.
  */
 @WebServlet("/servlet/GenerateReport")
 public class GenerateReport extends HttpServlet {
-    private static final long serialVersionUID = 1L;
+
+    private static final long serialVersionUID = 107823642246194053L;
 
     @EJB
     private EntryBean entryBean;
 
     /**
-     * @see HttpServlet#HttpServlet()
+     * @see GenerateReport
+     * @param request the HttpServletRequest
+     * @param response the HttpServletResponse
+     * @throws ServletException
+     * @throws IOException
+     * @throws JRException if an error during generation of the report occurs
      */
-    public GenerateReport() {
-        super();
-    }
-
     protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException,
         IOException, JRException {
         response.setContentType("application/pdf");
@@ -58,7 +60,6 @@ public class GenerateReport extends HttpServlet {
 
         // generate
         long entryId = Long.parseLong(request.getParameter("entry_id"));
-
         FileEntry fileEntry = entryBean.findById(entryId);
 
         // host URL
@@ -66,12 +67,11 @@ public class GenerateReport extends HttpServlet {
 
         BasicReportGenerator brg = new BasicReportGenerator(fileEntry, "/reports/speed_report.jasper", "Myjava",
             "TestReport", hostURL);
-
         brg.exportStream(filename, response.getOutputStream());
-
     }
 
     /**
+     * @see #processRequest(HttpServletRequest, HttpServletResponse)
      * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
      */
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -84,6 +84,7 @@ public class GenerateReport extends HttpServlet {
     }
 
     /**
+     * @see #processRequest(HttpServletRequest, HttpServletResponse)
      * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
      */
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException,
@@ -95,5 +96,4 @@ public class GenerateReport extends HttpServlet {
             e.printStackTrace();
         }
     }
-
 }

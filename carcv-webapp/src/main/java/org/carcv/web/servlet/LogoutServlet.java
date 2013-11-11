@@ -17,33 +17,37 @@
 package org.carcv.web.servlet;
 
 import java.io.IOException;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
- * Servlet implementation class LogoutServlet
+ * A Servlet that handles logging out.
+ *
+ * @see HttpSession#invalidate()
  */
 @WebServlet("/servlet/LogoutServlet")
 public class LogoutServlet extends HttpServlet {
-    private static final long serialVersionUID = 1L;
+
+    private static final long serialVersionUID = -2664973058953777018L;
 
     /**
-     * @see HttpServlet#HttpServlet()
+     * @param request the HttpServletRequest
+     * @param response the HttpServletResponse
+     * @throws ServletException
+     * @throws IOException
      */
-    public LogoutServlet() {
-        super();
-    }
-
-    protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException,
-        IOException {
+    protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws IOException {
         request.getSession().invalidate();
         response.sendRedirect("/");
     }
 
     /**
+     * @see #processRequest(HttpServletRequest, HttpServletResponse)
      * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
      */
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -51,11 +55,11 @@ public class LogoutServlet extends HttpServlet {
     }
 
     /**
+     * @see #processRequest(HttpServletRequest, HttpServletResponse)
      * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
      */
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException,
         IOException {
         processRequest(request, response);
     }
-
 }
