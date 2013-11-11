@@ -28,5 +28,55 @@ package org.carcv.core.model;
  * </ul>
  */
 public enum SpeedUnit {
-    MPH, KPH, MS, KNOTS
+    MPH     (1.60934),
+    KPH     (1),
+    MS      (3.6),
+    KNOTS   (1.852),
+    FPS     (1.09728);
+    
+    private double conversionCoef;
+    
+    private SpeedUnit(double conversionCoef) {
+        this.conversionCoef = conversionCoef;
+    }
+    
+    /**
+     * @return the conversion coefficient to the default unit ({@link #KPH})
+     */
+    public double getConversionCoef() {
+        return conversionCoef;
+    }
+    
+    /**
+     * Converts the speed value to the default unit {@link #KPH}.
+     * 
+     * @param speed the speed to convert
+     * @return the converted speed in KPH
+     */
+    public double convertToDefault(double speed) {
+        return convert(this, speed, KPH);
+    }
+    
+    /**
+     * Converts the speed value from the <code>from</code> unit to the <code>to</code> unit.
+     * 
+     * @param from the unit form which to convert
+     * @param speed the value to convert
+     * @param to the unit to convert to
+     * @return the converted value in <code>to</code> unit
+     */
+    public static double convert(SpeedUnit from, double speed, SpeedUnit to) {
+        return (from.getConversionCoef()*speed)/to.getConversionCoef();
+    }
+    
+    /**
+     * Converts the value from this unit to the <code>to</code> unit.
+     * 
+     * @param speed the value to convert
+     * @param to the unit to convert to
+     * @return the converted value in <code>to</code> unit
+     */
+    public double convertTo(double speed, SpeedUnit to) {
+        return convert(this, speed, to);
+    }
 }
