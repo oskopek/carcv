@@ -21,11 +21,12 @@ import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 
 import org.carcv.core.model.file.FileEntry;
 
 /**
- *
+ * Provides basic JPA EntityManager persistence for the FileEntry entity.
  */
 @Stateless
 public class EntryBean {
@@ -33,17 +34,39 @@ public class EntryBean {
     @PersistenceContext
     private EntityManager em;
 
+    /**
+     * Persists the list of FileEntries to the database.
+     *
+     * @see EntityManager#persist(Object)
+     * @param entries array of FileEntries to persist
+     */
     public void create(FileEntry... entries) {
         for (FileEntry e : entries) {
             em.persist(e);
         }
     }
 
+    /**
+     * Queries the database, selecting only the FileEntry with the specified id.
+     * <p>
+     * Query: <code>select e from FileEntry e where e.id = :id</code>
+     *
+     * @param id
+     * @see Query#getSingleResult()
+     * @return the FileEntry with the given id
+     */
     public FileEntry findById(long id) {
         return (FileEntry) em.createQuery("select e from FileEntry e where e.id = :id").setParameter("id", id)
             .getSingleResult();
     }
 
+    /**
+     * Queries the database, selecting all FileEntries in the table.
+     * <p>
+     * Query: <code>select e from FileEntry e</code>
+     *
+     * @return the list result of the query
+     */
     @SuppressWarnings("unchecked")
     public List<FileEntry> getAll() {
         return em.createQuery("select e from FileEntry e").getResultList();

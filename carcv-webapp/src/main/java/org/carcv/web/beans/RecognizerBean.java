@@ -28,7 +28,8 @@ import org.carcv.core.model.file.FileEntry;
 import org.carcv.impl.core.recognize.FileCarRecognizer;
 
 /**
- *
+ * Provides a method to run {@link FileCarRecognizer#recognize() recognize()} on the default input and output directories. Also
+ * auto-stores to database.
  */
 @Stateless
 public class RecognizerBean {
@@ -47,6 +48,14 @@ public class RecognizerBean {
         recognizer = new FileCarRecognizer(inDir, outDir);
     }
 
+    /**
+     * Calls {@link FileCarRecognizer#listRecognize()} and then on the resulting list
+     * {@link StorageBean#storeBatchToDatabase(List)}.
+     *
+     * @see FileCarRecognizer#listRecognize()
+     * @see StorageBean#storeBatchToDatabase(List)
+     * @throws IOException if an error during recognition occurs
+     */
     public void recognize() throws IOException {
         List<FileEntry> list = recognizer.listRecognize();
         storageBean.storeBatchToDatabase(list);

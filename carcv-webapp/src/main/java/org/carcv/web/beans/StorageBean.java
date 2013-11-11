@@ -31,7 +31,7 @@ import javax.ejb.Stateless;
 import org.carcv.core.model.file.FileEntry;
 
 /**
- *
+ * Handles storage (loading and saving) of images and Entries. Also provides easy database access for persistence.
  */
 @Stateless
 public class StorageBean {
@@ -39,15 +39,10 @@ public class StorageBean {
     @EJB
     private EntryBean entryBean;
 
-    // public static final String envVariable = "OPENSHIFT_DATA_DIR";
-
     // TODO 1 Should use OPENSHIFT_DATA_DIR - use custom server property
     public static final String JbossDataDirProperty = "jboss.server.data.dir";
-
     private String prefix;
-
     private Path inDir;
-
     private Path outDir;
 
     @PostConstruct
@@ -57,6 +52,12 @@ public class StorageBean {
         outDir = Paths.get(prefix, "carcv_data", "out");
     }
 
+    /**
+     * Checks if the directory exists, if not, creates it. Prints an error if an error during creating occurred, doesn't throw
+     * any Exception.
+     *
+     * @param p the Path to check
+     */
     private void assertDirCreated(Path p) {
         if (!Files.exists(p) || !Files.isDirectory(p)) {
             try {
@@ -68,22 +69,49 @@ public class StorageBean {
         }
     }
 
+    /**
+     * Makes sure the input directory exists and returns it's path.
+     *
+     * @see #assertDirCreated(Path)
+     * @return the input directory Path
+     */
     public Path getInputDirectory() {
         assertDirCreated(inDir);
         return inDir;
     }
 
+    /**
+     * Makes sure the output directory exists and returns it's path.
+     *
+     * @see #assertDirCreated(Path)
+     * @return the output directory Path
+     */
     public Path getOutputDirectory() {
         assertDirCreated(outDir);
         return outDir;
     }
 
+    /**
+     * Creates a new batch directory for storing input images. Also assures that the input and output directories exist.
+     *
+     * @return Path of the new batch directory
+     * @throws IOException if an error during the creation occurrs
+     */
     public Path createBatchDirectory() throws IOException {
         assertDirCreated(inDir);
         assertDirCreated(outDir);
         return Files.createDirectory(Paths.get(inDir.toString(), "batch-" + System.currentTimeMillis()));
     }
 
+    /**
+     * Reads the image from the InputStream and stores it to the <code>dir</code> with the name <code>fileName</code>.
+     *
+     * @param is the InputStream from which to load image
+     * @param fileName the file name of the saved image
+     * @param dir the directory to which to save the image
+     * @see #saveToFile(InputStream, OutputStream)
+     * @throws IOException if an error occurs
+     */
     public void storeImageToDirectory(InputStream is, String fileName, Path dir) throws IOException {
         assertDirCreated(dir);
         Path file = Files.createFile(Paths.get(dir.toString(), fileName));
@@ -91,19 +119,31 @@ public class StorageBean {
         saveToFile(is, Files.newOutputStream(file));
     }
 
+    /**
+     * Persists all members of the list to the database.
+     *
+     * @see EntryBean#create(FileEntry...)
+     * @param list the list of FileEntries to store
+     */
     public void storeBatchToDatabase(final List<FileEntry> list) {
         FileEntry[] array = new FileEntry[list.size()];
         entryBean.create(list.toArray(array));
     }
 
-    private void saveToFile(InputStream from, OutputStream outputStream) {
+    /**
+     * Reads from the InputStream and writes to the OutputStream. Used for writing streams to files.
+     *
+     * @param from the InputStream to read from
+     * @param to the OutputStream to write to
+     */
+    private void saveToFile(InputStream from, OutputStream to) {
         try {
 
             int read = 0;
             byte[] bytes = new byte[1024];
 
             while ((read = from.read(bytes)) != -1) {
-                outputStream.write(bytes, 0, read);
+                to.write(bytes, 0, read);
             }
 
         } catch (IOException e) {
@@ -116,14 +156,13 @@ public class StorageBean {
                     e.printStackTrace();
                 }
             }
-            if (outputStream != null) {
+            if (to != null) {
                 try {
                     // outputStream.flush();
-                    outputStream.close();
+                    to.close();
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
-
             }
         }
     }
