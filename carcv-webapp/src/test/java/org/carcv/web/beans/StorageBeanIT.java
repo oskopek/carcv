@@ -42,7 +42,7 @@ import org.junit.runner.RunWith;
  * Test class for {@link StorageBean}
  */
 @RunWith(Arquillian.class)
-public class StorageBeanIT { // TODO 1 Fill the StorageBeanIT
+public class StorageBeanIT { // TODO 2 Fill the StorageBeanIT
 
     @EJB
     private StorageBean storageBean;

@@ -45,7 +45,7 @@ public class RefreshServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException,
         IOException {
-        // response.sendRedirect("/app/working.jsp"); // TODO 3 Will this work? No, do something similar
+        // response.sendRedirect("/app/working.jsp"); // TODO 1 Will this work? No, do something similar
 
         System.out.println("[RefreshServlet]\tStarting recognizing...");
         recognizerBean.recognize();
