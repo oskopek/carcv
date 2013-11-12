@@ -31,7 +31,6 @@ import org.junit.runner.RunWith;
 
 /**
  * Test if the app deploys and EJB CDI Injection works.
- *
  */
 @RunWith(Arquillian.class)
 public class DeployedIT {
@@ -56,10 +55,17 @@ public class DeployedIT {
 
     @EJB
     private EntryBean entryBean;
+    
+    @EJB
+    private RecognizerBean recognizerBean;
+    
+    @EJB
+    private StorageBean storageBean;
 
     @Test
     public void beanInjectionTest() {
         assertNotNull("Failed to inject EJB entryBean", entryBean);
+        assertNotNull("Failed to inject EJB recognizerBean", recognizerBean);
+        assertNotNull("Failed to inject EJB storageBean", storageBean);
     }
-
 }
