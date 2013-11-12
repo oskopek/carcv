@@ -48,8 +48,7 @@ public class RemoveServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException,
         IOException {
         long entryId = Long.parseLong(request.getParameter("entry_id"));
-        FileEntry e = entryBean.findById(entryId);
-        entryBean.remove(e);
+        entryBean.remove(entryId);
         response.sendRedirect(request.getHeader("referer"));
     }
 
