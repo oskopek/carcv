@@ -75,7 +75,7 @@ public class FileEntry extends AbstractEntry {
      */
     @Override
     @NotNull
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, targetEntity = FileCarImage.class)
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, targetEntity = FileCarImage.class, orphanRemoval=true)
     public List<FileCarImage> getCarImages() {
         return carImages;
     }
