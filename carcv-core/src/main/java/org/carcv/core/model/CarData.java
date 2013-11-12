@@ -52,7 +52,7 @@ public class CarData extends AbstractEmbeddable implements Comparable<CarData>, 
     /**
      * Constructs an initialized CarData object.
      *
-     * @param speed the Spped object to set
+     * @param speed the Speed object to set
      * @param address the Address object to set
      * @param numberPlate the NumberPlate object to set
      * @param timestamp the timestamp to set
