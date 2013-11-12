@@ -72,7 +72,7 @@ public class AddEntryServlet extends HttpServlet {
         // End entity code
         out.println(testEntry.toString());
 
-        entryBean.create(testEntry);
+        entryBean.persist(testEntry);
         out.println("Saved");
         out.println(testEntry.toString());
         long entry_id = testEntry.getId();

@@ -21,7 +21,6 @@ import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import javax.persistence.Query;
 
 import org.carcv.core.model.file.FileEntry;
 
@@ -40,24 +39,23 @@ public class EntryBean {
      * @see EntityManager#persist(Object)
      * @param entries array of FileEntries to persist
      */
-    public void create(FileEntry... entries) {
+    public void persist(FileEntry... entries) {
         for (FileEntry e : entries) {
             em.persist(e);
         }
     }
 
     /**
-     * Queries the database, selecting only the FileEntry with the specified id.
-     * <p>
-     * Query: <code>select e from FileEntry e where e.id = :id</code>
+     * Finds the FileEntry with primary key <code>id</code>.
      *
      * @param id the id to query for
-     * @see Query#getSingleResult()
+     * @see EntityManager#find(Class, Object)
      * @return the FileEntry with the given id
      */
     public FileEntry findById(long id) {
-        return (FileEntry) em.createQuery("select e from FileEntry e where e.id = :id").setParameter("id", id)
-            .getSingleResult();
+        // return (FileEntry) em.createQuery("select e from FileEntry e where e.id = :id").setParameter("id", id)
+        //    .getSingleResult();
+        return em.find(FileEntry.class, id);
     }
 
     /**
@@ -79,8 +77,27 @@ public class EntryBean {
      * @param entries array of FileEntries to remove
      */
     public void remove(FileEntry... entries) {
+        em.getTransaction().begin();
         for (FileEntry e : entries) {
+            FileEntry entryToRemove = findById(e.getId());
+            em.remove(entryToRemove);
+        }
+        em.getTransaction().begin();
+    }
+    
+    /**
+     * Removes the list of FileEntries from the database.
+     *
+     * @see EntityManager#remove(Object)
+     * @param entries array of FileEntries to remove
+     */
+    public void remove(long... ids) {
+        em.getTransaction().begin();
+        FileEntry e = null;
+        for (long l : ids) {
+            e = em.find(FileEntry.class, l);
             em.remove(e);
         }
+        em.getTransaction().commit();
     }
 }

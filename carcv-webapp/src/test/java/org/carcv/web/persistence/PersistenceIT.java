@@ -91,7 +91,7 @@ public class PersistenceIT {
         assertNotNull(entryBean);
 
         // persist
-        entryBean.create(fileEntry);
+        entryBean.persist(fileEntry);
 
         // get
         FileEntry got = entryBean.getAll().get(0);
@@ -106,6 +106,10 @@ public class PersistenceIT {
         assertEquals(carData, got.getCarData());
         assertEquals(timestamp, got.getCarData().getTimestamp());
         assertEquals(fileEntry, got);
+        
+        // remove
+        entryBean.remove(fileEntry.getId());
+        assertEquals(0, entryBean.getAll().size());
+        assertEquals(null, entryBean.findById(fileEntry.getId()));
     }
-
 }

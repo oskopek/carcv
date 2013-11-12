@@ -122,12 +122,12 @@ public class StorageBean {
     /**
      * Persists all members of the list to the database.
      *
-     * @see EntryBean#create(FileEntry...)
+     * @see EntryBean#persist(FileEntry...)
      * @param list the list of FileEntries to store
      */
     public void storeBatchToDatabase(final List<FileEntry> list) {
         FileEntry[] array = new FileEntry[list.size()];
-        entryBean.create(list.toArray(array));
+        entryBean.persist(list.toArray(array));
     }
 
     /**
