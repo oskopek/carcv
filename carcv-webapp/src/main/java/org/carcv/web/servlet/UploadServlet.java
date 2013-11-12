@@ -60,7 +60,7 @@ public class UploadServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException,
         IOException, FileUploadException {
-        // response.sendRedirect("/app/working.jsp"); // TODO 3 Do Something similar to this
+        // response.sendRedirect("/app/working.jsp"); // TODO 1 Do Something similar to this
 
         Path batchDir = storageBean.createBatchDirectory();
 
@@ -77,15 +77,17 @@ public class UploadServlet extends HttpServlet {
                 String fileName = FilenameUtils.getName(item.getName());
                 InputStream fileContent = item.getInputStream();
 
-                storageBean.storeImageToDirectory(fileContent, fileName, batchDir);
+                storageBean.storeToDirectory(fileContent, fileName, batchDir);
             }
         }
 
-        Properties demo = Main.createDemoProperties();
-        Path props = Paths.get(batchDir.toString(), DirectoryLoader.infoFileName);
-        demo.store(Files.newOutputStream(props), "Demo properties"); // TODO 1 How to get real properties?
+        Path infoProps = Paths.get(batchDir.toString(), DirectoryLoader.infoFileName);
+        if (!Files.exists(infoProps)) { // if the info file wasn't uploaded, generate a random demo one
+            Properties demo = Main.createDemoProperties();
+            Path props = Paths.get(batchDir.toString(), DirectoryLoader.infoFileName);
+            demo.store(Files.newOutputStream(props), "Demo properties");
+        }
 
-        // recognizerBean.recognize(); // TODO 2 should we? probably no
         response.sendRedirect("/app/upload_complete.jsp"); // redirect to completed
     }
 
@@ -98,7 +100,7 @@ public class UploadServlet extends HttpServlet {
         try {
             processRequest(request, response);
         } catch (FileUploadException e) {
-            // TODO Auto-generated catch block
+            // TODO 3 Auto-generated catch block
             e.printStackTrace();
         }
     }
@@ -112,7 +114,7 @@ public class UploadServlet extends HttpServlet {
         try {
             processRequest(request, response);
         } catch (FileUploadException e) {
-            // TODO Auto-generated catch block
+            // TODO 3 Auto-generated catch block
             e.printStackTrace();
         }
     }
