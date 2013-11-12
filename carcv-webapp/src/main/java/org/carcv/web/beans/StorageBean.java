@@ -104,15 +104,15 @@ public class StorageBean {
     }
 
     /**
-     * Reads the image from the InputStream and stores it to the <code>dir</code> with the name <code>fileName</code>.
+     * Reads InputStream and stores it to the <code>dir</code> with the name <code>fileName</code>.
      *
-     * @param is the InputStream from which to load image
-     * @param fileName the file name of the saved image
-     * @param dir the directory to which to save the image
+     * @param is the InputStream from which to read
+     * @param fileName the file name of the saved file
+     * @param dir the directory to which to save the file
      * @see #saveToFile(InputStream, OutputStream)
      * @throws IOException if an error occurs
      */
-    public void storeImageToDirectory(InputStream is, String fileName, Path dir) throws IOException {
+    public void storeToDirectory(InputStream is, String fileName, Path dir) throws IOException {
         assertDirCreated(dir);
         Path file = Files.createFile(Paths.get(dir.toString(), fileName));
 
