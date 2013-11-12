@@ -55,10 +55,10 @@ public class DeployedIT {
 
     @EJB
     private EntryBean entryBean;
-    
+
     @EJB
     private RecognizerBean recognizerBean;
-    
+
     @EJB
     private StorageBean storageBean;
 

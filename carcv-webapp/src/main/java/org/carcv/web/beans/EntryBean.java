@@ -54,7 +54,7 @@ public class EntryBean {
      */
     public FileEntry findById(long id) {
         // return (FileEntry) em.createQuery("select e from FileEntry e where e.id = :id").setParameter("id", id)
-        //    .getSingleResult();
+        // .getSingleResult();
         return em.find(FileEntry.class, id);
     }
 
@@ -82,7 +82,7 @@ public class EntryBean {
             em.remove(entryToRemove);
         }
     }
-    
+
     /**
      * Removes the list of FileEntries from the database.
      *

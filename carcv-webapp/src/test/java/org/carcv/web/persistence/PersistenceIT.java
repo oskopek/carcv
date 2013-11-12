@@ -106,7 +106,7 @@ public class PersistenceIT {
         assertEquals(carData, got.getCarData());
         assertEquals(timestamp, got.getCarData().getTimestamp());
         assertEquals(fileEntry, got);
-        
+
         // remove
         entryBean.remove(fileEntry.getId());
         assertEquals(0, entryBean.getAll().size());
