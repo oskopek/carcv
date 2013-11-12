@@ -55,23 +55,30 @@ public class DirectoryWatcher implements Loader {
      * Discovers new batches in the root directory and adds them to the List of Entries. Runs {@link DirectoryLoader#load(Path)}
      * on every newly discovered file.
      *
-     * @throws IOException if an error during discovery occurs
+     * @throws IOException If an error creating a DirectoryStream from rootDir occurs. Doesn't throw if an invalid directory
+     *         happens to be in rootDir, just ignores it (adds it to knownDirs) and continues
      */
     public void discover() throws IOException {
-        DirectoryStream<Path> stream = Files.newDirectoryStream(rootDir);
+        DirectoryStream<Path> stream;
+        try {
+            stream = Files.newDirectoryStream(rootDir);
+        } catch (IOException ioe) {
+            throw ioe;
+        }
 
         for (Path p : stream) {
-            if (!Files.isDirectory(p)) {
-                continue;
-            }
-
-            if (knownDirs.contains(p)) {
+            if (!Files.isDirectory(p) || knownDirs.contains(p)) {
                 continue;
             }
 
             knownDirs.add(p);
-            FileEntry e = DirectoryLoader.load(p);
-            entries.add(e);
+            try {
+                FileEntry e = DirectoryLoader.load(p);
+                entries.add(e);
+            } catch (IOException ioe) {
+                System.err.println("ERROR loading FileEntry batch directory, discarding it: " + p + " with message: "
+                    + ioe.getMessage());
+            }
         }
     }
 

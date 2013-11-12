@@ -71,7 +71,6 @@ public class DirectoryLoader {
         }
 
         CarData cd = loadCarData(directory);
-
         return new FileEntry(cd, images);
     }
 
