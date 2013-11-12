@@ -38,7 +38,7 @@ import java.util.Arrays;
  */
 public class CarSorterImpl extends CarSorter {
 
-    private static CarSorterImpl instance = new CarSorterImpl();
+    final private static CarSorterImpl instance = new CarSorterImpl();
 
     final private static int equalityDistanceCoef = 3;
 
@@ -68,7 +68,16 @@ public class CarSorterImpl extends CarSorter {
         images.get(0).loadImage(); // Load first image
         ArrayList<FileCarImage> temp = new ArrayList<>();
         temp.add(images.get(0));
-        list.add(new FileEntry((CarData) batchDir.getCarData().clone(), temp)); // Add first FileEntry
+
+        CarData cData = null;
+        try {
+            cData = ((CarData) batchDir.getCarData().clone());
+        } catch (CloneNotSupportedException e) {
+            System.err.println("Clone not supported! Assigning null to this CarData instance at " + 0);
+            e.printStackTrace();
+        }
+
+        list.add(new FileEntry(cData, temp)); // Add first FileEntry
 
         for (int i = 1; i < images.size(); i++) {
             images.get(i).loadImage();
@@ -81,7 +90,16 @@ public class CarSorterImpl extends CarSorter {
             } else { // else create a new entry with the image
                 ArrayList<FileCarImage> temp2 = new ArrayList<>();
                 temp2.add(images.get(i));
-                list.add(new FileEntry((CarData) batchDir.getCarData().clone(), temp2));
+
+                CarData cData2 = null;
+                try {
+                    cData2 = (CarData) batchDir.getCarData().clone();
+                } catch (CloneNotSupportedException e) {
+                    System.err.println("Clone not supported! Assigning null to this CarData instance at " + i);
+                    e.printStackTrace();
+                }
+
+                list.add(new FileEntry(cData2, temp2));
             }
 
             images.get(i - 1).close();

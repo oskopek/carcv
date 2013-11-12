@@ -106,7 +106,7 @@ public class FileSaverTest {
     }
 
     @Test
-    public void castTest() throws Exception {
+    public void castTest() {
         final ArrayList<FileEntry> fileBatch = (ArrayList<FileEntry>) batch;
         assertEquals(batch.size(), fileBatch.size());
         for (int i = 0; i < batch.size(); i++) {

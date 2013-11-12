@@ -66,7 +66,7 @@ public class NumberPlateDetectorImpl extends NumberPlateDetector {
     @Override
     public String detectPlateText(final List<? extends AbstractCarImage> images) {
 
-        Intelligence intel = null;
+        Intelligence intel;
         try {
             intel = new Intelligence();
         } catch (ParserConfigurationException | SAXException | IOException e) {

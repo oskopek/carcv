@@ -51,7 +51,7 @@ public class EntryBean {
      * <p>
      * Query: <code>select e from FileEntry e where e.id = :id</code>
      *
-     * @param id
+     * @param id the id to query for
      * @see Query#getSingleResult()
      * @return the FileEntry with the given id
      */

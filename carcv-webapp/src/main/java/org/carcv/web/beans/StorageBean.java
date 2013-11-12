@@ -139,7 +139,7 @@ public class StorageBean {
     private void saveToFile(InputStream from, OutputStream to) {
         try {
 
-            int read = 0;
+            int read;
             byte[] bytes = new byte[1024];
 
             while ((read = from.read(bytes)) != -1) {

@@ -20,10 +20,13 @@ import static org.junit.Assert.*;
 
 import java.io.IOException;
 
+import javax.xml.parsers.ParserConfigurationException;
+
 import net.sf.javaanpr.imageanalysis.CarSnapshot;
 import net.sf.javaanpr.intelligence.Intelligence;
 
 import org.junit.Test;
+import org.xml.sax.SAXException;
 
 /**
  *
@@ -31,7 +34,7 @@ import org.junit.Test;
 public class AnprLibTest {
 
     @Test
-    public void anprLibTest() throws IOException, Exception {
+    public void anprLibTest() throws IOException, ParserConfigurationException, SAXException {
         Intelligence intel = new Intelligence();
         assertNotNull(intel);
 

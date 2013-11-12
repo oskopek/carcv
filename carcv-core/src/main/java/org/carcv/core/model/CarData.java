@@ -180,7 +180,7 @@ public class CarData extends AbstractEmbeddable implements Comparable<CarData>, 
     }
 
     @Override
-    public Object clone() {
+    public Object clone() throws CloneNotSupportedException {
         Speed s = getSpeed() == null ? null : new Speed(getSpeed().getSpeed(), getSpeed().getUnit());
         Address a = getAddress() == null ? null : new Address(address.getCity(), address.getPostalCode(), address.getStreet(),
             address.getCountry(), address.getStreetNumber(), address.getReferenceNumber());

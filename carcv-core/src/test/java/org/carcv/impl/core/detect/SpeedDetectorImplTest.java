@@ -25,9 +25,7 @@ import org.carcv.core.io.DirectoryWatcher;
 import org.carcv.core.model.file.FileCarImage;
 import org.carcv.impl.core.io.FFMPEG_VideoHandler;
 import org.junit.After;
-import org.junit.AfterClass;
 import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
 
 /**
@@ -38,20 +36,6 @@ public class SpeedDetectorImplTest {
     private SpeedDetectorImpl detector;
     private ArrayList<FileCarImage> images;
     private Path tmpDir;
-
-    /**
-     * @throws java.lang.Exception
-     */
-    @BeforeClass
-    public static void setUpBeforeClass() throws Exception {
-    }
-
-    /**
-     * @throws java.lang.Exception
-     */
-    @AfterClass
-    public static void tearDownAfterClass() throws Exception {
-    }
 
     /**
      * @throws java.lang.Exception

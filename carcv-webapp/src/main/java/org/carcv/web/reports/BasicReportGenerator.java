@@ -60,8 +60,8 @@ public class BasicReportGenerator {
     public BasicReportGenerator(FileEntry e, String templateFilename, String reportBuilderLocation,
         String reportName, String hostURL) throws JRException {
 
-        Map<String, Object> values = new HashMap<String, Object>();
-        Map<String, Object> parameters = new HashMap<String, Object>();
+        Map<String, Object> values = new HashMap<>();
+        Map<String, Object> parameters = new HashMap<>();
 
         CarData data = e.getCarData();
 
@@ -98,7 +98,7 @@ public class BasicReportGenerator {
 
         // parameters.put
 
-        Collection<Map<String, ?>> mapList = new ArrayList<Map<String, ?>>();
+        Collection<Map<String, ?>> mapList = new ArrayList<>();
         mapList.add(values);
 
         JRMapCollectionDataSource mapDataSource = new JRMapCollectionDataSource(mapList);
@@ -128,8 +128,6 @@ public class BasicReportGenerator {
         exporter.setParameter(JRExporterParameter.CHARACTER_ENCODING, "UTF-8");
 
         exporter.exportReport();
-
-        return;
     }
 
     /**

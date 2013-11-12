@@ -51,7 +51,7 @@ public class GenerateReport extends HttpServlet {
      * @throws JRException if an error during generation of the report occurs
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException,
-        IOException, JRException {
+        JRException, IOException {
         response.setContentType("application/pdf");
         String filename = "report" + System.currentTimeMillis() + ".pdf";
 

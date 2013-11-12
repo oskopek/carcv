@@ -57,7 +57,7 @@ public class Main {
      * <li>--in=INPUT_DIR
      * </ul>
      *
-     * @param args
+     * @param args command line arguments
      * @throws IOException
      */
     public static void main(String[] args) throws IOException {
@@ -69,16 +69,16 @@ public class Main {
         System.out.println(dashes);
         System.out.println();
 
-        for (int i = 0; i < args.length; i++) {
-            if (args[i].startsWith("--out=")) {
-                String out = args[i].split("--out=")[0];
+        for (String arg : args) {
+            if (arg.startsWith("--out=")) {
+                String out = arg.split("--out=")[0];
 
                 System.out.println("Parsed output directory:\t" + out);
 
                 outDir = Paths.get(out);
             }
-            if (args[i].startsWith("--in=")) {
-                String in = args[i].split("--in=")[0];
+            if (arg.startsWith("--in=")) {
+                String in = arg.split("--in=")[0];
 
                 System.out.println("Parsed input directory:\t" + in);
 

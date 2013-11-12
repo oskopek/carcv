@@ -71,9 +71,6 @@ public class UploadServlet extends HttpServlet {
 
                 // String fieldName = item.getFieldName();
                 // String fieldValue = item.getString();
-
-                continue;
-
             } else {
                 // Process form file field (input type="file").
                 // String fieldName = item.getFieldName();
