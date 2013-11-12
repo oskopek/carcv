@@ -53,7 +53,6 @@ public class CarTableServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException,
         IOException {
-
         ArrayList<FileEntry> abstractEntries = (ArrayList<FileEntry>) bean.getAll();
 
         // write page
@@ -79,9 +78,10 @@ public class CarTableServlet extends HttpServlet {
         out.println("<th style=\"width: 10%; height: 15px; background-color: #B0C4DE;\">Date</th>");
         out.println("<th style=\"width: 15%; height: 15px; background-color: #B0C4DE;\">Licence plate</th>");
         out.println("<th style=\"width: 20%; height: 15px; background-color: #B0C4DE;\">Location</th>");
-        out.println("<th style=\"width: 20%; height: 15px; background-color: #B0C4DE;\">Video</th>");
-        out.println("<th style=\"width: 20%; height: 15px; background-color: #B0C4DE;\">Pictures</th>");
+        out.println("<th style=\"width: 15%; height: 15px; background-color: #B0C4DE;\">Video</th>");
+        out.println("<th style=\"width: 15%; height: 15px; background-color: #B0C4DE;\">Pictures</th>");
         out.println("<th style=\"width: 15%; height: 15px; background-color: #B0C4DE;\">Report</th>");
+        out.println("<th style=\"width: 10%; height: 15px; background-color: #B0C4DE;\">Delete</th>");
         out.println("</tr>");
 
         DateFormat dateFormat = new SimpleDateFormat("dd. MM. yyyy");
@@ -118,6 +118,8 @@ public class CarTableServlet extends HttpServlet {
             out.println("<td><a href=\"" + previewURL + "\" target=\"_top\">View preview</a></td>");
             out.println("<td><a href=\"" + "/servlet/GenerateReport?entry_id=" + e.getId()
                 + "\" target=\"_top\">Generate report</a></td>");
+            out.println("<td><a href=\"" + "/servlet/RemoveServlet?entry_id=" + e.getId()
+                + "\" target=\"_top\">Delete" + "</a></td>");
             out.println("</tr>");
         }
 

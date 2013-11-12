@@ -71,4 +71,16 @@ public class EntryBean {
     public List<FileEntry> getAll() {
         return em.createQuery("select e from FileEntry e").getResultList();
     }
+
+    /**
+     * Removes the list of FileEntries from the database.
+     *
+     * @see EntityManager#remove(Object)
+     * @param entries array of FileEntries to remove
+     */
+    public void remove(FileEntry... entries) {
+        for (FileEntry e : entries) {
+            em.remove(e);
+        }
+    }
 }
