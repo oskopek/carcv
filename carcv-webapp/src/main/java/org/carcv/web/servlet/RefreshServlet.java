@@ -30,7 +30,7 @@ import org.carcv.web.beans.RecognizerBean;
  * A Servlet that calls {@link RecognizerBean#recognize()} and redirects back to referrer.
  */
 @WebServlet("/servlet/RefreshServlet")
-public class RefreshServlet extends HttpServlet { // TODO 1 Test RefreshServlet - crashes because of RecognizerBean bug
+public class RefreshServlet extends HttpServlet {
 
     private static final long serialVersionUID = -235344099282905675L;
 
