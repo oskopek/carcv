@@ -55,7 +55,7 @@
         <br>
         <form method="post" target="_top" action="/servlet/UploadServlet" enctype="multipart/form-data">
             <p>
-                Select files: <input type="file" accept="image/*" name="file">
+                Select files: <input type="file" accept="image/*" name="file[]" multiple />
             </p>
             <input type="submit" style="position: relative; left: 25%;" value="Upload">
         </form>
