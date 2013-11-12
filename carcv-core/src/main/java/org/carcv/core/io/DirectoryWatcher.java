@@ -29,6 +29,8 @@ import org.carcv.core.model.file.FileEntry;
  * Provides methods for discovery of new files recursively under a root directory.
  */
 public class DirectoryWatcher implements Loader {
+    
+    final private static String completedMarkerFilename = "completed";
 
     private Path rootDir;
 
@@ -66,12 +68,19 @@ public class DirectoryWatcher implements Loader {
             throw ioe;
         }
 
+        Path completed = null;
         for (Path p : stream) {
-            if (!Files.isDirectory(p) || knownDirs.contains(p)) {
+            completed = Paths.get(p.toString(), completedMarkerFilename);
+            
+            if (!Files.isDirectory(p)
+                || knownDirs.contains(p)
+                || Files.exists(completed)) {
                 continue;
             }
 
-            knownDirs.add(p);
+            knownDirs.add(p); // adds to known directories
+            Files.createFile(completed); // adds a marker file for server restarts, etc..
+            
             try {
                 FileEntry e = DirectoryLoader.load(p);
                 entries.add(e);
