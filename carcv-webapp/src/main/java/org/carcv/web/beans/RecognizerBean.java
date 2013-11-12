@@ -50,13 +50,21 @@ public class RecognizerBean {
 
     /**
      * Calls {@link FileCarRecognizer#listRecognize()} and then on the resulting list
-     * {@link StorageBean#storeBatchToDatabase(List)}.
+     * {@link StorageBean#storeBatchToDatabase(List)}. Also checks if input and output directories of {@link StorageBean} return
+     * validly.
      *
      * @see FileCarRecognizer#listRecognize()
      * @see StorageBean#storeBatchToDatabase(List)
      * @throws IOException if an error during recognition occurs
      */
     public void recognize() throws IOException {
+        // these two checks actually prevent an IOException, because storageBean verifies and creates them if they don't exist
+        if (storageBean.getInputDirectory() == null) {
+            throw new IOException("ERROR StorageBean Input Directory is null.");
+        }
+        if (storageBean.getOutputDirectory() == null) {
+            throw new IOException("ERROR StorageBean Output Directory is null.");
+        }
         List<FileEntry> list = recognizer.listRecognize();
         storageBean.storeBatchToDatabase(list);
     }
