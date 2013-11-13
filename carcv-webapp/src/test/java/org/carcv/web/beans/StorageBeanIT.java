@@ -72,6 +72,7 @@ public class StorageBeanIT { // TODO 2 Fill the StorageBeanIT
      */
     @Before
     public void setUp() throws Exception {
+        // we choose to compare to this path, because the StorageBean should internally chose it against OPENSHIFT_DATA_DIR
         String property = System.getProperty(StorageBean.JbossDataDirProperty);
         rootDir = Paths.get(property, "carcv_data");
     }

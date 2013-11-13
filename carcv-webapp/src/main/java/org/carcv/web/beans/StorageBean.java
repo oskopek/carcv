@@ -39,17 +39,24 @@ public class StorageBean {
     @EJB
     private EntryBean entryBean;
 
-    // TODO 1 Should use OPENSHIFT_DATA_DIR - use custom server property
-    public static final String JbossDataDirProperty = "jboss.server.data.dir";
+    protected static final String envname_OPENSHIFT_DATA_DIR = "OPENSHIFT_DATA_DIR";
+    protected static final String JbossDataDirProperty = "jboss.server.data.dir";
     private String prefix;
     private Path inDir;
     private Path outDir;
 
     @PostConstruct
     private void init() {
-        prefix = System.getProperty(JbossDataDirProperty);
+        String env = System.getenv(envname_OPENSHIFT_DATA_DIR);
+        // if openshift data dir exists use it, else use jboss data dir
+        prefix = env == null ? System.getProperty(JbossDataDirProperty) : env;
+
         inDir = Paths.get(prefix, "carcv_data", "in");
         outDir = Paths.get(prefix, "carcv_data", "out");
+    }
+
+    public String getPrefix() {
+        return prefix;
     }
 
     /**
