@@ -30,6 +30,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.fileupload.FileUploadException;
@@ -60,11 +61,20 @@ public class UploadServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException,
         IOException, FileUploadException {
-        // response.sendRedirect("/app/working.jsp"); // TODO 1 Do Something similar to this
 
         Path batchDir = storageBean.createBatchDirectory();
 
-        List<FileItem> items = new ServletFileUpload(new DiskFileItemFactory()).parseRequest(request);
+        ServletFileUpload servletFileUpload = new ServletFileUpload(new DiskFileItemFactory());
+
+        UploadProgressListener uploadProgressListener = new UploadProgressListener();
+        servletFileUpload.setProgressListener(uploadProgressListener);
+        HttpSession session = request.getSession();
+        session.setAttribute("uploadProgressListener", uploadProgressListener);
+
+        response.sendRedirect("/servlet/UploadProgress");
+
+        List<FileItem> items = servletFileUpload.parseRequest(request);
+
         for (FileItem item : items) {
             if (item.isFormField()) {
                 // Process regular form field (input type="text|radio|checkbox|etc", select, etc).
@@ -88,7 +98,7 @@ public class UploadServlet extends HttpServlet {
             demo.store(Files.newOutputStream(props), "Demo properties");
         }
 
-        response.sendRedirect("/app/upload_complete.jsp"); // redirect to completed
+        // response.sendRedirect("/app/upload_complete.jsp"); // redirect to completed
     }
 
     /**
