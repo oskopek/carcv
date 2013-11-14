@@ -105,10 +105,14 @@ public class FileSaver implements Saver {
     public void saveFileEntry(FileEntry e) throws IOException {
         Properties p = new Properties();
 
-        p.setProperty("numberplate-origin", e.getCarData().getNumberPlate().getOrigin());
-        p.setProperty("numberplate-text", e.getCarData().getNumberPlate().getText());
+        String origin = e.getCarData().getNumberPlate().getOrigin();
+        p.setProperty("numberplate-origin", origin==null ? "null" : origin);
+        
+        String text = e.getCarData().getNumberPlate().getText();
+        p.setProperty("numberplate-text", text==null ? "null" : text);
 
-        p.setProperty("speed-value", e.getCarData().getSpeed().getSpeed().toString());
+        String value = e.getCarData().getSpeed().getSpeed().toString();
+        p.setProperty("speed-value", value==null ? "null" : value);
         p.setProperty("speed-unit", e.getCarData().getSpeed().getUnit().toString());
 
         p.setProperty("address-city", e.getCarData().getAddress().getCity());
