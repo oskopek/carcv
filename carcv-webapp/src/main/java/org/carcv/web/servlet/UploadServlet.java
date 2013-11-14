@@ -71,7 +71,7 @@ public class UploadServlet extends HttpServlet {
         HttpSession session = request.getSession();
         session.setAttribute("uploadProgressListener", uploadProgressListener);
 
-        response.sendRedirect("/servlet/UploadProgress");
+        response.sendRedirect("/servlet/UploadProgress"); // TODO 1 Dont send redirect, just link somehow, keep tab open
 
         List<FileItem> items = servletFileUpload.parseRequest(request);
 
