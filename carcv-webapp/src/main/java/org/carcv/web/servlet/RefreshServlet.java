@@ -51,6 +51,7 @@ public class RefreshServlet extends HttpServlet {
         recognizerBean.recognize();
         System.out.println("[RefreshServlet]\tDone recognizing! Redirecting...");
         response.sendRedirect(request.getHeader("referer")); // redirect back where you came from
+        // TODO 1 Fix this redirect to redirect to home not CarTableServlet
     }
 
     /**
