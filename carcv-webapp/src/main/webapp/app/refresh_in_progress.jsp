@@ -53,10 +53,10 @@
     <div id="center-login">
         <h1>Refresh is in progress...</h1>
         <br>
-        <h2>
+        <h3>
             <a href="/app/index.jsp">Go back</a> to the main page, the results will be automatically updated when the refresh
             finishes.
-        </h2>
+        </h3>
     </div>
 
     <div id="footer"></div>
