@@ -37,7 +37,7 @@ public abstract class CarSorter {
      *
      * @param batchEntry <code>FileEntry</code> containing all images from the new batch
      *
-     * @return individual real cars as a list of <code>FileEntry</code>-s
+     * @return individual real cars as a list of <code>FileEntry</code>-s, or null if the list of FileCarImages is empty
      */
     public abstract List<FileEntry> sortIntoCars(FileEntry batchEntry) throws IOException;
 
