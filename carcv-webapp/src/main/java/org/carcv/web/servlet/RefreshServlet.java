@@ -76,16 +76,16 @@ public class RefreshServlet extends HttpServlet {
         processRequest(request, response);
     }
 
-    class RecognizeRunnable implements Runnable {
+    private class RecognizeRunnable implements Runnable {
 
         @Override
         public void run() {
             try {
                 System.out.println("[RefreshServlet]\tStarting recognizing...");
                 recognizerBean.recognize();
-                System.out.println("[RefreshServlet]\tDone recognizing! Redirecting...");
+                System.out.println("[RefreshServlet]\tDone recognizing!");
             } catch (IOException e) {
-                System.err.println("Error during refreshing and recognizing occured!");
+                System.err.println("Error during refreshing and recognizing occured.");
                 e.printStackTrace();
             }
         }
