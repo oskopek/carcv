@@ -24,8 +24,11 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
+import java.util.List;
 
+import org.carcv.core.io.DirectoryWatcher;
 import org.carcv.core.io.VideoHandler;
+import org.carcv.core.model.file.FileCarImage;
 import org.carcv.core.model.file.FileEntry;
 
 /**
@@ -37,7 +40,9 @@ import org.carcv.core.model.file.FileEntry;
  * The details about using it are here: <a
  * href="https://trac.ffmpeg.org/wiki/Create%20a%20video%20slideshow%20from%20images">FFMPEG Wiki</a>
  * <p>
- * <strong>TODO 1 Revise implementation for new IO directory structure, test and update javadoc</strong>
+ * <strong>TODO 2 Implement methods not for directories and paths, but for FileEntries also</strong>
+ * <p>
+ * <strong>TODO 2 Test FFMPEG_VideoHandler</strong>
  *
  */
 public class FFMPEG_VideoHandler extends VideoHandler {
@@ -67,6 +72,11 @@ public class FFMPEG_VideoHandler extends VideoHandler {
         }
     }
 
+    /**
+     * The output directory is created like this: <code>"/path/to/videoFile.suffix" + ".dir"</code>
+     *
+     * @see #splitIntoFrames(Path, int, Path)
+     */
     @Override
     public boolean splitIntoFrames(Path video, int frameRate) throws IOException {
         Path dir = Paths.get(video.getParent().toString(), video.getFileName() + ".dir");
@@ -78,13 +88,10 @@ public class FFMPEG_VideoHandler extends VideoHandler {
     @Override
     public boolean splitIntoFrames(Path video, int frameRate, Path imageDir) throws IOException {
         String filenamePrefix = video.getFileName().toString();
-
         Path images = Paths.get(imageDir.toString(), filenamePrefix + "-%09d" + image_suffix);
 
         String command = "ffmpeg -i " + video.toString() + " -r " + frameRate + " " + images.toString();
-
         System.out.println("Executing: " + command);
-
         Process p = Runtime.getRuntime().exec(command);
         try {
             p.waitFor();
@@ -122,13 +129,31 @@ public class FFMPEG_VideoHandler extends VideoHandler {
      */
     public static void generateVideoAsStream(final FileEntry entry, final OutputStream outStream) throws IOException {
         FFMPEG_VideoHandler fvd = new FFMPEG_VideoHandler();
-        Path dir = entry.getCarImages().get(0).getFilepath().getParent();
+        Path dir = Files.createTempDirectory("tempVideoStreamDir_" + entry.hashCode() + "_");
+
+        copyCarImagesToDir(entry.getCarImages(), dir);
 
         fvd.generateVideoAsStream(dir, defaultFrameRate, outStream);
+        DirectoryWatcher.deleteDirectory(dir);
     }
 
     /**
-     * A static wrapper for {@link #generateVideoAsStream(Path, int)}.
+     * Copies the images of the list's objects to the specified directory with new names.
+     *
+     * @param list the list to load images from
+     * @param dir the output directory
+     * @throws IOException if an error during the copy or creation of a temporary directory occurs
+     */
+    private static void copyCarImagesToDir(List<FileCarImage> list, Path dir) throws IOException {
+        for (int i = 0; i < list.size(); i++) {
+            FileCarImage image = list.get(i);
+            Path tempFilePath = Files.createTempFile(dir, i + "_image_", image_suffix);
+            Files.copy(image.getFilepath(), tempFilePath);
+        }
+    }
+
+    /**
+     * A void wrapper for {@link #generateVideoAsStream(Path, int)}.
      *
      * @param imageDir directory from which to load the images
      * @param frameRate number of frames per second
