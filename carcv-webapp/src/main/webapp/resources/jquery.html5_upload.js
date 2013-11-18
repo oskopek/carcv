@@ -57,7 +57,7 @@
             setProgress: function(value) {},
 
             genName: function(file, number, total) {
-                return file + "(" + (number+1) + " из " + total + ")";
+                return file + " (" + (number+1) + " of " + total + ")";
             },
             genStatus: function(progress, finished) {
                 if (finished) {
