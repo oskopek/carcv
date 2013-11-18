@@ -106,13 +106,13 @@ public class FileSaver implements Saver {
         Properties p = new Properties();
 
         String origin = e.getCarData().getNumberPlate().getOrigin();
-        p.setProperty("numberplate-origin", origin==null ? "null" : origin);
-        
+        p.setProperty("numberplate-origin", origin == null ? "null" : origin);
+
         String text = e.getCarData().getNumberPlate().getText();
-        p.setProperty("numberplate-text", text==null ? "null" : text);
+        p.setProperty("numberplate-text", text == null ? "null" : text);
 
         String value = e.getCarData().getSpeed().getSpeed().toString();
-        p.setProperty("speed-value", value==null ? "null" : value);
+        p.setProperty("speed-value", value == null ? "null" : value);
         p.setProperty("speed-unit", e.getCarData().getSpeed().getUnit().toString());
 
         p.setProperty("address-city", e.getCarData().getAddress().getCity());

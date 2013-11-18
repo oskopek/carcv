@@ -26,8 +26,9 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 /**
- * http://www.avajava.com/tutorials/lessons/how-do-i-monitor-the-progress-of-a-file-upload-to-a-servlet.html?page=2 TODO 1
- * Remake
+ * TODO 1 Remake
+ * http://www.avajava.com/tutorials/lessons/how-do-i-monitor-the-progress-of-a-file-upload-to-a-servlet.html?page=2
+ *
  */
 @WebServlet("/servlet/UploadProgress")
 public class UploadProgressServlet extends HttpServlet {
