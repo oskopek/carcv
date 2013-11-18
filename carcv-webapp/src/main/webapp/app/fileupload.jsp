@@ -18,7 +18,7 @@
             $(function() {
                 $("#upload_field").html5_upload({
                     url: function(number) {
-                        return prompt(number + " url", "/");
+                        return "/servlet/UploadServlet";
                     },
                     sendBoundary: window.FormData || $.browser.mozilla,
                     onStart: function(event, total) {
