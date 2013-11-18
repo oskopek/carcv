@@ -16,6 +16,8 @@
 package org.carcv.web.servlet;
 
 import java.io.IOException;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 import javax.ejb.EJB;
 import javax.servlet.ServletException;
@@ -23,7 +25,6 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
 import org.carcv.web.beans.RecognizerBean;
 
 /**
@@ -37,6 +38,13 @@ public class RefreshServlet extends HttpServlet {
     @EJB
     private RecognizerBean recognizerBean;
 
+    private ExecutorService pool;
+
+    @Override
+    public void init() {
+        pool = Executors.newFixedThreadPool(2);
+    }
+
     /**
      * @param request the HttpServletRequest
      * @param response the HttpServletResponse
@@ -45,13 +53,9 @@ public class RefreshServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException,
         IOException {
-        // response.sendRedirect("/app/working.jsp"); // TODO 1 Will this work? No, do something similar
-
-        System.out.println("[RefreshServlet]\tStarting recognizing...");
-        recognizerBean.recognize();
-        System.out.println("[RefreshServlet]\tDone recognizing! Redirecting...");
-        response.sendRedirect(request.getHeader("referer")); // redirect back where you came from
-        // TODO 1 Fix this redirect to redirect to home not CarTableServlet
+        pool.execute(new RecognizeRunnable());
+        response.sendRedirect("/app/refresh_in_progress.jsp");
+        return;
     }
 
     /**
@@ -70,5 +74,20 @@ public class RefreshServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         processRequest(request, response);
+    }
+
+    class RecognizeRunnable implements Runnable {
+
+        @Override
+        public void run() {
+            try {
+                System.out.println("[RefreshServlet]\tStarting recognizing...");
+                recognizerBean.recognize();
+                System.out.println("[RefreshServlet]\tDone recognizing! Redirecting...");
+            } catch (IOException e) {
+                System.err.println("Error during refreshing and recognizing occured!");
+                e.printStackTrace();
+            }
+        }
     }
 }
