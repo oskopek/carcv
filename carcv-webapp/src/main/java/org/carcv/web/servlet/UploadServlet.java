@@ -57,11 +57,17 @@ public class UploadServlet extends HttpServlet {
      * @throws IOException
      * @throws FileUploadException 
      */
-    protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws IOException, FileUploadException {
+    protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws IOException {
         Path batchDir = storageBean.createBatchDirectory();
 
         ServletFileUpload servletFileUpload = new ServletFileUpload(new DiskFileItemFactory());
-        List<FileItem> items = servletFileUpload.parseRequest(request);
+        List<FileItem> items = null;
+        try {
+            items = servletFileUpload.parseRequest(request);
+        } catch (FileUploadException e) {
+            // TODO 3 Should handle exception intelligently
+            e.printStackTrace();
+        }
         
         for (FileItem item : items) {
             if (item.isFormField()) {
@@ -93,12 +99,7 @@ public class UploadServlet extends HttpServlet {
      */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        try {
-            processRequest(request, response);
-        } catch (FileUploadException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
+        processRequest(request, response);
     }
 
     /**
@@ -107,11 +108,6 @@ public class UploadServlet extends HttpServlet {
      */
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        try {
-            processRequest(request, response);
-        } catch (FileUploadException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
+        processRequest(request, response);
     }
 }
