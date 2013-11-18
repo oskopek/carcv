@@ -23,6 +23,7 @@
 
     <div id="center-login">
         <h2>Working, please wait...</h2>
+        <img src="/resources/loading.gif" />
     </div>
 
     <div id="footer"></div>
