@@ -35,6 +35,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.apache.commons.fileupload.FileItem;
+import org.apache.commons.fileupload.FileUploadException;
 import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
 import org.apache.commons.io.FilenameUtils;
@@ -66,7 +67,7 @@ public class UploadServlet extends HttpServlet {
      * @throws IOException
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        HttpSession session = request.getSession();
+        /*HttpSession session = request.getSession();
 
         Object uploadIdObj = session.getAttribute("uploadId");
 
@@ -80,7 +81,40 @@ public class UploadServlet extends HttpServlet {
 
         pool.execute(new UploadRunnable(request, session, System.currentTimeMillis() + ""));
 
-        response.sendRedirect("/servlet/UploadProgressServlet");
+        response.sendRedirect("/servlet/UploadProgressServlet");*/
+        Path batchDir = storageBean.createBatchDirectory();
+
+        ServletFileUpload servletFileUpload = new ServletFileUpload(new DiskFileItemFactory());
+        List<FileItem> items = null;
+        try {
+            items = servletFileUpload.parseRequest(request);
+        } catch (FileUploadException e) {
+            System.err.println("Error while parsing request to upload files!");
+            e.printStackTrace();
+        }
+        
+        for (FileItem item : items) {
+            if (item.isFormField()) {
+                // Process regular form field (input type="text|radio|checkbox|etc", select, etc).
+
+                // String fieldName = item.getFieldName();
+                // String fieldValue = item.getString();
+            } else {
+                // Process form file field (input type="file").
+                // String fieldName = item.getFieldName();
+                String fileName = FilenameUtils.getName(item.getName());
+                InputStream fileContent = item.getInputStream();
+
+                storageBean.storeToDirectory(fileContent, fileName, batchDir);
+            }
+        }
+
+        Path infoProps = Paths.get(batchDir.toString(), DirectoryLoader.infoFileName);
+        if (!Files.exists(infoProps)) { // if the info file wasn't uploaded, generate a random demo one
+            Properties demo = Main.createDemoProperties();
+            Path props = Paths.get(batchDir.toString(), DirectoryLoader.infoFileName);
+            demo.store(Files.newOutputStream(props), "Demo properties");
+        }
     }
 
     /**
