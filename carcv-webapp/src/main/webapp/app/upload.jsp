@@ -1,10 +1,12 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js" type="text/javascript"></script>
+<script src="/resources/jquery.html5_upload.js" type="text/javascript"></script>
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
 <link rel="SHORTCUT ICON" href="http://upload.wikimedia.org/wikipedia/commons/f/f0/Car_with_Driver-Silhouette.svg">
 <link rel="icon" href="http://upload.wikimedia.org/wikipedia/commons/f/f0/Car_with_Driver-Silhouette.svg" type="image/ico">
-<title>CarCV</title>
+<title>CarCV - Upload</title>
 <link rel="stylesheet" type="text/css" href="/resources/mystyle.css">
 <style type="text/css">
 #tabulator {
@@ -51,14 +53,46 @@
     </div>
 
     <div id="center-login">
-        <h2>Upload some images to be recognized</h2>
-        <br>
-        <form method="post" target="_top" action="/servlet/UploadServlet" enctype="multipart/form-data">
-            <p>
-                Select files: <input type="file" accept="image/*" name="file[]" multiple />
-            </p>
-            <input type="submit" style="position: relative; left: 25%;" value="Upload">
-        </form>
+        <input type="file" multiple="multiple" id="upload_field" />
+        <div id="progress_report">
+            <div id="progress_report_name"></div>
+            <div id="progress_report_status" style="font-style: italic;"></div>
+            <div id="progress_report_bar_container" style="width: 90%; height: 5px;">
+                <div id="progress_report_bar" style="background-color: blue; width: 0; height: 100%;"></div>
+            </div>
+        </div>
+        <script type="text/javascript">
+            $(function() {
+                $("#upload_field").html5_upload({
+                    url: function(number) {
+                        return "/servlet/UploadServlet";
+                    },
+                    sendBoundary: window.FormData || $.browser.mozilla,
+                    onStart: function(event, total) {
+                        return true;
+                        return confirm("You are trying to upload " + total + " files. Are you sure?");
+                    },
+                    onProgress: function(event, progress, name, number, total) {
+                        console.log(progress, number);
+                    },
+                    setName: function(text) {
+                        $("#progress_report_name").text(text);
+                    },
+                    setStatus: function(text) {
+                        $("#progress_report_status").text(text);
+                    },
+                    setProgress: function(val) {
+                        $("#progress_report_bar").css('width', Math.ceil(val*100)+"%");
+                    },
+                    onFinishOne: function(event, response, name, number, total) {
+                        //alert(response);
+                    },
+                    onError: function(event, name, error) {
+                        alert('error while uploading file ' + name);
+                    }
+                });
+            });
+        </script>
     </div>
 
     <div id="footer"></div>

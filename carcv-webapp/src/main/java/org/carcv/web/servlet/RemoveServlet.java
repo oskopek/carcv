@@ -49,7 +49,7 @@ public class RemoveServlet extends HttpServlet {
         IOException {
         long entryId = Long.parseLong(request.getParameter("entry_id"));
         entryBean.remove(entryId);
-        response.sendRedirect(request.getHeader("referer"));
+        response.sendRedirect("/app/index.jsp"); // TODO 3 redirect should be more intelligent
     }
 
     /**
