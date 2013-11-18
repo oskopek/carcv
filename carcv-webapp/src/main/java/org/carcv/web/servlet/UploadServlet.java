@@ -30,7 +30,6 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.fileupload.FileUploadException;
@@ -66,13 +65,6 @@ public class UploadServlet extends HttpServlet {
 
         ServletFileUpload servletFileUpload = new ServletFileUpload(new DiskFileItemFactory());
 
-        UploadProgressListener uploadProgressListener = new UploadProgressListener();
-        servletFileUpload.setProgressListener(uploadProgressListener);
-        HttpSession session = request.getSession();
-        session.setAttribute("uploadProgressListener", uploadProgressListener);
-
-        response.sendRedirect("/servlet/UploadProgress"); // TODO 1 Dont send redirect, just link somehow, keep tab open
-
         List<FileItem> items = servletFileUpload.parseRequest(request);
 
         for (FileItem item : items) {
@@ -97,8 +89,6 @@ public class UploadServlet extends HttpServlet {
             Path props = Paths.get(batchDir.toString(), DirectoryLoader.infoFileName);
             demo.store(Files.newOutputStream(props), "Demo properties");
         }
-
-        // response.sendRedirect("/app/upload_complete.jsp"); // redirect to completed
     }
 
     /**
