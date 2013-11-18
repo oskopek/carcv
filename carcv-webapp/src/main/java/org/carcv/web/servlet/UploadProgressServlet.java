@@ -26,11 +26,10 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 /**
- * TODO 1 Remake
- * http://www.avajava.com/tutorials/lessons/how-do-i-monitor-the-progress-of-a-file-upload-to-a-servlet.html?page=2
+ *
  *
  */
-@WebServlet("/servlet/UploadProgress")
+@WebServlet("/servlet/UploadProgressServlet")
 public class UploadProgressServlet extends HttpServlet {
 
     private static final long serialVersionUID = -1628581275862549530L;
@@ -46,23 +45,26 @@ public class UploadProgressServlet extends HttpServlet {
         response.setContentType("text/html");
         PrintWriter out = response.getWriter();
 
-        HttpSession session = request.getSession(true);
+        HttpSession session = request.getSession();
         if (session == null) {
             out.println("Sorry, session is null."); // just to be safe
             return;
         }
 
-        UploadProgressListener progressListener = (UploadProgressListener) session.getAttribute("uploadProgressListener");
-        if (progressListener == null) {
-            out.println("Progress listener is null.");
+        final String name = "uploadId";
+        Object progressObj = session.getAttribute(name);
+        if (progressObj == null) {
+            System.out.println("No upload currently in progress!");
             return;
         }
 
-        if (progressListener.getPercentDone() == 100) {
+        Double progressPercent = (Double) progressObj;
+        if (progressPercent >= 100) {
+            session.removeAttribute("uploadId");
             response.sendRedirect("/app/upload_complete.jsp");
+            return;
         }
-
-        out.println(progressListener.getMessage());
+        out.println("Uploading: " + progressPercent + "%");
     }
 
     /**
