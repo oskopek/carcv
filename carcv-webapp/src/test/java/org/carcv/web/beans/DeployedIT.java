@@ -16,7 +16,7 @@
 
 package org.carcv.web.beans;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertNotNull;
 
 import java.io.File;
 

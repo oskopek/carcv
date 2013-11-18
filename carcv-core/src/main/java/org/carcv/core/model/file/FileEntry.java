@@ -27,8 +27,8 @@ import javax.validation.constraints.NotNull;
 
 import org.apache.commons.lang.builder.EqualsBuilder;
 import org.apache.commons.lang.builder.HashCodeBuilder;
-import org.carcv.core.model.CarData;
 import org.carcv.core.model.AbstractEntry;
+import org.carcv.core.model.CarData;
 
 /**
  * An implementation of AbstractEntry using CarData and FileCarImages.

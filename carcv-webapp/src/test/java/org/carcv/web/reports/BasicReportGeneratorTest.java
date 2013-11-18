@@ -16,7 +16,8 @@
 
 package org.carcv.web.reports;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 
 import java.io.File;
 import java.io.IOException;
@@ -36,7 +37,6 @@ import org.carcv.core.model.Speed;
 import org.carcv.core.model.SpeedUnit;
 import org.carcv.core.model.file.FileCarImage;
 import org.carcv.core.model.file.FileEntry;
-import org.carcv.web.reports.BasicReportGenerator;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;

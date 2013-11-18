@@ -15,7 +15,12 @@
  */
 package org.carcv.impl.core.io;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 
 import java.io.IOException;
 import java.nio.file.DirectoryStream;
@@ -36,7 +41,6 @@ import org.carcv.core.model.NumberPlate;
 import org.carcv.core.model.Speed;
 import org.carcv.core.model.file.FileCarImage;
 import org.carcv.core.model.file.FileEntry;
-import org.carcv.impl.core.io.FileSaver;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;

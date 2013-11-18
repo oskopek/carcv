@@ -16,15 +16,15 @@
 
 package org.carcv.impl.core.detect;
 
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 import org.carcv.core.detect.CarSorter;
 import org.carcv.core.model.CarData;
 import org.carcv.core.model.file.FileCarImage;
 import org.carcv.core.model.file.FileEntry;
-
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Arrays;
 
 /**
  * Provides a Singleton probabilistic implementation of <code>CarSorter</code> based on the <a
@@ -64,10 +64,10 @@ public class CarSorterImpl extends CarSorter {
 
         ArrayList<FileCarImage> images = (ArrayList<FileCarImage>) batchDir.getCarImages();
 
-        if(images.isEmpty()) {
+        if (images.isEmpty()) {
             return null;
         }
-        
+
         // Before for-loop:
         images.get(0).loadImage(); // Load first image
         ArrayList<FileCarImage> temp = new ArrayList<>();

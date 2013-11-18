@@ -55,7 +55,7 @@ public class UploadServlet extends HttpServlet {
      * @param request the HttpServletRequest
      * @param response the HttpServletResponse
      * @throws IOException
-     * @throws FileUploadException 
+     * @throws FileUploadException
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws IOException {
         Path batchDir = storageBean.createBatchDirectory();
@@ -68,7 +68,7 @@ public class UploadServlet extends HttpServlet {
             // TODO 3 Should handle exception intelligently
             e.printStackTrace();
         }
-        
+
         for (FileItem item : items) {
             if (item.isFormField()) {
                 // Process regular form field (input type="text|radio|checkbox|etc", select, etc).
