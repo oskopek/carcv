@@ -65,19 +65,17 @@ public class UploadServlet extends HttpServlet {
         try {
             items = servletFileUpload.parseRequest(request);
         } catch (FileUploadException e) {
-            // TODO 3 Should handle exception intelligently
+            response.sendError(500, e.getMessage());
             e.printStackTrace();
+            return;
         }
 
         for (FileItem item : items) {
             if (item.isFormField()) {
-                // Process regular form field (input type="text|radio|checkbox|etc", select, etc).
-
-                // String fieldName = item.getFieldName();
-                // String fieldValue = item.getString();
+                // ignore regular form fields
             } else {
-                // Process form file field (input type="file").
-                // String fieldName = item.getFieldName();
+                // process files
+
                 String fileName = FilenameUtils.getName(item.getName());
                 InputStream fileContent = item.getInputStream();
 

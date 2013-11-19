@@ -78,8 +78,8 @@ public class GenerateReport extends HttpServlet {
         try {
             processRequest(request, response);
         } catch (JRException e) {
-            // TODO 3 DEBUG-ONLY! - security reasons
-            e.printStackTrace();
+            response.sendError(500, e.getMessage());
+            e.printStackTrace(); // debug
         }
     }
 
@@ -92,8 +92,8 @@ public class GenerateReport extends HttpServlet {
         try {
             processRequest(request, response);
         } catch (JRException e) {
-            // TODO 3 DEBUG-ONLY! - security reasons
-            e.printStackTrace();
+            response.sendError(500, e.getMessage());
+            e.printStackTrace(); // debug
         }
     }
 }
