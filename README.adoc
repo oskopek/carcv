@@ -1,7 +1,8 @@
 == CarCV
 
-
 A car recognizing and speed calculation platform
+
+image:https://travis-ci.org/oskopek/carcv.png?branch=master["Build Status", link="https://travis-ci.org/oskopek/carcv"]
 
 == Modules
 
