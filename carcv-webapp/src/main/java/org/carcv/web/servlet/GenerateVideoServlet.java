@@ -50,7 +50,7 @@ public class GenerateVideoServlet extends HttpServlet {
         String filename = "video-" + System.currentTimeMillis() + ".h264";
 
         // If you want it to be downloadable, enable next line:
-        response.setHeader("Content-Disposition", "attachment; filename=" + filename);
+        response.setHeader("Content-Disposition", "attachment; filename=\"" + filename + "\"");
 
         // generate
         long entryId = Long.parseLong(request.getParameter("entry_id"));

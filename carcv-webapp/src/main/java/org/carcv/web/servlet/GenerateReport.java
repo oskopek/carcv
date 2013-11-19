@@ -56,7 +56,7 @@ public class GenerateReport extends HttpServlet {
         String filename = "report" + System.currentTimeMillis() + ".pdf";
 
         // If you want it to be downloadable, enable next line:
-        // response.setHeader("Content-Disposition", "attachment; filename=" + fileName);
+        response.setHeader("Content-Disposition", "attachment; filename=\"" + filename + "\"");
 
         // generate
         long entryId = Long.parseLong(request.getParameter("entry_id"));
