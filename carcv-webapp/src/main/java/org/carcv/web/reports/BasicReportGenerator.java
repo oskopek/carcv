@@ -54,7 +54,7 @@ public class BasicReportGenerator {
      * @param templateFilename the template report to fill
      * @param reportBuilderLocation the place where report is being built (physical, real)
      * @param reportName the title of the report
-     * @param hostURL url of the domain that is generating the report
+     * @param hostURL URL of the domain that is generating the report
      * @throws JRException if an error during the generation occurs
      */
     public BasicReportGenerator(FileEntry e, String templateFilename, String reportBuilderLocation,
@@ -123,8 +123,8 @@ public class BasicReportGenerator {
     public void exportFile(String filename) throws JRException {
         JRExporter exporter = new JRPdfExporter();
 
-        exporter.setParameter(JRExporterParameter.OUTPUT_FILE_NAME, filename);
         exporter.setParameter(JRExporterParameter.JASPER_PRINT, filledReportPrint);
+        exporter.setParameter(JRExporterParameter.OUTPUT_FILE_NAME, filename);
         exporter.setParameter(JRExporterParameter.CHARACTER_ENCODING, "UTF-8");
 
         exporter.exportReport();
@@ -137,13 +137,12 @@ public class BasicReportGenerator {
      * @throws JRException if an error during exporting occurs
      */
     public void exportStream(String filename, OutputStream out) throws JRException {
-
         JRExporter exporter = new JRPdfExporter();
 
         exporter.setParameter(JRExporterParameter.JASPER_PRINT, filledReportPrint);
         exporter.setParameter(JRExporterParameter.OUTPUT_FILE_NAME, filename);
-        exporter.setParameter(JRExporterParameter.OUTPUT_STREAM, out);
         exporter.setParameter(JRExporterParameter.CHARACTER_ENCODING, "UTF-8");
+        exporter.setParameter(JRExporterParameter.OUTPUT_STREAM, out);
 
         exporter.exportReport();
     }
