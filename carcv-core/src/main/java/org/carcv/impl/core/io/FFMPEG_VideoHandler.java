@@ -25,6 +25,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 import java.util.List;
+import java.util.Random;
 
 import org.carcv.core.io.DirectoryWatcher;
 import org.carcv.core.io.VideoHandler;
@@ -42,7 +43,7 @@ import org.carcv.core.model.file.FileEntry;
  * <p>
  * <strong>TODO 2 Implement methods not for directories and paths, but for FileEntries also</strong>
  * <p>
- * <strong>TODO 2 Test FFMPEG_VideoHandler</strong>
+ * <strong>TODO 1 Test FFMPEG_VideoHandler</strong>
  *
  */
 public class FFMPEG_VideoHandler extends VideoHandler {
@@ -52,9 +53,9 @@ public class FFMPEG_VideoHandler extends VideoHandler {
      */
     final public static int defaultFrameRate = 30;
 
-    final private static String image_suffix = ".jpeg";
+    final private static String default_video_suffix = "h264";
 
-    final private static String video_suffix = ".h264";
+    final private static String default_image_suffix = "jpg";
 
     /**
      * A static wrapper method for {@link FFMPEG_VideoHandler#splitIntoFrames(Path, int)} that uses {@link #defaultFrameRate}.
@@ -88,7 +89,7 @@ public class FFMPEG_VideoHandler extends VideoHandler {
     @Override
     public boolean splitIntoFrames(Path video, int frameRate, Path imageDir) throws IOException {
         String filenamePrefix = video.getFileName().toString();
-        Path images = Paths.get(imageDir.toString(), filenamePrefix + "-%09d" + image_suffix);
+        Path images = Paths.get(imageDir.toString(), filenamePrefix + "-%09d" + "." + default_image_suffix);
 
         String command = "ffmpeg -i " + video.toString() + " -r " + frameRate + " " + images.toString();
         System.out.println("Executing: " + command);
@@ -202,10 +203,13 @@ public class FFMPEG_VideoHandler extends VideoHandler {
      * @throws IOException if an error during loading of images or writing of video occurs
      */
     private Path createVideo(Path imageDir, int frameRate) throws IOException {
-        Path output = Files.createTempFile("video", video_suffix);
+        Path output = Paths.get("/tmp", "video-"
+            + new Random().nextInt() + "-"
+            + System.currentTimeMillis()
+            + "." + default_video_suffix);
 
         String command = "ffmpeg -r " + frameRate + " -pattern_type glob -i '" +
-            imageDir.toAbsolutePath().toString() + File.separator + "*" + image_suffix +
+            imageDir.toAbsolutePath().toString() + File.separator + "*" +
             "' -c:v libx264 -pix_fmt yuv420p " + output.toAbsolutePath().toString();
 
         System.out.println("Executing: " + command);
