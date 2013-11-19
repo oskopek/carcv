@@ -15,8 +15,17 @@
  */
 package org.carcv.web.servlet;
 
+import java.io.IOException;
+import java.io.OutputStream;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+
+import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 /**
  *
@@ -24,4 +33,64 @@ import javax.servlet.http.HttpServlet;
 @WebServlet("/servlet/DisplayImage")
 public class DisplayImageServlet extends HttpServlet {
 
+    private static final long serialVersionUID = 3756019811253496208L;
+
+    /**
+     *
+     * @throws ServletException
+     * @throws IOException
+     */
+    protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException,
+        IOException {
+        Object pathObj = request.getAttribute("path");
+
+        if (pathObj == null) {
+            response.sendError(400, "No valid \"path\" attribute supplied in request.");
+            return;
+        }
+        String path = (String) pathObj;
+
+        String lowerCasePath = path.toLowerCase();
+        if (lowerCasePath.endsWith(".jpg") || lowerCasePath.endsWith(".jpeg")) {
+            response.setContentType("image/jpeg");
+        } else if (lowerCasePath.endsWith(".png")) {
+            response.setContentType("image/png");
+        } else if (lowerCasePath.endsWith(".gif")) {
+            response.setContentType("image/gif");
+        } else {
+            response.setContentType("application/octet-stream");
+        }
+
+        Path imagePath = Paths.get(path);
+        if (!Files.exists(imagePath) || !Files.isRegularFile(imagePath)) {
+            response.sendError(500, "Image at path " + path + " doesn't exist.");
+            return;
+        }
+
+        OutputStream out = response.getOutputStream();
+        Files.copy(imagePath, out);
+        out.flush();
+        return;
+    }
+
+    /**
+     * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+     * @see #processRequest(HttpServletRequest, HttpServletResponse)
+     * @throws ServletException
+     * @throws IOException
+     */
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        processRequest(request, response);
+    }
+
+    /**
+     * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+     * @see #processRequest(HttpServletRequest, HttpServletResponse)
+     * @throws ServletException
+     * @throws IOException
+     */
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException,
+        IOException {
+        processRequest(request, response);
+    }
 }
