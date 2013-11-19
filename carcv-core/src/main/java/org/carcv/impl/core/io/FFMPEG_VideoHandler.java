@@ -147,7 +147,9 @@ public class FFMPEG_VideoHandler extends VideoHandler {
     private static void copyCarImagesToDir(List<FileCarImage> list, Path dir) throws IOException {
         for (int i = 0; i < list.size(); i++) {
             FileCarImage image = list.get(i);
-            String suffix = getSuffix(image.getFilepath());
+            Path imagePath = image.getFilepath();
+            System.out.println(i + ": " + imagePath.toString()); // TODO debug
+            String suffix = getSuffix(imagePath);
             Path tempFilePath = Paths.get(dir.toString(), i + "_image_" + image.hashCode() + "." + suffix);
 
             Files.copy(image.getFilepath(), tempFilePath);
@@ -161,7 +163,7 @@ public class FFMPEG_VideoHandler extends VideoHandler {
     private static String getSuffix(Path file) {
         String filename = file.getFileName().toString();
         String[] splitted = filename.split(".");
-        String last = splitted[splitted.length-1];
+        String last = splitted.length == 0 ? null : splitted[splitted.length - 1];
 
         return last;
     }
