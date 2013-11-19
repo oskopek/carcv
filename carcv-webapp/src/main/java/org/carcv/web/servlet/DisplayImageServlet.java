@@ -49,13 +49,15 @@ public class DisplayImageServlet extends HttpServlet {
             return;
         }
 
-        String lowerCasePath = path.toLowerCase();
+        String lowerCasePath = path.toLowerCase(); // TODO 2 Fix for all DirectoryLoader#knownImageSuffixes
         if (lowerCasePath.endsWith(".jpg") || lowerCasePath.endsWith(".jpeg")) {
             response.setContentType("image/jpeg");
         } else if (lowerCasePath.endsWith(".png")) {
             response.setContentType("image/png");
         } else if (lowerCasePath.endsWith(".gif")) {
             response.setContentType("image/gif");
+        } else if (lowerCasePath.endsWith(".bmp")) {
+            response.setContentType("image/x-ms-bmp");
         } else {
             response.setContentType("application/octet-stream");
         }
