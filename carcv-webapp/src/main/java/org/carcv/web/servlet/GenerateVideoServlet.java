@@ -59,7 +59,9 @@ public class GenerateVideoServlet extends HttpServlet {
         try {
             FFMPEG_VideoHandler.generateVideoAsStream(entry, response.getOutputStream());
         } catch (IOException e) {
+            response.reset();
             response.sendError(501, e.getMessage());
+            return;
         }
     }
 
