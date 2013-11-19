@@ -65,7 +65,7 @@ public class CarSorterImpl extends CarSorter {
         ArrayList<FileCarImage> images = (ArrayList<FileCarImage>) batchDir.getCarImages();
 
         if (images.isEmpty()) {
-            return null;
+            return new ArrayList<FileEntry>();
         }
 
         // Before for-loop:
