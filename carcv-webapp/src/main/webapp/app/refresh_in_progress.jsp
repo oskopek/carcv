@@ -20,9 +20,9 @@
             style="border: 0; margin-top: 5px; margin-bottom: 5px; text-align: left; position: relative; top: -10px"
             alt="OpenCV" /></a>
         <p style="position: absolute; right: 8%; top: 2%; font-size: 11pt; word-spacing: .5em;">
-            <b> <a href="/app/index.jsp" target="_top" style="text-decoration: none">Home</a> <a href="/app/index.jsp" target="_top"
-                style="text-decoration: none">Features</a> <a href="/app/index.jsp" style="text-decoration: none">Contribute</a> <a href="/app/index.jsp"
-                target="_top" style="text-decoration: none; word-spacing: 0em;">Contact us</a>
+            <b> <a href="/app/index.jsp" target="_top" style="text-decoration: none">Home</a> <a href="/app/index.jsp"
+                target="_top" style="text-decoration: none">Features</a> <a href="/app/index.jsp" style="text-decoration: none">Contribute</a>
+                <a href="/app/index.jsp" target="_top" style="text-decoration: none; word-spacing: 0em;">Contact us</a>
             </b>
         </p>
     </div>
@@ -44,8 +44,8 @@
                 <td><a href="/" target="_top" style="position: absolute; left: 40%; text-decoration: none">Admin</a><br></td>
             </tr>
             <tr>
-                <td><a href="/servlet/Logout" target="_top"
-                    style="position: absolute; left: 35%; text-decoration: none">Log out</a><br></td>
+                <td><a href="/servlet/Logout" target="_top" style="position: absolute; left: 35%; text-decoration: none">Log
+                        out</a><br></td>
             </tr>
         </table>
     </div>
