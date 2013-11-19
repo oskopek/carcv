@@ -3,9 +3,8 @@ jdk:
     - openjdk7
     - oraclejdk7
 
-env:
-    - WILDFLY="8.0.0.Beta1"
-    - JBOSS_HOME=$HOME/$WILDFLY
+env: WILDFLY="8.0.0.Beta1"
+env: JBOSS_HOME=$HOME/$WILDFLY
 
 before_script:
     - cd $HOME
