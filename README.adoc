@@ -50,8 +50,7 @@ Run this command to generate `.project` and `.classpath` files:
 (and never will be).
 ====
 
-Building
---------
+== Building
 
 * *Recomennded*: `mvn clean install -DskipTests`
 * To run *unit tests*: `mvn clean install`
