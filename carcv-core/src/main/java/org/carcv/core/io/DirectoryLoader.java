@@ -38,9 +38,9 @@ import org.carcv.core.model.file.FileEntry;
 public class DirectoryLoader {
 
     /**
-     * An array of String representation of image file suffixes.
+     * An array of lower case String representations of image file suffixes. Without leading dots.
      */
-    final public static String[] knownImageFileSuffixes = { ".png", ".jpg" };
+    final public static String[] knownImageFileSuffixes = { "png", "jpg" , "jpeg", "bmp"};
 
     /**
      * The default name of the info file.
@@ -119,7 +119,7 @@ public class DirectoryLoader {
      */
     private static boolean isKnownImage(Path p) {
         for (String suffix : knownImageFileSuffixes) {
-            if (p.toString().endsWith(suffix.toLowerCase())) {
+            if (p.toString().endsWith("." + suffix.toLowerCase())) {
                 return true;
             }
         }
