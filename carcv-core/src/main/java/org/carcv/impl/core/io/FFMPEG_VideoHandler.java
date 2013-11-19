@@ -52,7 +52,7 @@ public class FFMPEG_VideoHandler extends VideoHandler {
      */
     final public static int defaultFrameRate = 30;
 
-    final private static String image_suffix = ".png";
+    final private static String image_suffix = ".jpeg";
 
     final private static String video_suffix = ".h264";
 
@@ -147,9 +147,23 @@ public class FFMPEG_VideoHandler extends VideoHandler {
     private static void copyCarImagesToDir(List<FileCarImage> list, Path dir) throws IOException {
         for (int i = 0; i < list.size(); i++) {
             FileCarImage image = list.get(i);
-            Path tempFilePath = Files.createTempFile(dir, i + "_image_", image_suffix);
+            String suffix = getSuffix(image.getFilepath());
+            Path tempFilePath = Paths.get(dir.toString(), i + "_image_" + image.hashCode() + "." + suffix);
+
             Files.copy(image.getFilepath(), tempFilePath);
         }
+    }
+
+    /**
+     * @param file the path from which to parse the suffix
+     * @return the file suffix without the dot, f.e. "jpg"
+     */
+    private static String getSuffix(Path file) {
+        String filename = file.getFileName().toString();
+        String[] splitted = filename.split(".");
+        String last = splitted[splitted.length-1];
+
+        return last;
     }
 
     /**
