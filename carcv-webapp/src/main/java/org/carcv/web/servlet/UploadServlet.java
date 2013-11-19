@@ -43,7 +43,7 @@ import org.carcv.web.beans.StorageBean;
 /**
  * A Servlet that uploads images to a new batch input directory.
  */
-@WebServlet("/servlet/UploadServlet")
+@WebServlet("/servlet/Upload")
 public class UploadServlet extends HttpServlet {
 
     private static final long serialVersionUID = 8953603165824574044L;

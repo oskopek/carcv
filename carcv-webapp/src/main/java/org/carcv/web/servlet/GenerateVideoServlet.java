@@ -32,7 +32,7 @@ import org.carcv.web.beans.EntryBean;
  * A Servlet that generates a video from a list of images using
  * {@link FFMPEG_VideoHandler#generateVideoAsStream(FileEntry, java.io.OutputStream)}.
  */
-@WebServlet("/servlet/GenerateVideoServlet")
+@WebServlet("/servlet/GenerateVideo")
 public class GenerateVideoServlet extends HttpServlet {
 
     private static final long serialVersionUID = 6662253349108285886L;
@@ -41,7 +41,6 @@ public class GenerateVideoServlet extends HttpServlet {
     private EntryBean entryBean;
 
     /**
-     *
      * @param request the HttpServletRequest
      * @param response the HttpServletResponse
      * @throws IOException

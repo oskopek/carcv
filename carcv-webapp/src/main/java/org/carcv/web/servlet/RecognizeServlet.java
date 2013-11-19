@@ -29,10 +29,10 @@ import javax.servlet.http.HttpServletResponse;
 import org.carcv.web.beans.RecognizerBean;
 
 /**
- * A Servlet that calls {@link RecognizerBean#recognize()} and redirects back to referrer.
+ * A Servlet that calls {@link RecognizerBean#recognize()} in a background thread.
  */
-@WebServlet("/servlet/RefreshServlet")
-public class RefreshServlet extends HttpServlet {
+@WebServlet("/servlet/Recognize")
+public class RecognizeServlet extends HttpServlet {
 
     private static final long serialVersionUID = -235344099282905675L;
 
@@ -77,14 +77,20 @@ public class RefreshServlet extends HttpServlet {
         processRequest(request, response);
     }
 
+    /**
+     * A runnable task that runs {@link RecognizerBean#recognize()}.
+     */
     private class RecognizeRunnable implements Runnable {
 
+        /**
+         * NOTE: Catches all IOException and only logs them.
+         */
         @Override
         public void run() {
             try {
-                System.out.println("[RefreshServlet]\tStarting recognizing...");
+                System.out.println("[RecognizeServlet]\tStarting recognizing...");
                 recognizerBean.recognize();
-                System.out.println("[RefreshServlet]\tDone recognizing!");
+                System.out.println("[RecognizeServlet]\tDone recognizing!");
             } catch (IOException e) {
                 System.err.println("Error during refreshing and recognizing occured.");
                 e.printStackTrace();

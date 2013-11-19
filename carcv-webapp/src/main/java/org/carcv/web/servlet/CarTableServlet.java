@@ -36,7 +36,7 @@ import org.carcv.web.beans.EntryBean;
 /**
  * A Servlet that retrieves all FileEntries from the database and formats them into a nice table.
  */
-@WebServlet("/servlet/CarTableServlet")
+@WebServlet("/servlet/CarTable")
 public class CarTableServlet extends HttpServlet {
 
     private static final long serialVersionUID = 650302178430670688L;
@@ -102,9 +102,9 @@ public class CarTableServlet extends HttpServlet {
             location = e.getCarData().getAddress().printBR();
 
             FileCarImage fci = e.getCarImages().get(0);
-            previewURL = fci.getFilepath().toString();
+            previewURL = "/servlet/DisplayImage?path=" + fci.getFilepath().toString();
 
-            videoURL = "/servlet/GenerateVideoServlet?entry_id=" + e.getId();
+            videoURL = "/servlet/GenerateVideo?entry_id=" + e.getId();
 
             // write
             out.println("<tr>");
@@ -118,7 +118,7 @@ public class CarTableServlet extends HttpServlet {
             out.println("<td><a href=\"" + previewURL + "\" target=\"_top\">View preview</a></td>");
             out.println("<td><a href=\"" + "/servlet/GenerateReport?entry_id=" + e.getId()
                 + "\" target=\"_top\">Generate report</a></td>");
-            out.println("<td><a href=\"" + "/servlet/RemoveServlet?entry_id=" + e.getId()
+            out.println("<td><a href=\"" + "/servlet/RemoveEntry?entry_id=" + e.getId()
                 + "\" target=\"_top\">Delete" + "</a></td>");
             out.println("</tr>");
         }

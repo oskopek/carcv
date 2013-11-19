@@ -30,8 +30,8 @@ import org.carcv.web.beans.EntryBean;
 /**
  * A Servlet that removes FileEntries from the database.
  */
-@WebServlet("/servlet/RemoveServlet")
-public class RemoveServlet extends HttpServlet {
+@WebServlet("/servlet/RemoveEntry")
+public class RemoveEntryServlet extends HttpServlet {
 
     private static final long serialVersionUID = 6813706341486318124L;
 
