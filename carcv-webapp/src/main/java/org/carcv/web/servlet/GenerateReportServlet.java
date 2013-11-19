@@ -35,7 +35,7 @@ import org.carcv.web.reports.BasicReportGenerator;
  * A Servlet that generates a report with {@link BasicReportGenerator} using the <code>entry_id</code> parameter.
  */
 @WebServlet("/servlet/GenerateReport")
-public class GenerateReport extends HttpServlet {
+public class GenerateReportServlet extends HttpServlet {
 
     private static final long serialVersionUID = 107823642246194053L;
 
@@ -43,7 +43,7 @@ public class GenerateReport extends HttpServlet {
     private EntryBean entryBean;
 
     /**
-     * @see GenerateReport
+     * @see GenerateReportServlet
      * @param request the HttpServletRequest
      * @param response the HttpServletResponse
      * @throws ServletException
@@ -56,7 +56,7 @@ public class GenerateReport extends HttpServlet {
         String filename = "report" + System.currentTimeMillis() + ".pdf";
 
         // If you want it to be downloadable, enable next line:
-        response.setHeader("Content-Disposition", "attachment; filename=\"" + filename + "\"");
+        // response.setHeader("Content-Disposition", "attachment; filename=\"" + filename + "\"");
 
         // generate
         long entryId = Long.parseLong(request.getParameter("entry_id"));
