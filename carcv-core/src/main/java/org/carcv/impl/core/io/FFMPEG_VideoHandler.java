@@ -149,7 +149,6 @@ public class FFMPEG_VideoHandler extends VideoHandler {
         for (int i = 0; i < list.size(); i++) {
             FileCarImage image = list.get(i);
             Path imagePath = image.getFilepath();
-            System.out.println(i + ": " + imagePath.toString()); // TODO debug
             String suffix = getSuffix(imagePath);
             Path tempFilePath = Paths.get(dir.toString(), i + "_image_" + image.hashCode() + "." + suffix);
 
