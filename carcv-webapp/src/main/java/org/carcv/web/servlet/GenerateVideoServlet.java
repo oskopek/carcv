@@ -56,7 +56,11 @@ public class GenerateVideoServlet extends HttpServlet {
         long entryId = Long.parseLong(request.getParameter("entry_id"));
         FileEntry entry = entryBean.findById(entryId);
 
-        FFMPEG_VideoHandler.generateVideoAsStream(entry, response.getOutputStream());
+        try {
+            FFMPEG_VideoHandler.generateVideoAsStream(entry, response.getOutputStream());
+        } catch (IOException e) {
+            response.sendError(501, e.getMessage());
+        }
     }
 
     /**
