@@ -35,7 +35,7 @@
         </p>
         <table style="border: 0px;">
             <tr style="text-align: center;">
-                <td><a href="/servlet/Refresh" target="_top"
+                <td><a href="/servlet/Recognize" target="_top"
                     style="position: absolute; left: 30%; text-align: center; text-decoration: none">Refresh DB</a><br></td>
             </tr>
             <tr style="text-align: center;">
@@ -43,7 +43,7 @@
                 </td>
             </tr>
             <tr>
-                <td><a href="/" target="_top" style="position: absolute; left: 40%; text-decoration: none">Admin</a><br></td>
+                <td><a href="/app/upload.jsp" target="_top" style="position: absolute; left: 40%; text-decoration: none">Admin</a><br></td>
             </tr>
             <tr>
                 <td><a href="/servlet/Logout" target="_top" style="position: absolute; left: 35%; text-decoration: none">Log
