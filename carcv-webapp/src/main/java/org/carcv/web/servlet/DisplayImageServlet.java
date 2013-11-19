@@ -42,13 +42,12 @@ public class DisplayImageServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException,
         IOException {
-        Object pathObj = request.getAttribute("path");
+        String path = request.getParameter("path");
 
-        if (pathObj == null) {
+        if (path == null) {
             response.sendError(400, "No valid \"path\" attribute supplied in request.");
             return;
         }
-        String path = (String) pathObj;
 
         String lowerCasePath = path.toLowerCase();
         if (lowerCasePath.endsWith(".jpg") || lowerCasePath.endsWith(".jpeg")) {
