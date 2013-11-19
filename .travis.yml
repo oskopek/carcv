@@ -12,6 +12,7 @@ before_script:
     - tar xfz wildfly-$WILDFLY.tar.gz
     - export JBOSS_HOME=$HOME/wildfly-$WILDFLY
     - cd $ROOT_DIR
+    - cp carcv-webapp/src/test/resources/jboss_configuration_standalone/standalone.xml $JBOSS_HOME/standalone/configuration/standalone.xml
 
 script: "mvn clean verify -Pwildfly-it-travis"
 
