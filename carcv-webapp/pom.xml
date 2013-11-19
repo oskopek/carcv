@@ -361,5 +361,43 @@
                 </dependency>
             </dependencies>
         </profile>
+        <profile>
+            <id>wildfly-it-travis</id>
+
+            <properties>
+                <skipTests>false</skipTests>
+                <skipITs>${skipTests}</skipITs>
+                <skipUTs>${skipTests}</skipUTs>
+            </properties>
+
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-failsafe-plugin</artifactId>
+                        <configuration>
+                            <systemPropertyVariables>
+                                <arquillian.launch>wildfly-travis</arquillian.launch>
+                            </systemPropertyVariables>
+
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
+
+            <dependencies>
+                <dependency>
+                    <groupId>org.wildfly</groupId>
+                    <artifactId>wildfly-arquillian-common</artifactId>
+                    <version>8.0.0.Beta1</version>
+                    <scope>test</scope>
+                </dependency>
+                <dependency>
+                    <groupId>org.wildfly</groupId>
+                    <artifactId>wildfly-arquillian-container-managed</artifactId>
+                    <version>8.0.0.Beta1</version>
+                </dependency>
+            </dependencies>
+        </profile>
     </profiles>
 </project>

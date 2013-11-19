@@ -18,5 +18,9 @@
             <property name="jbossHome">/opt/wildfly/latest</property>
         </configuration>
     </container>
-
+    <container qualifier="wildfly-travis" default="false">
+        <configuration>
+            <property name="jbossHome">${env.JBOSS_HOME}</property>
+        </configuration>
+    </container>
 </arquillian>

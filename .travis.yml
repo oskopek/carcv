@@ -13,7 +13,7 @@ before_script:
     - export JBOSS_HOME=$HOME/wildfly-$WILDFLY
     - cd $ROOT_DIR
 
-script: "mvn clean verify -Pwildfly-it"
+script: "mvn clean verify -Pwildfly-it-travis"
 
 install: /bin/true
 notifications:
