@@ -2,7 +2,9 @@
 
 A car recognizing and speed calculation platform
 
-image:https://travis-ci.org/oskopek/carcv.png?branch=master["Build Status", link="https://travis-ci.org/oskopek/carcv"]
+Build status: image:https://travis-ci.org/oskopek/carcv.png?branch=master["Build Status", link="https://travis-ci.org/oskopek/carcv"]
+
+Ohloh: image:https://www.ohloh.net/p/carcv/widgets/project_thin_badge.gif["Ohloh widget", link="https://www.ohloh.net/p/carcv"]
 
 == Modules
 
