@@ -3,14 +3,20 @@ jdk:
     - openjdk7
     - oraclejdk7
 
-env: WILDFLY="8.0.0.Beta1"
+env:
+    global:
+        - WILDFLY="8.0.0.Beta1"
+        - JBOSS_HOME=$HOME/wildfly-$WILDFLY
+
+cache:
+    directories:
+        - $HOME/.m2
 
 before_script:
     - export ROOT_DIR=`pwd`
     - cd $HOME
     - wget http://download.jboss.org/wildfly/$WILDFLY/wildfly-$WILDFLY.tar.gz
     - tar xfz wildfly-$WILDFLY.tar.gz
-    - export JBOSS_HOME=$HOME/wildfly-$WILDFLY
     - cd $ROOT_DIR
     - cp carcv-webapp/src/test/resources/jboss_configuration_standalone/standalone.xml $JBOSS_HOME/standalone/configuration/standalone.xml
 
