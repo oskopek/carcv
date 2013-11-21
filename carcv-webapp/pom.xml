@@ -181,6 +181,13 @@
         </dependency>
     </dependencies>
 
+    <repositories>
+        <repository>
+            <id>JasperReports Maven Repo</id>
+            <url>http://jasperreports.sourceforge.net/maven2/</url>
+        </repository>
+    </repositories>
+
     <dependencyManagement>
         <dependencies>
 			<!-- Override dependency resolver with latest version. This must go *BEFORE* 
