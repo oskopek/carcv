@@ -20,7 +20,7 @@ before_script:
     - cd $ROOT_DIR
     - cp carcv-webapp/src/test/resources/jboss_configuration_standalone/standalone.xml $JBOSS_HOME/standalone/configuration/standalone.xml
 
-script: "mvn -X clean verify -Pwildfly-it-travis"
+script: "mvn -X -U clean verify -Pwildfly-it-travis"
 
 install: /bin/true
 notifications:
