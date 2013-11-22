@@ -137,16 +137,23 @@ public class StorageBeanIT {
     /**
      * Test method for {@link org.carcv.web.beans.StorageBean#storeToDirectory(java.io.InputStream, String, Path)}.
      *
-     * @throws IOException
+     * @throws Exception
      */
     @Test
-    public void testStoreToDirectory() throws IOException {
+    public void testStoreToDirectory() throws Exception {
         FileEntryTool tool = new FileEntryTool();
 
         InputStream is1 = getClass().getResourceAsStream("/img/skoda_oct.jpg");
         InputStream is2 = getClass().getResourceAsStream("/img/test_041.jpg");
 
-        FileEntry f = tool.generate(is1, is2);
+        Path p1 = Paths.get("/tmp", "storageImage1-" + System.currentTimeMillis() + ".jpg");
+        Path p2 = Paths.get("/tmp", "storageImage2-" + System.currentTimeMillis() + ".jpg");
+
+        Files.copy(is1, p1);
+        Files.copy(is2, p2);
+
+        FileEntry f = tool.generate(p1, p2);
+        assertFileEntry(f);
 
         assertNotNull(f);
         Path original = f.getCarImages().get(0).getFilepath();
@@ -161,15 +168,19 @@ public class StorageBeanIT {
         assertNotNull(newPath);
         assertTrue(Files.exists(newPath));
         assertTrue(FileUtils.contentEquals(newPath.toFile(), original.toFile()));
+
+        Files.delete(p1);
+        Files.delete(p2);
+        tool.close();
     }
 
     /**
      * Test method for {@link org.carcv.web.beans.StorageBean#storeBatchToDatabase(java.util.List)}.
      *
-     * @throws IOException
+     * @throws Exception
      */
     @Test
-    public void testStoreBatchToDatabase() throws IOException {
+    public void testStoreBatchToDatabase() throws Exception {
         Random r = new Random();
         FileEntryTool tool = new FileEntryTool();
 
@@ -201,6 +212,7 @@ public class StorageBeanIT {
                 Files.delete(fi.getFilepath());
             }
         }
+        tool.close();
     }
 
     /**
@@ -225,5 +237,25 @@ public class StorageBeanIT {
         assertTrue(Files.exists(checkedPath));
         assertTrue(Files.isDirectory(checkedPath));
         assertTrue(Files.isWritable(checkedPath));
+    }
+
+    private static void assertFileEntry(FileEntry e) {
+        // FileEntry
+        assertNotNull(e);
+        assertNotNull(e.getCarData());
+        assertNotNull(e.getCarImages());
+        assertNotEquals(0, e.getCarImages().size());
+
+        // CarData
+        assertNotNull(e.getCarData().getAddress());
+        assertNotNull(e.getCarData().getNumberPlate());
+        assertNotNull(e.getCarData().getSpeed());
+
+        // FileCarImage
+        for (FileCarImage f : e.getCarImages()) {
+            assertNotNull(f);
+            assertNotNull(f.getFilepath());
+            assertTrue(Files.exists(f.getFilepath()));
+        }
     }
 }

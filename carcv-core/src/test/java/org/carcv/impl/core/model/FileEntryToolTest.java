@@ -22,6 +22,8 @@ import static org.junit.Assert.assertTrue;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -40,6 +42,8 @@ public class FileEntryToolTest {
 
     private ArrayList<FileEntry> list;
 
+    private Path[] paths;
+
     /**
      * @throws java.lang.Exception
      */
@@ -47,7 +51,17 @@ public class FileEntryToolTest {
     public void setUp() throws Exception {
         tool = new FileEntryTool();
         list = new ArrayList<>();
+        paths = new Path[2];
         assertNotNull(tool);
+
+        InputStream is1 = getClass().getResourceAsStream("/img/skoda_oct.jpg");
+        InputStream is2 = getClass().getResourceAsStream("/img/test_041.jpg");
+
+        paths[0] = Paths.get("/tmp", "testImage1-" + System.currentTimeMillis() + ".jpg");
+        paths[1] = Paths.get("/tmp", "testImage2-" + System.currentTimeMillis() + ".jpg");
+
+        Files.copy(is1, paths[0]);
+        Files.copy(is2, paths[1]);
     }
 
     /**
@@ -60,6 +74,12 @@ public class FileEntryToolTest {
                 Files.delete(fci.getFilepath());
             }
         }
+
+        for (Path p : paths) {
+            Files.delete(p);
+        }
+
+        tool.close();
     }
 
     /**
@@ -70,16 +90,9 @@ public class FileEntryToolTest {
     @Test
     public void testGenerate() throws IOException {
         Random r = new Random();
-
-        InputStream is1;
-        InputStream is2;
-
         for (int i = 0; i < r.nextInt(20) + 10; i++) {
-            is1 = getClass().getResourceAsStream("/img/skoda_oct.jpg");
-            is2 = getClass().getResourceAsStream("/img/test_041.jpg");
-
-            FileEntry e = tool.generate(is1, is2);
-            assertFileEntry(e);
+            FileEntry e = tool.generate(paths);
+            FileEntryToolTest.assertFileEntry(e);
             list.add(e);
         }
     }
@@ -89,7 +102,7 @@ public class FileEntryToolTest {
      *
      * @param e the FileEntry to check
      */
-    private void assertFileEntry(FileEntry e) {
+    public static void assertFileEntry(FileEntry e) {
         // FileEntry
         assertNotNull(e);
         assertNotNull(e.getCarData());

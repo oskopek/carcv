@@ -16,7 +16,6 @@
 package org.carcv.impl.core.model;
 
 import java.io.IOException;
-import java.io.InputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -24,6 +23,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.Random;
 
+import org.carcv.core.io.DirectoryWatcher;
 import org.carcv.core.model.Address;
 import org.carcv.core.model.CarData;
 import org.carcv.core.model.NumberPlate;
@@ -34,23 +34,41 @@ import org.carcv.core.model.file.FileEntry;
 /**
  * Generates a random FileEntry with existing images. To be used for testing purposes.
  */
-public class FileEntryTool {
+public class FileEntryTool implements AutoCloseable {
 
     private Random r;
 
+    private Path rootDir;
+
     public FileEntryTool() {
         r = new Random();
+        rootDir = Paths.get("/tmp", "fileEntryTool-" + System.currentTimeMillis());
+        assertDirCreated(rootDir);
+    }
+
+    private static void assertDirCreated(Path dir) {
+        if (!Files.exists(dir) || !Files.isDirectory(dir)) {
+            try {
+                Files.createDirectory(dir);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+
     }
 
     /**
      * The caller is responsible for disposing the object, including deletion of FileCarImages on disk. The images are not
      * loaded.
      *
-     * @param resources list of paths to resources
+     * @param resources list of paths of CarImages - originals are preserved
      * @return a randomly generated FileEntry with 2 images
      * @throws IOException
      */
-    public FileEntry generate(InputStream... resources) throws IOException {
+    public FileEntry generate(Path... resources) throws IOException {
+
+        Path curDir = Paths.get(rootDir.toString(), "iteration-" + r.nextInt());
+        Files.createDirectory(curDir);
 
         // CarData
         Address add = new Address(Double.valueOf(r.nextDouble() * 100), Double.valueOf(r.nextDouble() * 100), randomString(5),
@@ -62,13 +80,15 @@ public class FileEntryTool {
         // CarImages
         ArrayList<FileCarImage> images = new ArrayList<>();
 
-        for (InputStream is : resources) {
-            if (is == null) { // skip invalid
+        for (int i = 0; i < resources.length; i++) {
+            Path p = resources[i];
+
+            if (!Files.exists(p)) { // skip invalid
                 continue;
             }
 
-            Path path = Paths.get("/tmp", is.hashCode() + ".jpg");
-            Files.copy(is, path);
+            Path path = Paths.get(curDir.toString(), i + "-" + p.hashCode() + ".jpg");
+            Files.copy(p, path);
             FileCarImage f = new FileCarImage(path);
             images.add(f);
         }
@@ -109,5 +129,10 @@ public class FileEntryTool {
         char c = (char) (r.nextInt(25) + 65);
         assert Character.isLetter(c);
         return r.nextBoolean() ? Character.toUpperCase(c) : c;
+    }
+
+    @Override
+    public void close() throws Exception {
+        DirectoryWatcher.deleteDirectory(rootDir);
     }
 }
