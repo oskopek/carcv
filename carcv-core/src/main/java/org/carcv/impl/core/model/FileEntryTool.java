@@ -37,7 +37,7 @@ import org.carcv.core.model.file.FileEntry;
 public class FileEntryTool {
 
     private Random r;
-    
+
     public FileEntryTool() {
         r = new Random();
     }
