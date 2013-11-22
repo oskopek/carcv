@@ -22,6 +22,7 @@ import static org.junit.Assert.assertTrue;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Random;
 
 import org.carcv.core.model.file.FileCarImage;
@@ -62,7 +63,7 @@ public class FileEntryToolTest {
     }
 
     /**
-     * Test for {@link FileEntryTool#generate()}
+     * Test for {@link FileEntryTool#generate(String[])}
      *
      * @throws IOException
      */
@@ -70,8 +71,10 @@ public class FileEntryToolTest {
     public void testGenerate() throws IOException {
         Random r = new Random();
         for (int i = 0; i < r.nextInt(20) + 10; i++) {
-            FileEntry e = tool.generate();
+            FileEntry e = tool.generate(Arrays.asList("/img/skoda_oct.jpg", "/img/test_041.jpg").toArray(new String[2]));
             assertFileEntry(e);
+            
+            list.add(e);
         }
     }
 

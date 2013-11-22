@@ -46,10 +46,11 @@ public class FileEntryTool {
      * The caller is responsible for disposing the object, including deletion of FileCarImages on disk. The images are not
      * loaded.
      *
+     * @param resources list of paths to resources
      * @return a randomly generated FileEntry with 2 images
      * @throws IOException
      */
-    public FileEntry generate() throws IOException {
+    public FileEntry generate(String[] resources) throws IOException {
 
         // CarData
         Address add = new Address(Double.valueOf(r.nextDouble() * 100), Double.valueOf(r.nextDouble() * 100), randomString(5),
@@ -60,22 +61,15 @@ public class FileEntryTool {
 
         // CarImages
         ArrayList<FileCarImage> images = new ArrayList<>();
-
-        InputStream imageIs1 = getClass().getResourceAsStream("/img/skoda_oct.jpg");
-        InputStream imageIs2 = getClass().getResourceAsStream("/img/test_041.jpg");
-
-        Path imagePath1 = Paths.get("/tmp", imageIs1.hashCode() + ".jpg");
-        Path imagePath2 = Paths.get("/tmp", imageIs2.hashCode() + ".jpg");
-
-        Files.copy(imageIs1, imagePath1);
-        Files.copy(imageIs2, imagePath2);
-
-        FileCarImage f1 = new FileCarImage(imagePath1);
-        FileCarImage f2 = new FileCarImage(imagePath2);
-
-        images.add(f1);
-        images.add(f2);
-
+        
+        for(String s : resources) { // TODO 1 abstract this
+            InputStream is = getClass().getResourceAsStream(s);
+            Path path = Paths.get("/tmp", is.hashCode() + ".jpg");
+            Files.copy(is, path);
+            FileCarImage f = new FileCarImage(path);
+            images.add(f);
+        }
+        
         // FileEntry
 
         return new FileEntry(cd, images);
