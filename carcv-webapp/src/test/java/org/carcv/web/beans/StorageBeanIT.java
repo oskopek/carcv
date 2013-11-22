@@ -24,6 +24,7 @@ import static org.junit.Assert.assertTrue;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 import java.nio.file.DirectoryStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -141,7 +142,11 @@ public class StorageBeanIT {
     @Test
     public void testStoreToDirectory() throws IOException {
         FileEntryTool tool = new FileEntryTool();
-        FileEntry f = tool.generate("/img/skoda_oct.jpg", "/img/test_041.jpg");
+
+        InputStream is1 = getClass().getResourceAsStream("/img/skoda_oct.jpg");
+        InputStream is2 = getClass().getResourceAsStream("/img/test_041.jpg");
+
+        FileEntry f = tool.generate(is1, is2);
 
         assertNotNull(f);
         Path original = f.getCarImages().get(0).getFilepath();

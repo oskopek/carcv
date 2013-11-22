@@ -20,6 +20,7 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.Random;
@@ -69,8 +70,15 @@ public class FileEntryToolTest {
     @Test
     public void testGenerate() throws IOException {
         Random r = new Random();
+
+        InputStream is1;
+        InputStream is2;
+
         for (int i = 0; i < r.nextInt(20) + 10; i++) {
-            FileEntry e = tool.generate("/img/skoda_oct.jpg", "/img/test_041.jpg");
+            is1 = getClass().getResourceAsStream("/img/skoda_oct.jpg");
+            is2 = getClass().getResourceAsStream("/img/test_041.jpg");
+
+            FileEntry e = tool.generate(is1, is2);
             assertFileEntry(e);
             list.add(e);
         }
