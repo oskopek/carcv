@@ -40,7 +40,7 @@ public class DirectoryLoader {
     /**
      * An array of lower case String representations of image file suffixes. Without leading dots.
      */
-    final public static String[] knownImageFileSuffixes = { "png", "jpg" , "jpeg", "bmp"};
+    final public static String[] knownImageFileSuffixes = { "png", "jpg", "jpeg", "bmp" };
 
     /**
      * The default name of the info file.
