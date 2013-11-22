@@ -61,8 +61,8 @@ public class FileEntryTool {
         // CarImages
         ArrayList<FileCarImage> images = new ArrayList<>();
 
-        InputStream imageIs1 = getClass().getResourceAsStream("img/skoda_oct.jpg");
-        InputStream imageIs2 = getClass().getResourceAsStream("img/test_041.jpg");
+        InputStream imageIs1 = getClass().getResourceAsStream("/img/skoda_oct.jpg");
+        InputStream imageIs2 = getClass().getResourceAsStream("/img/test_041.jpg");
 
         Path imagePath1 = Paths.get("/tmp", imageIs1.hashCode() + ".jpg");
         Path imagePath2 = Paths.get("/tmp", imageIs2.hashCode() + ".jpg");
