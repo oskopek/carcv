@@ -53,8 +53,19 @@ public class StorageBean {
 
         inDir = Paths.get(prefix, "carcv_data", "in");
         outDir = Paths.get(prefix, "carcv_data", "out");
+
+        // create directories
+        getInputDirectory();
+        getOutputDirectory();
     }
 
+    /**
+     * Returns the location of the data directory.
+     * <p>
+     * Note: The actual data resides in the <code>getPrefix()+"/carcv_data"</code> directory.
+     *
+     * @return the prefix
+     */
     public String getPrefix() {
         return prefix;
     }
@@ -65,14 +76,10 @@ public class StorageBean {
      *
      * @param p the Path to check
      */
-    private void assertDirCreated(Path p) {
+    private void assertDirCreated(Path p) throws IOException {
         if (!Files.exists(p) || !Files.isDirectory(p)) {
-            try {
-                Files.createDirectories(p);
-            } catch (IOException e) {
-                System.err.println("Error while creating directories: " + p.toString());
-                e.printStackTrace();
-            }
+
+            Files.createDirectories(p);
         }
     }
 
@@ -81,9 +88,15 @@ public class StorageBean {
      *
      * @see #assertDirCreated(Path)
      * @return the input directory Path
+     * @throws IOException
      */
     public Path getInputDirectory() {
-        assertDirCreated(inDir);
+        try {
+            assertDirCreated(inDir);
+        } catch (IOException e) {
+            System.out.println("Error during input directory creation: " + e.getMessage());
+            e.printStackTrace();
+        }
         return inDir;
     }
 
@@ -94,7 +107,12 @@ public class StorageBean {
      * @return the output directory Path
      */
     public Path getOutputDirectory() {
-        assertDirCreated(outDir);
+        try {
+            assertDirCreated(outDir);
+        } catch (IOException e) {
+            System.out.println("Error during input directory creation: " + e.getMessage());
+            e.printStackTrace();
+        }
         return outDir;
     }
 
@@ -142,35 +160,25 @@ public class StorageBean {
      *
      * @param from the InputStream to read from
      * @param to the OutputStream to write to
+     * @throws IOException if an error during read/write occurs
      */
-    private void saveToFile(InputStream from, OutputStream to) {
-        try {
+    private void saveToFile(InputStream from, OutputStream to) throws IOException {
+        // try
+        int read;
+        byte[] bytes = new byte[1024];
 
-            int read;
-            byte[] bytes = new byte[1024];
+        while ((read = from.read(bytes)) != -1) {
+            to.write(bytes, 0, read);
+        }
 
-            while ((read = from.read(bytes)) != -1) {
-                to.write(bytes, 0, read);
-            }
+        // finally
 
-        } catch (IOException e) {
-            e.printStackTrace();
-        } finally {
-            if (from != null) {
-                try {
-                    from.close();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
-            if (to != null) {
-                try {
-                    // outputStream.flush();
-                    to.close();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
+        if (from != null) {
+            from.close();
+        }
+        if (to != null) {
+            // outputStream.flush();
+            to.close();
         }
     }
 }

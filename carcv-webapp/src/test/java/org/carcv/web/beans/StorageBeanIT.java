@@ -18,8 +18,9 @@ package org.carcv.web.beans;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.fail;
+import static org.junit.Assert.assertTrue;
 
 import java.io.File;
 import java.io.IOException;
@@ -27,17 +28,22 @@ import java.nio.file.DirectoryStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.ArrayList;
+import java.util.Random;
 
 import javax.ejb.EJB;
 
+import org.apache.commons.io.FileUtils;
 import org.carcv.core.io.DirectoryWatcher;
+import org.carcv.core.model.file.FileCarImage;
+import org.carcv.core.model.file.FileEntry;
+import org.carcv.impl.core.model.FileEntryTool;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
 import org.junit.After;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
@@ -45,10 +51,13 @@ import org.junit.runner.RunWith;
  * Test class for {@link StorageBean}
  */
 @RunWith(Arquillian.class)
-public class StorageBeanIT { // TODO 2 Fill the StorageBeanIT
+public class StorageBeanIT {
 
     @EJB
     private StorageBean storageBean;
+
+    @EJB
+    private EntryBean entryBean;
 
     private Path rootDir;
 
@@ -125,22 +134,91 @@ public class StorageBeanIT { // TODO 2 Fill the StorageBeanIT
     }
 
     /**
-     * Test method for
-     * {@link org.carcv.web.beans.StorageBean#storeImageToDirectory(java.io.InputStream, java.lang.String, java.nio.file.Path)}.
+     * Test method for {@link org.carcv.web.beans.StorageBean#storeToDirectory(java.io.InputStream, String, Path)}.
+     *
+     * @throws IOException
      */
     @Test
-    @Ignore
-    public void testStoreImageToDirectory() {
-        fail("Not yet implemented");
+    public void testStoreToDirectory() throws IOException {
+        FileEntryTool tool = new FileEntryTool();
+        FileEntry f = tool.generate();
+
+        assertNotNull(f);
+        Path original = f.getCarImages().get(0).getFilepath();
+        assertNotNull(original);
+        assertTrue(Files.exists(original));
+
+        // store
+        String fileName = "test" + f.hashCode() + ".jpg";
+        storageBean.storeToDirectory(Files.newInputStream(original), fileName, Paths.get("/tmp"));
+
+        Path newPath = Paths.get("/tmp", fileName);
+        assertNotNull(newPath);
+        assertTrue(Files.exists(newPath));
+        assertTrue(FileUtils.contentEquals(newPath.toFile(), original.toFile()));
     }
 
     /**
      * Test method for {@link org.carcv.web.beans.StorageBean#storeBatchToDatabase(java.util.List)}.
+     *
+     * @throws IOException
      */
     @Test
-    @Ignore
-    public void testStoreBatchToDatabase() {
-        fail("Not yet implemented");
+    public void testStoreBatchToDatabase() throws IOException {
+        Random r = new Random();
+        FileEntryTool tool = new FileEntryTool();
+
+        FileEntry[] arr = new FileEntry[r.nextInt(11)];
+
+        for (int i = 0; i < arr.length; i++) {
+            FileEntry f = tool.generate();
+            assertNotNull(f);
+            arr[i] = f;
+        }
+
+        entryBean.persist(arr);
+
+        ArrayList<FileEntry> got = (ArrayList<FileEntry>) entryBean.getAll();
+
+        assertNotNull(got);
+        assertNotEquals(0, got.size());
+
+        for (int i = 0; i < arr.length; i++) {
+            assertTrue(got.contains(arr[i]));
+
+            assertEquals(arr[i], entryBean.findById(arr[i].getId()));
+        }
+
+        // clean up
+        entryBean.remove(arr);
+        for (int i = 0; i < arr.length; i++) {
+            for (FileCarImage fi : arr[i].getCarImages()) {
+                Files.delete(fi.getFilepath());
+            }
+        }
     }
 
+    /**
+     * Test method for {@link org.carcv.web.beans.StorageBean#getPrefix()}.
+     */
+    @Test
+    public void testGetPrefix() {
+        String env = System.getenv(StorageBean.envname_OPENSHIFT_DATA_DIR);
+        Path checkedPath;
+
+        if (env == null) { // if test isn't on OpenShift
+            String jbossData = System.getProperty("jboss.server.data.dir");
+            assertEquals(jbossData, storageBean.getPrefix());
+
+            checkedPath = Paths.get(jbossData);
+        } else {
+            assertEquals(env, storageBean.getPrefix());
+            checkedPath = Paths.get(env);
+        }
+
+        assertNotNull(checkedPath);
+        assertTrue(Files.exists(checkedPath));
+        assertTrue(Files.isDirectory(checkedPath));
+        assertTrue(Files.isWritable(checkedPath));
+    }
 }
