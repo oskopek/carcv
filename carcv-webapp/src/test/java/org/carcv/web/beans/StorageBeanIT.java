@@ -141,7 +141,7 @@ public class StorageBeanIT {
     @Test
     public void testStoreToDirectory() throws IOException {
         FileEntryTool tool = new FileEntryTool();
-        FileEntry f = tool.generate();
+        FileEntry f = tool.generate("/img/skoda_oct.jpg", "/img/test_041.jpg");
 
         assertNotNull(f);
         Path original = f.getCarImages().get(0).getFilepath();
