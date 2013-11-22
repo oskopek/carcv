@@ -6,6 +6,26 @@
     <version>1.0.0.Beta1-SNAPSHOT</version>
     <packaging>pom</packaging>
     <name>CarCV</name>
+    <description>A car recognizing and speed calculating platform</description>
+    <scm>
+        <url>https://github.com/oskopek/carcv.git</url>
+        <connection>scm:git:https://github.com/oskopek/javaanpr.git</connection>
+        <developerConnection>scm:git:https://github.com/oskopek/javaanpr.git</developerConnection>
+        <tag>HEAD</tag>
+    </scm>
+    <url>https://www.ohloh.net/p/carcv</url>
+    <issueManagement>
+        <system>GitHub</system>
+        <url>https://github.com/oskopek/carcv/issues</url>
+    </issueManagement>
+    <ciManagement>
+        <system>TravisCI</system>
+        <url>https://travis-ci.org/oskopek/carcv</url>
+    </ciManagement>
+    <organization>
+        <name>CarCV Development Team</name>
+        <url>https://github.com/oskopek/carcv/graphs/contributors</url>
+    </organization>
 
     <prerequisites>
         <maven>3.0.5</maven>
@@ -67,5 +87,4 @@
             </modules>
         </profile>
     </profiles>
-
 </project>

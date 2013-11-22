@@ -11,6 +11,8 @@
         <version>1.0.0.Beta1-SNAPSHOT</version>
     </parent>
 
+    <packaging>pom</packaging>
+
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
@@ -107,5 +109,4 @@
             </plugins>
         </pluginManagement>
     </build>
-    <packaging>pom</packaging>
 </project>
