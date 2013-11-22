@@ -36,7 +36,11 @@ import org.carcv.core.model.file.FileEntry;
  */
 public class FileEntryTool {
 
-    private Random r = new Random();
+    private Random r;
+    
+    public FileEntryTool() {
+        r = new Random();
+    }
 
     /**
      * The caller is responsible for disposing the object, including deletion of FileCarImages on disk. The images are not
