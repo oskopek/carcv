@@ -153,7 +153,7 @@ public class StorageBeanIT {
         Files.copy(is2, p2);
 
         FileEntry f = tool.generate(p1, p2);
-        assertFileEntry(f);
+        assertFileEntry(f); // TODO 1 fix
 
         assertNotNull(f);
         Path original = f.getCarImages().get(0).getFilepath();
