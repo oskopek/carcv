@@ -50,7 +50,7 @@ public class FileEntryTool {
      * @return a randomly generated FileEntry with 2 images
      * @throws IOException
      */
-    public FileEntry generate(String[] resources) throws IOException {
+    public FileEntry generate(String... resources) throws IOException {
 
         // CarData
         Address add = new Address(Double.valueOf(r.nextDouble() * 100), Double.valueOf(r.nextDouble() * 100), randomString(5),
@@ -61,15 +61,25 @@ public class FileEntryTool {
 
         // CarImages
         ArrayList<FileCarImage> images = new ArrayList<>();
-        
-        for(String s : resources) { // TODO 1 abstract this
+
+        for (String s : resources) {
             InputStream is = getClass().getResourceAsStream(s);
+
+            // fixes the input stream if it is an actual filepath
+            if (is == null) {
+                Path p = Paths.get(s);
+                if (!Files.exists(p)) {
+                    continue;
+                }
+                is = Files.newInputStream(p);
+            }
+
             Path path = Paths.get("/tmp", is.hashCode() + ".jpg");
             Files.copy(is, path);
             FileCarImage f = new FileCarImage(path);
             images.add(f);
         }
-        
+
         // FileEntry
 
         return new FileEntry(cd, images);
