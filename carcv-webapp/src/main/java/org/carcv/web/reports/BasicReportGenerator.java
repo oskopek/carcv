@@ -64,12 +64,15 @@ public class BasicReportGenerator {
         Map<String, Object> parameters = new HashMap<>();
 
         CarData data = e.getCarData();
+        
+        Long entryId = e.getId() == null ? 0 : e.getId();
+        String reportId = entryId + "-" + System.currentTimeMillis();
 
         DateFormat dateFormat = new SimpleDateFormat("dd. MM. yyyy");
         DateFormat timeFormat = new SimpleDateFormat("HH:mm");
 
         // report
-        parameters.put("reportid", Long.toString(System.currentTimeMillis()));
+        parameters.put("reportid", reportId);
         parameters.put("reportname", reportName);
         parameters.put("reportlocation", reportBuilderLocation);
         parameters.put("reportdate", dateFormat.format(new Date(System.currentTimeMillis())));
