@@ -27,6 +27,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.carcv.core.io.DirectoryLoader;
+
 /**
  *
  */
@@ -36,9 +38,11 @@ public class DisplayImageServlet extends HttpServlet {
     private static final long serialVersionUID = 3756019811253496208L;
 
     /**
+     * Remember to update the {@link DirectoryLoader#knownImageFileSuffixes} relative to this!
      *
      * @throws ServletException
      * @throws IOException
+     * @see DirectoryLoader#knownImageFileSuffixes
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException,
         IOException {
@@ -49,7 +53,7 @@ public class DisplayImageServlet extends HttpServlet {
             return;
         }
 
-        String lowerCasePath = path.toLowerCase(); // TODO 2 Fix for all DirectoryLoader#knownImageSuffixes
+        String lowerCasePath = path.toLowerCase();
         if (lowerCasePath.endsWith(".jpg") || lowerCasePath.endsWith(".jpeg")) {
             response.setContentType("image/jpeg");
         } else if (lowerCasePath.endsWith(".png")) {

@@ -64,7 +64,7 @@ public class BasicReportGenerator {
         Map<String, Object> parameters = new HashMap<>();
 
         CarData data = e.getCarData();
-        
+
         Long entryId = e.getId() == null ? 0 : e.getId();
         String reportId = entryId + "-" + System.currentTimeMillis();
 
