@@ -1,4 +1,5 @@
 language: java
+
 jdk:
     - openjdk7
     - oraclejdk7
@@ -23,6 +24,7 @@ before_script:
 script: "mvn clean verify -Pwildfly-it-travis"
 
 install: /bin/true
+
 notifications:
   irc:
     channels:
