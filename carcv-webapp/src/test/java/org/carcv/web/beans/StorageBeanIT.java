@@ -73,6 +73,9 @@ public class StorageBeanIT {
         testArchive.delete("WEB-INF/jboss-web.xml");
         testArchive.addAsWebInfResource("WEB-INF/test-jboss-web.xml", "jboss-web.xml");
 
+        testArchive.addAsResource("img/skoda_oct.jpg");
+        testArchive.addAsResource("img/test_041.jpg");
+
         testArchive.addAsResource("arquillian.xml");
 
         // testArchive.as(ZipExporter.class).exportTo(new File("target/carcv-webapp-test.war"));
@@ -153,7 +156,7 @@ public class StorageBeanIT {
         Files.copy(is2, p2);
 
         FileEntry f = tool.generate(p1, p2);
-        assertFileEntry(f); // TODO 1 fix
+        assertFileEntry(f);
 
         assertNotNull(f);
         Path original = f.getCarImages().get(0).getFilepath();
