@@ -1,4 +1,6 @@
-== How-to setup your build environment for CarCV
+link:howto-setup-environment-windows.adoc
+
+== How-to setup your build environment for CarCV on Linux
 
 . *Install Java7*
 
@@ -6,12 +8,13 @@
 Usually, your distribution's package management repository has it:
 ** Fedora: `yum install mvn`
 
-. *Install an application server - optional* - if you want to run integration tests as part of your `carcv-webapp` environment, you need to install at least one application server.
+. *Install an application server - optional* - if you want to run integration tests as part of your `carcv-webapp` environment,
+you need to install at least one application server.
 It is recommended to install the latest *Wildfly* release. You should place it into `/opt/wildfly/yourWildflyVersionHere`
 and create a symlink called `/opt/wildfly/latest` to point to it.
 `ln -s /opt/wildfly/wildfly-8.0.0.Beta1 /opt/wildfly/latest`
 
-.. For specific instructions, see: link:webapp/howto-jboss-standalone-xml.html[Deploy to Openshift]
+.. For specific instructions, see: link:webapp/howto-jboss-standalone-xml.adoc[Deploy to Openshift]
 
 . *Create a directory for data input/output* - the default is `$HOME/dev/java/carcv_data/in` and `$HOME/dev/java/carcv_data/out`
 

@@ -1,6 +1,6 @@
 === How-to render documentation
 
 . *Get AsciiDoctor* -- http://asciidoctor.org/#installation
-. *CodeRay* syntax hilighting -- `gem install coderay`
+. *CodeRay* syntax highlighting -- `gem install coderay`
 . *Make sure to be in the project root directory*
 . *Run*: `./docs/render_docs.sh`
