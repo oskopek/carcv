@@ -1,8 +1,8 @@
 === How-to setup your build environment for CarCV on Linux
 
-. *Install Java7*
-
 . *Install git*
+
+. *Install Java7*
 
 . *Install Maven* - (preferably the latest version you can).
 Usually, your distribution's package management repository has it:

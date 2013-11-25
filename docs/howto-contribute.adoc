@@ -9,10 +9,10 @@ Join *#themeteors* at *irc.freenode.net*
 
 Read through some parts, or look here:
 
-include::./goals.adoc[]
+include::goals.adoc[]
 
-include::./howto-write-documentation.adoc[]
+include::howto-write-documentation.adoc[]
 
-include::./howto-setup-environment.adoc[]
+include::howto-setup-environment.adoc[]
 
-include::./webapp/deploy-to-openshift.adoc[]
+include::webapp/deploy-to-openshift.adoc[]

@@ -1,26 +1,56 @@
 === How-to setup your build environment for CarCV on Windows
 
+==== [line-through]*Install git* Install GitHub for Windows
+
+This step is enough if the only thing you want is to submit a quick patch.
+
+. Download it at http://windows.github.com/[]
+
+. Create a fork of the `oskopek/carcv` repository, usually the fork will be: `yourusername/carcv`.
+
+. Create a (feature, bug, ...) branch in your repository, do `git checkout branchname` on it.
+
+. Work, commit changes frequently, sometimes push - `git push origin branchname`
+
+. After testing your changes, submit a pull request to `oskopek/carcv` through https://github.com/oskopek/carcv/compare[GitHub].
+.. Click on compare across forks
+.. Set the following:
+*** base fork: `oskopek/carcv`
+*** base: `master`
+*** head fork: `yourusername/carcv`
+*** compare: `branchname`
+
+.. Click on *Click to create a pull request for this comparison*
+
+.. Our Travis continuous integration server will test the merge of your pull request.
+You can view the results in the thread of the pull request.
+
+.. Congratulations! Your pull request will get reviewed and probably be merged in.
+
+==== Build-related installations
+
 . *Install Java7*
 
-. [line-through]*Install git* *Install GitHub for Windows* - Download it at http://windows.github.com/[]
-
 . *Install Maven* - (preferably the latest version you can).
-Usually, your distribution's package management repository has it:
-** Fedora: `yum install mvn`
+See: http://maven.apache.org/guides/getting-started/windows-prerequisites.html[Maven on Windows]
+ and http://maven.apache.org/download.cgi[Maven Downloads].
 
 . *Install an application server - optional* - if you want to run integration tests as part of your `carcv-webapp` environment,
 you need to install at least one application server.
-It is recommended to install the latest *Wildfly* release. You should place it into `/opt/wildfly/yourWildflyVersionHere`
-and create a symlink called `/opt/wildfly/latest` to point to it.
-`ln -s /opt/wildfly/wildfly-8.0.0.Beta1 /opt/wildfly/latest`
+It is recommended to install the latest *Wildfly* release. You should place it wherever you want, and configure your
+$JBOSS_HOME environment variable to point to that directory.
 
-.. For specific instructions, see: link:webapp/howto-jboss-standalone-xml.adoc[Deploy to Openshift]
+Environment variables are usually configured in Control Panel > System.
+See: http://www.computerhope.com/issues/ch000549.htm[How to set the path in Microsoft Windows], but do not set the
+PATH variable, but the Variable: `JBOSS_HOME` with Value: `C:\path\to\your\jboss\or\wildfly\directory`
 
-. *Create a directory for data input/output* - the default is `$HOME/dev/java/carcv_data/in` and `$HOME/dev/java/carcv_data/out`
+. *Create a directory for data input/output* - the default is `$JBOSS_HOME\standalone\data\carcv_data\in`
+and `$JBOSS_HOME\standalone\data\carcv_data\out`.
+See: https://community.jboss.org/wiki/JBossProperties["jboss.server.data.dir"] property value.
 
 . *Run the build*
 ** Recomennded: `mvn clean install -DskipTests`
 ** Run unit tests: `mvn clean install`
-** Run integration tests: `mvn clean install -Pwildfly-it`
+** Run integration tests: `mvn clean install -Pwildfly-it-travis`
 
 . If you plan to *contribute code*, please set-up https://github.com/oskopek/ide-config[IDE coding templates] first 
