@@ -17,7 +17,10 @@ try to ask in the IRC channel on https://webchat.freenode.net[Freenode], #carcv.
 . Do `git checkout branchname` on it.
 
 . Work, *publish* changes frequently (normally called `git commit`)
-.. In the upper left window, you can view all uncommitted changes. Write the name and description of your changes.
+
+.. In the upper left window, you can view all uncommitted changes.
+Write the name and description of your changes and click the *check* button.
+ 
 .. Once in a while, be sure to *sync* to send all commits to your GitHub fork.
 
 . After testing your changes, submit a pull request to `oskopek/carcv` through https://github.com/oskopek/carcv/compare[GitHub].
