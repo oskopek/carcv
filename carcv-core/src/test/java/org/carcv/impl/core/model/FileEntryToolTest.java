@@ -34,7 +34,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 /**
- * Test for {@link FileEntryTool}
+ * Test for {@link FileEntryTool}.
  */
 public class FileEntryToolTest {
 

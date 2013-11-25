@@ -30,7 +30,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 /**
- *
+ * Test for {@link SpeedDetectorImpl}.
  */
 public class SpeedDetectorImplTest {
 

@@ -37,7 +37,7 @@ import org.junit.Ignore;
 import org.junit.Test;
 
 /**
- *
+ * Test for {@link FileCarImage}.
  */
 public class FileCarImageTest {
 

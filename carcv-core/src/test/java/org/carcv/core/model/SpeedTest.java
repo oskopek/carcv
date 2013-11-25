@@ -26,7 +26,7 @@ import org.junit.Ignore;
 import org.junit.Test;
 
 /**
- *
+ * Test for {@link Speed}.
  */
 public class SpeedTest {
 
