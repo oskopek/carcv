@@ -1,5 +1,5 @@
-== How-to setup your build environment for CarCV 
+== How-to setup your build environment for CarCV
 
-include::howto-setup-environment-windows.adoc[]
+include::./howto-setup-environment-windows.adoc[]
 
-include::howto-setup-environment-linux.adoc[]
+include::./howto-setup-environment-linux.adoc[]
