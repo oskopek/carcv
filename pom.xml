@@ -9,8 +9,8 @@
     <description>A car recognizing and speed calculating platform</description>
     <scm>
         <url>https://github.com/oskopek/carcv.git</url>
-        <connection>scm:git:https://github.com/oskopek/javaanpr.git</connection>
-        <developerConnection>scm:git:https://github.com/oskopek/javaanpr.git</developerConnection>
+        <connection>scm:git:https://github.com/oskopek/carcv.git</connection>
+        <developerConnection>scm:git:https://github.com/oskopek/carcv.git</developerConnection>
         <tag>HEAD</tag>
     </scm>
     <url>https://www.ohloh.net/p/carcv</url>
