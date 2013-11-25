@@ -40,11 +40,15 @@ import org.carcv.core.model.file.FileEntry;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  *
  */
 public class BasicReportGeneratorTest {
+    
+    final private static Logger LOGGER = LoggerFactory.getLogger(BasicReportGeneratorTest.class);
 
     private static FileEntry testEntry = null;
 
@@ -98,7 +102,7 @@ public class BasicReportGeneratorTest {
         if (!test_results_dir.exists() || !test_results_dir.isDirectory()) {
             assertTrue(test_results_dir.mkdir());
         }
-        // System.out.println("OutDir: " + test_results_dir.getPath());
+        LOGGER.info("OutDir: {}" + test_results_dir.getPath());
 
         String filename = testDir.getPath() + "/test_results/report" + System.currentTimeMillis() + ".pdf";
 
@@ -111,5 +115,4 @@ public class BasicReportGeneratorTest {
 
         brg.exportFile(filename);
     }
-
 }

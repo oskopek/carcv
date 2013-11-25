@@ -25,6 +25,8 @@ import org.carcv.core.detect.CarSorter;
 import org.carcv.core.model.CarData;
 import org.carcv.core.model.file.FileCarImage;
 import org.carcv.core.model.file.FileEntry;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Provides a Singleton probabilistic implementation of <code>CarSorter</code> based on the <a
@@ -37,6 +39,8 @@ import org.carcv.core.model.file.FileEntry;
  * @see CarSorterImpl#getInstance()
  */
 public class CarSorterImpl extends CarSorter {
+
+    final private static Logger LOGGER = LoggerFactory.getLogger(CarSorterImpl.class);
 
     final private static CarSorterImpl instance = new CarSorterImpl();
 
@@ -77,7 +81,7 @@ public class CarSorterImpl extends CarSorter {
         try {
             cData = ((CarData) batchDir.getCarData().clone());
         } catch (CloneNotSupportedException e) {
-            System.err.println("Clone not supported! Assigning null to this CarData instance at " + 0);
+            LOGGER.error("Clone not supported! Assigning null to the CarData instance at {}.", 0);
             e.printStackTrace();
         }
 
@@ -99,7 +103,7 @@ public class CarSorterImpl extends CarSorter {
                 try {
                     cData2 = (CarData) batchDir.getCarData().clone();
                 } catch (CloneNotSupportedException e) {
-                    System.err.println("Clone not supported! Assigning null to this CarData instance at " + i);
+                    LOGGER.error("Clone not supported! Assigning null to this CarData instance at {}.", i);
                     e.printStackTrace();
                 }
 
@@ -145,7 +149,7 @@ public class CarSorterImpl extends CarSorter {
         try {
             one.loadImage();
         } catch (IOException e) {
-            System.err.println("Failed to load image for CarSorterImpl!");
+            LOGGER.error("Failed to load image for CarSorterImpl!");
             e.printStackTrace();
         }
 
@@ -165,12 +169,12 @@ public class CarSorterImpl extends CarSorter {
             one.loadImage();
             two.loadImage();
         } catch (IOException e) {
-            System.err.println("Failed to load images for CarSorterImpl!");
+            LOGGER.error("Failed to load images for CarSorterImpl!");
             e.printStackTrace();
         }
 
         if (one.getImage() == null || two.getImage() == null) {
-            System.err.println("Images are null in CarSorterImpl!");
+            LOGGER.error("Images are null in CarSorterImpl!");
         }
 
         NumberPlateDetectorImpl npd = NumberPlateDetectorImpl.getInstance();

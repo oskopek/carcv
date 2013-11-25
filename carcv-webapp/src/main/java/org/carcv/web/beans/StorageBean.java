@@ -29,12 +29,16 @@ import javax.ejb.EJB;
 import javax.ejb.Stateless;
 
 import org.carcv.core.model.file.FileEntry;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Handles storage (loading and saving) of images and Entries. Also provides easy database access for persistence.
  */
 @Stateless
 public class StorageBean {
+    
+    final private static Logger LOGGER = LoggerFactory.getLogger(StorageBean.class);
 
     @EJB
     private EntryBean entryBean;
@@ -93,7 +97,7 @@ public class StorageBean {
         try {
             assertDirCreated(inDir);
         } catch (IOException e) {
-            System.out.println("Error during input directory creation: " + e.getMessage());
+            LOGGER.error("Error during input directory creation: " + e.getMessage());
             e.printStackTrace();
         }
         return inDir;
@@ -109,7 +113,7 @@ public class StorageBean {
         try {
             assertDirCreated(outDir);
         } catch (IOException e) {
-            System.out.println("Error during input directory creation: " + e.getMessage());
+            LOGGER.error("Error during input directory creation: " + e.getMessage());
             e.printStackTrace();
         }
         return outDir;

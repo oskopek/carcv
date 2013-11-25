@@ -30,11 +30,15 @@ import java.util.List;
 
 import org.carcv.core.model.AbstractEntry;
 import org.carcv.core.model.file.FileEntry;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Provides methods for discovery of new files recursively under a root directory.
  */
 public class DirectoryWatcher implements Loader {
+
+    final private static Logger LOGGER = LoggerFactory.getLogger(DirectoryWatcher.class);
 
     final private static String completedMarkerFilename = "completed";
 
@@ -91,8 +95,8 @@ public class DirectoryWatcher implements Loader {
                 FileEntry e = DirectoryLoader.load(p);
                 entries.add(e);
             } catch (IOException ioe) {
-                System.err.println("ERROR loading FileEntry batch directory, discarding it: " + p + " with message: "
-                    + ioe.getMessage());
+                LOGGER.error("Loading FileEntry batch directory failed, discarding it: {} with message: {}", p,
+                    ioe.getMessage());
             }
         }
     }
@@ -143,7 +147,7 @@ public class DirectoryWatcher implements Loader {
 
             @Override
             public FileVisitResult postVisitDirectory(Path dir, IOException exc) throws IOException {
-                // System.out.println("Deleting directory :" + dir);
+                LOGGER.debug("Deleting directory: {}", dir);
                 Files.delete(dir);
                 return FileVisitResult.CONTINUE;
             }
@@ -155,14 +159,14 @@ public class DirectoryWatcher implements Loader {
 
             @Override
             public FileVisitResult visitFile(Path file, BasicFileAttributes attrs) throws IOException {
-                // System.out.println("Deleting file: " + file);
+                LOGGER.debug("Deleting file: {}", file);
                 Files.delete(file);
                 return FileVisitResult.CONTINUE;
             }
 
             @Override
             public FileVisitResult visitFileFailed(Path file, IOException exc) throws IOException {
-                // System.out.println(exc.toString());
+                LOGGER.debug(exc.getMessage());
                 return FileVisitResult.CONTINUE;
             }
         });

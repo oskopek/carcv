@@ -101,5 +101,4 @@ public class NumberPlateDetectorImplTest {
     public void testDetectPlateOrigin() {
         fail("Not yet implemented");
     }
-
 }

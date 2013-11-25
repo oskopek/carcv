@@ -73,5 +73,4 @@ public class SpeedTest {
         assertTrue(s1.compareTo(s2) < 0);
         assertTrue(s2.compareTo(s1) > 0);
     }
-
 }
