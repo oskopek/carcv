@@ -24,7 +24,7 @@ import java.awt.image.BufferedImage;
  */
 public abstract class AbstractCarImage extends AbstractModel implements AutoCloseable {
 
-    private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 6868694395465415996L;
 
     /**
      * @return the image

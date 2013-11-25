@@ -31,6 +31,8 @@ import net.sf.javaanpr.intelligence.Intelligence;
 
 import org.carcv.core.detect.NumberPlateDetector;
 import org.carcv.core.model.AbstractCarImage;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.xml.sax.SAXException;
 
 /**
@@ -42,6 +44,8 @@ import org.xml.sax.SAXException;
  *
  */
 public class NumberPlateDetectorImpl extends NumberPlateDetector {
+
+    final private static Logger LOGGER = LoggerFactory.getLogger(NumberPlateDetectorImpl.class);
 
     private static NumberPlateDetectorImpl detector = new NumberPlateDetectorImpl();
 
@@ -70,7 +74,7 @@ public class NumberPlateDetectorImpl extends NumberPlateDetector {
         try {
             intel = new Intelligence();
         } catch (ParserConfigurationException | SAXException | IOException e) {
-            System.err.println("Error occured while detecting plate text!");
+            LOGGER.error("Error occured while detecting plate text!");
             e.printStackTrace();
             return null;
         }
@@ -107,5 +111,4 @@ public class NumberPlateDetectorImpl extends NumberPlateDetector {
 
         return popular;
     }
-
 }

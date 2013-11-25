@@ -35,6 +35,8 @@ import org.carcv.core.io.DirectoryWatcher;
 import org.carcv.core.io.VideoHandler;
 import org.carcv.core.model.file.FileCarImage;
 import org.carcv.core.model.file.FileEntry;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * An implementation of a VideoHandler using FFMPEG through {@link Runtime#exec(String)}.
@@ -48,6 +50,8 @@ import org.carcv.core.model.file.FileEntry;
  * TODO 2 Implement methods not for directories and paths, but for FileEntries also
  */
 public class FFMPEGVideoHandler extends VideoHandler {
+
+    final private static Logger LOGGER = LoggerFactory.getLogger(FFMPEGVideoHandler.class);
 
     /**
      * A constant referencing the default frame rate of all videos.
@@ -99,9 +103,9 @@ public class FFMPEGVideoHandler extends VideoHandler {
         Path images = Paths.get(imageDir.toString(), filenamePrefix + "-%09d" + "." + default_image_suffix);
 
         String command = "ffmpeg -i " + video.toString() + " -r " + frameRate + " " + images.toString();
-        System.out.println("Executing: " + command);
+        LOGGER.info("Executing: " + command);
         Process p = Runtime.getRuntime().exec(command);
-        System.out.println(getErrorMessage(p.getErrorStream()));
+        LOGGER.debug(getErrorMessage(p.getErrorStream()));
         int retval;
 
         try {
@@ -236,11 +240,11 @@ public class FFMPEGVideoHandler extends VideoHandler {
             imageDir.toAbsolutePath().toString() + File.separator + "*." + imageSuffix +
             "\' -c:v libx264 -pix_fmt yuv420p " + output.toAbsolutePath().toString();
 
-        System.out.println("Executing: " + command);
+        LOGGER.info("Executing: " + command);
         Process p = Runtime.getRuntime().exec(command);
-        System.out.println(getErrorMessage(p.getErrorStream()));
+        LOGGER.debug(getErrorMessage(p.getErrorStream()));
         try {
-            System.out.println(p.waitFor());
+            LOGGER.debug("Return value: {}", p.waitFor());
         } catch (InterruptedException e) {
             return null;
         }

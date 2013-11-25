@@ -27,12 +27,16 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.carcv.web.beans.RecognizerBean;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * A Servlet that calls {@link RecognizerBean#recognize()} in a background thread.
  */
 @WebServlet("/servlet/Recognize")
 public class RecognizeServlet extends HttpServlet {
+    
+    final private static Logger LOGGER = LoggerFactory.getLogger(RecognizeServlet.class);
 
     private static final long serialVersionUID = -235344099282905675L;
 
@@ -88,11 +92,11 @@ public class RecognizeServlet extends HttpServlet {
         @Override
         public void run() {
             try {
-                System.out.println("[RecognizeServlet]\tStarting recognizing...");
+                LOGGER.info("[RecognizeServlet]\tStarting recognizing...");
                 recognizerBean.recognize();
-                System.out.println("[RecognizeServlet]\tDone recognizing!");
+                LOGGER.info("[RecognizeServlet]\tDone recognizing!");
             } catch (IOException e) {
-                System.err.println("Error during refreshing and recognizing occured.");
+                LOGGER.error("Error during refreshing and recognizing occured.");
                 e.printStackTrace();
             }
         }

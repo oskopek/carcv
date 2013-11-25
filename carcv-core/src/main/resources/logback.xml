@@ -9,7 +9,6 @@
 
     <logger name="org.carcv" level="TRACE" />
 
-
     <root level="debug">
         <appender-ref ref="STDOUT" />
     </root>

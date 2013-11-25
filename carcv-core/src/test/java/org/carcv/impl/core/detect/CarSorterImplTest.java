@@ -182,5 +182,4 @@ public class CarSorterImplTest {
         String detected = "2SU358F";
         assertTrue(CarSorterImpl.getInstance().carsEquals(real, detected));
     }
-
 }

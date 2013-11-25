@@ -31,6 +31,8 @@ import org.carcv.impl.core.detect.CarSorterImpl;
 import org.carcv.impl.core.detect.NumberPlateDetectorImpl;
 import org.carcv.impl.core.detect.SpeedDetectorImpl;
 import org.carcv.impl.core.io.FileSaver;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * An implementation of {@link FileCarRecognizer} using {@link FileEntry}.
@@ -44,6 +46,8 @@ import org.carcv.impl.core.io.FileSaver;
  * </ul>
  */
 public class FileCarRecognizer extends CarRecognizer {
+
+    final private static Logger LOGGER = LoggerFactory.getLogger(FileCarRecognizer.class);
 
     private DirectoryWatcher watcher;
 
@@ -134,7 +138,7 @@ public class FileCarRecognizer extends CarRecognizer {
                     image.loadImage();
                 } catch (IOException e) {
                     e.printStackTrace();
-                    System.err.println("Failed to load image: " + image.toString());
+                    LOGGER.error("Failed to load image: " + image.toString());
                 }
             }
 
@@ -160,7 +164,7 @@ public class FileCarRecognizer extends CarRecognizer {
             try {
                 res.addAll(CarSorterImpl.getInstance().sortIntoCars(dir));
             } catch (IOException e) {
-                System.err.println("Failed to load images in FileEntry at " + dir.getCarImages().get(0).getFilepath());
+                LOGGER.error("Failed to load images in FileEntry at " + dir.getCarImages().get(0).getFilepath());
                 e.printStackTrace();
             }
         }

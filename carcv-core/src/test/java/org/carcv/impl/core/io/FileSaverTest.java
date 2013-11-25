@@ -162,5 +162,4 @@ public class FileSaverTest {
         }
         assertEquals(batch.size(), counter);
     }
-
 }

@@ -238,5 +238,4 @@ public class FileCarImageTest {
 
         assertTrue(Files.deleteIfExists(iFile.getFilepath()));
     }
-
 }

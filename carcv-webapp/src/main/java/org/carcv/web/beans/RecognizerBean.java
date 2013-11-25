@@ -60,10 +60,10 @@ public class RecognizerBean {
     public void recognize() throws IOException {
         // these two checks actually prevent an IOException, because storageBean verifies and creates them if they don't exist
         if (storageBean.getInputDirectory() == null) {
-            throw new IOException("ERROR StorageBean Input Directory is null.");
+            throw new IOException("StorageBean Input Directory is null.");
         }
         if (storageBean.getOutputDirectory() == null) {
-            throw new IOException("ERROR StorageBean Output Directory is null.");
+            throw new IOException("StorageBean Output Directory is null.");
         }
         List<FileEntry> list = recognizer.listRecognize();
         storageBean.storeBatchToDatabase(list);

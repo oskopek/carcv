@@ -44,12 +44,16 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Ignore;
 import org.junit.Test;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Test for {@link FFMPEGVideoHandler}.
  */
 @Ignore(value = "createVideo doesn't work")
 public class FFMPEGVideoHandlerTest {
+
+    final private static Logger LOGGER = LoggerFactory.getLogger(FFMPEGVideoHandlerTest.class);
 
     private Path rootDir;
     private Path videoDir;
@@ -369,18 +373,18 @@ public class FFMPEGVideoHandlerTest {
             videoDir.toAbsolutePath().toString() + File.separator + "*." + imageSuffix +
             "\" -r " + 2 + " " + output.toAbsolutePath().toString();
 
-        System.out.println("Executing: " + command);
+        LOGGER.info("Executing: " + command);
         Process p = Runtime.getRuntime().exec(command);
-        System.out.println(getErrorMessage(p.getErrorStream()));
+        LOGGER.debug(getErrorMessage(p.getErrorStream()));
 
         try {
-            System.out.println(p.waitFor());
+            LOGGER.debug("Return value: {}", p.waitFor());
         } catch (InterruptedException e) {
             throw e;
         }
 
         assertTrue(Files.exists(output));
-        System.out.println(output);
+        LOGGER.debug("Path of created video: {}", output);
     }
 
     /**
