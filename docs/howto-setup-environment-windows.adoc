@@ -1,10 +1,12 @@
 === How-to setup your build environment for CarCV on Windows
 
-==== [line-through]*Install git* Install GitHub for Windows
+==== [line-through]*Install git* *Install GitHub for Windows*
 
 This step is enough if the only thing you want is to submit a quick patch.
 
-. Download it at http://windows.github.com/[]
+. Download it at http://windows.github.com/[]. If you encounter any problems,
+see the http://windows.github.com/help.html[GitHub for Windows FAQ], if you don't find the answer there,
+try to ask in the IRC channel on https://webchat.freenode.net[Freenode], #carcv.
 
 . Create a fork of the `oskopek/carcv` repository, usually the fork will be: `yourusername/carcv`.
 
