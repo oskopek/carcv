@@ -15,33 +15,49 @@
  */
 package org.carcv.impl.core.io;
 
-import static org.junit.Assert.fail;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assume.assumeTrue;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.OutputStream;
+import java.nio.file.DirectoryStream;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+
+import org.apache.commons.lang.builder.CompareToBuilder;
+import org.carcv.core.io.DirectoryWatcher;
+import org.carcv.core.model.file.FileEntry;
+import org.carcv.impl.core.model.FileEntryTool;
 import org.junit.After;
-import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
-import org.junit.Ignore;
 import org.junit.Test;
 
 /**
  * Test for {@link FFMPEGVideoHandler}.
  */
-@Ignore
 public class FFMPEGVideoHandlerTest {
+
+    private Path rootDir;
+    private Path videoDir;
+    private FileEntryTool tool;
+    private FileEntry entry;
 
     /**
      * @throws java.lang.Exception
      */
     @BeforeClass
     public static void setUpBeforeClass() throws Exception {
-    }
-
-    /**
-     * @throws java.lang.Exception
-     */
-    @AfterClass
-    public static void tearDownAfterClass() throws Exception {
+        assumeTrue(isFFMPEGInstalled());
     }
 
     /**
@@ -49,6 +65,21 @@ public class FFMPEGVideoHandlerTest {
      */
     @Before
     public void setUp() throws Exception {
+        rootDir = Files.createTempDirectory("ffmpegVideoHandlerTest-");
+
+        videoDir = Files.createTempDirectory(rootDir, "videoDir-");
+
+        InputStream is1 = getClass().getResourceAsStream("/img/skoda_oct.jpg");
+        InputStream is2 = getClass().getResourceAsStream("/img/test_041.jpg");
+
+        Path p1 = Paths.get(rootDir.toString(), "videoImage1-" + System.currentTimeMillis() + ".jpg");
+        Path p2 = Paths.get(rootDir.toString(), "videoImage2-" + System.currentTimeMillis() + ".jpg");
+
+        Files.copy(is1, p1);
+        Files.copy(is2, p2);
+
+        tool = new FileEntryTool();
+        entry = tool.generate(p1, p2);
     }
 
     /**
@@ -56,48 +87,103 @@ public class FFMPEGVideoHandlerTest {
      */
     @After
     public void tearDown() throws Exception {
+        tool.close();
+        DirectoryWatcher.deleteDirectory(rootDir);
     }
 
     /**
      * Test method for {@link org.carcv.impl.core.io.FFMPEGVideoHandler#splitIntoFrames(java.nio.file.Path, int)}.
+     *
+     * @throws IOException
      */
     @Test
-    public void testSplitIntoFramesPathInt() {
-        fail("Not yet implemented");
+    public void testSplitIntoFramesPathInt() throws IOException {
+        FFMPEGVideoHandler fvh = new FFMPEGVideoHandler();
+        FFMPEGVideoHandler.copyCarImagesToDir(entry.getCarImages(), videoDir);
+        Path video = fvh.generateVideo(videoDir, FFMPEGVideoHandler.defaultFrameRate);
+
+        assertTrue("Split failed.", fvh.splitIntoFrames(video, FFMPEGVideoHandler.defaultFrameRate));
+
+        Path dir = Paths.get(video.toString() + ".dir");
+        DirectoryStream<Path> paths = Files.newDirectoryStream(dir);
+        int counter = 0;
+        for (@SuppressWarnings("unused")
+        Path p : paths) {
+            counter++;
+        }
+        assertEquals(entry.getCarImages().size(), counter);
+
+        Files.delete(video);
+        DirectoryWatcher.deleteDirectory(dir);
     }
 
     /**
      * Test method for
      * {@link org.carcv.impl.core.io.FFMPEGVideoHandler#splitIntoFrames(java.nio.file.Path, int, java.nio.file.Path)}.
+     *
+     * @throws IOException
      */
     @Test
-    public void testSplitIntoFramesPathIntPath() {
-        fail("Not yet implemented");
+    public void testSplitIntoFramesPathIntPath() throws IOException {
+        FFMPEGVideoHandler fvh = new FFMPEGVideoHandler();
+        FFMPEGVideoHandler.copyCarImagesToDir(entry.getCarImages(), videoDir);
+        Path video = fvh.generateVideo(videoDir, FFMPEGVideoHandler.defaultFrameRate);
+
+        Path dir = Paths.get(video.toString() + ".custom_dir");
+        assertTrue("Split failed.", fvh.splitIntoFrames(video, FFMPEGVideoHandler.defaultFrameRate, dir));
+
+        DirectoryStream<Path> paths = Files.newDirectoryStream(dir);
+        int counter = 0;
+        for (@SuppressWarnings("unused")
+        Path p : paths) {
+            counter++;
+        }
+        assertEquals(entry.getCarImages().size(), counter);
+
+        Files.delete(video);
+        DirectoryWatcher.deleteDirectory(dir);
     }
 
     /**
      * Test method for
      * {@link org.carcv.impl.core.io.FFMPEGVideoHandler#generateVideo(java.nio.file.Path, int, java.nio.file.Path)}.
+     *
+     * @throws IOException
      */
     @Test
-    public void testGenerateVideoPathIntPath() {
-        fail("Not yet implemented");
+    public void testGenerateVideoPathIntPath() throws IOException {
+        FFMPEGVideoHandler.copyCarImagesToDir(entry.getCarImages(), videoDir);
+        Path video = new FFMPEGVideoHandler().generateVideo(videoDir, FFMPEGVideoHandler.defaultFrameRate);
+        new FFMPEGVideoHandler().generateVideo(videoDir, FFMPEGVideoHandler.defaultFrameRate);
+        assertTrue("Generated Video file doesn't exist.", Files.exists(video));
+
+        Files.delete(video);
     }
 
     /**
      * Test method for {@link org.carcv.impl.core.io.FFMPEGVideoHandler#generateVideo(java.nio.file.Path, int)}.
+     *
+     * @throws IOException
      */
     @Test
-    public void testGenerateVideoPathInt() {
-        fail("Not yet implemented");
+    public void testGenerateVideoPathInt() throws IOException {
+        FFMPEGVideoHandler.copyCarImagesToDir(entry.getCarImages(), videoDir);
+        Path video = new FFMPEGVideoHandler().generateVideo(videoDir, FFMPEGVideoHandler.defaultFrameRate);
+        assertTrue("Generated Video file doesn't exist.", Files.exists(video));
+
+        Files.delete(video);
     }
 
     /**
      * Test method for {@link org.carcv.impl.core.io.FFMPEGVideoHandler#generateVideoAsStream(java.nio.file.Path, int)}.
+     *
+     * @throws IOException
      */
     @Test
-    public void testGenerateVideoAsStreamPathInt() {
-        fail("Not yet implemented");
+    public void testGenerateVideoAsStreamPathInt() throws IOException {
+        FFMPEGVideoHandler.copyCarImagesToDir(entry.getCarImages(), videoDir);
+        OutputStream out = new FFMPEGVideoHandler().generateVideoAsStream(videoDir, FFMPEGVideoHandler.defaultFrameRate);
+        assertNotNull("Generated video output stream is null", out);
     }
 
     /**
@@ -105,41 +191,96 @@ public class FFMPEGVideoHandlerTest {
      */
     @Test
     public void testFFMPEGVideoHandler() {
-        fail("Not yet implemented");
+        assertNotNull(FFMPEGVideoHandler.defaultFrameRate);
+        assertEquals(30, FFMPEGVideoHandler.defaultFrameRate);
+        FFMPEGVideoHandler fvh = new FFMPEGVideoHandler();
+        assertNotNull(fvh);
+        assertEquals(30, FFMPEGVideoHandler.defaultFrameRate);
     }
 
     /**
      * Test method for {@link org.carcv.impl.core.io.FFMPEGVideoHandler#splitIntoFrames(java.nio.file.Path)}.
+     *
+     * @throws IOException
      */
     @Test
-    public void testSplitIntoFramesPath() {
-        fail("Not yet implemented");
+    public void testSplitIntoFramesPath() throws IOException {
+        FFMPEGVideoHandler fvh = new FFMPEGVideoHandler();
+        FFMPEGVideoHandler.copyCarImagesToDir(entry.getCarImages(), videoDir);
+        Path video = fvh.generateVideo(videoDir, FFMPEGVideoHandler.defaultFrameRate);
+
+        assertTrue("Split failed.", FFMPEGVideoHandler.splitIntoFrames(video));
+
+        Path dir = Paths.get(video.toString() + ".dir");
+        DirectoryStream<Path> paths = Files.newDirectoryStream(dir);
+        int counter = 0;
+        for (@SuppressWarnings("unused")
+        Path p : paths) {
+            counter++;
+        }
+        assertEquals(entry.getCarImages().size(), counter);
+
+        Files.delete(video);
+        DirectoryWatcher.deleteDirectory(dir);
     }
 
     /**
      * Test method for {@link org.carcv.impl.core.io.FFMPEGVideoHandler#generateVideoAsStream(java.nio.file.Path)}.
+     *
+     * @throws IOException
      */
     @Test
-    public void testGenerateVideoAsStreamPath() {
-        fail("Not yet implemented");
+    public void testGenerateVideoAsStreamPath() throws IOException {
+        FFMPEGVideoHandler.copyCarImagesToDir(entry.getCarImages(), videoDir);
+        OutputStream out = FFMPEGVideoHandler.generateVideoAsStream(videoDir);
+        assertNotNull("The Generated Video stream is null.", out);
     }
 
     /**
      * Test method for
      * {@link org.carcv.impl.core.io.FFMPEGVideoHandler#generateVideoAsStream(org.carcv.core.model.file.FileEntry, java.io.OutputStream)}
      * .
+     *
+     * @throws IOException
      */
     @Test
-    public void testGenerateVideoAsStreamFileEntryOutputStream() {
-        fail("Not yet implemented");
+    public void testGenerateVideoAsStreamFileEntryOutputStream() throws IOException {
+        Path outTemp = Files.createTempFile("testvideo", ".h264");
+        OutputStream out = Files.newOutputStream(outTemp);
+        FFMPEGVideoHandler.generateVideoAsStream(entry, out);
+        assertNotNull(out);
+        assertTrue(Files.exists(outTemp));
+        assertTrue(Files.isRegularFile(outTemp));
+
+        Files.delete(outTemp);
     }
 
     /**
      * Test method for {@link org.carcv.impl.core.io.FFMPEGVideoHandler#copyCarImagesToDir(java.util.List, java.nio.file.Path)}.
+     *
+     * @throws IOException
      */
     @Test
-    public void testCopyCarImagesToDir() {
-        fail("Not yet implemented");
+    public void testCopyCarImagesToDir() throws IOException {
+        FFMPEGVideoHandler.copyCarImagesToDir(entry.getCarImages(), videoDir);
+        DirectoryStream<Path> dirStream = Files.newDirectoryStream(videoDir);
+        ArrayList<Path> paths = new ArrayList<>();
+        for (Path p : dirStream) {
+            paths.add(p);
+        }
+        dirStream.close();
+        assertEquals(2, paths.size());
+
+        Collections.sort(paths, new Comparator<Path>() {
+            @Override
+            public int compare(Path o1, Path o2) {
+                return new CompareToBuilder().append(o1.getFileName().toString(), o2.getFileName().toString()).toComparison();
+            }
+        });
+
+        for (int i = 0; i < paths.size(); i++) {
+            assertTrue(paths.get(i).getFileName().toString().startsWith(i + ""));
+        }
     }
 
     /**
@@ -147,23 +288,73 @@ public class FFMPEGVideoHandlerTest {
      */
     @Test
     public void testGetSuffix() {
-        fail("Not yet implemented");
+        Path image = entry.getCarImages().get(0).getFilepath();
+        assertTrue(image.toString().endsWith("jpg"));
+
+        String suffix = FFMPEGVideoHandler.getSuffix(image);
+        assertEquals("jpg", suffix);
     }
 
     /**
      * Test method for
      * {@link org.carcv.impl.core.io.FFMPEGVideoHandler#generateVideoAsStream(java.nio.file.Path, int, java.io.OutputStream)}.
+     *
+     * @throws IOException
      */
     @Test
-    public void testGenerateVideoAsStreamPathIntOutputStream() {
-        fail("Not yet implemented");
+    public void testGenerateVideoAsStreamPathIntOutputStream() throws IOException {
+        Path outTemp = Files.createTempFile("testvideo", ".h264");
+        OutputStream out = Files.newOutputStream(outTemp);
+
+        FFMPEGVideoHandler.copyCarImagesToDir(entry.getCarImages(), videoDir);
+        new FFMPEGVideoHandler().generateVideoAsStream(videoDir, FFMPEGVideoHandler.defaultFrameRate, out);
+        assertNotNull(out);
+        assertTrue(Files.exists(outTemp));
+        assertTrue(Files.isRegularFile(outTemp));
+
+        Files.delete(outTemp);
     }
 
     /**
      * Test method for {@link org.carcv.impl.core.io.FFMPEGVideoHandler#createVideo(java.nio.file.Path, int)}.
+     *
+     * @throws IOException
      */
     @Test
-    public void testCreateVideo() {
-        fail("Not yet implemented");
+    public void testCreateVideo() throws IOException {
+        FFMPEGVideoHandler.copyCarImagesToDir(entry.getCarImages(), videoDir);
+        Path video = new FFMPEGVideoHandler().createVideo(videoDir, FFMPEGVideoHandler.defaultFrameRate);
+        assertTrue("Generated video file doesn't exist.", Files.exists(video));
+
+        Files.delete(video);
+    }
+
+    /**
+     * Tests if FFMPEG is installed using "ffmpeg -version"
+     *
+     * @return true if ffmpeg is installed and works
+     * @throws InterruptedException if the runtime is interrupted while waiting for the return value
+     */
+    private static boolean isFFMPEGInstalled() throws InterruptedException {
+        Process ffmpegVersionTest;
+        try {
+            ffmpegVersionTest = Runtime.getRuntime().exec("ffmpeg -version");
+        } catch (IOException e) {
+            return false; // if ffmpeg isn't installed
+        }
+        int retVal = ffmpegVersionTest.waitFor();
+
+        return retVal == 0 ? true : false; // if the return value is 0, ffmpeg returned without problem
+    }
+
+    public String getErrorMessage(InputStream error) throws IOException {
+        BufferedReader stdError = new BufferedReader(new
+            InputStreamReader(error));
+        String s = "";
+        String lastLine = s;
+        while ((s = stdError.readLine()) != null) {
+            lastLine = s;
+        }
+        return lastLine;
     }
 }

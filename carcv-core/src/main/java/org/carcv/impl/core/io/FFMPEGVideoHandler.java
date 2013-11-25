@@ -16,10 +16,14 @@
 
 package org.carcv.impl.core.io;
 
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.io.OutputStream;
+import java.nio.file.DirectoryStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -86,7 +90,6 @@ public class FFMPEGVideoHandler extends VideoHandler {
     public boolean splitIntoFrames(Path video, int frameRate) throws IOException {
         Path dir = Paths.get(video.getParent().toString(), video.getFileName() + ".dir");
         Files.createDirectory(dir);
-
         return splitIntoFrames(video, frameRate, dir);
     }
 
@@ -98,13 +101,16 @@ public class FFMPEGVideoHandler extends VideoHandler {
         String command = "ffmpeg -i " + video.toString() + " -r " + frameRate + " " + images.toString();
         System.out.println("Executing: " + command);
         Process p = Runtime.getRuntime().exec(command);
+        System.out.println(getErrorMessage(p.getErrorStream()));
+        int retval;
+
         try {
-            p.waitFor();
+            retval = p.waitFor();
         } catch (InterruptedException e) {
             return false;
         }
 
-        return true;
+        return retval > 0 ? false : true;
     }
 
     @Override
@@ -146,7 +152,7 @@ public class FFMPEGVideoHandler extends VideoHandler {
      * Copies the images of the list's objects to the specified directory with new names.
      *
      * @param list the list to load images from
-     * @param dir the output directory
+     * @param dir the output directory, must exist
      * @throws IOException if an error during the copy or creation of a temporary directory occurs
      */
     protected static void copyCarImagesToDir(List<FileCarImage> list, Path dir) throws IOException {
@@ -155,7 +161,6 @@ public class FFMPEGVideoHandler extends VideoHandler {
             Path imagePath = image.getFilepath();
             String suffix = getSuffix(imagePath);
             Path tempFilePath = Paths.get(dir.toString(), i + "_image_" + image.hashCode() + "." + suffix);
-
             Files.copy(image.getFilepath(), tempFilePath);
         }
     }
@@ -166,10 +171,12 @@ public class FFMPEGVideoHandler extends VideoHandler {
      */
     protected static String getSuffix(Path file) {
         String filename = file.getFileName().toString();
-        String[] splitted = filename.split(".");
-        String last = splitted.length == 0 ? null : splitted[splitted.length - 1];
+        int dotIndex = filename.lastIndexOf('.');
+        if (dotIndex < 0) {
+            return null;
+        }
 
-        return last;
+        return filename.substring(dotIndex + 1, filename.length());
     }
 
     /**
@@ -182,12 +189,16 @@ public class FFMPEGVideoHandler extends VideoHandler {
      */
     public void generateVideoAsStream(Path imageDir, int frameRate, final OutputStream outStream) throws IOException {
         Path tmp = createVideo(imageDir, frameRate);
+
         Files.copy(tmp, outStream);
     }
 
     @Override
     public OutputStream generateVideoAsStream(Path imageDir, int frameRate) throws IOException {
         Path tmp = createVideo(imageDir, frameRate);
+        if (!Files.exists(tmp)) {
+            return null;
+        }
         return new FileOutputStream(tmp.toFile());
     }
 
@@ -198,7 +209,9 @@ public class FFMPEGVideoHandler extends VideoHandler {
     }
 
     /**
-     * Creates the video and saves it to a temporary file.
+     * Creates the video and saves it to a temporary file. Gets the image suffix from the first found image in directory.
+     * <p>
+     * TODO 2 Fix to use all files independent of suffix.
      *
      * @param imageDir directory from which to load the images
      * @param frameRate number of frames per second
@@ -206,23 +219,42 @@ public class FFMPEGVideoHandler extends VideoHandler {
      * @throws IOException if an error during loading of images or writing of video occurs
      */
     protected Path createVideo(Path imageDir, int frameRate) throws IOException {
+        DirectoryStream<Path> paths = Files.newDirectoryStream(imageDir);
+        String imageSuffix = ".invalid";
+        for (Path p : paths) {
+            imageSuffix = getSuffix(p);
+            if (imageSuffix != null)
+                break;
+        }
+
         Path output = Paths.get("/tmp", "video-"
             + new Random().nextInt() + "-"
             + System.currentTimeMillis()
             + "." + default_video_suffix);
 
-        String command = "ffmpeg -r " + frameRate + " -pattern_type glob -i '" +
-            imageDir.toAbsolutePath().toString() + File.separator + "*" +
-            "' -c:v libx264 -pix_fmt yuv420p " + output.toAbsolutePath().toString();
+        String command = "ffmpeg -y -r " + frameRate + " -pattern_type glob -i \'" +
+            imageDir.toAbsolutePath().toString() + File.separator + "*." + imageSuffix +
+            "\' -c:v libx264 -pix_fmt yuv420p " + output.toAbsolutePath().toString();
 
         System.out.println("Executing: " + command);
-
         Process p = Runtime.getRuntime().exec(command);
+        System.out.println(getErrorMessage(p.getErrorStream()));
         try {
-            p.waitFor();
+            System.out.println(p.waitFor());
         } catch (InterruptedException e) {
             return null;
         }
         return output;
+    }
+
+    public String getErrorMessage(InputStream error) throws IOException {
+        BufferedReader stdError = new BufferedReader(new
+            InputStreamReader(error));
+        String s = "";
+        String lastLine = s;
+        while ((s = stdError.readLine()) != null) {
+            lastLine = s;
+        }
+        return lastLine;
     }
 }
