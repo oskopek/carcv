@@ -18,8 +18,8 @@
 |Python OCR and ALPR w/SURF in carcv-cpp
 
 |Matej Pribis
-|
+|mattblackhand
 |matejpribis@gmail.com
-|WebApp HTML and CSS code
+|WebApp HTML and CSS code... destroying what's left
 
 |===
