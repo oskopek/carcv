@@ -30,7 +30,6 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
-import org.carcv.core.model.file.FileCarImage;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Ignore;

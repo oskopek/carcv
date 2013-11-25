@@ -53,12 +53,12 @@ public class FFMPEGVideoHandler extends VideoHandler {
     final private static String default_video_suffix = "h264";
 
     final private static String default_image_suffix = "jpg";
-    
+
     /**
      * A default empty constructor
      */
     public FFMPEGVideoHandler() {
-        
+
     }
 
     /**

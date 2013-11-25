@@ -15,7 +15,7 @@
  */
 package org.carcv.impl.core.io;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.fail;
 
 import org.junit.After;
 import org.junit.AfterClass;
@@ -67,7 +67,8 @@ public class FFMPEGVideoHandlerTest {
     }
 
     /**
-     * Test method for {@link org.carcv.impl.core.io.FFMPEGVideoHandler#splitIntoFrames(java.nio.file.Path, int, java.nio.file.Path)}.
+     * Test method for
+     * {@link org.carcv.impl.core.io.FFMPEGVideoHandler#splitIntoFrames(java.nio.file.Path, int, java.nio.file.Path)}.
      */
     @Test
     public void testSplitIntoFramesPathIntPath() {
@@ -75,7 +76,8 @@ public class FFMPEGVideoHandlerTest {
     }
 
     /**
-     * Test method for {@link org.carcv.impl.core.io.FFMPEGVideoHandler#generateVideo(java.nio.file.Path, int, java.nio.file.Path)}.
+     * Test method for
+     * {@link org.carcv.impl.core.io.FFMPEGVideoHandler#generateVideo(java.nio.file.Path, int, java.nio.file.Path)}.
      */
     @Test
     public void testGenerateVideoPathIntPath() {
@@ -123,7 +125,9 @@ public class FFMPEGVideoHandlerTest {
     }
 
     /**
-     * Test method for {@link org.carcv.impl.core.io.FFMPEGVideoHandler#generateVideoAsStream(org.carcv.core.model.file.FileEntry, java.io.OutputStream)}.
+     * Test method for
+     * {@link org.carcv.impl.core.io.FFMPEGVideoHandler#generateVideoAsStream(org.carcv.core.model.file.FileEntry, java.io.OutputStream)}
+     * .
      */
     @Test
     public void testGenerateVideoAsStreamFileEntryOutputStream() {
@@ -147,7 +151,8 @@ public class FFMPEGVideoHandlerTest {
     }
 
     /**
-     * Test method for {@link org.carcv.impl.core.io.FFMPEGVideoHandler#generateVideoAsStream(java.nio.file.Path, int, java.io.OutputStream)}.
+     * Test method for
+     * {@link org.carcv.impl.core.io.FFMPEGVideoHandler#generateVideoAsStream(java.nio.file.Path, int, java.io.OutputStream)}.
      */
     @Test
     public void testGenerateVideoAsStreamPathIntOutputStream() {

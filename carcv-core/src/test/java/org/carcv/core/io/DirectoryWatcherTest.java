@@ -31,7 +31,6 @@ import java.util.Date;
 import java.util.List;
 import java.util.Properties;
 
-import org.carcv.core.io.DirectoryWatcher;
 import org.carcv.core.model.file.FileCarImage;
 import org.carcv.core.model.file.FileEntry;
 import org.junit.After;

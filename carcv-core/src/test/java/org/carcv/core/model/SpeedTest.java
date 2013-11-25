@@ -20,8 +20,6 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertTrue;
 
-import org.carcv.core.model.Speed;
-import org.carcv.core.model.SpeedUnit;
 import org.junit.Ignore;
 import org.junit.Test;
 
