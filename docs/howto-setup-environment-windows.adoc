@@ -40,7 +40,7 @@ You can view the results in the thread of the pull request.
 
 ==== Build-related installations
 
-. *Install Java7*
+. *Install Java7 JDK* - http://www.oracle.com/technetwork/java/javase/downloads/index.html[] - Select Java Platform (JDK)
 
 . *Install Maven* - (preferably the latest version you can).
 See: http://maven.apache.org/guides/getting-started/windows-prerequisites.html[Maven on Windows]

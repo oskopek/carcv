@@ -2,7 +2,7 @@
 
 . *Install git*
 
-. *Install Java7*
+. *Install Java7 JDK* - http://www.oracle.com/technetwork/java/javase/downloads/index.html[] - Select Java Platform (JDK)
 
 . *Install Maven* - (preferably the latest version you can).
 Usually, your distribution's package management repository has it:
