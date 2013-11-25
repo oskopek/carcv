@@ -54,7 +54,7 @@ public class FFMPEGVideoHandler extends VideoHandler {
      */
     final public static int defaultFrameRate = 30;
 
-    final private static String default_video_suffix = "h264";
+    final private static String default_video_suffix = "mpg";
 
     final private static String default_image_suffix = "jpg";
 
@@ -160,7 +160,7 @@ public class FFMPEGVideoHandler extends VideoHandler {
             FileCarImage image = list.get(i);
             Path imagePath = image.getFilepath();
             String suffix = getSuffix(imagePath);
-            Path tempFilePath = Paths.get(dir.toString(), i + "_image_" + image.hashCode() + "." + suffix);
+            Path tempFilePath = Paths.get(dir.toString(), i + "_image." + suffix);
             Files.copy(image.getFilepath(), tempFilePath);
         }
     }

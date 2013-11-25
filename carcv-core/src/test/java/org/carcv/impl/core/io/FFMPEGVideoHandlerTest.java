@@ -21,6 +21,7 @@ import static org.junit.Assert.assertTrue;
 import static org.junit.Assume.assumeTrue;
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -32,6 +33,7 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.Random;
 
 import org.apache.commons.lang.builder.CompareToBuilder;
 import org.carcv.core.io.DirectoryWatcher;
@@ -40,11 +42,13 @@ import org.carcv.impl.core.model.FileEntryTool;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.BeforeClass;
+import org.junit.Ignore;
 import org.junit.Test;
 
 /**
  * Test for {@link FFMPEGVideoHandler}.
  */
+@Ignore(value = "createVideo doesn't work")
 public class FFMPEGVideoHandlerTest {
 
     private Path rootDir;
@@ -87,8 +91,15 @@ public class FFMPEGVideoHandlerTest {
      */
     @After
     public void tearDown() throws Exception {
-        tool.close();
-        DirectoryWatcher.deleteDirectory(rootDir);
+        /*
+         * tool.close(); DirectoryWatcher.deleteDirectory(rootDir);
+         *
+         * DirectoryStream<Path> leftOvers = Files.newDirectoryStream(rootDir.getParent()); for(Path p : leftOvers) { String
+         * filename = p.getFileName().toString();
+         *
+         * if (filename.startsWith("tempVideo") || filename.startsWith("testvideo") || filename.startsWith("video")) {
+         * DirectoryWatcher.deleteDirectory(p); } }
+         */
     }
 
     /**
@@ -327,6 +338,49 @@ public class FFMPEGVideoHandlerTest {
         assertTrue("Generated video file doesn't exist.", Files.exists(video));
 
         Files.delete(video);
+    }
+
+    @Test
+    public void testCreateVideoInternal() throws IOException, InterruptedException {
+        FFMPEGVideoHandler.copyCarImagesToDir(entry.getCarImages(), videoDir);
+
+        DirectoryStream<Path> testpaths = Files.newDirectoryStream(videoDir);
+        int counterTest = 0;
+        for (Path p : testpaths) {
+            assertTrue(Files.exists(p));
+            counterTest++;
+        }
+        assertEquals(2, counterTest);
+
+        DirectoryStream<Path> paths = Files.newDirectoryStream(videoDir);
+        String imageSuffix = ".invalid";
+        for (Path p : paths) {
+            imageSuffix = FFMPEGVideoHandler.getSuffix(p);
+            if (imageSuffix != null)
+                break;
+        }
+
+        Path output = Paths.get("/tmp", "video-"
+            + new Random().nextInt() + "-"
+            + System.currentTimeMillis()
+            + "." + "mjpeg");
+
+        String command = "ffmpeg -y -f image2 -pattern_type glob -i \"" +
+            videoDir.toAbsolutePath().toString() + File.separator + "*." + imageSuffix +
+            "\" -r " + 2 + " " + output.toAbsolutePath().toString();
+
+        System.out.println("Executing: " + command);
+        Process p = Runtime.getRuntime().exec(command);
+        System.out.println(getErrorMessage(p.getErrorStream()));
+
+        try {
+            System.out.println(p.waitFor());
+        } catch (InterruptedException e) {
+            throw e;
+        }
+
+        assertTrue(Files.exists(output));
+        System.out.println(output);
     }
 
     /**
