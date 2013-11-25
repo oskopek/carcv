@@ -92,9 +92,9 @@ public class RecognizeServlet extends HttpServlet {
         @Override
         public void run() {
             try {
-                LOGGER.info("[RecognizeServlet]\tStarting recognizing...");
+                LOGGER.info("Starting recognizing...");
                 recognizerBean.recognize();
-                LOGGER.info("[RecognizeServlet]\tDone recognizing!");
+                LOGGER.info("Done recognizing!");
             } catch (IOException e) {
                 LOGGER.error("Error during refreshing and recognizing occured.");
                 e.printStackTrace();
