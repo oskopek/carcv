@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package org.carcv.web.beans;
+package org.carcv.web.test;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
@@ -30,7 +30,7 @@ import org.junit.Test;
 import org.xml.sax.SAXException;
 
 /**
- *
+ * Test case for checking if the ANPR library (JavaANPR) works as expected.
  */
 public class AnprLibTest {
 

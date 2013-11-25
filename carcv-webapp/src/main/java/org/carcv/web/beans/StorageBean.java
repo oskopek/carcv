@@ -78,7 +78,6 @@ public class StorageBean {
      */
     private void assertDirCreated(Path p) throws IOException {
         if (!Files.exists(p) || !Files.isDirectory(p)) {
-
             Files.createDirectories(p);
         }
     }

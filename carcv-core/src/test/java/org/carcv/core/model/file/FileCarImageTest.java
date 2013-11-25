@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package org.carcv.impl.core.io;
+package org.carcv.core.model.file;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
