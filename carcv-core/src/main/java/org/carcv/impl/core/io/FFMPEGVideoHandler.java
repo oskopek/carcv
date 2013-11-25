@@ -33,7 +33,7 @@ import org.carcv.core.model.file.FileCarImage;
 import org.carcv.core.model.file.FileEntry;
 
 /**
- * An implementation of a VideoHandler using FFMPEG using {@link Runtime#exec(String)}.
+ * An implementation of a VideoHandler using FFMPEG through {@link Runtime#exec(String)}.
  * <p>
  * Right now, it is discouraged to use this class in favor of an external bash script to split a video up into frames (images)
  * externally.
@@ -41,10 +41,7 @@ import org.carcv.core.model.file.FileEntry;
  * The details about using it are here: <a
  * href="https://trac.ffmpeg.org/wiki/Create%20a%20video%20slideshow%20from%20images">FFMPEG Wiki</a>
  * <p>
- * <strong>TODO 2 Implement methods not for directories and paths, but for FileEntries also</strong>
- * <p>
- * <strong>TODO 1 Test FFMPEGVideoHandler</strong>
- *
+ * TODO 2 Implement methods not for directories and paths, but for FileEntries also
  */
 public class FFMPEGVideoHandler extends VideoHandler {
 
@@ -56,6 +53,13 @@ public class FFMPEGVideoHandler extends VideoHandler {
     final private static String default_video_suffix = "h264";
 
     final private static String default_image_suffix = "jpg";
+    
+    /**
+     * A default empty constructor
+     */
+    public FFMPEGVideoHandler() {
+        
+    }
 
     /**
      * A static wrapper method for {@link FFMPEGVideoHandler#splitIntoFrames(Path, int)} that uses {@link #defaultFrameRate}.
@@ -145,7 +149,7 @@ public class FFMPEGVideoHandler extends VideoHandler {
      * @param dir the output directory
      * @throws IOException if an error during the copy or creation of a temporary directory occurs
      */
-    private static void copyCarImagesToDir(List<FileCarImage> list, Path dir) throws IOException {
+    protected static void copyCarImagesToDir(List<FileCarImage> list, Path dir) throws IOException {
         for (int i = 0; i < list.size(); i++) {
             FileCarImage image = list.get(i);
             Path imagePath = image.getFilepath();
@@ -160,7 +164,7 @@ public class FFMPEGVideoHandler extends VideoHandler {
      * @param file the path from which to parse the suffix
      * @return the file suffix without the dot, f.e. "jpg"
      */
-    private static String getSuffix(Path file) {
+    protected static String getSuffix(Path file) {
         String filename = file.getFileName().toString();
         String[] splitted = filename.split(".");
         String last = splitted.length == 0 ? null : splitted[splitted.length - 1];
@@ -201,7 +205,7 @@ public class FFMPEGVideoHandler extends VideoHandler {
      * @return the Path of the temporary file containing the video
      * @throws IOException if an error during loading of images or writing of video occurs
      */
-    private Path createVideo(Path imageDir, int frameRate) throws IOException {
+    protected Path createVideo(Path imageDir, int frameRate) throws IOException {
         Path output = Paths.get("/tmp", "video-"
             + new Random().nextInt() + "-"
             + System.currentTimeMillis()
