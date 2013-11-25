@@ -8,23 +8,25 @@ This step is enough if the only thing you want is to submit a quick patch.
 see the http://windows.github.com/help.html[GitHub for Windows FAQ], if you don't find the answer there,
 try to ask in the IRC channel on https://webchat.freenode.net[Freenode], #carcv.
 
-. Create a fork of the `oskopek/carcv` repository, usually the fork will be: `yourusername/carcv`.
+. Find the `oskopek/carcv` https://github.com/oskopek/carcv[repository] on GitHub.
+
+. Create a fork of the `oskopek/carcv` repository (right upper corner), usually the fork will be: `yourusername/carcv`.
 
 . Create a (feature, bug, ...) branch in your repository: `git branch branchname`
 
-. Do `git checkout branchname` on it
+. Do `git checkout branchname` on it.
 
 . Work, commit changes frequently, sometimes push - `git push origin branchname`
 
 . After testing your changes, submit a pull request to `oskopek/carcv` through https://github.com/oskopek/carcv/compare[GitHub].
-.. Click on compare across forks
+.. Click on compare across forks.
 .. Set the following:
 *** base fork: `oskopek/carcv`
 *** base: `master`
 *** head fork: `yourusername/carcv`
 *** compare: `branchname`
 
-.. Click on *Click to create a pull request for this comparison*
+.. Click on *Click to create a pull request for this comparison*.
 
 .. Our Travis continuous integration server will test the merge of your pull request.
 You can view the results in the thread of the pull request.
