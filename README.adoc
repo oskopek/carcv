@@ -58,5 +58,5 @@ Run this command to generate `.project` and `.classpath` files:
 * *Recomennded*: `mvn clean install -DskipTests`
 * To run *unit tests*: `mvn clean install`
 * To run *integration tests*: `mvn clean install -Pwildfly-it`
-(see link:../docs/html/howto-setup-environment.html[How-to setup your build environment])
+(see link:./docs/howto-setup-environment.adoc[How-to setup your build environment])
 * To *clean*, run: `mvn clean`
