@@ -24,7 +24,7 @@ import java.util.ArrayList;
 
 import org.carcv.core.io.DirectoryWatcher;
 import org.carcv.core.model.file.FileCarImage;
-import org.carcv.impl.core.io.FFMPEG_VideoHandler;
+import org.carcv.impl.core.io.FFMPEGVideoHandler;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -90,7 +90,7 @@ public class SpeedDetectorImplTest {
         Double res = detector.detectSpeed(images);
         assertNotEquals(0d, res);
 
-        Double expected = ((double) images.size() / FFMPEG_VideoHandler.defaultFrameRate) * 3.6 * images.size();
+        Double expected = ((double) images.size() / FFMPEGVideoHandler.defaultFrameRate) * 3.6 * images.size();
 
         assertEquals(expected, res);
         assertEquals(res, detector.detectSpeed(images));

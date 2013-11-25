@@ -43,10 +43,10 @@ import org.carcv.core.model.file.FileEntry;
  * <p>
  * <strong>TODO 2 Implement methods not for directories and paths, but for FileEntries also</strong>
  * <p>
- * <strong>TODO 1 Test FFMPEG_VideoHandler</strong>
+ * <strong>TODO 1 Test FFMPEGVideoHandler</strong>
  *
  */
-public class FFMPEG_VideoHandler extends VideoHandler {
+public class FFMPEGVideoHandler extends VideoHandler {
 
     /**
      * A constant referencing the default frame rate of all videos.
@@ -58,13 +58,13 @@ public class FFMPEG_VideoHandler extends VideoHandler {
     final private static String default_image_suffix = "jpg";
 
     /**
-     * A static wrapper method for {@link FFMPEG_VideoHandler#splitIntoFrames(Path, int)} that uses {@link #defaultFrameRate}.
+     * A static wrapper method for {@link FFMPEGVideoHandler#splitIntoFrames(Path, int)} that uses {@link #defaultFrameRate}.
      *
      * @param video Path to video file to split
      * @return true if the splitting finished successfully
      */
     public static boolean splitIntoFrames(Path video) {
-        FFMPEG_VideoHandler fvd = new FFMPEG_VideoHandler();
+        FFMPEGVideoHandler fvd = new FFMPEGVideoHandler();
         try {
             return fvd.splitIntoFrames(video, defaultFrameRate);
         } catch (IOException e) {
@@ -116,7 +116,7 @@ public class FFMPEG_VideoHandler extends VideoHandler {
      * @throws IOException if an error during loading of images or writing of video occurs
      */
     public static OutputStream generateVideoAsStream(Path imageDir) throws IOException {
-        FFMPEG_VideoHandler fvd = new FFMPEG_VideoHandler();
+        FFMPEGVideoHandler fvd = new FFMPEGVideoHandler();
         return fvd.generateVideoAsStream(imageDir, defaultFrameRate);
     }
 
@@ -129,7 +129,7 @@ public class FFMPEG_VideoHandler extends VideoHandler {
      * @throws IOException if an error during loading of images or writing of video occurs
      */
     public static void generateVideoAsStream(final FileEntry entry, final OutputStream outStream) throws IOException {
-        FFMPEG_VideoHandler fvd = new FFMPEG_VideoHandler();
+        FFMPEGVideoHandler fvd = new FFMPEGVideoHandler();
         Path dir = Files.createTempDirectory("tempVideoStreamDir_" + entry.hashCode() + "_");
 
         copyCarImagesToDir(entry.getCarImages(), dir);

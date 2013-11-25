@@ -20,13 +20,13 @@ import java.util.List;
 
 import org.carcv.core.detect.SpeedDetector;
 import org.carcv.core.model.AbstractCarImage;
-import org.carcv.impl.core.io.FFMPEG_VideoHandler;
+import org.carcv.impl.core.io.FFMPEGVideoHandler;
 
 /**
  * A Singleton implementation of a SpeedDetector based on a simple, non-precise equation:
  *
  * <p>
- * <code>speed = (numberOfImagesInList / {@link FFMPEG_VideoHandler#defaultFrameRate defaultFrameRate})
+ * <code>speed = (numberOfImagesInList / {@link FFMPEGVideoHandler#defaultFrameRate defaultFrameRate})
  * * 10 (meters; default value) * 3.6 (conversion rate from ms to kph)</code>
  */
 public class SpeedDetectorImpl extends SpeedDetector { // TODO 2 Add the complex speed calculation method
@@ -54,7 +54,7 @@ public class SpeedDetectorImpl extends SpeedDetector { // TODO 2 Add the complex
     @Override
     public Double detectSpeed(final List<? extends AbstractCarImage> images) {
         // speed = (numOfImages/frameRate) * 3.6 (conversion rate from ms^-1 to kph) * 10 (meters, in which car is in speed box)
-        return ((double) images.size() / (double) FFMPEG_VideoHandler.defaultFrameRate) * 3.6d * 10d;
+        return ((double) images.size() / (double) FFMPEGVideoHandler.defaultFrameRate) * 3.6d * 10d;
     }
 
 }

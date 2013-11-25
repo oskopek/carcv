@@ -25,12 +25,12 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.carcv.core.model.file.FileEntry;
-import org.carcv.impl.core.io.FFMPEG_VideoHandler;
+import org.carcv.impl.core.io.FFMPEGVideoHandler;
 import org.carcv.web.beans.EntryBean;
 
 /**
  * A Servlet that generates a video from a list of images using
- * {@link FFMPEG_VideoHandler#generateVideoAsStream(FileEntry, java.io.OutputStream)}.
+ * {@link FFMPEGVideoHandler#generateVideoAsStream(FileEntry, java.io.OutputStream)}.
  */
 @WebServlet("/servlet/GenerateVideo")
 public class GenerateVideoServlet extends HttpServlet {
@@ -57,7 +57,7 @@ public class GenerateVideoServlet extends HttpServlet {
         FileEntry entry = entryBean.findById(entryId);
 
         try {
-            FFMPEG_VideoHandler.generateVideoAsStream(entry, response.getOutputStream());
+            FFMPEGVideoHandler.generateVideoAsStream(entry, response.getOutputStream());
         } catch (IOException e) {
             response.reset();
             response.sendError(501, e.getMessage());
