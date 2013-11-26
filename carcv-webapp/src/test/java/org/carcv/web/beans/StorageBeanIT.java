@@ -30,6 +30,9 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
 import java.util.Random;
 
 import javax.ejb.EJB;
@@ -187,29 +190,35 @@ public class StorageBeanIT {
         Random r = new Random();
         FileEntryTool tool = new FileEntryTool();
 
+        // prepare
+        
         FileEntry[] arr = new FileEntry[r.nextInt(11)];
-
+        List<FileEntry> list = new ArrayList<>(arr.length);
         for (int i = 0; i < arr.length; i++) {
             FileEntry f = tool.generate();
             assertNotNull(f);
             arr[i] = f;
+            list.add(i, f);
         }
-
-        entryBean.persist(arr);
+        
+        Arrays.sort(arr);
+        Collections.sort(list);
+        
+        // store and get
+        storageBean.storeBatchToDatabase(list);
 
         ArrayList<FileEntry> got = (ArrayList<FileEntry>) entryBean.getAll();
 
         assertNotNull(got);
-        assertNotEquals(0, got.size());
+        assertEquals(list.size(), got.size());
 
-        for (int i = 0; i < arr.length; i++) {
-            assertTrue(got.contains(arr[i]));
-
-            assertEquals(arr[i], entryBean.findById(arr[i].getId()));
+        for (int i = 0; i < list.size(); i++) {
+            assertTrue(got.contains(list.get(i)));
+            assertEquals(got.get(i), entryBean.findById(got.get(i).getId()));
         }
 
         // clean up
-        entryBean.remove(arr);
+        entryBean.remove(list.toArray(arr));
         for (int i = 0; i < arr.length; i++) {
             for (FileCarImage fi : arr[i].getCarImages()) {
                 Files.delete(fi.getFilepath());
