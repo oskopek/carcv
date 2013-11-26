@@ -11,7 +11,7 @@
     <parent>
         <groupId>org.carcv</groupId>
         <artifactId>carcv</artifactId>
-        <version>1.0.0.Beta1-SNAPSHOT</version>
+        <version>1.0.0.Beta1</version>
     </parent>
 
     <prerequisites>
@@ -19,7 +19,7 @@
     </prerequisites>
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <version.carcv-core>1.0.0.Beta1-SNAPSHOT</version.carcv-core>
+        <version.carcv-core>1.0.0.Beta1</version.carcv-core>
         <version.arquillian>1.0.3.Final</version.arquillian>
         <version.shrinkwrap.resolvers>2.0.0</version.shrinkwrap.resolvers>
 
