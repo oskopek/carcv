@@ -102,7 +102,7 @@ public class BasicReportGeneratorTest {
         if (!test_results_dir.exists() || !test_results_dir.isDirectory()) {
             assertTrue(test_results_dir.mkdir());
         }
-        LOGGER.info("OutDir: {}" + test_results_dir.getPath());
+        LOGGER.info("OutDir: {}", test_results_dir.getPath());
 
         String filename = testDir.getPath() + "/test_results/report" + System.currentTimeMillis() + ".pdf";
 
