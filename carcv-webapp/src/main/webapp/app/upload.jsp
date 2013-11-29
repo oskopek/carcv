@@ -3,7 +3,7 @@
 <head>
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js" type="text/javascript"></script>
 <script src="/resources/jquery.html5_upload.js" type="text/javascript"></script>
-<meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
 <link rel="SHORTCUT ICON" href="http://upload.wikimedia.org/wikipedia/commons/f/f0/Car_with_Driver-Silhouette.svg">
 <link rel="icon" href="http://upload.wikimedia.org/wikipedia/commons/f/f0/Car_with_Driver-Silhouette.svg" type="image/ico">
 <title>CarCV - Upload</title>
