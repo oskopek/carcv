@@ -62,7 +62,7 @@ public class CarTableServlet extends HttpServlet {
         DateFormat dateFormat = new SimpleDateFormat("dd. MM. yyyy");
         DateFormat timeFormat = new SimpleDateFormat("HH:mm");
 
-        String date, time, entryId, licensePlate, location, previewURL;
+        String date, time, entryId, licensePlate, location, previewPath;
         ArrayList<WebReportTableMember> wrtmList = new ArrayList<>();
 
         for (FileEntry e : abstractEntries) {
@@ -78,9 +78,9 @@ public class CarTableServlet extends HttpServlet {
             location = e.getCarData().getAddress().printBR();
 
             FileCarImage fci = e.getCarImages().get(0);
-            previewURL = "/servlet/DisplayImage?path=" + fci.getFilepath().toString();
+            previewPath = fci.getFilepath().toString();
 
-            WebReportTableMember wrtm = new WebReportTableMember(previewURL, entryId, time, date, location, licensePlate);
+            WebReportTableMember wrtm = new WebReportTableMember(previewPath, entryId, time, date, location, licensePlate);
 
             wrtmList.add(wrtm);
         }

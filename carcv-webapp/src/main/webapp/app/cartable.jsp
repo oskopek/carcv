@@ -29,13 +29,13 @@
 
         <c:forEach var="member" items="${wrtmList}">
             <tr>
-                <td><img src="${member.previewURL}" style="border: 2px" width="150" alt="Car"></td>
+                <td><img src="/servlet/DisplayImage?path=${member.previewPath}" style="border: 2px" width="150" alt="Car"></td>
                 <td>${member.date}<br> ${member.time}
                 </td>
                 <td>${member.licensePlate}</td>
                 <td>${member.location}</td>
                 <td><a href="/servlet/GenerateVideo?entry_id=${member.entryId}" target="_top">View video</a></td>
-                <td><a href="/servlet/DisplayImage?path=${member.previewURL}" target="_top">View preview</a></td>
+                <td><a href="/servlet/DisplayImage?path=${member.previewPath}" target="_top">View preview</a></td>
                 <td><a href="/servlet/GenerateReport?entry_id=${member.entryId}" target="_top">Generate report</a></td>
                 <td><a href="/servlet/RemoveEntry?entry_id=${member.entryId}" target="_top">Delete</a></td>
             </tr>

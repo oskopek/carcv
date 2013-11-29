@@ -20,19 +20,19 @@ package org.carcv.web.reports;
  */
 public class WebReportTableMember {
 
-    final private String previewURL, entryId, time, date, location, licensePlate;
+    final private String previewPath, entryId, time, date, location, licensePlate;
 
     /**
-     * @param previewURL
+     * @param previewPath
      * @param entryId
      * @param time
      * @param date
      * @param location
      * @param licensePlate
      */
-    public WebReportTableMember(String previewURL, String entryId, String time, String date, String location,
+    public WebReportTableMember(String previewPath, String entryId, String time, String date, String location,
         String licensePlate) {
-        this.previewURL = previewURL;
+        this.previewPath = previewPath;
         this.entryId = entryId;
         this.time = time;
         this.date = date;
@@ -41,10 +41,10 @@ public class WebReportTableMember {
     }
 
     /**
-     * @return the previewURL
+     * @return the previewPath
      */
-    public String getPreviewURL() {
-        return previewURL;
+    public String getPreviewPath() {
+        return previewPath;
     }
 
     /**
