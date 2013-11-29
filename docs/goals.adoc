@@ -9,7 +9,7 @@ If you want to help with any of them, just contact me -- Ondrej Skopek -- at mai
 * [x] Finish basic implementation of WebApp
 * [x] Add missing JavaDoc and refactor existing
 * [x] Fix links in AsciiDoctor docs after move to GitHub
-* [ ] Release 1.0.0
+* [x] Release 1.0.0
 * [ ] Add a better looking frontend HTML UI
 * [ ] Release 1.1.0
 * [ ] Implement a realistic detection algorithm
