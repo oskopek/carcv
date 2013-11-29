@@ -20,6 +20,8 @@ import java.io.IOException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 
 import javax.ejb.EJB;
 import javax.servlet.RequestDispatcher;
@@ -29,6 +31,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.commons.lang.builder.CompareToBuilder;
 import org.carcv.core.model.file.FileCarImage;
 import org.carcv.core.model.file.FileEntry;
 import org.carcv.web.beans.EntryBean;
@@ -61,6 +64,15 @@ public class CarTableServlet extends HttpServlet {
 
         DateFormat dateFormat = new SimpleDateFormat("dd. MM. yyyy");
         DateFormat timeFormat = new SimpleDateFormat("HH:mm");
+
+        Collections.sort(abstractEntries, new Comparator<FileEntry>() {
+            @Override
+            public int compare(FileEntry o1, FileEntry o2) {
+                return new CompareToBuilder()
+                    .append(o2.getCarData().getTimestamp(), o1.getCarData().getTimestamp())
+                    .toComparison();
+            }
+        });
 
         String date, time, entryId, licensePlate, location, previewPath;
         ArrayList<WebReportTableMember> wrtmList = new ArrayList<>();
