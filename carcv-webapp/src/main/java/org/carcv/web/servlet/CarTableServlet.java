@@ -32,7 +32,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.carcv.core.model.file.FileCarImage;
 import org.carcv.core.model.file.FileEntry;
 import org.carcv.web.beans.EntryBean;
-import org.carcv.web.beans.WebReportTableMember;
+import org.carcv.web.reports.WebReportTableMember;
 
 /**
  * A Servlet that retrieves all FileEntries from the database and formats them into a nice table.
