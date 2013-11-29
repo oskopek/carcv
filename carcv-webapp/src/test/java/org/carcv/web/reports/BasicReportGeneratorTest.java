@@ -47,7 +47,7 @@ import org.slf4j.LoggerFactory;
  *
  */
 public class BasicReportGeneratorTest {
-    
+
     final private static Logger LOGGER = LoggerFactory.getLogger(BasicReportGeneratorTest.class);
 
     private static FileEntry testEntry = null;

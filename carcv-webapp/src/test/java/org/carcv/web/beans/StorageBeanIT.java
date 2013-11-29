@@ -191,7 +191,7 @@ public class StorageBeanIT {
         FileEntryTool tool = new FileEntryTool();
 
         // prepare
-        
+
         FileEntry[] arr = new FileEntry[r.nextInt(11)];
         List<FileEntry> list = new ArrayList<>(arr.length);
         for (int i = 0; i < arr.length; i++) {
@@ -200,10 +200,10 @@ public class StorageBeanIT {
             arr[i] = f;
             list.add(i, f);
         }
-        
+
         Arrays.sort(arr);
         Collections.sort(list);
-        
+
         // store and get
         storageBean.storeBatchToDatabase(list);
 

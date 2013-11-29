@@ -35,7 +35,7 @@ import org.slf4j.LoggerFactory;
  */
 @WebServlet("/servlet/Recognize")
 public class RecognizeServlet extends HttpServlet {
-    
+
     final private static Logger LOGGER = LoggerFactory.getLogger(RecognizeServlet.class);
 
     private static final long serialVersionUID = -235344099282905675L;

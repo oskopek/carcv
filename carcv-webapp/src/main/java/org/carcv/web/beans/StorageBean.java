@@ -37,7 +37,7 @@ import org.slf4j.LoggerFactory;
  */
 @Stateless
 public class StorageBean {
-    
+
     final private static Logger LOGGER = LoggerFactory.getLogger(StorageBean.class);
 
     @EJB
