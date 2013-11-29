@@ -43,7 +43,7 @@
                 </td>
             </tr>
             <tr>
-                <td><a href="/app/upload.jsp" target="_top" style="position: absolute; left: 40%; text-decoration: none">Admin</a><br></td>
+                <td><a href="/app/index.jsp" target="_top" style="position: absolute; left: 40%; text-decoration: none">Admin</a><br></td>
             </tr>
             <tr>
                 <td><a href="/servlet/Logout" target="_top" style="position: absolute; left: 35%; text-decoration: none">Log
