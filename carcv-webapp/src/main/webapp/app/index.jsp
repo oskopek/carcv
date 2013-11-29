@@ -51,7 +51,7 @@
     </div>
 
     <div id="center-norm">
-        <iframe style="overflow: auto; width: 99%; height: 98.5%; border: 5px solid #B0C4DE" src="/servlet/CarTable"></iframe>
+        <iframe style="overflow-y: scroll; width: 99%; height: 98.5%; border: 5px solid #B0C4DE" src="/servlet/CarTable"></iframe>
     </div>
 
     <div id="footer"></div>
