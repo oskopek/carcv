@@ -61,6 +61,14 @@
                 <suffix value=".yyyy-MM-dd" />
                 <append value="true" />
             </periodic-rotating-file-handler>
+            <periodic-rotating-file-handler name="FILE_DEBUG">
+                <formatter>
+                    <pattern-formatter pattern="%d{yyyy/MM/dd HH:mm:ss,SSS} %-5p [%c] (%t) %s%E%n" />
+                </formatter>
+                <file relative-to="jboss.server.log.dir" path="debug.log" />
+                <suffix value=".yyyy-MM-dd" />
+                <append value="true" />
+            </periodic-rotating-file-handler>
             <logger category="com.arjuna">
                 <level name="WARN" />
             </logger>
@@ -75,6 +83,10 @@
             </logger>
             <logger category="jacorb.config">
                 <level name="ERROR" />
+            </logger>
+            <logger category="org.slf4j">
+                <level name="DEBUG" />
+                <handler name="FILE_DEBUG" />
             </logger>
             <root-logger>
                 <level name="INFO" />
