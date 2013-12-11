@@ -113,17 +113,17 @@ public class DisplayImageServlet extends HttpServlet {
         } else if (height != null) {
             BufferedImage bi = ImageIO.read(imagePath.toFile());
             int heightInt = Integer.parseInt(height);
-            float rate = (float) bi.getHeight() / (float) heightInt;
+            float rate = (float) heightInt / (float) bi.getHeight();
             int widthInt = Math.round(bi.getWidth() * rate);
             LOGGER.debug("I know the height {} and calculated the width {}.", heightInt, widthInt);
             returnPath = imagePathResize(imagePath, heightInt, widthInt);
         } else if (width != null) {
             BufferedImage bi = ImageIO.read(imagePath.toFile());
             int widthInt = Integer.parseInt(width);
-            float rate = (float) bi.getWidth() / (float) widthInt;
-            int heighthInt = Math.round(bi.getHeight() * rate);
-            LOGGER.debug("I know the width {} and calculated the height {}.", widthInt, heighthInt);
-            returnPath = imagePathResize(imagePath, heighthInt, widthInt);
+            float rate = (float) widthInt / (float) bi.getWidth();
+            int heightInt = Math.round(bi.getHeight() * rate);
+            LOGGER.debug("I know the width {} and calculated the height {}.", widthInt, heightInt);
+            returnPath = imagePathResize(imagePath, heightInt, widthInt);
         } else {
             LOGGER.debug("I know the width {} and the height {}.", Integer.parseInt(width), Integer.parseInt(height));
             returnPath = imagePathResize(imagePath, Integer.parseInt(height), Integer.parseInt(width));
@@ -143,7 +143,7 @@ public class DisplayImageServlet extends HttpServlet {
      * @throws IOException if an error during load/write of the image occurs
      */
     private static Path imagePathResize(Path imagePath, int height, int width) throws IOException {
-        LOGGER.debug("Filename: {}", imagePath.getFileName());
+        LOGGER.debug("Filename: {}", imagePath.getFileName().toString());
         String[] filenameSplit = imagePath.getFileName().toString().split(".");
         LOGGER.debug("Splitted: {}", Arrays.toString(filenameSplit));
         Path resizedImagePath = Paths.get(imagePath.getParent().toString(),
