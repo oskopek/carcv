@@ -22,7 +22,6 @@ import java.io.OutputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.Arrays;
 
 import javax.imageio.ImageIO;
 import javax.servlet.ServletException;
@@ -143,11 +142,13 @@ public class DisplayImageServlet extends HttpServlet {
      * @throws IOException if an error during load/write of the image occurs
      */
     private static Path imagePathResize(Path imagePath, int height, int width) throws IOException {
-        LOGGER.debug("Filename: {}", imagePath.getFileName().toString());
-        String[] filenameSplit = imagePath.getFileName().toString().split(".");
-        LOGGER.debug("Splitted: {}", Arrays.toString(filenameSplit));
+        String filename = imagePath.getFileName().toString();
+        int dot = filename.indexOf('.');
+
+        LOGGER.debug("Filename: {} and dot index: {}", filename, dot);
+        LOGGER.debug("Name: {}, Suffix: {}", filename.substring(0, dot), filename.subSequence(dot + 1, filename.length()));
         Path resizedImagePath = Paths.get(imagePath.getParent().toString(),
-            filenameSplit[0] + "_" + width + "x" + height + filenameSplit[1]);
+            filename.substring(0, dot) + "_" + width + "x" + height + filename.substring(dot + 1, filename.length()));
         LOGGER.debug("ResizedPath: {}" + resizedImagePath.toString());
 
         if (Files.exists(resizedImagePath)) { // if file already exists, return it's path
@@ -163,7 +164,7 @@ public class DisplayImageServlet extends HttpServlet {
         g.drawImage(originalImage, 0, 0, width, height, null);
         g.dispose();
 
-        ImageIO.write(resizedImage, filenameSplit[1], resizedImagePath.toFile());
+        ImageIO.write(resizedImage, filename.substring(dot + 1, filename.length()), resizedImagePath.toFile());
 
         return resizedImagePath;
     }
