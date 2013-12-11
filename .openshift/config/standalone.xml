@@ -86,10 +86,9 @@
             </logger>
             <logger category="org.slf4j">
                 <level name="DEBUG" />
-                <handler name="FILE_DEBUG" />
             </logger>
             <root-logger>
-                <level name="INFO" />
+                <level name="DEBUG" />
                 <handlers>
 					<!--handler name="CONSOLE"/ -->
                     <handler name="FILE" />
