@@ -22,6 +22,7 @@ import java.io.OutputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.Arrays;
 
 import javax.imageio.ImageIO;
 import javax.servlet.ServletException;
@@ -31,12 +32,16 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.carcv.core.io.DirectoryLoader;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  *
  */
 @WebServlet("/servlet/DisplayImage")
 public class DisplayImageServlet extends HttpServlet {
+
+    final private static Logger LOGGER = LoggerFactory.getLogger(DisplayImageServlet.class);
 
     private static final long serialVersionUID = 3756019811253496208L;
 
@@ -95,27 +100,37 @@ public class DisplayImageServlet extends HttpServlet {
      */
     protected static Path imagePath(String path, String height, String width) throws IOException {
         Path imagePath = Paths.get(path);
+        LOGGER.debug("Loading image at: {}", imagePath.toString());
         if (!Files.exists(imagePath) || !Files.isRegularFile(imagePath)) {
             return null;
         }
 
+        Path returnPath;
+
         if (height == null && width == null) {
-            return imagePath;
+            LOGGER.debug("Returning path straight away.");
+            returnPath = imagePath;
         } else if (height != null) {
             BufferedImage bi = ImageIO.read(imagePath.toFile());
             int heightInt = Integer.parseInt(height);
             float rate = (float) bi.getHeight() / (float) heightInt;
             int widthInt = Math.round(bi.getWidth() * rate);
-            return imagePathResize(imagePath, heightInt, widthInt);
+            LOGGER.debug("I know the height {} and calculated the width {}.", heightInt, widthInt);
+            returnPath = imagePathResize(imagePath, heightInt, widthInt);
         } else if (width != null) {
             BufferedImage bi = ImageIO.read(imagePath.toFile());
             int widthInt = Integer.parseInt(width);
             float rate = (float) bi.getWidth() / (float) widthInt;
             int heighthInt = Math.round(bi.getHeight() * rate);
-            return imagePathResize(imagePath, heighthInt, widthInt);
+            LOGGER.debug("I know the width {} and calculated the height {}.", widthInt, heighthInt);
+            returnPath = imagePathResize(imagePath, heighthInt, widthInt);
         } else {
-            return imagePathResize(imagePath, Integer.parseInt(height), Integer.parseInt(width));
+            LOGGER.debug("I know the width {} and the height {}.", Integer.parseInt(width), Integer.parseInt(height));
+            returnPath = imagePathResize(imagePath, Integer.parseInt(height), Integer.parseInt(width));
         }
+
+        LOGGER.debug("Returning: {}", returnPath.toString());
+        return returnPath;
     }
 
     /**
@@ -128,11 +143,15 @@ public class DisplayImageServlet extends HttpServlet {
      * @throws IOException if an error during load/write of the image occurs
      */
     private static Path imagePathResize(Path imagePath, int height, int width) throws IOException {
+        LOGGER.debug("Filename: {}", imagePath.getFileName());
         String[] filenameSplit = imagePath.getFileName().toString().split(".");
+        LOGGER.debug("Splitted: {}", Arrays.toString(filenameSplit));
         Path resizedImagePath = Paths.get(imagePath.getParent().toString(),
             filenameSplit[0] + "_" + width + "x" + height + filenameSplit[1]);
+        LOGGER.debug("ResizedPath: {}" + resizedImagePath.toString());
 
         if (Files.exists(resizedImagePath)) { // if file already exists, return it's path
+            LOGGER.debug("The ResizedPath already exists.");
             return resizedImagePath;
         }
 
