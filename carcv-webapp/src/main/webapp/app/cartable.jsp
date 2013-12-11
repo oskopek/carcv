@@ -29,7 +29,8 @@
 
         <c:forEach var="member" items="${wrtmList}">
             <tr>
-                <td><img src="/servlet/DisplayImage?path=${member.previewPath}" style="border: 2px" width="150" alt="Car"></td>
+                <td><img src="/servlet/DisplayImage?path=${member.previewPath}&width=150" style="border: 2px" width="150"
+                    alt="Car"></td>
                 <td>${member.date}<br> ${member.time}
                 </td>
                 <td>${member.licensePlate}</td>
