@@ -149,7 +149,7 @@ public class DisplayImageServlet extends HttpServlet {
         LOGGER.debug("Name: {}, Suffix: {}", filename.substring(0, dot), filename.subSequence(dot + 1, filename.length()));
         Path resizedImagePath = Paths.get(imagePath.getParent().toString(),
             filename.substring(0, dot) + "_" + width + "x" + height + filename.substring(dot + 1, filename.length()));
-        LOGGER.debug("ResizedPath: {}" + resizedImagePath.toString());
+        LOGGER.debug("ResizedPath: {}", resizedImagePath.toString());
 
         if (Files.exists(resizedImagePath)) { // if file already exists, return it's path
             LOGGER.debug("The ResizedPath already exists.");
