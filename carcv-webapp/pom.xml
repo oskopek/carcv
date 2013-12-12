@@ -29,6 +29,13 @@
         <skipUTs>${skipTests}</skipUTs>
     </properties>
 
+    <repositories>
+        <repository>
+            <id>JasperReports Maven Repo</id>
+            <url>http://jasperreports.sourceforge.net/maven2/</url>
+        </repository>
+    </repositories>
+
     <build>
         <sourceDirectory>src/main/java</sourceDirectory>
         <testSourceDirectory>src/test/java</testSourceDirectory>
