@@ -16,10 +16,14 @@
 
 package org.carcv.core.model;
 
+import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
+import java.util.TimeZone;
 
 import javax.persistence.Embeddable;
 import javax.persistence.Embedded;
+import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
 
 import org.apache.commons.lang.builder.CompareToBuilder;
@@ -118,6 +122,16 @@ public class CarData extends AbstractEmbeddable implements Comparable<CarData>, 
     @NotNull
     public Date getTimestamp() {
         return timestamp;
+    }
+
+    /**
+     * @return the local timestamp
+     */
+    @Transient
+    public Calendar getLocalTimestamp() {
+        Calendar c = new GregorianCalendar(TimeZone.getTimeZone("CEST"));
+        c.setTime(getTimestamp());
+        return c;
     }
 
     /**

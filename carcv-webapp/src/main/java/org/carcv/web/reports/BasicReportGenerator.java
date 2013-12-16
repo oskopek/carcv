@@ -23,6 +23,7 @@ import java.nio.file.Path;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Collection;
 import java.util.Date;
 import java.util.HashMap;
@@ -75,7 +76,10 @@ public class BasicReportGenerator {
         parameters.put("reportid", reportId);
         parameters.put("reportname", reportName);
         parameters.put("reportlocation", reportBuilderLocation);
-        parameters.put("reportdate", dateFormat.format(new Date(System.currentTimeMillis())));
+
+        Calendar calendar = e.getCarData().getLocalTimestamp();
+        calendar.setTime(new Date(System.currentTimeMillis()));
+        parameters.put("reportdate", dateFormat.format(calendar));
 
         // data
         Address add = data.getAddress();
@@ -91,11 +95,11 @@ public class BasicReportGenerator {
             parameters.put("previewURL", "/reports/OpenCV_Logo_with_text.png");
         }
 
-        parameters.put("date", dateFormat.format(data.getTimestamp()));
+        parameters.put("date", dateFormat.format(data.getLocalTimestamp()));
         parameters.put("location", dataLocation);
         parameters.put("LPNumber", data.getNumberPlate().getText());
         parameters.put("videoURL", hostURL + "/servlet/GenerateVideo?entry_id=" + e.getId().toString());
-        parameters.put("time", timeFormat.format(data.getTimestamp()));
+        parameters.put("time", timeFormat.format(data.getLocalTimestamp()));
         parameters.put("speed", Double.toString(data.getSpeed().getSpeed()) + " "
             + data.getSpeed().getUnit().toString());
 
