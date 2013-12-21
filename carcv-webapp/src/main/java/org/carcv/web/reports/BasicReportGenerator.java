@@ -27,6 +27,7 @@ import java.util.Collection;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.TimeZone;
 
 import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JRExporter;
@@ -58,7 +59,7 @@ public class BasicReportGenerator {
      * @throws JRException if an error during the generation occurs
      */
     public BasicReportGenerator(FileEntry e, String templateFilename, String reportBuilderLocation,
-        String reportName, String hostURL) throws JRException {
+        String reportName, String hostURL, TimeZone tz) throws JRException {
 
         Map<String, Object> values = new HashMap<>();
         Map<String, Object> parameters = new HashMap<>();
@@ -68,8 +69,12 @@ public class BasicReportGenerator {
         Long entryId = e.getId() == null ? 0 : e.getId();
         String reportId = entryId + "-" + System.currentTimeMillis();
 
+        // TimeZone:
+
         DateFormat dateFormat = new SimpleDateFormat("dd. MM. yyyy");
+        dateFormat.setTimeZone(tz);
         DateFormat timeFormat = new SimpleDateFormat("HH:mm");
+        timeFormat.setTimeZone(tz);
 
         // report
         parameters.put("reportid", reportId);

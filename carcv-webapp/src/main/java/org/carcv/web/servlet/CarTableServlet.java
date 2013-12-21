@@ -22,6 +22,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.TimeZone;
 
 import javax.ejb.EJB;
 import javax.servlet.RequestDispatcher;
@@ -62,8 +63,14 @@ public class CarTableServlet extends HttpServlet {
         @SuppressWarnings("unchecked")
         ArrayList<FileEntry> abstractEntries = (ArrayList<FileEntry>) requestEntries.clone();
 
+        // Timezone
+        String timeZoneStr = request.getParameter("timezone");
+        TimeZone tz = TimeZone.getTimeZone(timeZoneStr);
+
         DateFormat dateFormat = new SimpleDateFormat("dd. MM. yyyy");
+        dateFormat.setTimeZone(tz);
         DateFormat timeFormat = new SimpleDateFormat("HH:mm");
+        timeFormat.setTimeZone(tz);
 
         Collections.sort(abstractEntries, new Comparator<FileEntry>() {
             @Override
@@ -92,7 +99,8 @@ public class CarTableServlet extends HttpServlet {
             FileCarImage fci = e.getCarImages().get(0);
             previewPath = fci.getFilepath().toString();
 
-            WebReportTableMember wrtm = new WebReportTableMember(previewPath, entryId, time, date, location, licensePlate);
+            WebReportTableMember wrtm = new WebReportTableMember(previewPath, entryId, time, date, location, licensePlate,
+                timeZoneStr);
 
             wrtmList.add(wrtm);
         }

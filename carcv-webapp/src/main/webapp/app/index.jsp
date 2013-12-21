@@ -52,10 +52,19 @@
     </div>
 
     <div id="center-norm">
-        <iframe style="overflow-y: scroll; width: 99%; height: 98.5%; border: 5px solid #B0C4DE" src="/servlet/CarTable"></iframe>
+        <script type="text/javascript" src='http://cdn.bitbucket.org/pellepim/jstimezonedetect/downloads/jstz-1.0.4.min.js'></script>
+
+        <iframe style="overflow-y: scroll; width: 99%; height: 98.5%; border: 5px solid #B0C4DE"
+            src="/servlet/CarTable?timezone=">
+
+            <script type="text/javascript">
+            var timezone = jstz.determine();
+            document.writeln(timezone.name());  
+        </script>
+
+        </iframe>
     </div>
 
     <div id="footer"></div>
-
 </body>
 </html>
