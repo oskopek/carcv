@@ -53,16 +53,18 @@
 
     <div id="center-norm">
         <script type="text/javascript" src='/resources/jstz-1.0.4.min.js'></script>
-
-        <iframe style="overflow-y: scroll; width: 99%; height: 98.5%; border: 5px solid #B0C4DE"
-            src="/servlet/CarTable?timezone=">
-
-            <script type="text/javascript">
+        <script type="text/javascript">
+        function getTimezone() {
             var timezone = jstz.determine();
-            document.writeln(timezone.name());  
+            //document.writeln(timezone.name());
+            return timezone.name();
+        }
+        function returnURL() {
+            return "/servlet/CarTable?timezone="+getTimezone();
+        }
         </script>
 
-        </iframe>
+        <iframe style="overflow-y: scroll; width: 99%; height: 98.5%; border: 5px solid #B0C4DE" src='returnURL()'> </iframe>
     </div>
 
     <div id="footer"></div>
