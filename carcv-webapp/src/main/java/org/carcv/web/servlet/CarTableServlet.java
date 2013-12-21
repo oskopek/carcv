@@ -79,8 +79,8 @@ public class CarTableServlet extends HttpServlet {
 
         for (FileEntry e : abstractEntries) {
             // initialize
-            date = dateFormat.format(e.getCarData().getLocalTimestamp());
-            time = timeFormat.format(e.getCarData().getLocalTimestamp());
+            date = dateFormat.format(e.getCarData().getTimestamp());
+            time = timeFormat.format(e.getCarData().getTimestamp());
 
             entryId = e.getId().toString();
 
