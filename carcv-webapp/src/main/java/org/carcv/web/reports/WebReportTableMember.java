@@ -20,7 +20,7 @@ package org.carcv.web.reports;
  */
 public class WebReportTableMember {
 
-    final private String previewPath, entryId, time, date, location, licensePlate;
+    final private String previewPath, entryId, time, date, location, licensePlate, timeZone;
 
     /**
      * @param previewPath
@@ -31,13 +31,14 @@ public class WebReportTableMember {
      * @param licensePlate
      */
     public WebReportTableMember(String previewPath, String entryId, String time, String date, String location,
-        String licensePlate) {
+        String licensePlate, String timeZone) {
         this.previewPath = previewPath;
         this.entryId = entryId;
         this.time = time;
         this.date = date;
         this.location = location;
         this.licensePlate = licensePlate;
+        this.timeZone = timeZone;
     }
 
     /**
@@ -80,5 +81,13 @@ public class WebReportTableMember {
      */
     public String getLicensePlate() {
         return licensePlate;
+    }
+
+    /**
+     *
+     * @return the timeZone
+     */
+    public String getTimeZone() {
+        return timeZone;
     }
 }

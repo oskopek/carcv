@@ -17,6 +17,7 @@
 package org.carcv.web.servlet;
 
 import java.io.IOException;
+import java.util.TimeZone;
 
 import javax.ejb.EJB;
 import javax.servlet.ServletException;
@@ -62,11 +63,15 @@ public class GenerateReportServlet extends HttpServlet {
         long entryId = Long.parseLong(request.getParameter("entry_id"));
         FileEntry fileEntry = entryBean.findById(entryId);
 
+        // Timezone
+        String timeZoneStr = request.getParameter("timezone");
+        TimeZone tz = TimeZone.getTimeZone(timeZoneStr);
+
         // host URL
         String hostURL = request.getScheme() + "://" + request.getServerName();
 
         BasicReportGenerator brg = new BasicReportGenerator(fileEntry, "/reports/speed_report.jasper", "Myjava",
-            "TestReport", hostURL);
+            "TestReport", hostURL, tz);
         brg.exportStream(filename, response.getOutputStream());
     }
 

@@ -27,6 +27,7 @@ import java.nio.file.Path;
 import java.nio.file.StandardCopyOption;
 import java.util.Arrays;
 import java.util.Date;
+import java.util.TimeZone;
 
 import net.sf.jasperreports.engine.JRException;
 
@@ -110,8 +111,10 @@ public class BasicReportGeneratorTest {
         assertTrue(Files.exists(testEntry.getCarImages().get(0).getFilepath()));
         assertTrue(Files.isRegularFile(testEntry.getCarImages().get(0).getFilepath()));
 
+        TimeZone tz = TimeZone.getTimeZone("CET");
+
         BasicReportGenerator brg = new BasicReportGenerator(testEntry, "/reports/speed_report.jasper", "Myjava",
-            "TestReport", "https://carcv-oskopek.rhcloud.com");
+            "TestReport", "https://carcv-oskopek.rhcloud.com", tz);
 
         brg.exportFile(filename);
     }

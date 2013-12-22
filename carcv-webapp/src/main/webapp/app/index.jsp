@@ -52,10 +52,17 @@
     </div>
 
     <div id="center-norm">
-        <iframe style="overflow-y: scroll; width: 99%; height: 98.5%; border: 5px solid #B0C4DE" src="/servlet/CarTable"></iframe>
+        <script type="text/javascript" src='/resources/jstz-1.0.4.min.js'></script>
+        <script type="text/javascript">
+        function getTimezone() {
+            var timezone = jstz.determine();
+            return timezone.name();
+        }
+        document.write("<iframe style=\"overflow-y: scroll; width: 99%; height: 98.5%; border: 5px solid #B0C4DE\""
+        + "src=\"/servlet/CarTable?timezone="+getTimezone()+"\"></iframe>");
+        </script>
     </div>
 
     <div id="footer"></div>
-
 </body>
 </html>
