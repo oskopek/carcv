@@ -56,6 +56,7 @@ public class BasicReportGenerator {
      * @param reportBuilderLocation the place where report is being built (physical, real)
      * @param reportName the title of the report
      * @param hostURL URL of the domain that is generating the report
+     * @param tz TimeZone of the returned date (it is stored in UTC)
      * @throws JRException if an error during the generation occurs
      */
     public BasicReportGenerator(FileEntry e, String templateFilename, String reportBuilderLocation,

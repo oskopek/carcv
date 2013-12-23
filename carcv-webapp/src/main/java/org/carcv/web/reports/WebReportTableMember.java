@@ -15,20 +15,25 @@
  */
 package org.carcv.web.reports;
 
+import java.text.DateFormat;
+
 /**
- *
+ * A class used for passing data to cartable.jsp
  */
 public class WebReportTableMember {
 
     final private String previewPath, entryId, time, date, location, licensePlate, timeZone;
 
     /**
-     * @param previewPath
-     * @param entryId
-     * @param time
-     * @param date
-     * @param location
-     * @param licensePlate
+     * Basic setter constructor.
+     *
+     * @param previewPath the path to the preview image
+     * @param entryId id of the entry displayed
+     * @param time the time of the entry, formatted
+     * @param date the date of the entry, formatted
+     * @param location the location of the entry, formatted with &lt;BR&gt; tags
+     * @param licensePlate the recognized license plate text
+     * @param timeZone TimeZone in any format {@link DateFormat#setTimeZone(java.util.TimeZone)} can handle
      */
     public WebReportTableMember(String previewPath, String entryId, String time, String date, String location,
         String licensePlate, String timeZone) {
