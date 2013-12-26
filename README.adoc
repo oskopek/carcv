@@ -6,6 +6,8 @@ Build status: image:https://travis-ci.org/oskopek/carcv.png?branch=master["Build
 
 Ohloh: image:https://www.ohloh.net/p/carcv/widgets/project_thin_badge.gif["Ohloh widget", link="https://www.ohloh.net/p/carcv"]
 
+Coverage status: image:https://coveralls.io/repos/oskopek/carcv/badge.png?branch=develop["Coverage status", link="https://coveralls.io/r/oskopek/carcv?branch=develop"]
+
 == Info
 
 CarCV uses http://semver.org/[semantic versioning] and branching model similar to http://nvie.com/posts/a-successful-git-branching-model/[this].
