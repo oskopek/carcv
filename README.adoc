@@ -8,6 +8,8 @@ Ohloh: image:https://www.ohloh.net/p/carcv/widgets/project_thin_badge.gif["Ohloh
 
 Coverage status: image:https://coveralls.io/repos/oskopek/carcv/badge.png?branch=develop["Coverage status", link="https://coveralls.io/r/oskopek/carcv?branch=develop"]
 
+Waffle.io: image:https://badge.waffle.io/oskopek/carcv.png?label=ready["Stories in Ready", link="http://waffle.io/oskopek/carcv"]
+
 == Info
 
 CarCV uses http://semver.org/[semantic versioning] and branching model similar to http://nvie.com/posts/a-successful-git-branching-model/[this].
