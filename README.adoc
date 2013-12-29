@@ -1,6 +1,6 @@
 == CarCV
 
-image:https://www.ohloh.net/p/carcv/widgets/project_thin_badge.gif["Ohloh widget", link="https://www.ohloh.net/p/carcv"] image:https://travis-ci.org/oskopek/carcv.png?branch=master["Build Status", link="https://travis-ci.org/oskopek/carcv"]  image:https://coveralls.io/repos/oskopek/carcv/badge.png?branch=develop["Coverage status", link="https://coveralls.io/r/oskopek/carcv?branch=develop"] image:https://badge.waffle.io/oskopek/carcv.png?label=ready["Stories in Ready", link="http://waffle.io/oskopek/carcv"]
+image:https://travis-ci.org/oskopek/carcv.png?branch=master["Build Status", link="https://travis-ci.org/oskopek/carcv"]  image:https://coveralls.io/repos/oskopek/carcv/badge.png?branch=develop["Coverage status", link="https://coveralls.io/r/oskopek/carcv?branch=develop"] image:https://badge.waffle.io/oskopek/carcv.png?label=ready["Stories in Ready", link="http://waffle.io/oskopek/carcv"] image:https://www.ohloh.net/p/carcv/widgets/project_thin_badge.gif["Ohloh widget", link="https://www.ohloh.net/p/carcv"]
 
 A car recognizing and speed calculation platform.
 
