@@ -1,18 +1,8 @@
 == CarCV
 
-image:https://travis-ci.org/oskopek/carcv.png?branch=master["Build Status", link="https://travis-ci.org/oskopek/carcv"] image:https://coveralls.io/repos/oskopek/carcv/badge.png?branch=develop["Coverage status", link="https://coveralls.io/r/oskopek/carcv?branch=develop"] image:https://coveralls.io/repos/oskopek/carcv/badge.png?branch=develop["Coverage status", link="https://coveralls.io/r/oskopek/carcv?branch=develop"] image:https://badge.waffle.io/oskopek/carcv.png?label=ready["Stories in Ready", link="http://waffle.io/oskopek/carcv"]
+image:https://www.ohloh.net/p/carcv/widgets/project_thin_badge.gif["Ohloh widget", link="https://www.ohloh.net/p/carcv"] image:https://travis-ci.org/oskopek/carcv.png?branch=master["Build Status", link="https://travis-ci.org/oskopek/carcv"]  image:https://coveralls.io/repos/oskopek/carcv/badge.png?branch=develop["Coverage status", link="https://coveralls.io/r/oskopek/carcv?branch=develop"] image:https://badge.waffle.io/oskopek/carcv.png?label=ready["Stories in Ready", link="http://waffle.io/oskopek/carcv"]
 
-A car recognizing and speed calculation platform
-
-////
-Build status: image:https://travis-ci.org/oskopek/carcv.png?branch=master["Build Status", link="https://travis-ci.org/oskopek/carcv"]
-
-Ohloh: image:https://www.ohloh.net/p/carcv/widgets/project_thin_badge.gif["Ohloh widget", link="https://www.ohloh.net/p/carcv"]
-
-Coverage status: image:https://coveralls.io/repos/oskopek/carcv/badge.png?branch=develop["Coverage status", link="https://coveralls.io/r/oskopek/carcv?branch=develop"]
-
-Waffle.io: image:https://badge.waffle.io/oskopek/carcv.png?label=ready["Stories in Ready", link="http://waffle.io/oskopek/carcv"]
-////
+A car recognizing and speed calculation platform.
 
 == Info
 
@@ -25,6 +15,14 @@ CarCV consists of several modules:
 * *carcv-core* -- CarCV Core
 * *carcv-cpp* -- CarCV CPP is an old and deprecated implementation of this project in C++ with heavy use of OpenCV
 * *carcv-webapp* -- CarCV WebApp is an example implementation of CarCV Core
+
+== Building
+
+* *Recomennded*: `mvn clean install -DskipTests`
+* To run *unit tests*: `mvn clean install`
+* To run *integration tests*: `mvn clean install -Pwildfly-it`
+(see link:./docs/howto-setup-environment.adoc[How-to setup your build environment])
+* To *clean*, run: `mvn clean`
 
 == Configuring the project with the m2eclipse plugin
 
@@ -64,11 +62,3 @@ Run this command to generate `.project` and `.classpath` files:
 `mvn eclipse:eclipse` does not work for our eclipse plugins because it is not compatible with tycho
 (and never will be).
 ====
-
-== Building
-
-* *Recomennded*: `mvn clean install -DskipTests`
-* To run *unit tests*: `mvn clean install`
-* To run *integration tests*: `mvn clean install -Pwildfly-it`
-(see link:./docs/howto-setup-environment.adoc[How-to setup your build environment])
-* To *clean*, run: `mvn clean`
