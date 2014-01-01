@@ -1,0 +1,16 @@
+== Goals for CarCV
+
+If you want to help with any of them, just contact me -- Ondrej Skopek -- at mailto:skopekondrej@gmail.com[skopekondrej@gmail.com]!
+
+* [x] Select an Open Source license
+* [x] Move from BitBucket to GitHub
+* [x] Document functionality
+* [x] Finish basic implementation of Core
+* [x] Finish basic implementation of WebApp
+* [x] Add missing JavaDoc and refactor existing
+* [x] Fix links in AsciiDoctor docs after move to GitHub
+* [x] Release 1.0.0
+* [ ] Add a better looking frontend HTML UI
+* [ ] Release 1.1.0
+* [ ] Implement a realistic detection algorithm
+* [ ] Release 2.0.0

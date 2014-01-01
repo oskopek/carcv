@@ -112,13 +112,19 @@
                 <level name="WARN"/>
             </logger>
             <logger category="jacorb.config">
-                <level name="ERROR"/>
+                <level name="ERROR" />
+            </logger>
+            <logger category="org.carcv" use-parent-handlers="false">
+                <level name="DEBUG" />
+                <handlers>
+                    <handler name="CARCV" />
+                </handlers>
             </logger>
             <root-logger>
                 <level name="INFO"/>
                 <handlers>
-                    <handler name="CONSOLE"/>
-                    <handler name="FILE"/>
+					<!--handler name="CONSOLE"/ -->
+                    <handler name="FILE" />
                 </handlers>
             </root-logger>
             <formatter name="PATTERN">
@@ -334,13 +340,11 @@
         <subsystem xmlns="urn:jboss:domain:sar:1.0"/>
         <subsystem xmlns="urn:jboss:domain:security:1.2">
             <security-domains>
-                <security-domain name="other" cache-type="default">
+                <security-domain name="carcv" cache-type="default">
                     <authentication>
-                        <login-module code="Remoting" flag="optional">
-                            <module-option name="password-stacking" value="useFirstPass"/>
-                        </login-module>
-                        <login-module code="RealmDirect" flag="required">
-                            <module-option name="password-stacking" value="useFirstPass"/>
+                        <login-module code="UsersRoles" flag="required">
+                            <module-option name="usersProperties" value="users.properties" />
+                            <module-option name="rolesProperties" value="roles.properties" />
                         </login-module>
                     </authentication>
                 </security-domain>

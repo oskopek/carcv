@@ -1,0 +1,67 @@
+=== How-to setup your build environment for CarCV on Windows
+
+==== [line-through]#Install git# Install GitHub for Windows
+
+This step is enough if the only thing you want is to submit a quick patch.
+
+. Download it at http://windows.github.com/[]. If you encounter any problems,
+see the http://windows.github.com/help.html[GitHub for Windows FAQ], if you don't find the answer there,
+try to ask in the IRC channel on https://webchat.freenode.net[Freenode], #carcv.
+
+. Find the `oskopek/carcv` https://github.com/oskopek/carcv[repository] on GitHub.
+
+. Create a fork of the `oskopek/carcv` repository (right upper corner), usually the fork will be: `yourusername/carcv`.
+
+. Create a (feature, bug, ...) branch in your repository: `git branch branchname`
+
+. Do `git checkout branchname` on it.
+
+. Work, *publish* changes frequently (normally called `git commit`)
+
+.. In the upper left window, you can view all uncommitted changes.
+Write the name and description of your changes and click the *check* button.
+ 
+.. Once in a while, be sure to *sync* to send all commits to your GitHub fork.
+
+. After testing your changes, submit a pull request to `oskopek/carcv` through https://github.com/oskopek/carcv/compare[GitHub].
+.. Click on compare across forks.
+.. Set the following:
+*** base fork: `oskopek/carcv`
+*** base: `master`
+*** head fork: `yourusername/carcv`
+*** compare: `branchname`
+
+.. Click on *Click to create a pull request for this comparison*.
+
+.. Our Travis continuous integration server will test the merge of your pull request.
+You can view the results in the thread of the pull request.
+
+.. Congratulations! Your pull request will get reviewed and probably be merged in.
+
+==== Build-related installations
+
+. *Install Java7 JDK* - http://www.oracle.com/technetwork/java/javase/downloads/index.html[] - Select Java Platform (JDK)
+
+. *Install Maven* - (preferably the latest version you can).
+See: http://maven.apache.org/guides/getting-started/windows-prerequisites.html[Maven on Windows]
+ and http://maven.apache.org/download.cgi[Maven Downloads].
+
+. *Install an application server - optional* - if you want to run integration tests as part of your `carcv-webapp` environment,
+you need to install at least one application server.
+It is recommended to install the latest *Wildfly* release. You should place it wherever you want, and configure your
+$JBOSS_HOME environment variable to point to that directory.
+
+Environment variables are usually configured in Control Panel > System.
+See: http://www.computerhope.com/issues/ch000549.htm[How to set the path in Microsoft Windows], but do not set the
+PATH variable, but the Variable: `JBOSS_HOME` with Value: `C:\path\to\your\jboss\or\wildfly\directory`
+
+. *Create a directory for data input/output* - the default is `$JBOSS_HOME\standalone\data\carcv_data\in`
+and `$JBOSS_HOME\standalone\data\carcv_data\out`.
+See: https://community.jboss.org/wiki/JBossProperties["jboss.server.data.dir"] property value.
+
+. *Run the build*
+** Recomennded: `mvn clean install -DskipTests`
+** Run unit tests: `mvn clean install`
+** Run integration tests: `mvn clean install -Pwildfly-it-travis`
+
+. If you plan to *contribute code*, please set-up https://github.com/oskopek/ide-config[IDE coding templates] first 

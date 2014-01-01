@@ -1,0 +1,125 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>org.carcv</groupId>
+    <artifactId>carcv</artifactId>
+    <version>1.0.1.Final</version>
+    <packaging>pom</packaging>
+    <name>CarCV</name>
+    <description>A car recognizing and speed calculating platform</description>
+    <scm>
+        <url>https://github.com/oskopek/carcv.git</url>
+        <connection>scm:git:https://github.com/oskopek/carcv.git</connection>
+        <developerConnection>scm:git:https://github.com/oskopek/carcv.git</developerConnection>
+        <tag>HEAD</tag>
+    </scm>
+    <url>https://www.ohloh.net/p/carcv</url>
+    <issueManagement>
+        <system>GitHub</system>
+        <url>https://github.com/oskopek/carcv/issues</url>
+    </issueManagement>
+    <ciManagement>
+        <system>TravisCI</system>
+        <url>https://travis-ci.org/oskopek/carcv</url>
+    </ciManagement>
+    <organization>
+        <name>CarCV Development Team</name>
+        <url>https://github.com/oskopek/carcv/graphs/contributors</url>
+    </organization>
+
+    <prerequisites>
+        <maven>3.0.5</maven>
+    </prerequisites>
+
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    </properties>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>cobertura-maven-plugin</artifactId>
+                <version>2.6</version>
+		<configuration>
+                    <check>
+                        <branchRate>85</branchRate>
+                        <lineRate>85</lineRate>
+                        <haltOnFailure>false</haltOnFailure>
+                        <totalBranchRate>85</totalBranchRate>
+                        <totalLineRate>85</totalLineRate>
+                        <packageLineRate>85</packageLineRate>
+                        <packageBranchRate>85</packageBranchRate>
+                        <regexes>
+                            <regex>
+                                <pattern>org.carcv.impl.run.*</pattern>
+                                <branchRate>0</branchRate>
+                                <lineRate>0</lineRate>
+                            </regex>
+                        </regexes>
+                    </check>
+                </configuration>
+		<!-- <executions>
+                    <execution>
+                        <goals>
+                            <goal>clean</goal>
+                            <goal>check</goal>
+                        </goals>
+                    </execution>
+		</executions> -->
+            </plugin>
+        </plugins>
+    </build>
+
+    <modules>
+        <module>carcv-core</module>
+        <module>carcv-webapp</module>
+    </modules>
+
+    <profiles>
+        <profile>
+			<!-- When built in OpenShift the 'openshift' profile will be used when 
+				invoking mvn. -->
+			<!-- Use this profile for any OpenShift specific customization your app 
+				will need. -->
+			<!-- By default that is to put the resulting archive into the 'deployments' 
+				folder. -->
+			<!-- http://maven.apache.org/guides/mini/guide-building-for-different-environments.html -->
+            <id>openshift</id>
+            <modules>
+                <module>carcv-webapp</module>
+            </modules>
+        </profile>
+
+        <profile>
+            <id>cpp</id>
+
+            <modules>
+                <module>carcv-cpp</module>
+            </modules>
+        </profile>
+
+        <profile>
+            <id>all</id>
+            <modules>
+                <module>carcv-core</module>
+                <module>carcv-webapp</module>
+                <module>carcv-cpp</module>
+            </modules>
+        </profile>
+
+        <profile>
+            <id>core</id>
+            <modules>
+                <module>carcv-core</module>
+            </modules>
+        </profile>
+
+        <profile>
+            <id>webapp</id>
+            <modules>
+                <module>carcv-webapp</module>
+            </modules>
+        </profile>
+    </profiles>
+</project>

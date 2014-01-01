@@ -1,0 +1,35 @@
+== How-to configure standalone.xml for a JBoss/Wildfly deployment
+:source-highlighter: coderay
+
+=== Security domain
+
+Add this security-domain to the list of security-domains in your standalone.xml to enable JAAS:
+
+[source,xml]
+----
+<security-domain name="carcv" cache-type="default">
+    <authentication>
+        <login-module code="UsersRoles" flag="required">
+            <module-option name="usersProperties" value="users.properties" />
+            <module-option name="rolesProperties" value="roles.properties" />
+        </login-module>
+    </authentication>
+</security-domain>
+----
+
+[WARNING]
+====
+For production, you certainly *do not want* to use properties files for storing authentication credentials.
+====
+
+=== Database connection
+
+To run integration tests successfully make sure `ExampleDS` datasource is configured correctly.
+
+The CarCV WebApp has two different `persitence.xml`s. One for tests, which uses the in-memory H2 database
+configured as `ExampleDS`, and one for production, which uses the default `MysqlDS` datasource.
+
+[TIP]
+====
+For production, you usually want to use some more reliable and not in-memory database -- f.e. MySQL or MongoDB.
+====

@@ -13,4 +13,3 @@ README and chrono.dat file are ignored either as a result of being black-listed
 in jobs.deny or because they are NOT white-listed in the jobs.allow file.
 
 For more details, please see ../README.cron file.
-

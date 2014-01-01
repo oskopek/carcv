@@ -1,0 +1,64 @@
+== CarCV
+
+image:https://travis-ci.org/oskopek/carcv.png?branch=master["Build Status", link="https://travis-ci.org/oskopek/carcv"]  image:https://coveralls.io/repos/oskopek/carcv/badge.png?branch=develop["Coverage status", link="https://coveralls.io/r/oskopek/carcv?branch=develop"] image:https://badge.waffle.io/oskopek/carcv.png?label=ready["Stories in Ready", link="http://waffle.io/oskopek/carcv"] image:https://www.ohloh.net/p/carcv/widgets/project_thin_badge.gif["Ohloh widget", link="https://www.ohloh.net/p/carcv"]
+
+A car recognizing and speed calculation platform.
+
+== Info
+
+CarCV uses http://semver.org/[semantic versioning] and branching model similar to http://nvie.com/posts/a-successful-git-branching-model/[this].
+
+== Modules
+
+CarCV consists of several modules:
+
+* *carcv-core* -- CarCV Core
+* *carcv-cpp* -- CarCV CPP is an old and deprecated implementation of this project in C++ with heavy use of OpenCV
+* *carcv-webapp* -- CarCV WebApp is an example implementation of CarCV Core
+
+== Building
+
+* *Recomennded*: `mvn clean install -DskipTests`
+* To run *unit tests*: `mvn clean install`
+* To run *integration tests*: `mvn clean install -Pwildfly-it`
+(see link:./docs/howto-setup-environment.adoc[How-to setup your build environment])
+* To *clean*, run: `mvn clean`
+
+== Configuring the project with the m2eclipse plugin
+
+The m2eclipse plugin is a plugin in Eclipse for Maven.
+This is the new way (and compatible with tycho).
+
+* Open Eclipse
+* Follow http://m2eclipse.sonatype.org/[the installation instructions of m2eclipse].
+** Follow the link *Installing m2eclipse* at the bottom.
+* Click menu *File*, menu item *Import*, tree item *Maven*, tree item *Existing Maven Projects*.
+* Click button *Browse*, select a repository directory. For example `~/git/carcv`.
+
+For more information, see http://www.sonatype.com/books/m2eclipse-book/reference/[the m2eclipse book]
+
+== Configuring the project with the deprecated maven-eclipse-plugin
+
+[WARNING]
+====
+Note: This way of configuring the project is old and deprecated.
+Please read the section
+link:#configuring-the-project-with-the-m2eclipse-plugin[Configuring the project with the m2eclipse plugin]
+above.
+====
+
+The maven-eclipse-plugin plugin is a plugin in Maven for Eclipse.
+This is the old way (of which the development has stopped).
+
+Run this command to generate `.project` and `.classpath` files: 
+
+`mvn eclipse:eclipse`
+
+* Open Eclipse
+* Menu item *Import existing projects*, navigate to the project base directory, select all the projects (= modules) it lists.
+
+[NOTE]
+====
+`mvn eclipse:eclipse` does not work for our eclipse plugins because it is not compatible with tycho
+(and never will be).
+====

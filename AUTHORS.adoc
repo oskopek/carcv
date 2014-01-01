@@ -1,0 +1,25 @@
+== Authors and Contributors of CarCV
+
+[cols="4*", options="header"]
+|===
+|Name
+|Nickname
+|Email address
+|Contribution
+
+|Ondrej Skopek
+|oskopek
+|skopekondrej@gmail.com
+|Founder
+
+|Matej Rajchl
+|mr.mators11
+|mr.mators11@gmail.com
+|Python OCR and ALPR w/SURF in carcv-cpp
+
+|Matej Pribis
+|mattblackhand
+|matejpribis@gmail.com
+|WebApp HTML and CSS code... destroying what's left
+
+|===

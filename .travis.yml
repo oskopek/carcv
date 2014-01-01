@@ -1,0 +1,36 @@
+language: java
+
+jdk:
+    - openjdk7
+    - oraclejdk7
+    - oraclejdk8
+
+env:
+    global:
+        - WILDFLY="8.0.0.Beta1"
+        - JBOSS_HOME=$HOME/wildfly-$WILDFLY
+
+cache:
+    directories:
+        - $HOME/.m2
+
+before_script:
+    - export ROOT_DIR=`pwd`
+    - cd $HOME
+    - wget http://download.jboss.org/wildfly/$WILDFLY/wildfly-$WILDFLY.tar.gz
+    - tar xfz wildfly-$WILDFLY.tar.gz
+    - cd $ROOT_DIR
+    - cp carcv-webapp/src/test/resources/jboss_configuration_standalone/standalone.xml $JBOSS_HOME/standalone/configuration/standalone.xml
+
+script: "mvn clean verify -Pwildfly-it-travis"
+
+install: /bin/true
+
+notifications:
+  irc:
+    channels:
+      - "irc.freenode.org#carcv"
+    on_success: change
+    on_failure: always
+    template:
+      - "%{repository} (%{branch}:%{commit} by %{author}): %{message} (%{build_url})"

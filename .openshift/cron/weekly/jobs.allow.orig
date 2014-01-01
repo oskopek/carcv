@@ -1,0 +1,20 @@
+#
+#  Script or job files listed in here (one entry per line) will be
+#  executed on a weekly-basis.
+#
+<<<<<<< HEAD
+#  Example: The chronograph script will be executed weekly but the README 
+=======
+#  Example: The chronograph script will be executed weekly but the README
+>>>>>>> FETCH_HEAD
+#           and chrono.dat files in this directory will be ignored.
+#
+#           The README file is actually ignored due to the entry in the
+#           jobs.deny which is checked before jobs.allow (this file).
+#
+<<<<<<< HEAD
+chronograph
+
+=======
+chronograph
+>>>>>>> FETCH_HEAD
