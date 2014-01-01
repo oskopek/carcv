@@ -394,7 +394,7 @@
             <recovery-environment socket-binding="txn-recovery-environment" status-socket-binding="txn-status-manager" />
             <coordinator-environment default-timeout="300" />
         </subsystem>
-        <subsystem xmlns="urn:jboss:domain:undertow:1.0">
+	<!--        <subsystem xmlns="urn:jboss:domain:undertow:1.0">
             <buffer-caches>
                 <buffer-cache name="default" buffer-size="1024" buffers-per-region="1024" max-regions="10" />
             </buffer-caches>
@@ -411,7 +411,7 @@
             <handlers>
                 <file name="welcome-content" path="${jboss.home.dir}/welcome-content" directory-listing="true" />
             </handlers>
-        </subsystem>
+    </subsystem> -->
         <subsystem xmlns="urn:jboss:domain:webservices:1.2">
             <modify-wsdl-address>true</modify-wsdl-address>
             <wsdl-host>${jboss.bind.address:127.0.0.1}</wsdl-host>
