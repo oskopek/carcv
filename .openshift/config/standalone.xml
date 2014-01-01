@@ -99,7 +99,7 @@
             <periodic-rotating-file-handler name="CARCV">
                 <level name="DEBUG" />
                 <formatter>
-                    <pattern-formatter name="COLOR-PATTERN" />
+                    <named-formatter name="COLOR-PATTERN" />
                 </formatter>
                 <file relative-to="jboss.server.log.dir" path="carcv.log" />
                 <suffix value=".yyyy-MM-dd" />
