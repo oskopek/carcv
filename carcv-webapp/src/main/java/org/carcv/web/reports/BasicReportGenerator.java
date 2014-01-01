@@ -1,5 +1,5 @@
 /*
- * Copyright 2012 CarCV Development Team
+ * Copyright 2012-2014 CarCV Development Team
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -56,6 +56,7 @@ public class BasicReportGenerator {
      * @param reportBuilderLocation the place where report is being built (physical, real)
      * @param reportName the title of the report
      * @param hostURL URL of the domain that is generating the report
+     * @param tz TimeZone of the returned date (it is stored in UTC)
      * @throws JRException if an error during the generation occurs
      */
     public BasicReportGenerator(FileEntry e, String templateFilename, String reportBuilderLocation,
