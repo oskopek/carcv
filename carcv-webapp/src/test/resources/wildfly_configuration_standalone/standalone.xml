@@ -99,6 +99,15 @@
                 <suffix value=".yyyy-MM-dd" />
                 <append value="true" />
             </periodic-rotating-file-handler>
+            <periodic-rotating-file-handler name="CARCV">
+                <level name="DEBUG" />
+                <formatter>
+                    <named-formatter name="COLOR-PATTERN" />
+                </formatter>
+                <file relative-to="jboss.server.log.dir" path="carcv.log" />
+                <suffix value=".yyyy-MM-dd" />
+                <append value="true" />
+            </periodic-rotating-file-handler>
             <logger category="com.arjuna">
                 <level name="WARN" />
             </logger>
@@ -117,10 +126,16 @@
             <logger category="jacorb.config">
                 <level name="ERROR" />
             </logger>
+            <logger category="org.carcv" use-parent-handlers="false">
+                <level name="DEBUG" />
+                <handlers>
+                    <handler name="CARCV" />
+                </handlers>
+            </logger>
             <root-logger>
                 <level name="INFO" />
                 <handlers>
-                    <handler name="CONSOLE" />
+					<!--handler name="CONSOLE"/ -->
                     <handler name="FILE" />
                 </handlers>
             </root-logger>
@@ -158,12 +173,13 @@
                 </drivers>
             </datasources>
         </subsystem>
-        <subsystem xmlns="urn:jboss:domain:deployment-scanner:1.1">
+        <subsystem xmlns="urn:jboss:domain:deployment-scanner:2.0">
             <deployment-scanner path="deployments" relative-to="jboss.server.base.dir" scan-interval="5000" />
         </subsystem>
         <subsystem xmlns="urn:jboss:domain:ee:2.0">
             <spec-descriptor-property-replacement>false</spec-descriptor-property-replacement>
             <jboss-descriptor-property-replacement>true</jboss-descriptor-property-replacement>
+            <ejb-annotation-property-replacement>false</ejb-annotation-property-replacement>
             <concurrent>
                 <context-services>
                     <context-service name="default" jndi-name="java:jboss/ee/concurrency/context/default"
@@ -204,11 +220,11 @@
                 </bean-instance-pools>
             </pools>
             <caches>
-                <cache name="simple" aliases="NoPassivationCache" />
-                <cache name="passivating" passivation-store-ref="file" aliases="SimpleStatefulCache" />
+                <cache name="simple" />
+                <cache name="distributable" passivation-store-ref="infinispan" aliases="passivating clustered" />
             </caches>
             <passivation-stores>
-                <file-passivation-store name="file" />
+                <passivation-store name="infinispan" cache-container="ejb" max-size="10000" />
             </passivation-stores>
             <async thread-pool-name="default" />
             <timer-service thread-pool-name="default" default-data-store="default-file-store">
@@ -231,9 +247,20 @@
             <buffer-pool name="default" buffer-size="16384" buffers-per-slice="128" />
         </subsystem>
         <subsystem xmlns="urn:jboss:domain:infinispan:2.0">
-            <cache-container name="web" aliases="standard-session-cache" default-cache="local-web"
-                module="org.wildfly.clustering.web.infinispan">
-                <local-cache name="local-web" batching="true">
+            <cache-container name="web" default-cache="passivation" module="org.wildfly.clustering.web.infinispan">
+                <local-cache name="passivation" batching="true">
+                    <file-store passivation="true" purge="false" />
+                </local-cache>
+                <local-cache name="persistent" batching="true">
+                    <file-store passivation="false" purge="false" />
+                </local-cache>
+            </cache-container>
+            <cache-container name="ejb" default-cache="passivation" module="org.wildfly.clustering.ejb.infinispan"
+                aliases="sfsb">
+                <local-cache name="passivation" batching="true">
+                    <file-store passivation="true" purge="false" />
+                </local-cache>
+                <local-cache name="persistent" batching="true">
                     <file-store passivation="false" purge="false" />
                 </local-cache>
             </cache-container>
@@ -284,8 +311,8 @@
             <jpa default-datasource="" default-extended-persistence-inheritance="DEEP" />
         </subsystem>
         <subsystem xmlns="urn:jboss:domain:jsf:1.0" />
-        <subsystem xmlns="urn:jboss:domain:mail:1.1">
-            <mail-session jndi-name="java:jboss/mail/Default">
+        <subsystem xmlns="urn:jboss:domain:mail:2.0">
+            <mail-session name="default" jndi-name="java:jboss/mail/Default">
                 <smtp-server outbound-socket-binding-ref="mail-smtp" />
             </mail-session>
         </subsystem>
@@ -345,14 +372,14 @@
                 <buffer-cache name="default" buffer-size="1024" buffers-per-region="1024" max-regions="10" />
             </buffer-caches>
             <server name="default-server">
-                <http-listener name="default" max-post-size="10485760" socket-binding="http" />
+                <http-listener name="default" socket-binding="http" />
                 <host name="default-host" alias="localhost">
                     <location name="/" handler="welcome-content" />
                 </host>
             </server>
             <servlet-container name="default" default-buffer-cache="default" stack-trace-on-error="local-only">
                 <jsp-config />
-                <persistent-sessions path="persistent-web-sessions" relative-to="jboss.server.data.dir" />
+                <persistent-sessions />
             </servlet-container>
             <handlers>
                 <file name="welcome-content" path="${jboss.home.dir}/welcome-content" directory-listing="true" />
@@ -379,7 +406,12 @@
         <interface name="public">
             <inet-address value="${jboss.bind.address:127.0.0.1}" />
         </interface>
+        <!-- TODO - only show this if the jacorb subsystem is added  -->
         <interface name="unsecure">
+            <!--
+              ~  Used for IIOP sockets in the standard configuration.
+              ~                  To secure JacORB you need to setup SSL 
+              -->
             <inet-address value="${jboss.bind.address.unsecure:127.0.0.1}" />
         </interface>
     </interfaces>
