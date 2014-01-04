@@ -23,6 +23,7 @@
         <version.arquillian>1.1.2.Final</version.arquillian>
         <version.shrinkwrap.resolvers>2.1.0-alpha-1</version.shrinkwrap.resolvers>
 
+        <version.wildfly>8.0.0.CR1</version.wildfly>
         <skipTests>false</skipTests>
 		<!-- <skipITs>${skipTests}</skipITs> -->
         <skipITs>true</skipITs>
@@ -351,13 +352,14 @@
                 <dependency>
                     <groupId>org.wildfly</groupId>
                     <artifactId>wildfly-arquillian-common</artifactId>
-                    <version>8.0.0.Beta1</version>
+                    <version>${version.wildfly}</version>
                     <scope>test</scope>
                 </dependency>
                 <dependency>
                     <groupId>org.wildfly</groupId>
                     <artifactId>wildfly-arquillian-container-managed</artifactId>
-                    <version>8.0.0.Beta1</version>
+                    <version>${version.wildfly}</version>
+                    <scope>test</scope>
                 </dependency>
             </dependencies>
         </profile>
@@ -389,13 +391,14 @@
                 <dependency>
                     <groupId>org.wildfly</groupId>
                     <artifactId>wildfly-arquillian-common</artifactId>
-                    <version>8.0.0.Beta1</version>
+                    <version>${version.wildfly}</version>
                     <scope>test</scope>
                 </dependency>
                 <dependency>
                     <groupId>org.wildfly</groupId>
                     <artifactId>wildfly-arquillian-container-managed</artifactId>
-                    <version>8.0.0.Beta1</version>
+                    <version>${version.wildfly}</version>
+                    <scope>test</scope>
                 </dependency>
             </dependencies>
         </profile>

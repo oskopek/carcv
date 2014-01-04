@@ -7,7 +7,7 @@ jdk:
 
 env:
   global:
-    - WILDFLY="8.0.0.Beta1"
+    - WILDFLY="8.0.0.CR1"
     - JBOSS_HOME=$HOME/wildfly-$WILDFLY
     - secure: WrQYhD3HBLqpKj83AxUH+Gf1EL1vlAX/kcfTAMPSJdjyIcYR/U1b0BYl9ne8Glro8UopZrH8X+3I0oP6GXXG7ihnb8L2sawCutC9EyccQOvFcfuMttSMhTpJpnLSLqEw5Gdp3qb4WDHOFALfo0G4hd/Yr2iIxSp/x6DQAuIz76M=
 
@@ -21,7 +21,7 @@ before_script:
   - wget http://download.jboss.org/wildfly/$WILDFLY/wildfly-$WILDFLY.tar.gz
   - tar xfz wildfly-$WILDFLY.tar.gz
   - cd $ROOT_DIR
-  - cp carcv-webapp/src/test/resources/jboss_configuration_standalone/standalone.xml $JBOSS_HOME/standalone/configuration/standalone.xml
+  - cp carcv-webapp/src/test/resources/wildfly_configuration_standalone/standalone.xml $JBOSS_HOME/standalone/configuration/standalone.xml
 
 script: "mvn clean verify -Pwildfly-it-travis"
 

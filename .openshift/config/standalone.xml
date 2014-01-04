@@ -28,6 +28,8 @@
         <extension module="org.wildfly.extension.io" />
         <extension module="org.wildfly.extension.undertow" />
     </extensions>
+
+
     <management>
         <security-realms>
             <security-realm name="ManagementRealm">
@@ -54,7 +56,7 @@
                 <json-formatter name="json-formatter" />
             </formatters>
             <handlers>
-                <file-handler name="file" formatter="json-formatter" relative-to="jboss.server.data.dir" path="audit-log.log" />
+                <file-handler name="file" formatter="json-formatter" path="audit-log.log" relative-to="jboss.server.data.dir" />
             </handlers>
             <logger log-boot="true" log-read-only="false" enabled="false">
                 <handlers>
@@ -80,6 +82,7 @@
             </role-mapping>
         </access-control>
     </management>
+
     <profile>
         <subsystem xmlns="urn:jboss:domain:logging:2.0">
             <console-handler name="CONSOLE">
@@ -223,6 +226,10 @@
                     <context-service name="default" jndi-name="java:jboss/ee/concurrency/context/default"
                         use-transaction-setup-provider="true" />
                 </context-services>
+                <managed-thread-factories>
+                    <managed-thread-factory name="default" jndi-name="java:jboss/ee/concurrency/factory/default"
+                        context-service="default" />
+                </managed-thread-factories>
                 <managed-executor-services>
                     <managed-executor-service name="default" jndi-name="java:jboss/ee/concurrency/executor/default"
                         context-service="default" hung-task-threshold="60000" core-threads="5" max-threads="25" keepalive-time="5000" />
@@ -232,10 +239,6 @@
                         jndi-name="java:jboss/ee/concurrency/scheduler/default" context-service="default" hung-task-threshold="60000"
                         core-threads="2" keepalive-time="3000" />
                 </managed-scheduled-executor-services>
-                <managed-thread-factories>
-                    <managed-thread-factory name="default" jndi-name="java:jboss/ee/concurrency/factory/default"
-                        context-service="default" />
-                </managed-thread-factories>
             </concurrent>
             <default-bindings context-service="java:jboss/ee/concurrency/context/default" datasource="java:jboss/datasources/ExampleDS"
                 jms-connection-factory="java:jboss/DefaultJMSConnectionFactory" managed-executor-service="java:jboss/ee/concurrency/executor/default"
@@ -259,7 +262,7 @@
             </pools>
             <caches>
                 <cache name="simple" />
-                <cache name="distributable" aliases="passivating clustered" passivation-store-ref="infinispan" />
+                <cache name="distributable" passivation-store-ref="infinispan" aliases="passivating clustered" />
             </caches>
             <passivation-stores>
                 <passivation-store name="infinispan" cache-container="ejb" max-size="10000" />
@@ -293,7 +296,8 @@
                     <file-store passivation="false" purge="false" />
                 </local-cache>
             </cache-container>
-            <cache-container name="ejb" aliases="sfsb" default-cache="passivation" module="org.wildfly.clustering.ejb.infinispan">
+            <cache-container name="ejb" default-cache="passivation" module="org.wildfly.clustering.ejb.infinispan"
+                aliases="sfsb">
                 <local-cache name="passivation" batching="true">
                     <file-store passivation="true" purge="false" />
                 </local-cache>
@@ -372,6 +376,16 @@
                         </login-module>
                     </authentication>
                 </security-domain>
+                <security-domain name="other" cache-type="default">
+                    <authentication>
+                        <login-module code="Remoting" flag="optional">
+                            <module-option name="password-stacking" value="useFirstPass" />
+                        </login-module>
+                        <login-module code="RealmDirect" flag="required">
+                            <module-option name="password-stacking" value="useFirstPass" />
+                        </login-module>
+                    </authentication>
+                </security-domain>
                 <security-domain name="jboss-web-policy" cache-type="default">
                     <authorization>
                         <policy-module code="Delegating" flag="required" />
@@ -394,7 +408,7 @@
             <recovery-environment socket-binding="txn-recovery-environment" status-socket-binding="txn-status-manager" />
             <coordinator-environment default-timeout="300" />
         </subsystem>
-	<!--        <subsystem xmlns="urn:jboss:domain:undertow:1.0">
+        <subsystem xmlns="urn:jboss:domain:undertow:1.0">
             <buffer-caches>
                 <buffer-cache name="default" buffer-size="1024" buffers-per-region="1024" max-regions="10" />
             </buffer-caches>
@@ -411,7 +425,7 @@
             <handlers>
                 <file name="welcome-content" path="${jboss.home.dir}/welcome-content" directory-listing="true" />
             </handlers>
-    </subsystem> -->
+        </subsystem>
         <subsystem xmlns="urn:jboss:domain:webservices:1.2">
             <modify-wsdl-address>true</modify-wsdl-address>
             <wsdl-host>${jboss.bind.address:127.0.0.1}</wsdl-host>
@@ -425,6 +439,7 @@
         </subsystem>
         <subsystem xmlns="urn:jboss:domain:weld:2.0" />
     </profile>
+
     <interfaces>
         <interface name="management">
             <inet-address value="${jboss.bind.address.management:127.0.0.1}" />
@@ -441,6 +456,7 @@
             <inet-address value="${jboss.bind.address.unsecure:127.0.0.1}" />
         </interface>
     </interfaces>
+
     <socket-binding-group name="standard-sockets" default-interface="public" port-offset="${jboss.socket.binding.port-offset:0}">
         <socket-binding name="management-native" interface="management" port="${jboss.management.native.port:9999}" />
         <socket-binding name="management-http" interface="management" port="${jboss.management.http.port:9990}" />
@@ -454,4 +470,5 @@
             <remote-destination host="localhost" port="25" />
         </outbound-socket-binding>
     </socket-binding-group>
+
 </server>
