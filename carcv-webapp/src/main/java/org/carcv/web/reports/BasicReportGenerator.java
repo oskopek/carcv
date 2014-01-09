@@ -46,7 +46,7 @@ import org.carcv.core.model.file.FileEntry;
  */
 public class BasicReportGenerator {
 
-    JasperPrint filledReportPrint;
+    private JasperPrint filledReportPrint;
 
     /**
      * Constructs a basic report from the parameters.

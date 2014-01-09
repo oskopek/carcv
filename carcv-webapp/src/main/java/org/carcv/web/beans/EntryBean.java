@@ -87,10 +87,10 @@ public class EntryBean {
      * Removes the list of FileEntries from the database.
      *
      * @see EntityManager#remove(Object)
-     * @param entries array of FileEntries to remove
+     * @param ids array of FileEntry IDs to remove
      */
     public void remove(long... ids) {
-        FileEntry e = null;
+        FileEntry e;
         for (long l : ids) {
             e = em.find(FileEntry.class, l);
             em.remove(e);

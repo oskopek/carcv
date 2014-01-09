@@ -51,8 +51,8 @@ public class DisplayImageServlet extends HttpServlet {
      * @throws IOException
      * @see DirectoryLoader#knownImageFileSuffixes
      */
-    protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException,
-        IOException {
+    protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws
+            IOException {
         String path = request.getParameter("path");
 
         if (path == null) {

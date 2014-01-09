@@ -55,13 +55,12 @@ public class UploadServlet extends HttpServlet {
      * @param request the HttpServletRequest
      * @param response the HttpServletResponse
      * @throws IOException
-     * @throws FileUploadException
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws IOException {
         Path batchDir = storageBean.createBatchDirectory();
 
         ServletFileUpload servletFileUpload = new ServletFileUpload(new DiskFileItemFactory());
-        List<FileItem> items = null;
+        List<FileItem> items;
         try {
             items = servletFileUpload.parseRequest(request);
         } catch (FileUploadException e) {

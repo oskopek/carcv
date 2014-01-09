@@ -90,8 +90,8 @@ public class BasicReportGeneratorTest {
 
     /**
      * Test method for
-     * {@link org.carcv.web.reports.BasicReportGenerator#buildPDFReport(org.carcv.core.model.AbstractEntry, java.lang.String, java.lang.String, java.lang.String)}
-     * .
+     * {@link org.carcv.web.reports.BasicReportGenerator#BasicReportGenerator(org.carcv.core.model.file.FileEntry, String, String, String, String, java.util.TimeZone)}
+     * and {@link org.carcv.web.reports.BasicReportGenerator#exportFile(String)}.
      *
      * @throws JRException
      */
