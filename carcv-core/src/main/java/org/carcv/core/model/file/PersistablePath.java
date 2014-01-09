@@ -114,7 +114,7 @@ class PersistablePath extends AbstractEmbeddable implements Comparable<Persistab
     }
 
     /**
-     * @param pathStr the pathStr to set
+     * @param path the path to set
      */
     private void setPathStr(String path) {
         this.pathStr = path;

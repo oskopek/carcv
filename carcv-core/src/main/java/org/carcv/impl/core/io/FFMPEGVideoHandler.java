@@ -114,7 +114,7 @@ public class FFMPEGVideoHandler extends VideoHandler {
             return false;
         }
 
-        return retval > 0 ? false : true;
+        return retval <= 0;
     }
 
     @Override

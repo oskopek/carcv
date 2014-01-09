@@ -377,11 +377,7 @@ public class FFMPEGVideoHandlerTest {
         Process p = Runtime.getRuntime().exec(command);
         LOGGER.debug(getErrorMessage(p.getErrorStream()));
 
-        try {
-            LOGGER.debug("Return value: {}", p.waitFor());
-        } catch (InterruptedException e) {
-            throw e;
-        }
+        LOGGER.debug("Return value: {}", p.waitFor());
 
         assertTrue(Files.exists(output));
         LOGGER.debug("Path of created video: {}", output);
@@ -402,7 +398,7 @@ public class FFMPEGVideoHandlerTest {
         }
         int retVal = ffmpegVersionTest.waitFor();
 
-        return retVal == 0 ? true : false; // if the return value is 0, ffmpeg returned without problem
+        return retVal == 0; // if the return value is 0, ffmpeg returned without problem
     }
 
     public String getErrorMessage(InputStream error) throws IOException {
