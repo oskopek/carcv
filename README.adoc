@@ -8,7 +8,7 @@ A car recognizing and speed calculation platform.
 
 == Info
 
-CarCV uses http://semver.org/[semantic versioning] and branching model similar to http://nvie.com/posts/a-successful-git-branching-model/[this].
+CarCV uses http://semver.org/[semantic versioning] and a branching model similar to http://nvie.com/posts/a-successful-git-branching-model/[this].
 
 == Modules
 
@@ -20,11 +20,45 @@ CarCV consists of several modules:
 
 == Building
 
-* *Recomennded*: `mvn clean install -DskipTests`
-* To run *unit tests*: `mvn clean install`
-* To run *integration tests*: `mvn clean install -Pwildfly-it`
+* *Recomennded*: +mvn clean install -DskipTests+
+* To run *unit tests*: +mvn clean install+
+* To run *integration tests*: +mvn clean install -Pwildfly-it+
 (see link:./docs/howto-setup-environment.adoc[How-to setup your build environment])
-* To *clean*, run: `mvn clean`
+* To *clean*, run: +mvn clean+
+
+
+=== Contributing
+*Everyone* is encouraged to help improve this project.
+
+Here are some ways *you* can contribute:
+
+* by using alpha, beta, and prerelease versions
+* by reporting bugs
+* by suggesting new features
+* by translating to a new language
+* by writing or editing documentation
+* by writing specifications
+* by writing code (*no patch is too small*: fix typos, add comments, clean up inconsistent whitespace)
+* by refactoring code
+* by closing https://github.com/oskopek/carcv/issues[issues]
+* by reviewing patches
+
+=== Submitting an Issue
+We use the https://github.com/oskopek/carcv/issues[GitHub issue tracker] to track bugs and features. Before
+submitting a bug report or feature request, check to make sure it hasn't
+already been submitted. When submitting a bug report, please include a https://gist.github.com/[Gist]
+that includes a stack trace and any details that may be necessary to reproduce
+the bug, including your Java version and operating system.
+
+=== Submitting a Pull Request
+. http://help.github.com/fork-a-repo/[Fork the repository.]
+. http://learn.github.com/p/branching.html[Create a topic branch.]
+. Implement your feature or bug fix.
+. Run +mvn clean install+ or if you contributed to _carcv-webapp_ run mvn clean install. If the tests fails, return to step 3.
+. If applicable, add tests for your feature or bug fix.
+. Add, commit, and push your changes.
+. http://help.github.com/send-pull-requests/[Submit a pull request.]
+
 
 == Configuring the project with the m2eclipse plugin
 
