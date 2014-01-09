@@ -71,7 +71,7 @@ public class FileEntryTool implements AutoCloseable {
         Files.createDirectory(curDir);
 
         // CarData
-        Address add = new Address(Double.valueOf(r.nextDouble() * 100), Double.valueOf(r.nextDouble() * 100), randomString(5),
+        Address add = new Address(r.nextDouble() * 100, r.nextDouble() * 100, randomString(5),
             randomString(5), randomString(10), randomString(10), randomInteger(3), randomInteger(5));
         Speed sp = new Speed(r.nextDouble() * 100);
         NumberPlate np = new NumberPlate(randomString(5).toUpperCase(), randomString(2).toUpperCase());

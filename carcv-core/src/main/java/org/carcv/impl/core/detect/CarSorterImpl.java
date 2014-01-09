@@ -69,7 +69,7 @@ public class CarSorterImpl extends CarSorter {
         ArrayList<FileCarImage> images = (ArrayList<FileCarImage>) batchDir.getCarImages();
 
         if (images.isEmpty()) {
-            return new ArrayList<FileEntry>();
+            return new ArrayList<>();
         }
 
         // Before for-loop:

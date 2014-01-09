@@ -83,7 +83,7 @@ public class FileEntryToolTest {
     }
 
     /**
-     * Test for {@link FileEntryTool#generate(String[])}
+     * Test for {@link org.carcv.impl.core.model.FileEntryTool#generate(java.nio.file.Path...)}
      *
      * @throws IOException
      */
