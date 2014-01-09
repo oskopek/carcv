@@ -38,7 +38,6 @@ public class LogoutServlet extends HttpServlet {
     /**
      * @param request the HttpServletRequest
      * @param response the HttpServletResponse
-     * @throws ServletException
      * @throws IOException
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws IOException {

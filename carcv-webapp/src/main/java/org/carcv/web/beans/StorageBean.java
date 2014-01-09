@@ -91,7 +91,6 @@ public class StorageBean {
      *
      * @see #assertDirCreated(Path)
      * @return the input directory Path
-     * @throws IOException
      */
     public Path getInputDirectory() {
         try {

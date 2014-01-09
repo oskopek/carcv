@@ -219,8 +219,8 @@ public class StorageBeanIT {
 
         // clean up
         entryBean.remove(list.toArray(arr));
-        for (int i = 0; i < arr.length; i++) {
-            for (FileCarImage fi : arr[i].getCarImages()) {
+        for (FileEntry entry : arr) {
+            for (FileCarImage fi : entry.getCarImages()) {
                 Files.delete(fi.getFilepath());
             }
         }

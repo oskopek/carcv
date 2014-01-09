@@ -61,7 +61,6 @@ public class GenerateVideoServlet extends HttpServlet {
         } catch (IOException e) {
             response.reset();
             response.sendError(501, e.getMessage());
-            return;
         }
     }
 

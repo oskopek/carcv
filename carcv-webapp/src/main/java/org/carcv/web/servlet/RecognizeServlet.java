@@ -56,11 +56,10 @@ public class RecognizeServlet extends HttpServlet {
      * @throws ServletException
      * @throws IOException
      */
-    protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException,
-        IOException {
+    protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws
+            IOException {
         pool.execute(new RecognizeRunnable());
         response.sendRedirect("/app/refresh_in_progress.jsp");
-        return;
     }
 
     /**

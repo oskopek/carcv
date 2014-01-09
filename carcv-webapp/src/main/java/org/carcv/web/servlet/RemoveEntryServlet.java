@@ -45,8 +45,8 @@ public class RemoveEntryServlet extends HttpServlet {
      * @throws ServletException
      * @throws IOException
      */
-    protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException,
-        IOException {
+    protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws
+            IOException {
         long entryId = Long.parseLong(request.getParameter("entry_id"));
         entryBean.remove(entryId);
         response.sendRedirect("/app/index.jsp"); // TODO 3 redirect should be more intelligent
