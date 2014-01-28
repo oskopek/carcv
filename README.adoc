@@ -1,4 +1,4 @@
-== CarCV
+= CarCV
 
 image:https://travis-ci.org/oskopek/carcv.png?branch=master["Build Status", link="https://travis-ci.org/oskopek/carcv"]
 image:https://coveralls.io/repos/oskopek/carcv/badge.png?branch=develop["Coverage status", link="https://coveralls.io/r/oskopek/carcv?branch=develop"]
@@ -6,26 +6,24 @@ image:https://www.ohloh.net/p/carcv/widgets/project_thin_badge.gif["Ohloh widget
 
 A car recognizing and speed calculation platform.
 
-== Info
+=== Screenshot
+image:http://cdn.imghack.se/images/a6f3be78f72232fa6e9f09a11c53f7a6.png["CarCV screenshot", scalewidth="20%"]
 
-CarCV uses http://semver.org/[semantic versioning] and a branching model similar to http://nvie.com/posts/a-successful-git-branching-model/[this].
-
-== Modules
-
+=== Modules
 CarCV consists of several modules:
 
 * *carcv-core* -- CarCV Core
 * *carcv-cpp* -- CarCV CPP is an old and deprecated implementation of this project in C++ with heavy use of OpenCV
 * *carcv-webapp* -- CarCV WebApp is an example implementation of CarCV Core
 
-== Building
+CarCV uses http://semver.org/[semantic versioning] and a branching model similar to http://nvie.com/posts/a-successful-git-branching-model/[this].
 
+=== Building
 * *Recomennded*: +mvn clean install -DskipTests+
 * To run *unit tests*: +mvn clean install+
 * To run *integration tests*: +mvn clean install -Pwildfly-it+
 (see link:./docs/howto-setup-environment.adoc[How-to setup your build environment])
 * To *clean*, run: +mvn clean+
-
 
 === Contributing
 *Everyone* is encouraged to help improve this project.
@@ -60,8 +58,7 @@ the bug, including your Java version and operating system.
 . http://help.github.com/send-pull-requests/[Submit a pull request.]
 
 
-== Configuring the project with the m2eclipse plugin
-
+=== Configuring the project with the m2eclipse plugin
 The m2eclipse plugin is a plugin in Eclipse for Maven.
 This is the new way (and compatible with tycho).
 
@@ -73,8 +70,7 @@ This is the new way (and compatible with tycho).
 
 For more information, see http://www.sonatype.com/books/m2eclipse-book/reference/[the m2eclipse book]
 
-== Configuring the project with the deprecated maven-eclipse-plugin
-
+=== Configuring the project with the deprecated maven-eclipse-plugin
 [WARNING]
 ====
 Note: This way of configuring the project is old and deprecated.
