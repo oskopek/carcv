@@ -25,7 +25,6 @@
 
         <version.wildfly>8.0.0.CR1</version.wildfly>
         <skipTests>false</skipTests>
-		<!-- <skipITs>${skipTests}</skipITs> -->
         <skipITs>true</skipITs>
         <skipUTs>${skipTests}</skipUTs>
     </properties>

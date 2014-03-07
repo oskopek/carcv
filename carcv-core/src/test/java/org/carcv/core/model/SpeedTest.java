@@ -16,11 +16,8 @@
 
 package org.carcv.core.model;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotEquals;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
-import org.junit.Ignore;
 import org.junit.Test;
 
 /**
@@ -47,30 +44,5 @@ public class SpeedTest {
         s2 = new Speed(80.2, SpeedUnit.KPH);
 
         assertNotEquals(s1, s2);
-    }
-
-    /**
-     * Test method for {@link org.carcv.core.model.Speed#compareTo(org.carcv.core.model.Speed)}.
-     */
-    @Test
-    @Ignore(value = "New system of comparing entities and embeddables renders this test irrelevant")
-    public void testCompareTo() {
-        Speed s1 = new Speed(80.2, SpeedUnit.KPH);
-        assertEquals(0, s1.compareTo(s1));
-
-        Speed s2 = new Speed(80.2, SpeedUnit.KPH);
-        assertEquals(0, s1.compareTo(s2));
-        assertEquals(0, s2.compareTo(s1));
-
-        s2 = new Speed(80.2, SpeedUnit.MPH);
-
-        assertEquals(0, s1.compareTo(s2));
-        assertEquals(0, s2.compareTo(s1));
-
-        s1 = new Speed(80.15, SpeedUnit.KPH);
-        s2 = new Speed(80.2, SpeedUnit.KPH);
-
-        assertTrue(s1.compareTo(s2) < 0);
-        assertTrue(s2.compareTo(s1) > 0);
     }
 }

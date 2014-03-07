@@ -14,6 +14,9 @@
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <skipTests>false</skipTests>
+        <skipUTs>${skipTests}</skipUTs>
+        <skipITs>true</skipITs>
     </properties>
 
     <build>
@@ -33,6 +36,31 @@
             </testResource>
         </testResources>
         <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>2.12</version>
+                <configuration>
+                    <skipTests>${skipUTs}</skipTests>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-failsafe-plugin</artifactId>
+                <version>2.16</version>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>integration-test</goal>
+                            <goal>verify</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <skipTests>${skipTests}</skipTests>
+                    <skipITs>${skipITs}</skipITs>
+                </configuration>
+            </plugin>
             <plugin>
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>3.1</version>
@@ -90,4 +118,16 @@
             <scope>provided</scope> <!-- TODO 3 may cause problems in .jar package -->
         </dependency>
     </dependencies>
+
+    <profiles>
+        <profile>
+            <id>it</id>
+            <!-- Integration Tests -->
+            <properties>
+                <skipTests>false</skipTests>
+                <skipITs>${skipTests}</skipITs>
+                <skipUTs>${skipTests}</skipUTs>
+            </properties>
+        </profile>
+    </profiles>
 </project>

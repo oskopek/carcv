@@ -40,7 +40,7 @@ import org.junit.Test;
 /**
  * Test for {@link NumberPlateDetectorImpl}.
  */
-public class NumberPlateDetectorImplTest {
+public class NumberPlateDetectorImplIT {
 
     private FileCarImage image;
 
@@ -48,7 +48,7 @@ public class NumberPlateDetectorImplTest {
 
     @Before
     public void setUp() throws IOException, URISyntaxException {
-        Path tmpDir = Files.createTempDirectory("NumberPlateDetectorImplTest");
+        Path tmpDir = Files.createTempDirectory("NumberPlateDetectorImplIT");
         assertTrue(Files.exists(tmpDir) && Files.isDirectory(tmpDir));
 
         Path tmpImage = Paths.get(tmpDir.toString(), "testImage.jpg");

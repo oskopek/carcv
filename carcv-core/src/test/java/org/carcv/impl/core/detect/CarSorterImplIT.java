@@ -40,7 +40,7 @@ import org.junit.Test;
 /**
  * Test for {@link CarSorterImpl}.
  */
-public class CarSorterImplTest {
+public class CarSorterImplIT {
 
     private Path imagePath1, imagePath2;
 
@@ -49,7 +49,7 @@ public class CarSorterImplTest {
      */
     @Before
     public void setUp() throws Exception {
-        Path p = Files.createTempDirectory("CarSorterImplTest");
+        Path p = Files.createTempDirectory("CarSorterImplIT");
 
         imagePath1 = Paths.get(p.toString(), "testImage1-" + System.currentTimeMillis() + ".jpg");
 

@@ -51,9 +51,9 @@ import org.slf4j.LoggerFactory;
  * Test for {@link FFMPEGVideoHandler}.
  */
 @Ignore(value = "createVideo doesn't work")
-public class FFMPEGVideoHandlerTest {
+public class FFMPEGVideoHandlerIT {
 
-    final private static Logger LOGGER = LoggerFactory.getLogger(FFMPEGVideoHandlerTest.class);
+    final private static Logger LOGGER = LoggerFactory.getLogger(FFMPEGVideoHandlerIT.class);
 
     private Path rootDir;
     private Path videoDir;
