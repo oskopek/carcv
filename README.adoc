@@ -19,9 +19,9 @@ CarCV consists of several modules:
 CarCV uses http://semver.org/[semantic versioning] and a branching model similar to http://nvie.com/posts/a-successful-git-branching-model/[this].
 
 === Building
-* *Recomennded*: +mvn clean install -DskipTests+
+* *Recommended*: +mvn clean install -DskipTests+
 * To run *unit tests*: +mvn clean install+
-* To run *integration tests*: +mvn clean install -Pwildfly-it+
+* To run *integration tests*: +mvn clean install -Pit,wildfly-it+
 (see link:./docs/howto-setup-environment.adoc[How-to setup your build environment])
 * To *clean*, run: +mvn clean+
 
@@ -30,7 +30,7 @@ CarCV uses http://semver.org/[semantic versioning] and a branching model similar
 
 Here are some ways *you* can contribute:
 
-* by using alpha, beta, and prerelease versions
+* by using alpha, beta, and pre-release versions
 * by reporting bugs
 * by suggesting new features
 * by translating to a new language
