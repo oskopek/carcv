@@ -20,6 +20,6 @@
 |Matej Pribis
 |mattblackhand
 |matejpribis@gmail.com
-|WebApp HTML and CSS code... destroying what's left
+|WebApp HTML and CSS code
 
 |===
