@@ -30,9 +30,15 @@
     </properties>
 
     <repositories>
+        <!--
         <repository>
             <id>jasperreports</id>
             <url>http://jasperreports.sourceforge.net/maven2/</url>
+        </repository>
+        -->
+        <repository>
+            <id>jasperreports-mirror</id>
+            <url>http://httpd-oskopek.rhcloud.com/jasper-mirror/</url>
         </repository>
     </repositories>
 
