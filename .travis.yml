@@ -9,7 +9,7 @@ env:
   global:
     - WILDFLY="8.0.0.CR1"
     - JBOSS_HOME=$HOME/wildfly-$WILDFLY
-    - PROFILES="it,wildfly-it-travis"
+    - MAVEN_PROFILES="it,wildfly-it-travis"
     - secure: WrQYhD3HBLqpKj83AxUH+Gf1EL1vlAX/kcfTAMPSJdjyIcYR/U1b0BYl9ne8Glro8UopZrH8X+3I0oP6GXXG7ihnb8L2sawCutC9EyccQOvFcfuMttSMhTpJpnLSLqEw5Gdp3qb4WDHOFALfo0G4hd/Yr2iIxSp/x6DQAuIz76M=
 
 cache:
@@ -24,12 +24,11 @@ before_script:
   - cd $ROOT_DIR
   - cp carcv-webapp/src/test/resources/wildfly_configuration_standalone/standalone.xml $JBOSS_HOME/standalone/configuration/standalone.xml
 
-script: "mvn clean verify -P$PROFILES"
+script: "mvn clean verify -P$MAVEN_PROFILES"
 
 install: /bin/true
 
-after_success:
-  - mvn clean cobertura:cobertura coveralls:cobertura -P$PROFILES
+after_success: "mvn clean cobertura:cobertura coveralls:cobertura -P$MAVEN_PROFILES"
 
 notifications:
   irc:
@@ -38,4 +37,4 @@ notifications:
     on_success: change
     on_failure: always
     template:
-      - '%{repository} (%{branch}:%{commit} by %{author}): %{message} (%{build_url})'
+      - "%{repository} (%{branch}:%{commit} by %{author}): %{message} (%{build_url})"
