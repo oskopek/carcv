@@ -1,5 +1,5 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <groupId>org.carcv</groupId>
     <artifactId>carcv</artifactId>
@@ -81,14 +81,14 @@
                         </regexes>
                     </check>
                 </configuration>
-		<!-- <executions>
-                    <execution>
-                        <goals>
-                            <goal>clean</goal>
-                            <goal>check</goal>
-                        </goals>
-                    </execution>
-		</executions> -->
+                <!-- <executions>
+                            <execution>
+                                <goals>
+                                    <goal>clean</goal>
+                                    <goal>check</goal>
+                                </goals>
+                            </execution>
+                </executions> -->
             </plugin>
             <plugin>
                 <groupId>org.eluder.coveralls</groupId>
@@ -103,13 +103,10 @@
 
     <profiles>
         <profile>
-			<!-- When built in OpenShift the 'openshift' profile will be used when 
-				invoking mvn. -->
-			<!-- Use this profile for any OpenShift specific customization your app 
-				will need. -->
-			<!-- By default that is to put the resulting archive into the 'deployments' 
-				folder. -->
-			<!-- http://maven.apache.org/guides/mini/guide-building-for-different-environments.html -->
+            <!-- When built in OpenShift the 'openshift' profile will be used when invoking mvn.
+                 Use this profile for any OpenShift specific customization your app will need.
+                 By default that is to put the resulting archive into the 'deployments' folder.
+                 http://maven.apache.org/guides/mini/guide-building-for-different-environments.html -->
             <id>openshift</id>
             <modules>
                 <module>carcv-webapp</module>
@@ -156,5 +153,5 @@
                 <module>carcv-cpp</module>
             </modules>
         </profile>
-   </profiles>
+    </profiles>
 </project>

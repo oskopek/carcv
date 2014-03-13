@@ -1,12 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <groupId>org.carcv.webapp</groupId>
     <packaging>war</packaging>
     <name>CarCV WebApp</name>
     <artifactId>carcv-webapp</artifactId>
-
 
     <parent>
         <groupId>org.carcv</groupId>
@@ -30,15 +29,9 @@
     </properties>
 
     <repositories>
-        <!--
-        <repository>
-            <id>jasperreports</id>
-            <url>http://jasperreports.sourceforge.net/maven2/</url>
-        </repository>
-        -->
-        <!-- We are maintaing a mirror at OpenShift manually,
-             because Travis-CI had problems downloading artifacts
-             from the jasperreports repository. -->
+        <!-- We are maintaining a mirror at OpenShift manually, because Travis-CI
+             had problems downloading artifacts from the jasperreports repository.
+             Original repo URL: http://jasperreports.sourceforge.net/maven2/ -->
         <repository>
             <id>jasperreports-mirror</id>
             <url>http://httpd-oskopek.rhcloud.com/maven2/</url>
@@ -192,8 +185,8 @@
 
     <dependencyManagement>
         <dependencies>
-			<!-- Override dependency resolver with latest version. This must go *BEFORE* 
-				the Arquillian BOM. -->
+            <!-- Override dependency resolver with latest version. This must go *BEFORE*
+                the Arquillian BOM. -->
             <dependency>
                 <groupId>org.jboss.shrinkwrap.resolver</groupId>
                 <artifactId>shrinkwrap-resolver-bom</artifactId>
@@ -213,13 +206,10 @@
 
     <profiles>
         <profile>
-			<!-- When built in OpenShift the 'openshift' profile will be used when 
-				invoking mvn. -->
-			<!-- Use this profile for any OpenShift specific customization your app 
-				will need. -->
-			<!-- By default that is to put the resulting archive into the 'deployments' 
-				folder. -->
-			<!-- http://maven.apache.org/guides/mini/guide-building-for-different-environments.html -->
+            <!-- When built in OpenShift the 'openshift' profile will be used when invoking mvn.
+                 Use this profile for any OpenShift specific customization your app will need.
+                 By default that is to put the resulting archive into the 'deployments' folder.
+                 http://maven.apache.org/guides/mini/guide-building-for-different-environments.html -->
             <id>openshift</id>
 
             <properties>
@@ -389,7 +379,6 @@
                             <systemPropertyVariables>
                                 <arquillian.launch>wildfly-travis</arquillian.launch>
                             </systemPropertyVariables>
-
                         </configuration>
                     </plugin>
                 </plugins>
