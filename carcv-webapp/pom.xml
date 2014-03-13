@@ -31,7 +31,7 @@
 
     <repositories>
         <repository>
-            <id>JasperReports Maven Repo</id>
+            <id>jasperreports</id>
             <url>http://jasperreports.sourceforge.net/maven2/</url>
         </repository>
     </repositories>
