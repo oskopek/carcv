@@ -36,6 +36,9 @@
             <url>http://jasperreports.sourceforge.net/maven2/</url>
         </repository>
         -->
+        <!-- We are maintaing a mirror at OpenShift manually,
+             because Travis-CI had problems downloading artifacts
+             from the jasperreports repository. -->
         <repository>
             <id>jasperreports-mirror</id>
             <url>http://httpd-oskopek.rhcloud.com/maven2/</url>
