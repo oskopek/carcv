@@ -38,7 +38,7 @@
         -->
         <repository>
             <id>jasperreports-mirror</id>
-            <url>http://httpd-oskopek.rhcloud.com/jasper-mirror/</url>
+            <url>http://httpd-oskopek.rhcloud.com/maven2/</url>
         </repository>
     </repositories>
 
