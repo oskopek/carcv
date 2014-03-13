@@ -101,11 +101,6 @@
         </plugins>
     </build>
 
-    <modules>
-        <module>carcv-core</module>
-        <module>carcv-webapp</module>
-    </modules>
-
     <profiles>
         <profile>
 			<!-- When built in OpenShift the 'openshift' profile will be used when 
@@ -122,10 +117,13 @@
         </profile>
 
         <profile>
-            <id>cpp</id>
-
+            <id>default</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
             <modules>
-                <module>carcv-cpp</module>
+                <module>carcv-core</module>
+                <module>carcv-webapp</module>
             </modules>
         </profile>
 
@@ -151,5 +149,12 @@
                 <module>carcv-webapp</module>
             </modules>
         </profile>
-    </profiles>
+
+        <profile>
+            <id>cpp</id>
+            <modules>
+                <module>carcv-cpp</module>
+            </modules>
+        </profile>
+   </profiles>
 </project>
