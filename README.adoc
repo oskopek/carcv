@@ -12,18 +12,24 @@ image:http://cdn.imghack.se/images/a6f3be78f72232fa6e9f09a11c53f7a6.png["CarCV s
 === Modules
 CarCV consists of several modules:
 
-* *carcv-core* -- CarCV Core
-* *carcv-cpp* -- CarCV CPP is an old and deprecated implementation of this project in C++ with heavy use of OpenCV
-* *carcv-webapp* -- CarCV WebApp is an example implementation of CarCV Core
+* *carcv-core* -- core detection and recognition module
+* *carcv-cpp* -- an old and deprecated implementation of this project in C++ with heavy use of OpenCV
+* *carcv-webapp* -- a Java EE web-app implementation of the CarCV Core
 
 CarCV uses http://semver.org/[semantic versioning] and a branching model similar to http://nvie.com/posts/a-successful-git-branching-model/[this].
 
 === Building
+* See: How-to setup your *build environment*:
+link:./docs/howto-setup-environment-windows.adoc[Windows], link:./docs/howto-setup-environment-linux.adoc[Linux & Mac]
 * *Recommended*: +mvn clean install -DskipTests+
 * To run *unit tests*: +mvn clean install+
 * To run *integration tests*: +mvn clean install -Pit,wildfly-it+
-(see link:./docs/howto-setup-environment.adoc[How-to setup your build environment])
 * To *clean*, run: +mvn clean+
+
+=== Getting help
+
+* Join our *IRC channel*: Join *#carcv* on *irc.freenode.net*
+* https://github.com/oskopek/carcv/issues[Open an issue] with your request/question (tag it with the *question* tag)
 
 === Contributing
 *Everyone* is encouraged to help improve this project.
@@ -33,8 +39,9 @@ Here are some ways *you* can contribute:
 * by using alpha, beta, and pre-release versions
 * by reporting bugs
 * by suggesting new features
+* by implementing link:./docs/goals.adoc[planned features]
 * by translating to a new language
-* by writing or editing documentation
+* by link:./docs/howto-write-documentation.adoc[writing or editing documentation]
 * by writing specifications
 * by writing code (*no patch is too small*: fix typos, add comments, clean up inconsistent whitespace)
 * by refactoring code
@@ -49,48 +56,24 @@ that includes a stack trace and any details that may be necessary to reproduce
 the bug, including your Java version and operating system.
 
 === Submitting a Pull Request
-. http://help.github.com/fork-a-repo/[Fork the repository.]
-. http://learn.github.com/p/branching.html[Create a topic branch.]
-. Implement your feature or bug fix.
-. Run +mvn clean install+ or if you contributed to _carcv-webapp_ run mvn clean install. If the tests fails, return to step 3.
-. If applicable, add tests for your feature or bug fix.
-. Add, commit, and push your changes.
-. http://help.github.com/send-pull-requests/[Submit a pull request.]
+. http://help.github.com/fork-a-repo/[Fork the repository]
+. http://learn.github.com/p/branching.html[Create a topic branch]
+. Implement your feature or bug fix
+. If applicable, add tests for your feature or bug fix
+. Run +mvn clean install -Pit+
+.. If you contributed to *carcv-webapp*, run: `mvn clean install -Pit,wildfly-it`
+. If the tests fail, return to step 3 and 4
+. Add, commit, and push your changes
+. http://help.github.com/send-pull-requests/[Submit a pull request]
 
 
-=== Configuring the project with the m2eclipse plugin
+=== Configuring the project for Eclipse with the m2eclipse plugin
 The m2eclipse plugin is a plugin in Eclipse for Maven.
-This is the new way (and compatible with tycho).
 
 * Open Eclipse
 * Follow http://m2eclipse.sonatype.org/[the installation instructions of m2eclipse].
 ** Follow the link *Installing m2eclipse* at the bottom.
 * Click menu *File*, menu item *Import*, tree item *Maven*, tree item *Existing Maven Projects*.
-* Click button *Browse*, select a repository directory. For example `~/git/carcv`.
+* Click button *Browse*, select a repository directory. For example: `~/git/carcv`.
 
 For more information, see http://www.sonatype.com/books/m2eclipse-book/reference/[the m2eclipse book]
-
-=== Configuring the project with the deprecated maven-eclipse-plugin
-[WARNING]
-====
-Note: This way of configuring the project is old and deprecated.
-Please read the section
-link:#configuring-the-project-with-the-m2eclipse-plugin[Configuring the project with the m2eclipse plugin]
-above.
-====
-
-The maven-eclipse-plugin plugin is a plugin in Maven for Eclipse.
-This is the old way (of which the development has stopped).
-
-Run this command to generate `.project` and `.classpath` files: 
-
-`mvn eclipse:eclipse`
-
-* Open Eclipse
-* Menu item *Import existing projects*, navigate to the project base directory, select all the projects (= modules) it lists.
-
-[NOTE]
-====
-`mvn eclipse:eclipse` does not work for our eclipse plugins because it is not compatible with tycho
-(and never will be).
-====

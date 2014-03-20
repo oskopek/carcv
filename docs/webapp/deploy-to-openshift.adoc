@@ -1,8 +1,8 @@
-== Deploying the CarCV WebApp to Openshift
+== Deploying the CarCV WebApp to OpenShift
 
-. Create your own app on http://openshift.com
+. Create your own app at http://openshift.com
 
-. Install `rhc` - the guide is on the Openshift website
+. Install `rhc` -- the guide is on the OpenShift website
 
 . Pull the git repo using `rhc git-clone`
 
@@ -15,6 +15,6 @@
 . Commit again: `git commit -a`
 
 . Push! `git push origin master`
-.. It actually initiates `mvn clean package -DskipTests -Popenshift` -- if you want to see the openshift-customized package yourself
+.. It actually initiates `mvn clean package -DskipTests -Popenshift` server-side -- run this, if you want to see the openshift-customized package on your own machine
 
 . See the results at: http://yournick-appname.rhcloud.com
