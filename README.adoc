@@ -25,6 +25,7 @@ link:./docs/howto-setup-environment-windows.adoc[Windows], link:./docs/howto-set
 * To run *unit tests*: +mvn clean install+
 * To run *integration tests*: +mvn clean install -Pit,wildfly-it+
 * To *clean*, run: +mvn clean+
+* Run a simple link:./docs/core/core-usage.adoc[carcv-core demo]
 
 === Getting help
 
