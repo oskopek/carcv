@@ -40,7 +40,7 @@ You can view the results in the thread of the pull request.
 
 ==== Build-related installations
 
-. *Install Java8 JDK* -- http://www.oracle.com/technetwork/java/javase/downloads/index.html[Oracle JDK Downloads] -- Select: Java Platform (JDK)
+. *Install Java8 JDK* -- link:http://www.oracle.com/technetwork/java/javase/downloads/index.html[Oracle JDK Downloads] -- Select: Java Platform (JDK)
 
 . *Install Maven* -- (preferably the latest version you can).
 See: http://maven.apache.org/guides/getting-started/windows-prerequisites.html[Maven on Windows]

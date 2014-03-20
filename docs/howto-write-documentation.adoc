@@ -17,10 +17,3 @@ To preview the changes you make, you can use one of these:
 * link:https://github.com/asciidoctor/asciidoctor-firefox-addon[Asciidoctor Firefox Addon]
 
 After installing, just open the file in your browser of choice.
-
-=== [line-through]#How-to render documentation# (deprecated)
-
-. *Get Asciidoctor* -- See: http://asciidoctor.org/#installation[Asciidoctor quick installation guide]
-. *CodeRay* syntax highlighting -- `gem install coderay`
-. *Make sure to be in the project root directory*
-. *Run*: `./docs/render_docs.sh`

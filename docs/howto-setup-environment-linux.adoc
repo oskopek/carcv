@@ -6,7 +6,7 @@
 ** Fedora: `sudo yum install git`
 ** Ubuntu: `sudo apt-get install git`
 
-. *Install Java8 JDK* -- http://www.oracle.com/technetwork/java/javase/downloads/index.html[Oracle JDK Downloads] -- Select: Java Platform (JDK)
+. *Install Java8 JDK* -- link:http://www.oracle.com/technetwork/java/javase/downloads/index.html[Oracle JDK Downloads] -- Select: Java Platform (JDK)
 
 . *Install Maven* -- preferably the latest version you can.
 Usually, your distribution's package management repository is enough:

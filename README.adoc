@@ -71,7 +71,7 @@ the bug, including your Java version and operating system.
 The m2eclipse plugin is a plugin in Eclipse for Maven.
 
 * Open Eclipse
-* Follow http://m2eclipse.sonatype.org/[the installation instructions of m2eclipse].
+* Follow link:http://m2eclipse.sonatype.org/m2eclipse[the installation instructions of m2eclipse].
 ** Follow the link *Installing m2eclipse* at the bottom.
 * Click menu *File*, menu item *Import*, tree item *Maven*, tree item *Existing Maven Projects*.
 * Click button *Browse*, select a repository directory. For example: `~/git/carcv`.

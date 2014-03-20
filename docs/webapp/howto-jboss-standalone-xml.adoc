@@ -26,7 +26,7 @@ For production, you certainly *do not want* to use properties files for storing 
 
 To run *integration tests* successfully make sure the `ExampleDS` datasource is configured correctly.
 
-The CarCV WebApp has two different `persitence.xml`s. One for tests, which uses the in-memory H2 database
+The CarCV WebApp has two different `persitence.xml` -s. One for tests, which uses the in-memory H2 database
 configured as `ExampleDS`, and one for production, which uses the default `MysqlDS` datasource.
 
 [NOTE]
