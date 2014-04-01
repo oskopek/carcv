@@ -29,8 +29,8 @@ link:./docs/howto-setup-environment-windows.adoc[Windows], link:./docs/howto-set
 
 === Getting help
 
+* Post questions or comments on our Google Groups link:https://groups.google.com/d/forum/carcv[mailing list]
 * Join our *IRC channel*: Join *#carcv* on *irc.freenode.net*
-* https://github.com/oskopek/carcv/issues[Open an issue] with your request/question (tag it with the *question* tag)
 
 === Contributing
 *Everyone* is encouraged to help improve this project.
