@@ -15,7 +15,7 @@
 </style>
 </head>
 <body>
-    <c:set var = "isAdmin" value = "${request.isUserInRole('admin')}" />
+    <c:set var = "isAdmin" value = "${!request.isUserInRole('admin')}" />
     <c:out value = "IsAdmin: ${isAdmin ? 'true' : 'false'}" />
     <table style="border: 1px solid #C0C0C0;">
         <tr>
