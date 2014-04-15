@@ -15,9 +15,8 @@
 </style>
 </head>
 <body>
-    <c:set var = "adminRole" value = "'admin'" />
-    <c:set var = "isAdmin" value = "${request.isUserInRole(adminRole)}" />
-    <c:out value = "IsAdmin: ${isAdmin eq true ? 'true' : 'false'}" />
+    <c:set var = "isAdmin" value = "${request.isUserInRole('admin')}" />
+    <c:out value = "IsAdmin: ${isAdmin ? 'true' : 'false'}" />
     <table style="border: 1px solid #C0C0C0;">
         <tr>
             <th style="width: 160px; height: 15px; background-color: #B0C4DE;">Car preview</th>
@@ -27,7 +26,7 @@
             <th style="width: 15%; height: 15px; background-color: #B0C4DE;">Video</th>
             <th style="width: 15%; height: 15px; background-color: #B0C4DE;">Pictures</th>
             <th style="width: 15%; height: 15px; background-color: #B0C4DE;">Report</th>
-            <c:if test="${isAdmin eq true}">
+            <c:if test="${isAdmin}">
                 <th style="width: 10%; height: 15px; background-color: #B0C4DE;">Delete</th>
             </c:if>
         </tr>
@@ -44,7 +43,7 @@
                 <td><a href="/servlet/DisplayImage?path=${member.previewPath}" target="_top">View preview</a></td>
                 <td><a href="/servlet/GenerateReport?entry_id=${member.entryId}&timezone=${member.timeZone}" target="_top">Generate
                         report</a></td>
-                <c:if test="${isAdmin eq true}">
+                <c:if test="${isAdmin}">
                     <td>
                     <button onclick="confirmRemove()">Delete</button>
                     <script>
