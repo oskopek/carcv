@@ -109,6 +109,7 @@
                  http://maven.apache.org/guides/mini/guide-building-for-different-environments.html -->
             <id>openshift</id>
             <modules>
+                <module>carcv-core</module>
                 <module>carcv-webapp</module>
             </modules>
         </profile>
