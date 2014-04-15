@@ -17,7 +17,7 @@
 <body>
     <c:set var = "admin" value = "admin" />
     <c:set var = "isAdmin" value = "${request.isUserInRole(admin)}" />
-    <c:out value = "${request.getUserPrincipal.getName()}" />
+    <c:out value = "Role: ${request.getUserPrincipal.getName()}" />
     <table style="border: 1px solid #C0C0C0;">
         <tr>
             <th style="width: 160px; height: 15px; background-color: #B0C4DE;">Car preview</th>
