@@ -49,7 +49,7 @@
                         function confirmRemove() {
                             var result = confirm("Are you sure you want to delete?");
                             if (result) {
-                                window.location.replace("/admin/servlet/RemoveEntry?entry_id=${member.entryId}");
+                                window.parent.location.replace("/admin/servlet/RemoveEntry?entry_id=${member.entryId}");
                             }
                         }
                     </script>
