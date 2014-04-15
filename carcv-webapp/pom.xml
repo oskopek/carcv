@@ -2,6 +2,7 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
+    <groupId>org.carcv.webapp</groupId>
     <packaging>war</packaging>
     <name>CarCV WebApp</name>
     <artifactId>carcv-webapp</artifactId>
@@ -17,6 +18,7 @@
     </prerequisites>
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <version.carcv-core>${project.version}</version.carcv-core>
         <version.arquillian>1.1.2.Final</version.arquillian>
         <version.shrinkwrap.resolvers>2.1.0-alpha-1</version.shrinkwrap.resolvers>
 
@@ -124,9 +126,9 @@
 
     <dependencies>
         <dependency>
-            <groupId>${project.groupId}</groupId>
+            <groupId>org.carcv.core</groupId>
             <artifactId>carcv-core</artifactId>
-            <version>${project.version}</version>
+            <version>${version.carcv-core}</version>
         </dependency>
         <dependency>
             <groupId>commons-lang</groupId>
