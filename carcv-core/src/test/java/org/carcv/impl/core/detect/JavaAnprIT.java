@@ -14,28 +14,23 @@
  * limitations under the License.
  */
 
-package org.carcv.web.test;
+package org.carcv.impl.core.detect;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
-
-import java.io.IOException;
-
-import javax.xml.parsers.ParserConfigurationException;
 
 import net.sf.javaanpr.imageanalysis.CarSnapshot;
 import net.sf.javaanpr.intelligence.Intelligence;
 
 import org.junit.Test;
-import org.xml.sax.SAXException;
 
 /**
  * Test case for checking if the ANPR library (JavaANPR) works as expected.
  */
-public class AnprLibTest {
+public class JavaAnprIT {
 
     @Test
-    public void anprLibTest() throws IOException, ParserConfigurationException, SAXException {
+    public void anprLibTest() throws Exception {
         Intelligence intel = new Intelligence();
         assertNotNull(intel);
 
