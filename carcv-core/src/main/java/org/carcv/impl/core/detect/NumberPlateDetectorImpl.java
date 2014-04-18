@@ -22,16 +22,12 @@ import java.util.List;
 
 import javax.xml.parsers.ParserConfigurationException;
 
-import com.google.common.collect.Multiset;
-import com.google.common.collect.Multisets;
-import com.google.common.collect.TreeMultiset;
 import net.sf.javaanpr.imageanalysis.CarSnapshot;
 import net.sf.javaanpr.intelligence.Intelligence;
 
 import org.carcv.core.detect.NumberPlateDetector;
 import org.carcv.core.model.AbstractCarImage;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.carcv.impl.core.util.CollectionUtils;
 import org.xml.sax.SAXException;
 
 /**
@@ -42,8 +38,6 @@ import org.xml.sax.SAXException;
  * Make sure all images are loaded in advance!
  */
 public class NumberPlateDetectorImpl extends NumberPlateDetector {
-
-    final private static Logger LOGGER = LoggerFactory.getLogger(NumberPlateDetectorImpl.class);
 
     private static NumberPlateDetectorImpl detector;
     private Intelligence intel;
@@ -81,19 +75,11 @@ public class NumberPlateDetectorImpl extends NumberPlateDetector {
         for (AbstractCarImage image : images) {
             numberPlates.add(intel.recognize(new CarSnapshot(image.getImage())));
         }
-        return getAverageNumberPlate(numberPlates);
+        return CollectionUtils.highestCountElement(numberPlates);
     }
 
     @Override
     public String detectPlateOrigin(final List<? extends AbstractCarImage> images) {
         return "UN"; // TODO 3 Unimplemented number plate origin
-    }
-
-    private static String getAverageNumberPlate(final List<String> numberPlates) {
-        final Multiset<String> plateSet = TreeMultiset.create();
-        plateSet.addAll(numberPlates);
-        String popular = Multisets.copyHighestCountFirst(plateSet).iterator().next();
-        LOGGER.debug("Most popular plate is {}, occurrences {}", popular, plateSet.count(popular));
-        return popular;
     }
 }
