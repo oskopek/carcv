@@ -15,7 +15,6 @@
 </style>
 </head>
 <body>
-    <c:out value = "IsAdmin: ${isAdmin ? 'true' : 'false'}" />
     <table style="border: 1px solid #C0C0C0;">
         <tr>
             <th style="width: 160px; height: 15px; background-color: #B0C4DE;">Car preview</th>
@@ -48,7 +47,7 @@
                     <script>
                         function confirmRemove() {
                             var result = confirm("Are you sure you want to delete?");
-                            if (result) {
+                            if (result) { // TODO remove the correct entry!
                                 window.parent.location.replace("/admin/servlet/RemoveEntry?entry_id=${member.entryId}");
                             }
                         }
