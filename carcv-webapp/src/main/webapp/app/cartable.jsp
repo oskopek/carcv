@@ -47,7 +47,7 @@
                     <script>
                         function confirmRemove() {
                             var result = confirm("Are you sure you want to delete?");
-                            if (result) { // TODO remove the correct entry!
+                            if (result) { // TODO remove the correct entry! See issue #28
                                 window.parent.location.replace("/admin/servlet/RemoveEntry?entry_id=${member.entryId}");
                             }
                         }
