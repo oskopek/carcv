@@ -21,8 +21,8 @@
             alt="OpenCV" /></a>
         <p style="position: absolute; right: 8%; top: 2%; font-size: 11pt; word-spacing: .5em;">
             <strong> <a href="/app/index.jsp" target="_top" style="text-decoration: none">Home</a> <a
-                href="/app/index.jsp" target="_top" style="text-decoration: none">Features</a> <a href="/app/index.jsp"
-                style="text-decoration: none">Contribute</a> <a href="/app/index.jsp" target="_top"
+                href="/info/features.jsp" target="_top" style="text-decoration: none">Features</a> <a href="/info/contribute.jsp"
+                style="text-decoration: none">Contribute</a> <a href="/info/contact_us.jsp" target="_top"
                 style="text-decoration: none; word-spacing: 0em;">Contact us</a>
             </strong>
         </p>
@@ -40,9 +40,6 @@
             <tr style="text-align: center;">
                 <td><a href="/app/upload.jsp" target="_top" style="position: absolute; left: 37%; text-decoration: none">Upload</a><br>
                 </td>
-            </tr>
-            <tr>
-                <td><a href="/app/index.jsp" target="_top" style="position: absolute; left: 40%; text-decoration: none">Admin</a><br></td>
             </tr>
             <tr>
                 <td><a href="/servlet/Logout" target="_top" style="position: absolute; left: 35%; text-decoration: none">Log

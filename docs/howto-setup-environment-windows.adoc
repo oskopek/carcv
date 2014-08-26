@@ -1,6 +1,6 @@
 === How-to setup your build environment for CarCV on Windows
 
-==== [line-through]#Install git# Install GitHub for Windows
+==== Install GitHub for Windows
 
 This step is enough if the only thing you want is to submit a quick patch.
 
@@ -40,28 +40,32 @@ You can view the results in the thread of the pull request.
 
 ==== Build-related installations
 
-. *Install Java7 JDK* - http://www.oracle.com/technetwork/java/javase/downloads/index.html[] - Select Java Platform (JDK)
+. *Install Java8 JDK* -- link:http://www.oracle.com/technetwork/java/javase/downloads/index.html[Oracle JDK Downloads] -- Select: Java Platform (JDK)
 
-. *Install Maven* - (preferably the latest version you can).
+. *Install Maven* -- (preferably the latest version you can).
 See: http://maven.apache.org/guides/getting-started/windows-prerequisites.html[Maven on Windows]
  and http://maven.apache.org/download.cgi[Maven Downloads].
 
-. *Install an application server - optional* - if you want to run integration tests as part of your `carcv-webapp` environment,
-you need to install at least one application server.
-It is recommended to install the latest *Wildfly* release. You should place it wherever you want, and configure your
-$JBOSS_HOME environment variable to point to that directory.
+. *Run the build* (see the Building section in the link:../README.adoc[README])
 
-Environment variables are usually configured in Control Panel > System.
-See: http://www.computerhope.com/issues/ch000549.htm[How to set the path in Microsoft Windows], but do not set the
-PATH variable, but the Variable: `JBOSS_HOME` with Value: `C:\path\to\your\jboss\or\wildfly\directory`
+. If you plan to *contribute code*, please set-up https://github.com/oskopek/ide-config[IDE coding templates] first.
 
-. *Create a directory for data input/output* - the default is `$JBOSS_HOME\standalone\data\carcv_data\in`
+==== Running integration tests
+
+. *Install an application server* -- You need to install at least one Java EE application server.
+
+.. It is recommended to install the latest http://wildfly.org/[Wildfly] release.
+.. You should place it wherever you want, and configure your
+*JBOSS_HOME* environment variable to point to that directory in the next step.
+
+... Environment variables are usually configured in Control Panel > System.
+See: http://www.computerhope.com/issues/ch000549.htm[How to set the path in Microsoft Windows].
+Do not set the *PATH* variable, but the *JBOSS_HOME* variable with value: `C:\path\to\your\jboss\or\wildfly\directory`
+
+. *Add a security domain and data source* to `standalone.xml`, see: link:webapp/howto-jboss-standalone-xml.adoc[How-to JBoss standalone.xml]
+
+. For specific instructions on deploying the app to OpenShift, see: link:webapp/deploy-to-openshift.adoc[Deploy to Openshift]
+
+. *Create a directory for data input/output* -- the default is `$JBOSS_HOME\standalone\data\carcv_data\in`
 and `$JBOSS_HOME\standalone\data\carcv_data\out`.
-See: https://community.jboss.org/wiki/JBossProperties["jboss.server.data.dir"] property value.
-
-. *Run the build*
-** Recomennded: `mvn clean install -DskipTests`
-** Run unit tests: `mvn clean install`
-** Run integration tests: `mvn clean install -Pwildfly-it-travis`
-
-. If you plan to *contribute code*, please set-up https://github.com/oskopek/ide-config[IDE coding templates] first 
+See the https://community.jboss.org/wiki/JBossProperties[jboss.server.data.dir] property for your specific value.

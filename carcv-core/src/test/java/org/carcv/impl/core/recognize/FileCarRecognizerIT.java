@@ -36,7 +36,7 @@ import org.junit.Test;
 /**
  * Test for {@link FileCarRecognizer}.
  */
-public class FileCarRecognizerTest {
+public class FileCarRecognizerIT {
 
     private Path inDir;
 
@@ -123,6 +123,8 @@ public class FileCarRecognizerTest {
 
         // TODO 3 Assert that the output is indeed what we expect - for now, checked only manual in /tmp
     }
+
+    // TODO 2 Split the multipleRecognize Test up
 
     /**
      * Test of recognizing multiple (three) input images in one batch

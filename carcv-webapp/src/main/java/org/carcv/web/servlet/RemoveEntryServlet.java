@@ -30,7 +30,7 @@ import org.carcv.web.beans.EntryBean;
 /**
  * A Servlet that removes FileEntries from the database.
  */
-@WebServlet("/servlet/RemoveEntry")
+@WebServlet("/admin/servlet/RemoveEntry")
 public class RemoveEntryServlet extends HttpServlet {
 
     private static final long serialVersionUID = 6813706341486318124L;
@@ -42,7 +42,6 @@ public class RemoveEntryServlet extends HttpServlet {
      * Removes the FileEntry with id in the <code>entry_id</code> request parameter from the database.
      *
      * @see EntryBean#remove(FileEntry...)
-     * @throws ServletException
      * @throws IOException
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws

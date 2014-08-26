@@ -32,7 +32,6 @@ import java.nio.file.Paths;
 
 import org.junit.After;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 
 /**
@@ -86,8 +85,6 @@ public class FileCarImageTest {
         assertNotNull(iFile);
 
         Exception ex = null;
-        assertNull(ex);
-
         try {
             iFile.loadImage();
         } catch (final Exception e) {
@@ -120,14 +117,16 @@ public class FileCarImageTest {
      * @throws IOException
      */
     @Test
-    @Ignore(value = "Fragment loading not supported yet")
     public void testLoadFragment() throws IOException {
         Rectangle rect = new Rectangle(10, 10, 10, 10);
         assertNotNull(rect);
 
         file.loadFragment(rect);
+
         assertNotNull(file);
         assertNotNull(file.getImage());
+        assertEquals(10, file.getImage().getHeight());
+        assertEquals(10, file.getImage().getWidth());
     }
 
     /**
@@ -177,8 +176,6 @@ public class FileCarImageTest {
         assertNotNull(iFile);
 
         Exception ex = null;
-        assertNull(ex);
-
         try {
             iFile.loadImage();
         } catch (final Exception e) {

@@ -24,7 +24,9 @@
             <th style="width: 15%; height: 15px; background-color: #B0C4DE;">Video</th>
             <th style="width: 15%; height: 15px; background-color: #B0C4DE;">Pictures</th>
             <th style="width: 15%; height: 15px; background-color: #B0C4DE;">Report</th>
-            <th style="width: 10%; height: 15px; background-color: #B0C4DE;">Delete</th>
+            <c:if test="${isAdmin}">
+                <th style="width: 10%; height: 15px; background-color: #B0C4DE;">Delete</th>
+            </c:if>
         </tr>
 
         <c:forEach var="member" items="${wrtmList}">
@@ -39,7 +41,19 @@
                 <td><a href="/servlet/DisplayImage?path=${member.previewPath}" target="_top">View preview</a></td>
                 <td><a href="/servlet/GenerateReport?entry_id=${member.entryId}&timezone=${member.timeZone}" target="_top">Generate
                         report</a></td>
-                <td><a href="/servlet/RemoveEntry?entry_id=${member.entryId}" target="_top">Delete</a></td>
+                <c:if test="${isAdmin}">
+                    <td>
+                    <button onclick="confirmRemove()">Delete</button>
+                    <script>
+                        function confirmRemove() {
+                            var result = confirm("Are you sure you want to delete?");
+                            if (result) { // TODO remove the correct entry! See issue #28
+                                window.parent.location.replace("/admin/servlet/RemoveEntry?entry_id=${member.entryId}");
+                            }
+                        }
+                    </script>
+                    </td>
+                </c:if>
             </tr>
         </c:forEach>
     </table>

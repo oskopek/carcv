@@ -4,7 +4,7 @@
 <meta http-equiv="content-type" content="text/html; charset=utf-8">
 <link rel="SHORTCUT ICON" href="http://upload.wikimedia.org/wikipedia/commons/f/f0/Car_with_Driver-Silhouette.svg">
 <link rel="icon" href="http://upload.wikimedia.org/wikipedia/commons/f/f0/Car_with_Driver-Silhouette.svg" type="image/ico">
-<title>CarCV - Welcome</title>
+<title>CarCV - Features</title>
 <link rel="stylesheet" type="text/css" href="/resources/mystyle.css">
 </head>
 
@@ -23,8 +23,7 @@
     </div>
 
     <div id="center-login">
-        <h1>Welcome to CarCV!</h1>
-        <br> To enter, <a href="/app/index.jsp" target="_top">click here</a>.
+        Features!
     </div>
 
     <div id="footer"></div>

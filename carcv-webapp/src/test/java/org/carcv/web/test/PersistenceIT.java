@@ -72,43 +72,34 @@ public class PersistenceIT {
     @Test
     public void persistenceTest() {
         // Entity code
-
         Speed speed = new Speed(80d, SpeedUnit.KPH);
-
         Address address = new Address("Myjava", "90701", "Jablonská", "Slovakia", 27, 860);
-
         NumberPlate licencePlate = new NumberPlate("MY-077AU", "SK");
-
         Date timestamp = new Date(System.currentTimeMillis());
-
         FileCarImage carImage = new FileCarImage(Paths.get("/tmp/test/video.h264"));
-
         CarData carData = new CarData(speed, address, licencePlate, timestamp);
-
         FileEntry fileEntry = new FileEntry(carData, Arrays.asList(carImage));
         assertNotNull(fileEntry);
-
         // End entity code
-        assertNotNull(entryBean);
 
-        // persist
+        // Persist
+        assertNotNull(entryBean);
         entryBean.persist(fileEntry);
 
-        // get
+        // Get
         FileEntry got = entryBean.getAll().get(0);
         assertEquals(fileEntry, got);
 
-        // check
+        // Check
         assertEquals(carImage, got.getCarImages().get(0));
         assertEquals(speed, got.getCarData().getSpeed());
         assertEquals(address, got.getCarData().getAddress());
         assertEquals(licencePlate, got.getCarData().getNumberPlate());
-
         assertEquals(carData, got.getCarData());
         assertEquals(timestamp, got.getCarData().getTimestamp());
         assertEquals(fileEntry, got);
 
-        // remove
+        // Remove
         entryBean.remove(fileEntry.getId());
         assertEquals(0, entryBean.getAll().size());
         assertEquals(null, entryBean.findById(fileEntry.getId()));

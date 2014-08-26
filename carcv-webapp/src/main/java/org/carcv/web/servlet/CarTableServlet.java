@@ -49,6 +49,8 @@ public class CarTableServlet extends HttpServlet {
     @EJB
     private EntryBean bean;
 
+    private static final String adminRole = "admin";
+
     /**
      * @see CarTableServlet
      * @param request the HttpServletRequest
@@ -106,6 +108,10 @@ public class CarTableServlet extends HttpServlet {
         }
 
         request.setAttribute("wrtmList", wrtmList);
+
+        boolean isAdmin = request.isUserInRole(adminRole);
+        request.setAttribute("isAdmin", Boolean.valueOf(isAdmin));
+
         RequestDispatcher rd = getServletContext().getRequestDispatcher("/app/cartable.jsp");
         rd.forward(request, response);
     }
