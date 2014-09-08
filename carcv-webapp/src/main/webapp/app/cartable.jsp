@@ -35,7 +35,7 @@ $(document).ready(function() {
             alert("The selection is empty!");
             return;
         }
-        var idString += rows[0][0];
+        var idString = rows[0][0];
         console.log("idString: " + idString);
         console.log(rows[0].data());
         for (i = 1; i < rows.length; i++) {
