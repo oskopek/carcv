@@ -36,13 +36,15 @@ $(document).ready(function () {
             return;
         }
         var rows = table.rows('.selected');
+        console.log(table.rows('.selected');
+        console.log(rows);
         if (rows.data().length <= 0) {
             alert("The selection is empty!");
             return;
         }
         var idString = "";
-        console.log(rows('.selected').column(0).data());
-        var idColumnData = rows('.selected').column(0).data();
+        console.log(rows.column(0).data());
+        var idColumnData = rows.column(0).data();
         for (var id in idColumnData) {
             idString += idColumnData[id] + ",";
         }
