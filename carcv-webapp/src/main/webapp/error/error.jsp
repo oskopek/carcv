@@ -10,7 +10,6 @@
         <link rel="icon" href="http://upload.wikimedia.org/wikipedia/commons/f/f0/Car_with_Driver-Silhouette.svg" type="image/ico">
         <title>CarCV - Error</title>
         <link rel="stylesheet" type="text/css" href="/resources/mystyle.css">
-        <style type="text/css">
     </head>
     <body>
     <div id="header">
@@ -26,7 +25,7 @@
             </p>
         </div>
 
-        <div id="center-login">
+        <div id="center-info">
             <h1>Error</h1>
             <p>Unfortunately an unexpected error has occurred. Below you can find the error details.</p>
             <h2>Details</h2>
