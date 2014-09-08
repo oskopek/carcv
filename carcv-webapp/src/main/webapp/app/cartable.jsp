@@ -13,9 +13,30 @@
     height: 25px
 }
 </style>
+
+<script type="text/javascript" language="javascript" src="/resources/jquery-1.11.1.min.js"></script>
+<script type="text/javascript" language="javascript" src="/resources/jquery.dataTables.min.js"></script>
+<script type="text/javascript" class="init">
+$(document).ready(function() {
+	var table = $('#carTable').DataTable();
+
+	$('#carTable tbody').on( 'click', 'tr', function () {
+		$(this).toggleClass('selected');
+    } );
+
+	$('#deleteButton').click( function () {
+		table.rows('.selected').remove().draw( false );
+	} );
+} );
+
+
+	</script>
+
 </head>
 <body>
-    <table style="border: 1px solid #C0C0C0;">
+    <c:if test="${isAdmin}"><button id="deleteButton">Delete selected rows</button></c:if><br>
+    <table id="carTable" style="border: 1px solid #C0C0C0;" class="display" cellspacing="0" width="100%">
+    <thead>
         <tr>
             <th style="width: 160px; height: 15px; background-color: #B0C4DE;">Car preview</th>
             <th style="width: 10%; height: 15px; background-color: #B0C4DE;">Date</th>
@@ -24,11 +45,23 @@
             <th style="width: 15%; height: 15px; background-color: #B0C4DE;">Video</th>
             <th style="width: 15%; height: 15px; background-color: #B0C4DE;">Pictures</th>
             <th style="width: 15%; height: 15px; background-color: #B0C4DE;">Report</th>
-            <c:if test="${isAdmin}">
-                <th style="width: 10%; height: 15px; background-color: #B0C4DE;">Delete</th>
-            </c:if>
-        </tr>
 
+        </tr>
+    </thead>
+
+    <tfoot>
+            <tr>
+                <th style="width: 160px; height: 15px; background-color: #B0C4DE;">Car preview</th>
+                <th style="width: 10%; height: 15px; background-color: #B0C4DE;">Date</th>
+                <th style="width: 15%; height: 15px; background-color: #B0C4DE;">License plate</th>
+                <th style="width: 20%; height: 15px; background-color: #B0C4DE;">Location</th>
+                <th style="width: 15%; height: 15px; background-color: #B0C4DE;">Video</th>
+                <th style="width: 15%; height: 15px; background-color: #B0C4DE;">Pictures</th>
+                <th style="width: 15%; height: 15px; background-color: #B0C4DE;">Report</th>
+            </tr>
+        </tfoot>
+
+        <tbody>
         <c:forEach var="member" items="${wrtmList}">
             <tr>
                 <td><img src="/servlet/DisplayImage?path=${member.previewPath}&width=150" style="border: 2px" width="150"
@@ -41,20 +74,8 @@
                 <td><a href="/servlet/DisplayImage?path=${member.previewPath}" target="_top">View preview</a></td>
                 <td><a href="/servlet/GenerateReport?entry_id=${member.entryId}&timezone=${member.timeZone}" target="_top">Generate
                         report</a></td>
-                <c:if test="${isAdmin}">
-                    <td>
-                    <button onclick="confirmRemove()">Delete</button>
-                    <script>
-                        function confirmRemove() {
-                            var result = confirm("Are you sure you want to delete?");
-                            if (result) { // TODO remove the correct entry! See issue #28
-                                window.parent.location.replace("/admin/servlet/RemoveEntry?entry_id=${member.entryId}");
-                            }
-                        }
-                    </script>
-                    </td>
-                </c:if>
             </tr>
+            </tbody>
         </c:forEach>
     </table>
 </body>
