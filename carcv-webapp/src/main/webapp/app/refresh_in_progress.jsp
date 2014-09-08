@@ -5,7 +5,7 @@
 <link rel="SHORTCUT ICON" href="http://upload.wikimedia.org/wikipedia/commons/f/f0/Car_with_Driver-Silhouette.svg">
 <link rel="icon" href="http://upload.wikimedia.org/wikipedia/commons/f/f0/Car_with_Driver-Silhouette.svg" type="image/ico">
 <title>CarCV</title>
-<link rel="stylesheet" type="text/css" href="/resources/mystyle.css">
+<link rel="stylesheet" type="text/css" href="/resources/site.css">
 <style type="text/css">
 #tabulator {
     text-align: center;
