@@ -87,9 +87,9 @@ td {
 
 #center-info {
     position: absolute;
-    left: 30%;
-    bottom: 30%;
-    width: 40%;
+    left: 25%;
+    top: 30%;
+    width: 50%;
     border-radius: 5px;
     padding: 1%;
     border: 5px solid #b0c4de;
@@ -103,7 +103,7 @@ td {
     margin-bottom: 5px;
     text-align: left;
     position: relative;
-    top: 0px"
+    top: -5px"
 }
 
 #footer {
