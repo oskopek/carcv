@@ -36,8 +36,8 @@ $(document).ready(function () {
             return;
         }
         var rows = table.rows('.selected');
-        console.log(table.rows('.selected');
-        console.log(rows);
+        console.log(table.rows('.selected').data());
+        console.log(rows.data());
         if (rows.data().length <= 0) {
             alert("The selection is empty!");
             return;
