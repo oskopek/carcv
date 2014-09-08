@@ -25,11 +25,14 @@ $(document).ready(function() {
     } );
 
 	$('#deleteButton').click( function () {
-		table.rows('.selected').remove().draw( false );
+        if (!confirm("Are you sure you want to delete?")) {
+            return;
+        }
+        var rows = table.rows('.selected')
+        window.parent.location.replace("/admin/servlet/RemoveEntry?entry_id=" + rows.indexes());
+		//table.rows('.selected').remove().draw( false );
 	} );
 } );
-
-
 	</script>
 
 </head>
@@ -38,6 +41,7 @@ $(document).ready(function() {
     <table id="carTable" style="border: 1px solid #C0C0C0;" class="display" cellspacing="0" width="100%">
     <thead>
         <tr>
+            <th style="width: 5%; height: 15px; background-color: #B0C4DE;">ID</th>
             <th style="width: 160px; height: 15px; background-color: #B0C4DE;">Car preview</th>
             <th style="width: 10%; height: 15px; background-color: #B0C4DE;">Date</th>
             <th style="width: 15%; height: 15px; background-color: #B0C4DE;">License plate</th>
@@ -45,12 +49,12 @@ $(document).ready(function() {
             <th style="width: 15%; height: 15px; background-color: #B0C4DE;">Video</th>
             <th style="width: 15%; height: 15px; background-color: #B0C4DE;">Pictures</th>
             <th style="width: 15%; height: 15px; background-color: #B0C4DE;">Report</th>
-
         </tr>
     </thead>
 
     <tfoot>
             <tr>
+                <th style="width: 5%; height: 15px; background-color: #B0C4DE;">ID</th>
                 <th style="width: 160px; height: 15px; background-color: #B0C4DE;">Car preview</th>
                 <th style="width: 10%; height: 15px; background-color: #B0C4DE;">Date</th>
                 <th style="width: 15%; height: 15px; background-color: #B0C4DE;">License plate</th>
@@ -64,6 +68,7 @@ $(document).ready(function() {
         <tbody>
         <c:forEach var="member" items="${wrtmList}">
             <tr>
+                <td>${member.entryId}</td>
                 <td><img src="/servlet/DisplayImage?path=${member.previewPath}&width=150" style="border: 2px" width="150"
                     alt="Car"></td>
                 <td>${member.date}<br> ${member.time}
@@ -75,8 +80,9 @@ $(document).ready(function() {
                 <td><a href="/servlet/GenerateReport?entry_id=${member.entryId}&timezone=${member.timeZone}" target="_top">Generate
                         report</a></td>
             </tr>
-            </tbody>
+            <!-- TODO put script to addROw here -->
         </c:forEach>
+        </tbody>
     </table>
 </body>
 </html>
