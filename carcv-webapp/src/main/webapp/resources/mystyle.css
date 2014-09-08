@@ -85,6 +85,18 @@ td {
     overflow: hidden;
 }
 
+#center-info {
+    position: absolute;
+    left: 20%;
+    bottom: 30%;
+    width: 40%;
+    border-radius: 5px;
+    padding: 1%;
+    border: 5px solid #b0c4de;
+    background-color: #f0f8ff;
+    overflow: hidden;
+}
+
 #footer {
     position: fixed;
     bottom: 0px;

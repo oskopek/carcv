@@ -22,7 +22,7 @@
         </p>
     </div>
 
-    <div id="center-login">
+    <div id="center-info">
         <h2>CarCV &#8212; Features</h2>
         <h3>A car recognizing and speed calculation platform.</h3>
 

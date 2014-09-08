@@ -22,7 +22,7 @@
         </p>
     </div>
 
-    <div id="center-login">
+    <div id="center-info">
         <h2>Contact Us</h2>
         <h3>You are always welcome to contact us regarding anything you want:</h3>
         <ul>
