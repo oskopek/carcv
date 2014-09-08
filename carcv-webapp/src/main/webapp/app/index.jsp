@@ -29,14 +29,17 @@
     </div>
 
     <div class="mainColumn">
+
+    <iframe src="/servlet/CarTable?timezone=
         <script type="text/javascript" src='/resources/jstz-1.0.4.min.js'></script>
         <script type="text/javascript">
         function getTimezone() {
             var timezone = jstz.determine();
             return timezone.name();
         }
-        document.write("<iframe src=\"/servlet/CarTable?timezone="+getTimezone()+"\"></iframe>");
+        document.write(getTimezone());
         </script>
+    " style="width: 100%; height: 100%; position: absolute;"></iframe>
     </div>
 
     <div class="footer"></div>
