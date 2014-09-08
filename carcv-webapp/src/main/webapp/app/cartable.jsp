@@ -46,16 +46,16 @@ $(document).ready(function() {
 </head>
 <body>
     <c:if test="${isAdmin}"><button id="deleteButton">Delete selected rows</button></c:if><br>
-    <table id="carTable" style="border: 1px solid #C0C0C0; background-color: #B0C4DE;" class="display" cellspacing="0" width="100%">
+    <table id="carTable" class="display" cellspacing="0" width="100%">
     <thead>
         <tr>
-            <th style="width: 10%;">ID</th>
-            <th style="width: 20%;">Picture</th>
+            <th style="width: 5%;">ID</th>
+            <th style="width: 25%;">Picture</th>
             <th style="width: 15%;">Date</th>
-            <th style="width: 15%;">License plate</th>
-            <th style="width: 20%;">Location</th>
-            <th style="width: 10%;">Video</th>
-            <th style="width: 10%;">Report</th>
+            <th style="width: 20%;">License plate</th>
+            <th style="width: 25%;">Location</th>
+            <th style="width: 5%;">Video</th>
+            <th style="width: 5%;">Report</th>
         </tr>
     </thead>
 
@@ -76,7 +76,7 @@ $(document).ready(function() {
             <tr>
                 <td>${member.entryId}</td>
                 <td><a href="/servlet/DisplayImage?path=${member.previewPath}" target="_top">
-                <img src="/servlet/DisplayImage?path=${member.previewPath}&width=1000" style="border: 2px; width: 100%"
+                <img src="/servlet/DisplayImage?path=${member.previewPath}&width=200" style="border: 2px; width: 100%"
                     alt="Car"></a></td>
                 <td>${member.date}<br> ${member.time}</td>
                 <td>${member.licensePlate}</td>
@@ -84,7 +84,6 @@ $(document).ready(function() {
                 <td><a href="/servlet/GenerateVideo?entry_id=${member.entryId}" target="_top">View</a></td>
                 <td><a href="/servlet/GenerateReport?entry_id=${member.entryId}&timezone=${member.timeZone}" target="_top">Generate</a></td>
             </tr>
-            <!-- TODO put script to addRow here -->
         </c:forEach>
     </tbody>
     </table>
