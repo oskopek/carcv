@@ -69,7 +69,7 @@ public class CarTableServlet extends HttpServlet {
         String timeZoneStr = request.getParameter("timezone");
         TimeZone tz = TimeZone.getTimeZone(timeZoneStr);
 
-        DateFormat dateFormat = new SimpleDateFormat("dd. MM. yyyy");
+        DateFormat dateFormat = new SimpleDateFormat("dd.MM.yyyy");
         dateFormat.setTimeZone(tz);
         DateFormat timeFormat = new SimpleDateFormat("HH:mm");
         timeFormat.setTimeZone(tz);
@@ -110,7 +110,7 @@ public class CarTableServlet extends HttpServlet {
         request.setAttribute("wrtmList", wrtmList);
 
         boolean isAdmin = request.isUserInRole(adminRole);
-        request.setAttribute("isAdmin", Boolean.valueOf(isAdmin));
+        request.setAttribute("isAdmin", isAdmin);
 
         RequestDispatcher rd = getServletContext().getRequestDispatcher("/app/cartable.jsp");
         rd.forward(request, response);

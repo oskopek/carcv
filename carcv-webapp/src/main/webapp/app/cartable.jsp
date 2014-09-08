@@ -28,8 +28,12 @@ $(document).ready(function() {
         if (!confirm("Are you sure you want to delete?")) {
             return;
         }
-        var rows = table.rows('.selected')
-        window.parent.location.replace("/admin/servlet/RemoveEntry?entry_id=" + rows.indexes());
+        var rows = table.rows('.selected');
+        var idString = "".concat(rows[0][0]);
+        for (i = 1; i < rows.length; i++) {
+            idString = idString.concat(",", rows[i][0]);
+        }
+        window.parent.location.replace("/admin/servlet/RemoveEntry?entry_id=" + idString);
 		//table.rows('.selected').remove().draw( false );
 	} );
 } );
@@ -41,29 +45,29 @@ $(document).ready(function() {
     <table id="carTable" style="border: 1px solid #C0C0C0;" class="display" cellspacing="0" width="100%">
     <thead>
         <tr>
-            <th style="width: 5%; height: 15px; background-color: #B0C4DE;">ID</th>
-            <th style="width: 160px; height: 15px; background-color: #B0C4DE;">Car preview</th>
+            <th style="width: 10%; height: 15px; background-color: #B0C4DE;">ID</th>
+            <th style="width: 25%; height: 15px; background-color: #B0C4DE;">Car preview</th>
             <th style="width: 10%; height: 15px; background-color: #B0C4DE;">Date</th>
-            <th style="width: 15%; height: 15px; background-color: #B0C4DE;">License plate</th>
-            <th style="width: 20%; height: 15px; background-color: #B0C4DE;">Location</th>
-            <th style="width: 15%; height: 15px; background-color: #B0C4DE;">Video</th>
-            <th style="width: 15%; height: 15px; background-color: #B0C4DE;">Pictures</th>
-            <th style="width: 15%; height: 15px; background-color: #B0C4DE;">Report</th>
+            <th style="width: 10%; height: 15px; background-color: #B0C4DE;">License plate</th>
+            <th style="width: 15%; height: 15px; background-color: #B0C4DE;">Location</th>
+            <th style="width: 10%; height: 15px; background-color: #B0C4DE;">Video</th>
+            <th style="width: 10%; height: 15px; background-color: #B0C4DE;">Pictures</th>
+            <th style="width: 10%; height: 15px; background-color: #B0C4DE;">Report</th>
         </tr>
     </thead>
 
     <tfoot>
-            <tr>
-                <th style="width: 5%; height: 15px; background-color: #B0C4DE;">ID</th>
-                <th style="width: 160px; height: 15px; background-color: #B0C4DE;">Car preview</th>
-                <th style="width: 10%; height: 15px; background-color: #B0C4DE;">Date</th>
-                <th style="width: 15%; height: 15px; background-color: #B0C4DE;">License plate</th>
-                <th style="width: 20%; height: 15px; background-color: #B0C4DE;">Location</th>
-                <th style="width: 15%; height: 15px; background-color: #B0C4DE;">Video</th>
-                <th style="width: 15%; height: 15px; background-color: #B0C4DE;">Pictures</th>
-                <th style="width: 15%; height: 15px; background-color: #B0C4DE;">Report</th>
-            </tr>
-        </tfoot>
+        <tr>
+            <th style="width: 10%; height: 15px; background-color: #B0C4DE;">ID</th>
+            <th style="width: 25%; height: 15px; background-color: #B0C4DE;">Car preview</th>
+            <th style="width: 10%; height: 15px; background-color: #B0C4DE;">Date</th>
+            <th style="width: 10%; height: 15px; background-color: #B0C4DE;">License plate</th>
+            <th style="width: 15%; height: 15px; background-color: #B0C4DE;">Location</th>
+            <th style="width: 10%; height: 15px; background-color: #B0C4DE;">Video</th>
+            <th style="width: 10%; height: 15px; background-color: #B0C4DE;">Pictures</th>
+            <th style="width: 10%; height: 15px; background-color: #B0C4DE;">Report</th>
+        </tr>
+    </tfoot>
 
         <tbody>
         <c:forEach var="member" items="${wrtmList}">
@@ -80,7 +84,7 @@ $(document).ready(function() {
                 <td><a href="/servlet/GenerateReport?entry_id=${member.entryId}&timezone=${member.timeZone}" target="_top">Generate
                         report</a></td>
             </tr>
-            <!-- TODO put script to addROw here -->
+            <!-- TODO put script to addRow here -->
         </c:forEach>
         </tbody>
     </table>
