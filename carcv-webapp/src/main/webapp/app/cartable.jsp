@@ -36,15 +36,18 @@ $(document).ready(function () {
             return;
         }
         var rows = table.rows('.selected');
-        console.log(table.rows('.selected').data());
-        console.log(rows.data());
+        console.log(table.rows('.selected').length);
+        console.log(rows.length);
+        console.log("INTERMEZZO");
         if (rows.data().length <= 0) {
             alert("The selection is empty!");
             return;
         }
         var idString = "";
-        console.log(rows.column(0).data());
         var idColumnData = rows.column(0).data();
+        console.log(table.rows('.selected').column(0).data());
+        console.log(rows.column(0).data());
+        console.log(idColumnData);
         for (var id in idColumnData) {
             idString += idColumnData[id] + ",";
         }
