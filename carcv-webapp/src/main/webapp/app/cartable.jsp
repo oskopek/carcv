@@ -7,6 +7,7 @@
 <link rel="icon" href="http://upload.wikimedia.org/wikipedia/commons/f/f0/Car_with_Driver-Silhouette.svg" type="image/ico">
 <title>CarCV Car Table</title>
 <link rel="stylesheet" type="text/css" href="/resources/mystyle.css">
+<link rel="stylesheet" type="text/css" href="/resources/jquery.dataTables.css">
 <style type="text/css">
 #tabulator {
     text-align: center;
@@ -29,16 +30,18 @@ $(document).ready(function() {
             return;
         }
         var rows = table.rows('.selected');
-        if (typeof rows == 'undefined' || rows.length <= 0) {
+        if (!(rows instanceof Array) || rows.length <= 0) {
             alert("The selection is empty!")
             return;
         }
-        var idString = "".concat(rows[0][0]);
+        var idString += rows[0][0];
+        alert(idString + " DEBUG\n" + rows[0].data());
         for (i = 1; i < rows.length; i++) {
-            idString = idString.concat(",", rows[i][0]);
+            idString += "," + rows[i][0];
         }
+        alert(idString);
         window.parent.location.replace("/admin/servlet/RemoveEntry?entry_id=" + idString);
-		//table.rows('.selected').remove().draw( false );
+		//table.rows('.selected').remove().draw( false ); //TODO 3 Make table editable w/o reload
 	} );
 } );
 	</script>
@@ -49,11 +52,11 @@ $(document).ready(function() {
     <table id="carTable" class="display" cellspacing="0" width="100%">
     <thead>
         <tr>
-            <th style="width: 5%;">ID</th>
-            <th style="width: 25%;">Picture</th>
-            <th style="width: 15%;">Date</th>
+            <th style="width: 10%;">ID</th>
+            <th style="width: 20%;">Picture</th>
+            <th style="width: 20%;">Date</th>
             <th style="width: 20%;">License plate</th>
-            <th style="width: 25%;">Location</th>
+            <th style="width: 20%;">Location</th>
             <th style="width: 5%;">Video</th>
             <th style="width: 5%;">Report</th>
         </tr>
@@ -61,11 +64,11 @@ $(document).ready(function() {
 
     <tfoot>
         <tr>
-            <th style="width: 5%;">ID</th>
-            <th style="width: 25%;">Picture</th>
-            <th style="width: 15%;">Date</th>
+            <th style="width: 10%;">ID</th>
+            <th style="width: 20%;">Picture</th>
+            <th style="width: 20%;">Date</th>
             <th style="width: 20%;">License plate</th>
-            <th style="width: 25%;">Location</th>
+            <th style="width: 20%;">Location</th>
             <th style="width: 5%;">Video</th>
             <th style="width: 5%;">Report</th>
         </tr>
