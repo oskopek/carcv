@@ -23,7 +23,14 @@
     </div>
 
     <div id="center-login">
-        Contact us!
+        <h2>Contact Us</h2>
+        <h3>You are always welcome to contact us regarding anything you want:</h3>
+        <ul>
+        <li> Post questions or comments on our Google Groups <a href="https://groups.google.com/d/forum/carcv">mailing list</a>
+        <li> Join our <strong>IRC channel</strong>:
+          Join <strong><a href="http://webchat.freenode.net/?randomnick=1&channels=%23carcv&uio=d4">#carcv</a></strong>
+          on <strong>irc.freenode.net</strong>
+        </ul>
     </div>
 
     <div id="footer"></div>

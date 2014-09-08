@@ -23,7 +23,18 @@
     </div>
 
     <div id="center-login">
-        Features!
+        <h2>CarCV &#8212; Features</h2>
+        <h3>A car recognizing and speed calculation platform.</h3>
+
+        <p><ul>
+        <li> Recognizes cars and other vehicles with a similar number plate
+        <li> Detects the number plates and parses their identification number
+        <li> Calculates the speed of the detected vehicle based
+        </ul>
+
+        <h3>Screenshot</h3>
+        <p><img src="http://cdn.imghack.se/images/a6f3be78f72232fa6e9f09a11c53f7a6.png"
+         alt="CarCV screenshot" width="40%" />
     </div>
 
     <div id="footer"></div>
