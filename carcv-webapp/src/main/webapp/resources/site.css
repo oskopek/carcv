@@ -43,6 +43,7 @@ body {
     padding: 5px;
     border: 5px solid #b0c4de;
     border-radius: 10px;
+    text-align: center;
 }
 .footer {
     height: 20px;

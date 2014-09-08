@@ -9,20 +9,20 @@
 </head>
 
 <body>
-    <div id="header">
-        <a href="/app/index.jsp" target="_top"><img src="/resources/carcv-logo.png" width="150"
-            id="logo"
-            alt="OpenCV" /></a>
-        <p style="position: absolute; right: 8%; top: 2%; font-size: 11pt; word-spacing: .5em;">
-            <strong> <a href="/app/index.jsp" target="_top" style="text-decoration: none">Home</a> <a
-                href="/info/features.jsp" target="_top" style="text-decoration: none">Features</a> <a href="/info/contribute.jsp"
-                target="_top" style="text-decoration: none">Contribute</a> <a href="/info/contact_us.jsp" target="_top"
-                style="text-decoration: none; word-spacing: 0em;">Contact us</a>
+    <div class="header">
+        <div class="logo"> <a href="/app/index.jsp" target="_top">
+            <img src="/resources/carcv-logo.png" alt="OpenCV" /></a>
+        </div>
+        <div class="topRow"> <strong>
+            <span class="link"><a href="/app/index.jsp" target="_top" >Home</a></span>
+            <span class="link"><a href="/info/features.jsp" target="_top" >Features</a></span>
+            <span class="link"><a href="/info/contribute.jsp">Contribute</a></span>
+            <span class="link"><a href="/info/contact_us.jsp" target="_top">Contact us</a></span>
             </strong>
-        </p>
+        </div>
     </div>
 
-    <div id="center-login">
+    <div class="mainColumn">
         <h1>Welcome to CarCV!</h1>
         <br> To enter, <a href="/app/index.jsp" target="_top">click here</a>.
     </div>
