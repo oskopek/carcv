@@ -30,16 +30,15 @@ $(document).ready(function() {
         if (!confirm("Are you sure you want to delete?")) {
             return;
         }
-        var rows = table.rows('.selected');
-        if (!(rows instanceof Array) || rows.length <= 0) {
+        if (table.rows('.selected').length <= 0) {
             alert("The selection is empty!");
             return;
         }
-        var idString = rows[0][0];
+        var idString = table.rows('.selected')[0][0];
         console.log("idString: " + idString);
-        console.log(rows[0].data());
-        for (i = 1; i < rows.length; i++) {
-            idString += "," + rows[i][0];
+        console.log(table.rows('.selected')[0].data());
+        for (i = 1; i < table.rows('.selected').length; i++) {
+            idString += "," + table.rows('.selected')[i][0];
         }
         console.log("idString: " + idString);
         window.parent.location.replace("/admin/servlet/RemoveEntry?entry_id=" + idString);
@@ -50,7 +49,7 @@ $(document).ready(function() {
 
 </head>
 <body>
-    <c:if test="${isAdmin}"><button id="deleteButton">Delete selected rows</button></c:if><br>
+    <c:if test="${isAdmin}"><button id="deleteButton">Delete selected table.rows('.selected')</button></c:if><br>
     <table id="carTable" class="display" cellspacing="0" width="100%">
     <thead>
         <tr>
