@@ -18,42 +18,41 @@
 <script type="text/javascript" language="javascript" src="/resources/jquery-1.11.1.min.js"></script>
 <script type="text/javascript" language="javascript" src="/resources/jquery.dataTables.min.js"></script>
 <script type="text/javascript" class="init">
-$(document).ready(function() {
-    $('#carTable').dataTable( {
-        "scrollY":        "100%",
-        "scrollCollapse": true,
-        "paging":         false
-    } );
+$(document).ready(function () {
+    $('#carTable').dataTable({
+        "scrollY": "100%",
+        "scrollCollapse": false,
+        "paging": false
+    });
 
-	var table = $('#carTable').DataTable();
+    var table = $('#carTable').DataTable();
 
-	$('#carTable tbody').on( 'click', 'tr', function () {
-		$(this).toggleClass('selected');
-    } );
+    $('#carTable tbody').on('click', 'tr', function () {
+        $(this).toggleClass('selected');
+    });
 
-	$('#deleteButton').click( function () {
-	    console.log("delete clicked");
+    $('#deleteButton').click(function () {
         if (!confirm("Are you sure you want to delete?")) {
             return;
         }
         var rows = table.rows('.selected');
-        if (rows.length <= 0) {
+        if (rows.data().length <= 0) {
             alert("The selection is empty!");
             return;
         }
         var idString = "";
-        console.log(rows.data());
-        console.log(rows.column(0).data());
-        for (var id in rows.column(0).data()) {
-            idString += rows + ",";
+        console.log(rows('.selected').column(0).data());
+        var idColumnData = rows('.selected').column(0).data();
+        for (var id in idColumnData) {
+            idString += idColumnData[id] + ",";
         }
         console.log("idString: " + idString);
-        idString = idString.substring(0, idString.length-1)
+        idString = idString.substring(0, idString.length - 1);
         console.log("idString: " + idString);
         window.parent.location.replace("/admin/servlet/RemoveEntry?entry_id=" + idString);
-		//table.rows('.selected').remove().draw( false ); //TODO 3 Make table editable w/o reload
-	} );
-} );
+        //table.rows('.selected').remove().draw( false ); //TODO 3 Make table editable w/o reload
+    });
+});
 	</script>
 
 </head>
