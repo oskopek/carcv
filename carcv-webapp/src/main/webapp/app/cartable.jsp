@@ -20,7 +20,6 @@
 <script type="text/javascript" class="init">
 $(document).ready(function () {
     $('#carTable').dataTable({
-        "scrollY": "100%",
         "scrollCollapse": false,
         "paging": false
     });
@@ -47,7 +46,7 @@ $(document).ready(function () {
         idString = idString.substring(0, idString.length - 1);
         console.log("entryIDs: " + idString);
         window.parent.location.replace("/admin/servlet/RemoveEntry?entry_id=" + idString);
-        //table.rows('.selected').remove().draw( false ); //TODO 3 Make table editable w/o reload
+        //table.rows('.selected').remove().draw(false); //TODO 3 Make table editable w/o reload
     });
 });
 	</script>
@@ -55,7 +54,7 @@ $(document).ready(function () {
 </head>
 <body>
     <c:if test="${isAdmin}"><button id="deleteButton">Delete selected entries</button></c:if><br>
-    <table id="carTable" class="display" cellspacing="0" width="100%" height="100%"">
+    <table id="carTable" class="display">
     <thead>
         <tr>
             <th>ID</th>
