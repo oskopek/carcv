@@ -19,7 +19,7 @@
 <body>
     <div id="header">
         <a href="/app/index.jsp" target="_top"><img src="/resources/carcv-logo.png" width="150"
-            style="border: 0; margin-top: 5px; margin-bottom: 5px; text-align: left; position: relative; top: -10px"
+            id="logo"
             alt="OpenCV" /></a>
         <p style="position: absolute; right: 8%; top: 2%; font-size: 11pt; word-spacing: .5em;">
             <strong> <a href="/app/index.jsp" target="_top" style="text-decoration: none">Home</a> <a
