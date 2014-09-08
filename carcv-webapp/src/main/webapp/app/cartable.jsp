@@ -29,6 +29,10 @@ $(document).ready(function() {
             return;
         }
         var rows = table.rows('.selected');
+        if (typeof rows == 'undefined' || rows.length <= 0) {
+            alert("The selection is empty!")
+            return;
+        }
         var idString = "".concat(rows[0][0]);
         for (i = 1; i < rows.length; i++) {
             idString = idString.concat(",", rows[i][0]);
@@ -42,50 +46,47 @@ $(document).ready(function() {
 </head>
 <body>
     <c:if test="${isAdmin}"><button id="deleteButton">Delete selected rows</button></c:if><br>
-    <table id="carTable" style="border: 1px solid #C0C0C0;" class="display" cellspacing="0" width="100%">
+    <table id="carTable" style="border: 1px solid #C0C0C0; background-color: #B0C4DE;" class="display" cellspacing="0" width="100%">
     <thead>
         <tr>
-            <th style="width: 10%; height: 15px; background-color: #B0C4DE;">ID</th>
-            <th style="width: 25%; height: 15px; background-color: #B0C4DE;">Car preview</th>
-            <th style="width: 10%; height: 15px; background-color: #B0C4DE;">Date</th>
-            <th style="width: 10%; height: 15px; background-color: #B0C4DE;">License plate</th>
-            <th style="width: 15%; height: 15px; background-color: #B0C4DE;">Location</th>
-            <th style="width: 10%; height: 15px; background-color: #B0C4DE;">Video</th>
-            <th style="width: 10%; height: 15px; background-color: #B0C4DE;">Picture</th>
-            <th style="width: 10%; height: 15px; background-color: #B0C4DE;">Report</th>
+            <th style="width: 10%;">ID</th>
+            <th style="width: 20%;">Picture</th>
+            <th style="width: 15%;">Date</th>
+            <th style="width: 15%;">License plate</th>
+            <th style="width: 20%;">Location</th>
+            <th style="width: 10%;">Video</th>
+            <th style="width: 10%;">Report</th>
         </tr>
     </thead>
 
     <tfoot>
         <tr>
-            <th style="width: 10%; height: 15px; background-color: #B0C4DE;">ID</th>
-            <th style="width: 25%; height: 15px; background-color: #B0C4DE;">Car preview</th>
-            <th style="width: 10%; height: 15px; background-color: #B0C4DE;">Date</th>
-            <th style="width: 10%; height: 15px; background-color: #B0C4DE;">License plate</th>
-            <th style="width: 15%; height: 15px; background-color: #B0C4DE;">Location</th>
-            <th style="width: 10%; height: 15px; background-color: #B0C4DE;">Video</th>
-            <th style="width: 10%; height: 15px; background-color: #B0C4DE;">Picture</th>
-            <th style="width: 10%; height: 15px; background-color: #B0C4DE;">Report</th>
+            <th style="width: 5%;">ID</th>
+            <th style="width: 25%;">Picture</th>
+            <th style="width: 15%;">Date</th>
+            <th style="width: 20%;">License plate</th>
+            <th style="width: 25%;">Location</th>
+            <th style="width: 5%;">Video</th>
+            <th style="width: 5%;">Report</th>
         </tr>
     </tfoot>
 
-        <tbody>
+    <tbody>
         <c:forEach var="member" items="${wrtmList}">
             <tr>
                 <td>${member.entryId}</td>
-                <td><img src="/servlet/DisplayImage?path=${member.previewPath}&width=150" style="border: 2px" width="150"
-                    alt="Car"></td>
-                <td>${member.date}<br> ${member.time}
-                </td>
+                <td><a href="/servlet/DisplayImage?path=${member.previewPath}" target="_top">
+                <img src="/servlet/DisplayImage?path=${member.previewPath}&width=1000" style="border: 2px; width: 100%"
+                    alt="Car"></a></td>
+                <td>${member.date}<br> ${member.time}</td>
                 <td>${member.licensePlate}</td>
                 <td>${member.location}</td>
                 <td><a href="/servlet/GenerateVideo?entry_id=${member.entryId}" target="_top">View</a></td>
-                <td><a href="/servlet/DisplayImage?path=${member.previewPath}" target="_top">View</a></td>
                 <td><a href="/servlet/GenerateReport?entry_id=${member.entryId}&timezone=${member.timeZone}" target="_top">Generate</a></td>
             </tr>
             <!-- TODO put script to addRow here -->
         </c:forEach>
-        </tbody>
+    </tbody>
     </table>
 </body>
 </html>
