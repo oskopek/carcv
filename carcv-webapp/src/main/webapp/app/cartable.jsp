@@ -35,25 +35,17 @@ $(document).ready(function () {
         if (!confirm("Are you sure you want to delete?")) {
             return;
         }
-        var rows = table.rows('.selected');
-        console.log(table.rows('.selected').length);
-        console.log(rows.length);
-        console.log("INTERMEZZO");
-        if (rows.data().length <= 0) {
+        var rows = table.rows('.selected').data();
+        if (rows.length <= 0) {
             alert("The selection is empty!");
             return;
         }
         var idString = "";
-        var idColumnData = rows.column(0).data();
-        console.log(table.rows('.selected').column(0).data());
-        console.log(rows.column(0).data());
-        console.log(idColumnData);
-        for (var id in idColumnData) {
-            idString += idColumnData[id] + ",";
+        for (var i = 0; i < rows.length; i++) {
+            idString += rows[i][0] + ",";
         }
-        console.log("idString: " + idString);
         idString = idString.substring(0, idString.length - 1);
-        console.log("idString: " + idString);
+        console.log("entryIDs: " + idString);
         window.parent.location.replace("/admin/servlet/RemoveEntry?entry_id=" + idString);
         //table.rows('.selected').remove().draw( false ); //TODO 3 Make table editable w/o reload
     });
@@ -62,7 +54,7 @@ $(document).ready(function () {
 
 </head>
 <body>
-    <c:if test="${isAdmin}"><button id="deleteButton">Delete selected rows</button></c:if><br>
+    <c:if test="${isAdmin}"><button id="deleteButton">Delete selected entries</button></c:if><br>
     <table id="carTable" class="display" cellspacing="0" width="100%">
     <thead>
         <tr>
