@@ -19,6 +19,12 @@
 <script type="text/javascript" language="javascript" src="/resources/jquery.dataTables.min.js"></script>
 <script type="text/javascript" class="init">
 $(document).ready(function() {
+    $('#carTable').dataTable( {
+        "scrollY":        "100%",
+        "scrollCollapse": true,
+        "paging":         false
+    } );
+
 	var table = $('#carTable').DataTable();
 
 	$('#carTable tbody').on( 'click', 'tr', function () {
@@ -30,16 +36,19 @@ $(document).ready(function() {
         if (!confirm("Are you sure you want to delete?")) {
             return;
         }
-        if (table.rows('.selected').length <= 0) {
+        var rows = table.rows('.selected');
+        if (rows.length <= 0) {
             alert("The selection is empty!");
             return;
         }
-        var idString = table.rows('.selected')[0][0];
-        console.log("idString: " + idString);
-        console.log(table.rows('.selected')[0].data());
-        for (i = 1; i < table.rows('.selected').length; i++) {
-            idString += "," + table.rows('.selected')[i][0];
+        var idString = "";
+        console.log(rows.data());
+        console.log(rows.column(0).data());
+        for (var id in rows.column(0).data()) {
+            idString += rows + ",";
         }
+        console.log("idString: " + idString);
+        idString = idString.substring(0, idString.length-1)
         console.log("idString: " + idString);
         window.parent.location.replace("/admin/servlet/RemoveEntry?entry_id=" + idString);
 		//table.rows('.selected').remove().draw( false ); //TODO 3 Make table editable w/o reload
@@ -49,7 +58,7 @@ $(document).ready(function() {
 
 </head>
 <body>
-    <c:if test="${isAdmin}"><button id="deleteButton">Delete selected table.rows('.selected')</button></c:if><br>
+    <c:if test="${isAdmin}"><button id="deleteButton">Delete selected rows</button></c:if><br>
     <table id="carTable" class="display" cellspacing="0" width="100%">
     <thead>
         <tr>
