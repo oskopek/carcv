@@ -55,7 +55,7 @@ $(document).ready(function () {
 </head>
 <body>
     <c:if test="${isAdmin}"><button id="deleteButton">Delete selected entries</button></c:if><br>
-    <table id="carTable" class="display" cellspacing="0" width="100%">
+    <table id="carTable" class="display" cellspacing="0" width="100%" height="100%"">
     <thead>
         <tr>
             <th>ID</th>

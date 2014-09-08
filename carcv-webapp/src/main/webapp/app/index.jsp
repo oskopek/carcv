@@ -55,8 +55,7 @@
             var timezone = jstz.determine();
             return timezone.name();
         }
-        document.write("<iframe style=\"overflow-y: scroll; width: 99%; height: 98.5%; border: 5px solid #B0C4DE\""
-        + "src=\"/servlet/CarTable?timezone="+getTimezone()+"\"></iframe>");
+        document.write("<iframe src=\"/servlet/CarTable?timezone="+getTimezone()+"\"></iframe>");
         </script>
     </div>
 
