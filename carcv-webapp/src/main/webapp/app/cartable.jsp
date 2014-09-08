@@ -51,7 +51,7 @@ $(document).ready(function() {
             <th style="width: 10%; height: 15px; background-color: #B0C4DE;">License plate</th>
             <th style="width: 15%; height: 15px; background-color: #B0C4DE;">Location</th>
             <th style="width: 10%; height: 15px; background-color: #B0C4DE;">Video</th>
-            <th style="width: 10%; height: 15px; background-color: #B0C4DE;">Pictures</th>
+            <th style="width: 10%; height: 15px; background-color: #B0C4DE;">Picture</th>
             <th style="width: 10%; height: 15px; background-color: #B0C4DE;">Report</th>
         </tr>
     </thead>
@@ -64,7 +64,7 @@ $(document).ready(function() {
             <th style="width: 10%; height: 15px; background-color: #B0C4DE;">License plate</th>
             <th style="width: 15%; height: 15px; background-color: #B0C4DE;">Location</th>
             <th style="width: 10%; height: 15px; background-color: #B0C4DE;">Video</th>
-            <th style="width: 10%; height: 15px; background-color: #B0C4DE;">Pictures</th>
+            <th style="width: 10%; height: 15px; background-color: #B0C4DE;">Picture</th>
             <th style="width: 10%; height: 15px; background-color: #B0C4DE;">Report</th>
         </tr>
     </tfoot>
@@ -79,10 +79,9 @@ $(document).ready(function() {
                 </td>
                 <td>${member.licensePlate}</td>
                 <td>${member.location}</td>
-                <td><a href="/servlet/GenerateVideo?entry_id=${member.entryId}" target="_top">View video</a></td>
-                <td><a href="/servlet/DisplayImage?path=${member.previewPath}" target="_top">View preview</a></td>
-                <td><a href="/servlet/GenerateReport?entry_id=${member.entryId}&timezone=${member.timeZone}" target="_top">Generate
-                        report</a></td>
+                <td><a href="/servlet/GenerateVideo?entry_id=${member.entryId}" target="_top">View</a></td>
+                <td><a href="/servlet/DisplayImage?path=${member.previewPath}" target="_top">View</a></td>
+                <td><a href="/servlet/GenerateReport?entry_id=${member.entryId}&timezone=${member.timeZone}" target="_top">Generate</a></td>
             </tr>
             <!-- TODO put script to addRow here -->
         </c:forEach>
