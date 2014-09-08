@@ -26,20 +26,22 @@ $(document).ready(function() {
     } );
 
 	$('#deleteButton').click( function () {
+	    console.log("delete clicked");
         if (!confirm("Are you sure you want to delete?")) {
             return;
         }
         var rows = table.rows('.selected');
         if (!(rows instanceof Array) || rows.length <= 0) {
-            alert("The selection is empty!")
+            alert("The selection is empty!");
             return;
         }
         var idString += rows[0][0];
-        alert(idString + " DEBUG\n" + rows[0].data());
+        console.log("idString: " + idString);
+        console.log(rows[0].data());
         for (i = 1; i < rows.length; i++) {
             idString += "," + rows[i][0];
         }
-        alert(idString);
+        console.log("idString: " + idString);
         window.parent.location.replace("/admin/servlet/RemoveEntry?entry_id=" + idString);
 		//table.rows('.selected').remove().draw( false ); //TODO 3 Make table editable w/o reload
 	} );
@@ -52,25 +54,25 @@ $(document).ready(function() {
     <table id="carTable" class="display" cellspacing="0" width="100%">
     <thead>
         <tr>
-            <th style="width: 10%;">ID</th>
-            <th style="width: 20%;">Picture</th>
-            <th style="width: 20%;">Date</th>
-            <th style="width: 20%;">License plate</th>
-            <th style="width: 20%;">Location</th>
-            <th style="width: 5%;">Video</th>
-            <th style="width: 5%;">Report</th>
+            <th>ID</th>
+            <th>Picture</th>
+            <th>Date</th>
+            <th>License plate</th>
+            <th>Location</th>
+            <th>Video</th>
+            <th>Report</th>
         </tr>
     </thead>
 
     <tfoot>
         <tr>
-            <th style="width: 10%;">ID</th>
-            <th style="width: 20%;">Picture</th>
-            <th style="width: 20%;">Date</th>
-            <th style="width: 20%;">License plate</th>
-            <th style="width: 20%;">Location</th>
-            <th style="width: 5%;">Video</th>
-            <th style="width: 5%;">Report</th>
+            <th>ID</th>
+            <th>Picture</th>
+            <th>Date</th>
+            <th>License plate</th>
+            <th>Location</th>
+            <th>Video</th>
+            <th>Report</th>
         </tr>
     </tfoot>
 
