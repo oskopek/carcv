@@ -79,6 +79,8 @@ body {
     bottom: 0px;
     left: 0px;
     right: 0px;
+    width: 100%;
+    height: 100%;
     position: absolute;
     border: 0px solid #b0c4de;
     padding: 0px;
