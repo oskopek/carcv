@@ -73,3 +73,14 @@ body {
 #deleteButton {
     margin-bottom: 5px;
 }
+
+#tableFrame {
+    top: 0px;
+    bottom: 0px;
+    left: 0px;
+    right: 0px;
+    position: absolute;
+    border: 0px solid #b0c4de;
+    padding: 0px;
+    margin: 0px;
+}
