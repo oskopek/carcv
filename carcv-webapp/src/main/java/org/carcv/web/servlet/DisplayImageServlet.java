@@ -47,12 +47,10 @@ public class DisplayImageServlet extends HttpServlet {
     /**
      * Remember to update the {@link DirectoryLoader#knownImageFileSuffixes} relative to this!
      *
-     * @throws ServletException
      * @throws IOException
      * @see DirectoryLoader#knownImageFileSuffixes
      */
-    protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws
-            IOException {
+    protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws IOException {
         String path = request.getParameter("path");
 
         if (path == null) {
@@ -98,37 +96,39 @@ public class DisplayImageServlet extends HttpServlet {
      * @throws IOException
      */
     protected static Path imagePath(String path, String height, String width) throws IOException {
+        if (path == null) {
+            LOGGER.error("Path of image is null!");
+            return null;
+        }
         Path imagePath = Paths.get(path);
         LOGGER.debug("Loading image at: {}", imagePath.toString());
         if (!Files.exists(imagePath) || !Files.isRegularFile(imagePath)) {
+            LOGGER.warn("Image at {} doesn't exist.");
             return null;
         }
 
         Path returnPath;
-
         if (height == null && width == null) {
-            LOGGER.debug("Returning path straight away.");
+            LOGGER.debug("Returning image path straight away.");
             returnPath = imagePath;
-        } else if (height != null) {
+        } else if (height != null && width != null) {
+            LOGGER.debug("Resize image to width {} and height {}", Integer.parseInt(width), Integer.parseInt(height));
+            returnPath = imagePathResize(imagePath, Integer.parseInt(height), Integer.parseInt(width));
+        } else if (height != null) { // && width == null
             BufferedImage bi = ImageIO.read(imagePath.toFile());
             int heightInt = Integer.parseInt(height);
             float rate = (float) heightInt / (float) bi.getHeight();
             int widthInt = Math.round(bi.getWidth() * rate);
-            LOGGER.debug("I know the height {} and calculated the width {}.", heightInt, widthInt);
+            LOGGER.debug("Calculating the image width for height {}: {}", heightInt, widthInt);
             returnPath = imagePathResize(imagePath, heightInt, widthInt);
-        } else if (width != null) {
+        } else { // else if (height == null && width != null)
             BufferedImage bi = ImageIO.read(imagePath.toFile());
             int widthInt = Integer.parseInt(width);
             float rate = (float) widthInt / (float) bi.getWidth();
             int heightInt = Math.round(bi.getHeight() * rate);
-            LOGGER.debug("I know the width {} and calculated the height {}.", widthInt, heightInt);
+            LOGGER.debug("Calculating the image height for width {}: {}", widthInt, heightInt);
             returnPath = imagePathResize(imagePath, heightInt, widthInt);
-        } else {
-            LOGGER.debug("I know the width {} and the height {}.", Integer.parseInt(width), Integer.parseInt(height));
-            returnPath = imagePathResize(imagePath, Integer.parseInt(height), Integer.parseInt(width));
         }
-
-        LOGGER.debug("Returning: {}", returnPath.toString());
         return returnPath;
     }
 
@@ -144,15 +144,10 @@ public class DisplayImageServlet extends HttpServlet {
     private static Path imagePathResize(Path imagePath, int height, int width) throws IOException {
         String filename = imagePath.getFileName().toString();
         int dot = filename.indexOf('.');
-
-        LOGGER.debug("Filename: {} and dot index: {}", filename, dot);
-        LOGGER.debug("Name: {}, Suffix: {}", filename.substring(0, dot), filename.subSequence(dot + 1, filename.length()));
         Path resizedImagePath = Paths.get(imagePath.getParent().toString(),
-            filename.substring(0, dot) + "_" + width + "x" + height + filename.substring(dot + 1, filename.length()));
-        LOGGER.debug("ResizedPath: {}", resizedImagePath.toString());
+            filename.substring(0, dot) + "_" + width + "x" + height + "." + filename.substring(dot + 1, filename.length()));
 
         if (Files.exists(resizedImagePath)) { // if file already exists, return it's path
-            LOGGER.debug("The ResizedPath already exists.");
             return resizedImagePath;
         }
 
@@ -165,7 +160,6 @@ public class DisplayImageServlet extends HttpServlet {
         g.dispose();
 
         ImageIO.write(resizedImage, filename.substring(dot + 1, filename.length()), resizedImagePath.toFile());
-
         return resizedImagePath;
     }
 
