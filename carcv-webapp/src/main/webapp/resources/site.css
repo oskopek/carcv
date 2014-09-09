@@ -86,3 +86,8 @@ body {
     padding: 0px;
     margin: 0px;
 }
+
+.panelItem {
+    margin-bottom: 10px;
+    font-size: 120%;
+}
