@@ -23,10 +23,11 @@
     </div>
 
     <div class="mainColumn">
+        <div><h2>Log in</h2></div>
         <form method="post" target="_top" action="j_security_check">
-            <p>Username: <input type="text" name="j_username"></p>
-            <p>Password: <input type="password" name="j_password"></p>
-            <p><input type="submit" value="Login"></p>
+            <p>Username: <input type="text" name="j_username" /></p>
+            <p>Password: <input type="password" name="j_password" /></p>
+            <p><input type="submit" value="Log in" /></p>
         </form>
     </div>
 

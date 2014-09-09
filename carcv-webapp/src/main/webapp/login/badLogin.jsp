@@ -23,7 +23,8 @@
     </div>
 
     <div class="mainColumn">
-        Invalid username or password. <br> Please, <a href="/app/index.jsp" target="_top">try again</a>.
+        <div><h2>Invalid username or password.</h2></div>
+        <div><h2>Please, <a href="/app/index.jsp" target="_top">try again</a>.</h2></div>
     </div>
 
     <div id="footer"></div>
