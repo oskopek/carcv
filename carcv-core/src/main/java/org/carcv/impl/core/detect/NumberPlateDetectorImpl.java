@@ -73,7 +73,11 @@ public class NumberPlateDetectorImpl extends NumberPlateDetector {
     public String detectPlateText(final List<? extends AbstractCarImage> images) {
         ArrayList<String> numberPlates = new ArrayList<>();
         for (AbstractCarImage image : images) {
-            numberPlates.add(intel.recognize(new CarSnapshot(image.getImage())));
+            String plate = intel.recognize(new CarSnapshot(image.getImage()));
+            if (plate == null) {
+                plate = "null";
+            }
+            numberPlates.add(plate);
         }
         return CollectionUtils.highestCountElement(numberPlates);
     }
