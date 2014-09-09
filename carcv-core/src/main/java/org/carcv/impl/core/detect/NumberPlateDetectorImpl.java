@@ -28,6 +28,8 @@ import net.sf.javaanpr.intelligence.Intelligence;
 import org.carcv.core.detect.NumberPlateDetector;
 import org.carcv.core.model.AbstractCarImage;
 import org.carcv.impl.core.util.CollectionUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.xml.sax.SAXException;
 
 /**
@@ -38,6 +40,8 @@ import org.xml.sax.SAXException;
  * Make sure all images are loaded in advance!
  */
 public class NumberPlateDetectorImpl extends NumberPlateDetector {
+
+    final private static Logger LOGGER = LoggerFactory.getLogger(NumberPlateDetectorImpl.class);
 
     private static NumberPlateDetectorImpl detector;
     private Intelligence intel;
@@ -73,7 +77,12 @@ public class NumberPlateDetectorImpl extends NumberPlateDetector {
     public String detectPlateText(final List<? extends AbstractCarImage> images) {
         ArrayList<String> numberPlates = new ArrayList<>();
         for (AbstractCarImage image : images) {
-            numberPlates.add(intel.recognize(new CarSnapshot(image.getImage())));
+            String plate = intel.recognize(new CarSnapshot(image.getImage()));
+            if (plate == null) {
+                plate = "null";
+                LOGGER.warn("Plate on image ID {} wasn't detected, writing null.", image.getId());
+            }
+            numberPlates.add(plate);
         }
         return CollectionUtils.highestCountElement(numberPlates);
     }
