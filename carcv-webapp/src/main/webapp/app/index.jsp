@@ -22,7 +22,6 @@
     </div>
 
     <div class="leftPanel">
-        <c:if test="${isAdmin}"><div class="panelItem"><button id="deleteButton">Delete selected entries</button></div></c:if>
         <div class="panelItem"><a href="/servlet/Recognize" target="_top">Refresh DB</a></div>
         <div class="panelItem"><a href="/app/upload.jsp" target="_top">Upload</a></div>
         <div class="panelItem"><a href="/servlet/Logout" target="_top">Log out</a></div>

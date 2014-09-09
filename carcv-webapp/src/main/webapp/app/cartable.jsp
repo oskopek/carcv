@@ -53,6 +53,7 @@ $(document).ready(function () {
 
 </head>
 <body>
+    <c:if test="${isAdmin}"><button id="deleteButton">Delete selected entries</button></c:if>
     <table style="text-align: center;" id="carTable" class="display">
     <thead>
         <tr>
