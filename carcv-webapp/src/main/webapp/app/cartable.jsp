@@ -6,56 +6,94 @@
 <link rel="SHORTCUT ICON" href="http://upload.wikimedia.org/wikipedia/commons/f/f0/Car_with_Driver-Silhouette.svg">
 <link rel="icon" href="http://upload.wikimedia.org/wikipedia/commons/f/f0/Car_with_Driver-Silhouette.svg" type="image/ico">
 <title>CarCV Car Table</title>
-<link rel="stylesheet" type="text/css" href="/resources/mystyle.css">
+<link rel="stylesheet" type="text/css" href="/resources/site.css">
+<link rel="stylesheet" type="text/css" href="/resources/jquery.dataTables.css">
 <style type="text/css">
 #tabulator {
     text-align: center;
     height: 25px
 }
 </style>
+
+<script type="text/javascript" language="javascript" src="/resources/jquery-1.11.1.min.js"></script>
+<script type="text/javascript" language="javascript" src="/resources/jquery.dataTables.min.js"></script>
+<script type="text/javascript" class="init">
+$(document).ready(function () {
+    $('#carTable').dataTable({
+        "scrollCollapse": false,
+        "paging": false
+    });
+
+    var table = $('#carTable').DataTable();
+
+    $('#carTable tbody').on('click', 'tr', function () {
+        $(this).toggleClass('selected');
+    });
+
+    $('#deleteButton').click(function () {
+        if (!confirm("Are you sure you want to delete?")) {
+            return;
+        }
+        var rows = table.rows('.selected').data();
+        if (rows.length <= 0) {
+            alert("The selection is empty!");
+            return;
+        }
+        var idString = "";
+        for (var i = 0; i < rows.length; i++) {
+            idString += rows[i][0] + ",";
+        }
+        idString = idString.substring(0, idString.length - 1);
+        console.log("entryIDs: " + idString);
+        window.parent.location.replace("/admin/servlet/RemoveEntry?entry_id=" + idString);
+        //table.rows('.selected').remove().draw(false); //TODO 3 Make table editable w/o reload
+    });
+});
+	</script>
+
 </head>
 <body>
-    <table style="border: 1px solid #C0C0C0;">
+    <c:if test="${isAdmin}"><button id="deleteButton">Delete selected entries</button></c:if><br>
+    <table id="carTable" class="display">
+    <thead>
         <tr>
-            <th style="width: 160px; height: 15px; background-color: #B0C4DE;">Car preview</th>
-            <th style="width: 10%; height: 15px; background-color: #B0C4DE;">Date</th>
-            <th style="width: 15%; height: 15px; background-color: #B0C4DE;">License plate</th>
-            <th style="width: 20%; height: 15px; background-color: #B0C4DE;">Location</th>
-            <th style="width: 15%; height: 15px; background-color: #B0C4DE;">Video</th>
-            <th style="width: 15%; height: 15px; background-color: #B0C4DE;">Pictures</th>
-            <th style="width: 15%; height: 15px; background-color: #B0C4DE;">Report</th>
-            <c:if test="${isAdmin}">
-                <th style="width: 10%; height: 15px; background-color: #B0C4DE;">Delete</th>
-            </c:if>
+            <th>ID</th>
+            <th>Picture</th>
+            <th>Date</th>
+            <th>License plate</th>
+            <th>Location</th>
+            <th>Video</th>
+            <th>Report</th>
         </tr>
+    </thead>
 
+    <tfoot>
+        <tr>
+            <th>ID</th>
+            <th>Picture</th>
+            <th>Date</th>
+            <th>License plate</th>
+            <th>Location</th>
+            <th>Video</th>
+            <th>Report</th>
+        </tr>
+    </tfoot>
+
+    <tbody>
         <c:forEach var="member" items="${wrtmList}">
             <tr>
-                <td><img src="/servlet/DisplayImage?path=${member.previewPath}&width=150" style="border: 2px" width="150"
-                    alt="Car"></td>
-                <td>${member.date}<br> ${member.time}
-                </td>
+                <td>${member.entryId}</td>
+                <td><a href="/servlet/DisplayImage?path=${member.previewPath}" target="_top">
+                <img src="/servlet/DisplayImage?path=${member.previewPath}&width=200" style="border: 2px; width: 100%"
+                    alt="Car"></a></td>
+                <td>${member.date}<br> ${member.time}</td>
                 <td>${member.licensePlate}</td>
                 <td>${member.location}</td>
-                <td><a href="/servlet/GenerateVideo?entry_id=${member.entryId}" target="_top">View video</a></td>
-                <td><a href="/servlet/DisplayImage?path=${member.previewPath}" target="_top">View preview</a></td>
-                <td><a href="/servlet/GenerateReport?entry_id=${member.entryId}&timezone=${member.timeZone}" target="_top">Generate
-                        report</a></td>
-                <c:if test="${isAdmin}">
-                    <td>
-                    <button onclick="confirmRemove()">Delete</button>
-                    <script>
-                        function confirmRemove() {
-                            var result = confirm("Are you sure you want to delete?");
-                            if (result) { // TODO remove the correct entry! See issue #28
-                                window.parent.location.replace("/admin/servlet/RemoveEntry?entry_id=${member.entryId}");
-                            }
-                        }
-                    </script>
-                    </td>
-                </c:if>
+                <td><a href="/servlet/GenerateVideo?entry_id=${member.entryId}" target="_top">View</a></td>
+                <td><a href="/servlet/GenerateReport?entry_id=${member.entryId}&timezone=${member.timeZone}" target="_top">Generate</a></td>
             </tr>
         </c:forEach>
+    </tbody>
     </table>
 </body>
 </html>

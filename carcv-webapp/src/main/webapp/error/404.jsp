@@ -5,24 +5,24 @@
 <link rel="SHORTCUT ICON" href="http://upload.wikimedia.org/wikipedia/commons/f/f0/Car_with_Driver-Silhouette.svg">
 <link rel="icon" href="http://upload.wikimedia.org/wikipedia/commons/f/f0/Car_with_Driver-Silhouette.svg" type="image/ico">
 <title>CarCV - Error</title>
-<link rel="stylesheet" type="text/css" href="/resources/mystyle.css">
+<link rel="stylesheet" type="text/css" href="/resources/site.css">
 </head>
 
 <body>
-    <div id="header">
-        <a href="/app/index.jsp" target="_top"><img src="/resources/carcv-logo.png" width="150"
-            id="logo"
-            alt="OpenCV" /></a>
-        <p style="position: absolute; right: 8%; top: 2%; font-size: 11pt; word-spacing: .5em;">
-            <strong> <a href="/app/index.jsp" target="_top" style="text-decoration: none">Home</a> <a
-                href="/info/features.jsp" target="_top" style="text-decoration: none">Features</a> <a href="/info/contribute.jsp"
-                target="_top" style="text-decoration: none">Contribute</a> <a href="/info/contact_us.jsp" target="_top"
-                style="text-decoration: none; word-spacing: 0em;">Contact us</a>
+    <div class="header">
+        <div class="logo"> <a href="/app/index.jsp" target="_top">
+            <img src="/resources/carcv-logo.png" alt="OpenCV" /></a>
+        </div>
+        <div class="topRow"> <strong>
+            <span class="link"><a href="/app/index.jsp" target="_top" >Home</a></span>
+            <span class="link"><a href="/info/features.jsp" target="_top" >Features</a></span>
+            <span class="link"><a href="/info/contribute.jsp">Contribute</a></span>
+            <span class="link"><a href="/info/contact_us.jsp" target="_top">Contact us</a></span>
             </strong>
-        </p>
+        </div>
     </div>
 
-    <div id="center-login">
+    <div class="mainColumn">
         <h2>Error 404</h2>
         <h4>We are sorry, but the page you were looking for wasn't found.</h4>
     </div>

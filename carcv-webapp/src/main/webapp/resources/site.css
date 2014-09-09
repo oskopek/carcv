@@ -1,0 +1,88 @@
+body {
+    background-color: #f0f8ff;
+    font-size: 80%;
+    font-family:"Liberation Sans", Arial;
+    font-style: normal;
+    font-variant: normal;
+}
+.header {
+    height: 45px;
+    top: 0px;
+    left: 0px;
+    right: 0px;
+    background-color: #b0c4de;
+    position: fixed;
+    padding: 5px;
+    border: 5px solid #b0c4de;
+    border-radius: 10px;
+}
+.logo {
+    top: 0px;
+    left: 20px;
+    margin-right: 100px;
+    position: absolute;
+}
+.topRow {
+    top: 20px;
+    right: 20px;
+    position: absolute;
+    font-size: 150%;
+}
+.link {
+    margin-right: 25px;
+}
+.mainColumn {
+    right: 0px;
+    left: 150px;
+    top: 60px;
+    bottom: 25px;
+    background-color: #f0f8ff;
+    overflow: auto;
+    position: absolute;
+    margin: 10px;
+    padding: 5px;
+    border: 5px solid #b0c4de;
+    border-radius: 10px;
+    text-align: center;
+}
+.footer {
+    height: 20px;
+    bottom: 0px;
+    left: 0px;
+    right: 0px;
+    background-color: #b0c4de;
+    position: fixed;
+    border: 5px solid #b0c4de;
+    border-radius: 10px;
+}
+.leftPanel {
+    left: 0px;
+    top: 60px;
+    bottom: 25px;
+    width: 120px;
+    background-color: #f0f8ff;
+    text-align: center;
+    overflow: auto;
+    position: absolute;
+    margin: 10px;
+    padding: 5px;
+    border: 5px solid #b0c4de;
+    border-radius: 10px;
+}
+
+#deleteButton {
+    margin-bottom: 5px;
+}
+
+#tableFrame {
+    top: 0px;
+    bottom: 0px;
+    left: 0px;
+    right: 0px;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    border: 0px solid #b0c4de;
+    padding: 0px;
+    margin: 0px;
+}
