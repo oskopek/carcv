@@ -53,8 +53,7 @@ $(document).ready(function () {
 
 </head>
 <body>
-    <c:if test="${isAdmin}"><button id="deleteButton">Delete selected entries</button></c:if><br>
-    <table id="carTable" class="display">
+    <table style="text-align: center;" id="carTable" class="display">
     <thead>
         <tr>
             <th>ID</th>
@@ -84,7 +83,7 @@ $(document).ready(function () {
             <tr>
                 <td>${member.entryId}</td>
                 <td><a href="/servlet/DisplayImage?path=${member.previewPath}" target="_top">
-                <img src="/servlet/DisplayImage?path=${member.previewPath}&width=200" style="border: 2px; width: 100%"
+                <img src="/servlet/DisplayImage?path=${member.previewPath}&width=200" style="border: 2px;"
                     alt="Car"></a></td>
                 <td>${member.date}<br> ${member.time}</td>
                 <td>${member.licensePlate}</td>
