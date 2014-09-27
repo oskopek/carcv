@@ -27,6 +27,15 @@ link:./docs/howto-setup-environment-windows.adoc[Windows], link:./docs/howto-set
 * To *clean*, run: +mvn clean+
 * Run a simple link:./docs/core/core-usage.adoc[carcv-core demo]
 
+=== Docker
+CarCV is also available as a https://registry.hub.docker.com/u/oskopek/carcv-webapp/[Docker image]:
+
+```
+docker pull oskopek/carcv-webapp
+docker run -d --name=mariadb fedora/mariadb
+docker run -it --rm --link mariadb:mariadb -p 8080:8080 oskopek/carcv-webapp
+```
+
 === Getting help
 
 * Post questions or comments on our Google Groups link:https://groups.google.com/d/forum/carcv[mailing list]
