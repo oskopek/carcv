@@ -1,5 +1,5 @@
 /*
- * Copyright 2012-2014 CarCV Development Team
+ * Copyright 2012 CarCV Development Team
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
