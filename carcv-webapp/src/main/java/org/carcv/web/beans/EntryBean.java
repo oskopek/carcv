@@ -16,13 +16,12 @@
 
 package org.carcv.web.beans;
 
-import java.util.List;
+import org.carcv.core.model.file.FileEntry;
 
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-
-import org.carcv.core.model.file.FileEntry;
+import java.util.List;
 
 /**
  * Provides basic JPA EntityManager persistence for the FileEntry entity.
@@ -36,8 +35,8 @@ public class EntryBean {
     /**
      * Persists the list of FileEntries to the database.
      *
-     * @see EntityManager#persist(Object)
      * @param entries array of FileEntries to persist
+     * @see EntityManager#persist(Object)
      */
     public void persist(FileEntry... entries) {
         for (FileEntry e : entries) {
@@ -49,8 +48,8 @@ public class EntryBean {
      * Finds the FileEntry with primary key <code>id</code>.
      *
      * @param id the id to query for
-     * @see EntityManager#find(Class, Object)
      * @return the FileEntry with the given id or null if no such FileEntry exists
+     * @see EntityManager#find(Class, Object)
      */
     public FileEntry findById(long id) {
         // return (FileEntry) em.createQuery("select e from FileEntry e where e.id = :id").setParameter("id", id)
@@ -60,7 +59,7 @@ public class EntryBean {
 
     /**
      * Queries the database, selecting all FileEntries in the table.
-     * <p>
+     * <p/>
      * Query: <code>select e from FileEntry e</code>
      *
      * @return the list result of the query
@@ -73,8 +72,8 @@ public class EntryBean {
     /**
      * Removes the list of FileEntries from the database.
      *
-     * @see EntityManager#remove(Object)
      * @param entries array of FileEntries to remove
+     * @see EntityManager#remove(Object)
      */
     public void remove(FileEntry... entries) {
         for (FileEntry e : entries) {
@@ -86,8 +85,8 @@ public class EntryBean {
     /**
      * Removes the list of FileEntries from the database.
      *
-     * @see EntityManager#remove(Object)
      * @param ids array of FileEntry IDs to remove
+     * @see EntityManager#remove(Object)
      */
     public void remove(long... ids) {
         FileEntry e;

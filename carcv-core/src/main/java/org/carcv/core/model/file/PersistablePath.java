@@ -16,17 +16,16 @@
 
 package org.carcv.core.model.file;
 
-import java.nio.file.Path;
-import java.nio.file.Paths;
-
-import javax.persistence.Embeddable;
-import javax.persistence.Transient;
-import javax.validation.constraints.NotNull;
-
 import org.apache.commons.lang.builder.CompareToBuilder;
 import org.apache.commons.lang.builder.EqualsBuilder;
 import org.apache.commons.lang.builder.HashCodeBuilder;
 import org.carcv.core.model.AbstractEmbeddable;
+
+import javax.persistence.Embeddable;
+import javax.persistence.Transient;
+import javax.validation.constraints.NotNull;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 
 /**
  * An internal persistable Path object storing the Path as a String. The {@link #getPath()} method returns a Path constructed

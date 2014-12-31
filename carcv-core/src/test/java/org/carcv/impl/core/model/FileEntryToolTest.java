@@ -15,9 +15,11 @@
  */
 package org.carcv.impl.core.model;
 
-import static org.junit.Assert.assertNotEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
+import org.carcv.core.model.file.FileCarImage;
+import org.carcv.core.model.file.FileEntry;
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -27,11 +29,9 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Random;
 
-import org.carcv.core.model.file.FileCarImage;
-import org.carcv.core.model.file.FileEntry;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
+import static org.junit.Assert.assertNotEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 
 /**
  * Test for {@link FileEntryTool}.

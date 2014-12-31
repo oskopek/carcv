@@ -16,6 +16,11 @@
 
 package org.carcv.impl.core.io;
 
+import org.carcv.core.io.Saver;
+import org.carcv.core.model.AbstractEntry;
+import org.carcv.core.model.file.FileCarImage;
+import org.carcv.core.model.file.FileEntry;
+
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.nio.file.Path;
@@ -23,16 +28,11 @@ import java.nio.file.Paths;
 import java.util.List;
 import java.util.Properties;
 
-import org.carcv.core.io.Saver;
-import org.carcv.core.model.AbstractEntry;
-import org.carcv.core.model.file.FileCarImage;
-import org.carcv.core.model.file.FileEntry;
-
 /**
  * An implementation of <code>Saver</code> that stores batches into files.
- * <p>
+ * <p/>
  * <strong>Note</strong>: This implementation only stores a properties files containing all needed info about cars in the batch.
- * <p>
+ * <p/>
  * Actual paths of {@link FileCarImage}s are referenced inside the properties files, as filepath0, filepath1, ...
  */
 public class FileSaver implements Saver {
@@ -51,9 +51,9 @@ public class FileSaver implements Saver {
     /**
      * Wrapper method for {@link #saveFileBatch(List)}.
      *
+     * @throws IOException if an error during the save occurs
      * @see #saveFileBatch(List)
      * @see org.carcv.core.io.Saver#save(java.util.List)
-     * @throws IOException if an error during the save occurs
      */
     @Override
     public void save(final List<? extends AbstractEntry> batch) throws IOException {
@@ -66,9 +66,9 @@ public class FileSaver implements Saver {
     /**
      * Invokes {@link #saveFileEntry(FileEntry)} for all {@link FileEntry}-s in the batch.
      *
-     * @see #saveFileEntry(FileEntry)
      * @param fileBatch the batch to save
      * @throws IOException if an error during the save occurs
+     * @see #saveFileEntry(FileEntry)
      */
     public void saveFileBatch(final List<FileEntry> fileBatch) throws IOException {
         for (FileEntry entry : fileBatch) {
@@ -78,9 +78,9 @@ public class FileSaver implements Saver {
 
     /**
      * Saves the {@link FileEntry} into a properties file into the output directory.
-     * <p>
+     * <p/>
      * The name of the output file is <code>e.hashCode() + "-" + System.currentTimeMillis()</code>
-     * <p>
+     * <p/>
      * List of properties:
      * <ul>
      * <li>numberplate-origin
@@ -133,7 +133,7 @@ public class FileSaver implements Saver {
         }
 
         Path outFilePath = Paths.get(directory.toString(), e.hashCode() + "-" + System.currentTimeMillis()
-            + ".properties");
+                + ".properties");
 
         FileOutputStream fous = new FileOutputStream(outFilePath.toFile());
         p.store(fous, fciList.get(0).getFilepath().getFileName().toString());

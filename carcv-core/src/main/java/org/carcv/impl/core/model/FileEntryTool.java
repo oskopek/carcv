@@ -15,14 +15,6 @@
  */
 package org.carcv.impl.core.model;
 
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.Random;
-
 import org.carcv.core.io.DirectoryWatcher;
 import org.carcv.core.model.Address;
 import org.carcv.core.model.CarData;
@@ -30,6 +22,14 @@ import org.carcv.core.model.NumberPlate;
 import org.carcv.core.model.Speed;
 import org.carcv.core.model.file.FileCarImage;
 import org.carcv.core.model.file.FileEntry;
+
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.Random;
 
 /**
  * Generates a random FileEntry with existing images. To be used for testing purposes.
@@ -72,7 +72,7 @@ public class FileEntryTool implements AutoCloseable {
 
         // CarData
         Address add = new Address(r.nextDouble() * 100, r.nextDouble() * 100, randomString(5),
-            randomString(5), randomString(10), randomString(10), randomInteger(3), randomInteger(5));
+                randomString(5), randomString(10), randomString(10), randomInteger(3), randomInteger(5));
         Speed sp = new Speed(r.nextDouble() * 100);
         NumberPlate np = new NumberPlate(randomString(5).toUpperCase(), randomString(2).toUpperCase());
         CarData cd = new CarData(sp, add, np, new Date(r.nextLong()));

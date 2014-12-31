@@ -15,13 +15,9 @@
  */
 package org.carcv.web.servlet;
 
-import java.awt.Graphics2D;
-import java.awt.image.BufferedImage;
-import java.io.IOException;
-import java.io.OutputStream;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
+import org.carcv.core.io.DirectoryLoader;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.imageio.ImageIO;
 import javax.servlet.ServletException;
@@ -29,10 +25,13 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
-import org.carcv.core.io.DirectoryLoader;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import java.awt.*;
+import java.awt.image.BufferedImage;
+import java.io.IOException;
+import java.io.OutputStream;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 
 /**
  *
@@ -89,9 +88,9 @@ public class DisplayImageServlet extends HttpServlet {
     /**
      * Return the path of the image, or resize and return the path of the resized one.
      *
-     * @param path the request attribute of the path to load the image from
+     * @param path   the request attribute of the path to load the image from
      * @param height the request attribute of the wanted height of load the image
-     * @param width the request attribute of the wanted width of the image
+     * @param width  the request attribute of the wanted width of the image
      * @return the path of the image according to the parameters, or null if the image at path doesn't exist
      * @throws IOException
      */
@@ -136,8 +135,8 @@ public class DisplayImageServlet extends HttpServlet {
      * Resizes an image and returns the path of the resized image.
      *
      * @param imagePath path of the original image
-     * @param height height of the image to resize it to
-     * @param width width of the image to resize it to
+     * @param height    height of the image to resize it to
+     * @param width     width of the image to resize it to
      * @return the path of the resized image
      * @throws IOException if an error during load/write of the image occurs
      */
@@ -145,7 +144,7 @@ public class DisplayImageServlet extends HttpServlet {
         String filename = imagePath.getFileName().toString();
         int dot = filename.indexOf('.');
         Path resizedImagePath = Paths.get(imagePath.getParent().toString(),
-            filename.substring(0, dot) + "_" + width + "x" + height + "." + filename.substring(dot + 1, filename.length()));
+                filename.substring(0, dot) + "_" + width + "x" + height + "." + filename.substring(dot + 1, filename.length()));
 
         if (Files.exists(resizedImagePath)) { // if file already exists, return it's path
             return resizedImagePath;
@@ -164,23 +163,23 @@ public class DisplayImageServlet extends HttpServlet {
     }
 
     /**
-     * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-     * @see #processRequest(HttpServletRequest, HttpServletResponse)
      * @throws ServletException
      * @throws IOException
+     * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+     * @see #processRequest(HttpServletRequest, HttpServletResponse)
      */
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         processRequest(request, response);
     }
 
     /**
-     * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-     * @see #processRequest(HttpServletRequest, HttpServletResponse)
      * @throws ServletException
      * @throws IOException
+     * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+     * @see #processRequest(HttpServletRequest, HttpServletResponse)
      */
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException,
-        IOException {
+            IOException {
         processRequest(request, response);
     }
 }

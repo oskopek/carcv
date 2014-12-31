@@ -16,19 +16,18 @@
 
 package org.carcv.core.model;
 
-import java.util.Date;
-
-import javax.persistence.Embeddable;
-import javax.persistence.Embedded;
-import javax.validation.constraints.NotNull;
-
 import org.apache.commons.lang.builder.CompareToBuilder;
 import org.apache.commons.lang.builder.EqualsBuilder;
 import org.apache.commons.lang.builder.HashCodeBuilder;
 
+import javax.persistence.Embeddable;
+import javax.persistence.Embedded;
+import javax.validation.constraints.NotNull;
+import java.util.Date;
+
 /**
  * An abstraction of all data and information about the car.
- * <p>
+ * <p/>
  * Provides just basic getters and setters.
  */
 @Embeddable
@@ -52,10 +51,10 @@ public class CarData extends AbstractEmbeddable implements Comparable<CarData>, 
     /**
      * Constructs an initialized CarData object.
      *
-     * @param speed the Speed object to set
-     * @param address the Address object to set
+     * @param speed       the Speed object to set
+     * @param address     the Address object to set
      * @param numberPlate the NumberPlate object to set
-     * @param timestamp the timestamp to set
+     * @param timestamp   the timestamp to set
      */
     public CarData(Speed speed, Address address, NumberPlate numberPlate, Date timestamp) {
         this.speed = speed;
@@ -136,7 +135,7 @@ public class CarData extends AbstractEmbeddable implements Comparable<CarData>, 
     @Override
     public String toString() {
         return "CarData [speed=" + getSpeed().toString() + ", address=" + getAddress().toString() +
-            ", numberPlate=" + getNumberPlate().toString() + ", timestamp=" + getTimestamp().toString() + "]";
+                ", numberPlate=" + getNumberPlate().toString() + ", timestamp=" + getTimestamp().toString() + "]";
     }
 
     /*
@@ -147,7 +146,7 @@ public class CarData extends AbstractEmbeddable implements Comparable<CarData>, 
     @Override
     public int hashCode() {
         return new HashCodeBuilder().append(getSpeed()).append(getAddress()).append(getNumberPlate())
-            .append(getTimestamp()).toHashCode();
+                .append(getTimestamp()).toHashCode();
     }
 
     /*
@@ -169,23 +168,23 @@ public class CarData extends AbstractEmbeddable implements Comparable<CarData>, 
         CarData other = (CarData) obj;
 
         return new EqualsBuilder().append(getSpeed(), other.getSpeed()).append(getAddress(), other.getAddress())
-            .append(getNumberPlate(), other.getNumberPlate()).append(getTimestamp(), other.getTimestamp())
-            .isEquals();
+                .append(getNumberPlate(), other.getNumberPlate()).append(getTimestamp(), other.getTimestamp())
+                .isEquals();
     }
 
     @Override
     public int compareTo(CarData o) {
         return new CompareToBuilder().append(speed, o.speed).append(address, o.address)
-            .append(numberPlate, o.numberPlate).append(timestamp, o.timestamp).toComparison();
+                .append(numberPlate, o.numberPlate).append(timestamp, o.timestamp).toComparison();
     }
 
     @Override
     public Object clone() throws CloneNotSupportedException {
         Speed s = getSpeed() == null ? null : new Speed(getSpeed().getSpeed(), getSpeed().getUnit());
         Address a = getAddress() == null ? null : new Address(address.getCity(), address.getPostalCode(), address.getStreet(),
-            address.getCountry(), address.getStreetNumber(), address.getReferenceNumber());
+                address.getCountry(), address.getStreetNumber(), address.getReferenceNumber());
         NumberPlate np = getNumberPlate() == null ? null : new NumberPlate(getNumberPlate().getText(), getNumberPlate()
-            .getOrigin());
+                .getOrigin());
 
         return new CarData(s, a, np, (Date) getTimestamp().clone());
     }

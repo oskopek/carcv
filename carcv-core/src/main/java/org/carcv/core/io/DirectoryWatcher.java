@@ -16,6 +16,11 @@
 
 package org.carcv.core.io;
 
+import org.carcv.core.model.AbstractEntry;
+import org.carcv.core.model.file.FileEntry;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.io.IOException;
 import java.nio.file.DirectoryStream;
 import java.nio.file.FileVisitResult;
@@ -27,11 +32,6 @@ import java.nio.file.Paths;
 import java.nio.file.attribute.BasicFileAttributes;
 import java.util.ArrayList;
 import java.util.List;
-
-import org.carcv.core.model.AbstractEntry;
-import org.carcv.core.model.file.FileEntry;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 /**
  * Provides methods for discovery of new files recursively under a root directory.
@@ -68,7 +68,7 @@ public class DirectoryWatcher implements Loader {
      * on every newly discovered file.
      *
      * @throws IOException If an error creating a DirectoryStream from rootDir occurs. Doesn't throw if an invalid directory
-     *         happens to be in rootDir, just ignores it (adds it to knownDirs) and continues
+     *                     happens to be in rootDir, just ignores it (adds it to knownDirs) and continues
      */
     public void discover() throws IOException {
         DirectoryStream<Path> stream;
@@ -83,8 +83,8 @@ public class DirectoryWatcher implements Loader {
             completed = Paths.get(p.toString(), completedMarkerFilename);
 
             if (!Files.isDirectory(p)
-                || knownDirs.contains(p)
-                || Files.exists(completed)) {
+                    || knownDirs.contains(p)
+                    || Files.exists(completed)) {
                 continue;
             }
 
@@ -96,7 +96,7 @@ public class DirectoryWatcher implements Loader {
                 entries.add(e);
             } catch (IOException ioe) {
                 LOGGER.error("Loading FileEntry batch directory failed, discarding it: {} with message: {}", p,
-                    ioe.getMessage());
+                        ioe.getMessage());
             }
         }
     }
@@ -134,9 +134,9 @@ public class DirectoryWatcher implements Loader {
 
     /**
      * Deletes given path (directory) and everything under it recursively.
-     * <p>
+     * <p/>
      * Similar to <code>rm -rf path</code>
-     * <p>
+     * <p/>
      * <strong>USE WITH CAUTION!</strong>
      *
      * @param path the path to delete

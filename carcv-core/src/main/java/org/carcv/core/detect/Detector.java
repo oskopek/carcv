@@ -16,9 +16,9 @@
 
 package org.carcv.core.detect;
 
-import java.util.List;
-
 import org.carcv.core.model.AbstractCarImage;
+
+import java.util.List;
 
 /**
  * Abstraction of a detector, given a list of <code>CarImage</code>s, detects what it should and returns a String

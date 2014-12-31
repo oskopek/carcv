@@ -16,7 +16,10 @@
 
 package org.carcv.core.model.file;
 
-import java.util.List;
+import org.apache.commons.lang.builder.EqualsBuilder;
+import org.apache.commons.lang.builder.HashCodeBuilder;
+import org.carcv.core.model.AbstractEntry;
+import org.carcv.core.model.CarData;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Embedded;
@@ -24,11 +27,7 @@ import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.OneToMany;
 import javax.validation.constraints.NotNull;
-
-import org.apache.commons.lang.builder.EqualsBuilder;
-import org.apache.commons.lang.builder.HashCodeBuilder;
-import org.carcv.core.model.AbstractEntry;
-import org.carcv.core.model.CarData;
+import java.util.List;
 
 /**
  * An implementation of AbstractEntry using CarData and FileCarImages.
@@ -52,7 +51,7 @@ public class FileEntry extends AbstractEntry {
     /**
      * A constructor for FileEntry specifying CarData and a list of FileCarImages.
      *
-     * @param carData instance of CarData corresponding to the given car
+     * @param carData   instance of CarData corresponding to the given car
      * @param carImages a list of images of the car
      */
     public FileEntry(CarData carData, List<FileCarImage> carImages) {
@@ -97,7 +96,7 @@ public class FileEntry extends AbstractEntry {
     @Override
     public String toString() {
         return "FileEntry[id=" + getId() + ", carImages.size()=" + carImages.size() + ", carData=" + carData.toString()
-            + "]";
+                + "]";
     }
 
     @Override

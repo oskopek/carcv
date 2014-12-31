@@ -16,13 +16,11 @@
 
 package org.carcv.web.servlet;
 
-import java.io.IOException;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.TimeZone;
+import org.apache.commons.lang.builder.CompareToBuilder;
+import org.carcv.core.model.file.FileCarImage;
+import org.carcv.core.model.file.FileEntry;
+import org.carcv.web.beans.EntryBean;
+import org.carcv.web.reports.WebReportTableMember;
 
 import javax.ejb.EJB;
 import javax.servlet.RequestDispatcher;
@@ -31,12 +29,13 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
-import org.apache.commons.lang.builder.CompareToBuilder;
-import org.carcv.core.model.file.FileCarImage;
-import org.carcv.core.model.file.FileEntry;
-import org.carcv.web.beans.EntryBean;
-import org.carcv.web.reports.WebReportTableMember;
+import java.io.IOException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.TimeZone;
 
 /**
  * A Servlet that retrieves all FileEntries from the database and formats them into a nice table.
@@ -52,14 +51,14 @@ public class CarTableServlet extends HttpServlet {
     private static final String adminRole = "admin";
 
     /**
-     * @see CarTableServlet
-     * @param request the HttpServletRequest
+     * @param request  the HttpServletRequest
      * @param response the HttpServletResponse
      * @throws ServletException
      * @throws IOException
+     * @see CarTableServlet
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException,
-        IOException {
+            IOException {
         final ArrayList<FileEntry> requestEntries = (ArrayList<FileEntry>) bean.getAll();
 
         @SuppressWarnings("unchecked")
@@ -78,8 +77,8 @@ public class CarTableServlet extends HttpServlet {
             @Override
             public int compare(FileEntry o1, FileEntry o2) {
                 return new CompareToBuilder()
-                    .append(o2.getCarData().getTimestamp(), o1.getCarData().getTimestamp())
-                    .toComparison();
+                        .append(o2.getCarData().getTimestamp(), o1.getCarData().getTimestamp())
+                        .toComparison();
             }
         });
 
@@ -94,7 +93,7 @@ public class CarTableServlet extends HttpServlet {
             entryId = e.getId().toString();
 
             licensePlate = e.getCarData().getNumberPlate().getOrigin() + ": "
-                + e.getCarData().getNumberPlate().getText();
+                    + e.getCarData().getNumberPlate().getText();
 
             location = e.getCarData().getAddress().printBR();
 
@@ -102,7 +101,7 @@ public class CarTableServlet extends HttpServlet {
             previewPath = fci.getFilepath().toString();
 
             WebReportTableMember wrtm = new WebReportTableMember(previewPath, entryId, time, date, location, licensePlate,
-                timeZoneStr);
+                    timeZoneStr);
 
             wrtmList.add(wrtm);
         }
@@ -131,7 +130,7 @@ public class CarTableServlet extends HttpServlet {
      */
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException,
-        IOException {
+            IOException {
         processRequest(request, response);
     }
 }

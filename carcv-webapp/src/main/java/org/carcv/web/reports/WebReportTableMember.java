@@ -27,16 +27,16 @@ public class WebReportTableMember {
     /**
      * Basic setter constructor.
      *
-     * @param previewPath the path to the preview image
-     * @param entryId id of the entry displayed
-     * @param time the time of the entry, formatted
-     * @param date the date of the entry, formatted
-     * @param location the location of the entry, formatted with &lt;BR&gt; tags
+     * @param previewPath  the path to the preview image
+     * @param entryId      id of the entry displayed
+     * @param time         the time of the entry, formatted
+     * @param date         the date of the entry, formatted
+     * @param location     the location of the entry, formatted with &lt;BR&gt; tags
      * @param licensePlate the recognized license plate text
-     * @param timeZone TimeZone in any format {@link DateFormat#setTimeZone(java.util.TimeZone)} can handle
+     * @param timeZone     TimeZone in any format {@link DateFormat#setTimeZone(java.util.TimeZone)} can handle
      */
     public WebReportTableMember(String previewPath, String entryId, String time, String date, String location,
-        String licensePlate, String timeZone) {
+                                String licensePlate, String timeZone) {
         this.previewPath = previewPath;
         this.entryId = entryId;
         this.time = time;
@@ -89,7 +89,6 @@ public class WebReportTableMember {
     }
 
     /**
-     *
      * @return the timeZone
      */
     public String getTimeZone() {

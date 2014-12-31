@@ -16,16 +16,16 @@
 
 package org.carcv.core.model;
 
-import javax.persistence.Embeddable;
-import javax.validation.constraints.NotNull;
-
 import org.apache.commons.lang.builder.CompareToBuilder;
 import org.apache.commons.lang.builder.EqualsBuilder;
 import org.apache.commons.lang.builder.HashCodeBuilder;
 
+import javax.persistence.Embeddable;
+import javax.validation.constraints.NotNull;
+
 /**
  * An abstraction of a number plate.
- * <p>
+ * <p/>
  * The text is the actual text printed on the number plate. The origin represents the country in which the number plate was
  * issued.
  */
@@ -46,7 +46,7 @@ public class NumberPlate extends AbstractEmbeddable implements Comparable<Number
     /**
      * Constructs an initialized NumberPlate object.
      *
-     * @param text the text to set
+     * @param text   the text to set
      * @param origin the origin to set
      */
     public NumberPlate(String text, String origin) {
@@ -56,7 +56,7 @@ public class NumberPlate extends AbstractEmbeddable implements Comparable<Number
 
     /**
      * Constructs an initialized NumberPlate object.
-     * <p>
+     * <p/>
      * The origin is set to an empty String.
      *
      * @param text the text to set

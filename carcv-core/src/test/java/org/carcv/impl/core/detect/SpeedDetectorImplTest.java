@@ -15,19 +15,19 @@
  */
 package org.carcv.impl.core.detect;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotEquals;
-
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.util.ArrayList;
-
 import org.carcv.core.io.DirectoryWatcher;
 import org.carcv.core.model.file.FileCarImage;
 import org.carcv.impl.core.io.FFMPEGVideoHandler;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.util.ArrayList;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotEquals;
 
 /**
  * Test for {@link SpeedDetectorImpl}.

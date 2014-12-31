@@ -16,6 +16,13 @@
 
 package org.carcv.impl.core.io;
 
+import org.carcv.core.io.DirectoryWatcher;
+import org.carcv.core.io.VideoHandler;
+import org.carcv.core.model.file.FileCarImage;
+import org.carcv.core.model.file.FileEntry;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileOutputStream;
@@ -31,22 +38,15 @@ import java.nio.file.StandardCopyOption;
 import java.util.List;
 import java.util.Random;
 
-import org.carcv.core.io.DirectoryWatcher;
-import org.carcv.core.io.VideoHandler;
-import org.carcv.core.model.file.FileCarImage;
-import org.carcv.core.model.file.FileEntry;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 /**
  * An implementation of a VideoHandler using FFMPEG through {@link Runtime#exec(String)}.
- * <p>
+ * <p/>
  * Right now, it is discouraged to use this class in favor of an external bash script to split a video up into frames (images)
  * externally.
- * <p>
+ * <p/>
  * The details about using it are here: <a
  * href="https://trac.ffmpeg.org/wiki/Create%20a%20video%20slideshow%20from%20images">FFMPEG Wiki</a>
- * <p>
+ * <p/>
  * TODO 2 Implement methods not for directories and paths, but for FileEntries also
  */
 public class FFMPEGVideoHandler extends VideoHandler {
@@ -138,7 +138,7 @@ public class FFMPEGVideoHandler extends VideoHandler {
      * A static wrapper for {@link #generateVideoAsStream(Path, int)}, using {@link #defaultFrameRate} and the input directory
      * from the {@link FileEntry#getCarImages()}.
      *
-     * @param entry a FileEntry from which to grab the imageDir
+     * @param entry     a FileEntry from which to grab the imageDir
      * @param outStream the OutputStream to write the video to
      * @throws IOException if an error during loading of images or writing of video occurs
      */
@@ -156,7 +156,7 @@ public class FFMPEGVideoHandler extends VideoHandler {
      * Copies the images of the list's objects to the specified directory with new names.
      *
      * @param list the list to load images from
-     * @param dir the output directory, must exist
+     * @param dir  the output directory, must exist
      * @throws IOException if an error during the copy or creation of a temporary directory occurs
      */
     protected static void copyCarImagesToDir(List<FileCarImage> list, Path dir) throws IOException {
@@ -186,7 +186,7 @@ public class FFMPEGVideoHandler extends VideoHandler {
     /**
      * A void wrapper for {@link #generateVideoAsStream(Path, int)}.
      *
-     * @param imageDir directory from which to load the images
+     * @param imageDir  directory from which to load the images
      * @param frameRate number of frames per second
      * @param outStream the OutputStream to write the video to
      * @throws IOException if an error during loading of images or writing of video occurs
@@ -214,10 +214,10 @@ public class FFMPEGVideoHandler extends VideoHandler {
 
     /**
      * Creates the video and saves it to a temporary file. Gets the image suffix from the first found image in directory.
-     * <p>
+     * <p/>
      * TODO 2 Fix to use all files independent of suffix.
      *
-     * @param imageDir directory from which to load the images
+     * @param imageDir  directory from which to load the images
      * @param frameRate number of frames per second
      * @return the Path of the temporary file containing the video
      * @throws IOException if an error during loading of images or writing of video occurs
@@ -232,13 +232,13 @@ public class FFMPEGVideoHandler extends VideoHandler {
         }
 
         Path output = Paths.get("/tmp", "video-"
-            + new Random().nextInt() + "-"
-            + System.currentTimeMillis()
-            + "." + default_video_suffix);
+                + new Random().nextInt() + "-"
+                + System.currentTimeMillis()
+                + "." + default_video_suffix);
 
         String command = "ffmpeg -y -r " + frameRate + " -pattern_type glob -i \'" +
-            imageDir.toAbsolutePath().toString() + File.separator + "*." + imageSuffix +
-            "\' -c:v libx264 -pix_fmt yuv420p " + output.toAbsolutePath().toString();
+                imageDir.toAbsolutePath().toString() + File.separator + "*." + imageSuffix +
+                "\' -c:v libx264 -pix_fmt yuv420p " + output.toAbsolutePath().toString();
 
         LOGGER.info("Executing: " + command);
         Process p = Runtime.getRuntime().exec(command);
@@ -253,7 +253,7 @@ public class FFMPEGVideoHandler extends VideoHandler {
 
     public String getErrorMessage(InputStream error) throws IOException {
         BufferedReader stdError = new BufferedReader(new
-            InputStreamReader(error));
+                InputStreamReader(error));
         String s = "";
         String lastLine = s;
         while ((s = stdError.readLine()) != null) {

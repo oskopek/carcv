@@ -28,7 +28,7 @@ public abstract class VideoHandler {
     /**
      * Splits video into frames with a frame rate.
      *
-     * @param video Path of the input video file
+     * @param video     Path of the input video file
      * @param frameRate number of frames per second
      * @return true if the splitting finished successfully
      * @throws IOException if an error during loading video or saving images occurs
@@ -38,9 +38,9 @@ public abstract class VideoHandler {
     /**
      * Splits video into frames with a frame rate.
      *
-     * @param video Path of the input video file
+     * @param video     Path of the input video file
      * @param frameRate number of frames per second
-     * @param imageDir directory where output files will be saved
+     * @param imageDir  directory where output files will be saved
      * @return true if the splitting finished successfully
      * @throws IOException if an error during loading video or saving images occurs
      */
@@ -49,8 +49,8 @@ public abstract class VideoHandler {
     /**
      * Creates a video from all images in a directory.
      *
-     * @param imageDir directory from which to load images
-     * @param video Path of the output video file
+     * @param imageDir  directory from which to load images
+     * @param video     Path of the output video file
      * @param frameRate number of frames per second
      * @throws IOException if an error during loading images or saving of the video occurs
      */
@@ -59,7 +59,7 @@ public abstract class VideoHandler {
     /**
      * Creates a video from all images in a directory.
      *
-     * @param imageDir directory from which to load images
+     * @param imageDir  directory from which to load images
      * @param frameRate number of frames per second
      * @throws IOException if an error during loading images or saving of the video occurs
      */
@@ -68,7 +68,7 @@ public abstract class VideoHandler {
     /**
      * Creates a video from all images in a directory.
      *
-     * @param imageDir directory from which to load images
+     * @param imageDir  directory from which to load images
      * @param frameRate number of frames per second
      * @throws IOException if an error during loading images or creating the video occurs
      */

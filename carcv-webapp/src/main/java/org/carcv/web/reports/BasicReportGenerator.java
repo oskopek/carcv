@@ -16,6 +16,17 @@
 
 package org.carcv.web.reports;
 
+import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JRExporter;
+import net.sf.jasperreports.engine.JRExporterParameter;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.data.JRMapCollectionDataSource;
+import net.sf.jasperreports.engine.export.JRPdfExporter;
+import org.carcv.core.model.Address;
+import org.carcv.core.model.CarData;
+import org.carcv.core.model.file.FileEntry;
+
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.nio.file.Files;
@@ -29,18 +40,6 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.TimeZone;
 
-import net.sf.jasperreports.engine.JRException;
-import net.sf.jasperreports.engine.JRExporter;
-import net.sf.jasperreports.engine.JRExporterParameter;
-import net.sf.jasperreports.engine.JasperFillManager;
-import net.sf.jasperreports.engine.JasperPrint;
-import net.sf.jasperreports.engine.data.JRMapCollectionDataSource;
-import net.sf.jasperreports.engine.export.JRPdfExporter;
-
-import org.carcv.core.model.Address;
-import org.carcv.core.model.CarData;
-import org.carcv.core.model.file.FileEntry;
-
 /**
  * Provides functionality for filling and exporting a report.
  */
@@ -51,16 +50,16 @@ public class BasicReportGenerator {
     /**
      * Constructs a basic report from the parameters.
      *
-     * @param e the FileEntry from which to fill the data
-     * @param templateFilename the template report to fill
+     * @param e                     the FileEntry from which to fill the data
+     * @param templateFilename      the template report to fill
      * @param reportBuilderLocation the place where report is being built (physical, real)
-     * @param reportName the title of the report
-     * @param hostURL URL of the domain that is generating the report
-     * @param tz TimeZone of the returned date (it is stored in UTC)
+     * @param reportName            the title of the report
+     * @param hostURL               URL of the domain that is generating the report
+     * @param tz                    TimeZone of the returned date (it is stored in UTC)
      * @throws JRException if an error during the generation occurs
      */
     public BasicReportGenerator(FileEntry e, String templateFilename, String reportBuilderLocation,
-        String reportName, String hostURL, TimeZone tz) throws JRException {
+                                String reportName, String hostURL, TimeZone tz) throws JRException {
 
         Map<String, Object> values = new HashMap<>();
         Map<String, Object> parameters = new HashMap<>();
@@ -103,7 +102,7 @@ public class BasicReportGenerator {
         parameters.put("videoURL", hostURL + "/servlet/GenerateVideo?entry_id=" + e.getId().toString());
         parameters.put("time", timeFormat.format(data.getTimestamp()));
         parameters.put("speed", Double.toString(data.getSpeed().getSpeed()) + " "
-            + data.getSpeed().getUnit().toString());
+                + data.getSpeed().getUnit().toString());
 
         // parameters.put
 

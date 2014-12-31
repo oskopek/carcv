@@ -16,9 +16,10 @@
 
 package org.carcv.impl.core.recognize;
 
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
+import org.carcv.core.io.DirectoryWatcher;
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
 
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -28,10 +29,9 @@ import java.nio.file.Paths;
 import java.util.Date;
 import java.util.Properties;
 
-import org.carcv.core.io.DirectoryWatcher;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 
 /**
  * Test for {@link FileCarRecognizer}.

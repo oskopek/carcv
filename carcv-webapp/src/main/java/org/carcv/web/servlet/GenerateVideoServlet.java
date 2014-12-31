@@ -16,17 +16,16 @@
 
 package org.carcv.web.servlet;
 
-import java.io.IOException;
+import org.carcv.core.model.file.FileEntry;
+import org.carcv.impl.core.io.FFMPEGVideoHandler;
+import org.carcv.web.beans.EntryBean;
 
 import javax.ejb.EJB;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
-import org.carcv.core.model.file.FileEntry;
-import org.carcv.impl.core.io.FFMPEGVideoHandler;
-import org.carcv.web.beans.EntryBean;
+import java.io.IOException;
 
 /**
  * A Servlet that generates a video from a list of images using
@@ -41,7 +40,7 @@ public class GenerateVideoServlet extends HttpServlet {
     private EntryBean entryBean;
 
     /**
-     * @param request the HttpServletRequest
+     * @param request  the HttpServletRequest
      * @param response the HttpServletResponse
      * @throws IOException
      */

@@ -16,18 +16,17 @@
 
 package org.carcv.web.beans;
 
-import static org.junit.Assert.assertNotNull;
-
-import java.io.File;
-
-import javax.ejb.EJB;
-
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+
+import javax.ejb.EJB;
+import java.io.File;
+
+import static org.junit.Assert.assertNotNull;
 
 /**
  * Test if the app deploys and EJB CDI Injection works.

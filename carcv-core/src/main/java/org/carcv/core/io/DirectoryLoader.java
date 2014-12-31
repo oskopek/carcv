@@ -16,6 +16,11 @@
 
 package org.carcv.core.io;
 
+import org.carcv.core.model.Address;
+import org.carcv.core.model.CarData;
+import org.carcv.core.model.file.FileCarImage;
+import org.carcv.core.model.file.FileEntry;
+
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.nio.file.DirectoryStream;
@@ -27,11 +32,6 @@ import java.util.Date;
 import java.util.List;
 import java.util.Properties;
 
-import org.carcv.core.model.Address;
-import org.carcv.core.model.CarData;
-import org.carcv.core.model.file.FileCarImage;
-import org.carcv.core.model.file.FileEntry;
-
 /**
  * Provides methods for loading CarData from a directory containing a {@link #infoFileName info file}.
  */
@@ -40,7 +40,7 @@ public class DirectoryLoader {
     /**
      * An array of lower case String representations of image file suffixes. Without leading dots.
      */
-    final public static String[] knownImageFileSuffixes = { "png", "jpg", "jpeg", "bmp" };
+    final public static String[] knownImageFileSuffixes = {"png", "jpg", "jpeg", "bmp"};
 
     /**
      * The default name of the info file.
@@ -104,7 +104,7 @@ public class DirectoryLoader {
         String time = p.getProperty("timestamp");
 
         Address address = new Address(Double.parseDouble(latitude), Double.parseDouble(longitude), city, postalcode, street,
-            country, Integer.parseInt(streetNumber), Integer.parseInt(referenceNumber));
+                country, Integer.parseInt(streetNumber), Integer.parseInt(referenceNumber));
 
         Date timestamp = new Date(Long.parseLong(time));
 

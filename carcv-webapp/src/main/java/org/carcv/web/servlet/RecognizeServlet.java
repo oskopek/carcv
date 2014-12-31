@@ -15,9 +15,9 @@
  */
 package org.carcv.web.servlet;
 
-import java.io.IOException;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
+import org.carcv.web.beans.RecognizerBean;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.ejb.EJB;
 import javax.servlet.ServletException;
@@ -25,10 +25,9 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
-import org.carcv.web.beans.RecognizerBean;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import java.io.IOException;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 /**
  * A Servlet that calls {@link RecognizerBean#recognize()} in a background thread.
@@ -51,7 +50,7 @@ public class RecognizeServlet extends HttpServlet {
     }
 
     /**
-     * @param request the HttpServletRequest
+     * @param request  the HttpServletRequest
      * @param response the HttpServletResponse
      * @throws ServletException
      * @throws IOException

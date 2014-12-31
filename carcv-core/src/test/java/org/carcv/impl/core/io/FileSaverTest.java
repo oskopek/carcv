@@ -15,12 +15,17 @@
  */
 package org.carcv.impl.core.io;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
+import org.carcv.core.io.DirectoryWatcher;
+import org.carcv.core.model.AbstractEntry;
+import org.carcv.core.model.Address;
+import org.carcv.core.model.CarData;
+import org.carcv.core.model.NumberPlate;
+import org.carcv.core.model.Speed;
+import org.carcv.core.model.file.FileCarImage;
+import org.carcv.core.model.file.FileEntry;
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
 
 import java.io.IOException;
 import java.nio.file.DirectoryStream;
@@ -33,17 +38,12 @@ import java.util.List;
 import java.util.Properties;
 import java.util.Random;
 
-import org.carcv.core.io.DirectoryWatcher;
-import org.carcv.core.model.AbstractEntry;
-import org.carcv.core.model.Address;
-import org.carcv.core.model.CarData;
-import org.carcv.core.model.NumberPlate;
-import org.carcv.core.model.Speed;
-import org.carcv.core.model.file.FileCarImage;
-import org.carcv.core.model.file.FileEntry;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 
 /**
  * Test for {@link FileSaver}.
@@ -76,8 +76,8 @@ public class FileSaverTest {
         for (int i = 0; i < 10; i++) {
 
             CarData cd =
-                new CarData(new Speed(r.nextDouble() * 50), new Address("Bratislava", "93221", "Hrušková", "Slovakia", 32),
-                    new NumberPlate("SK" + r.nextInt(900) + 100 + "AA"), new Date(System.currentTimeMillis()));
+                    new CarData(new Speed(r.nextDouble() * 50), new Address("Bratislava", "93221", "Hrušková", "Slovakia", 32),
+                            new NumberPlate("SK" + r.nextInt(900) + 100 + "AA"), new Date(System.currentTimeMillis()));
 
             List<FileCarImage> images = new ArrayList<>();
 

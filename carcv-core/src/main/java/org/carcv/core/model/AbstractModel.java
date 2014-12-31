@@ -16,24 +16,23 @@
 
 package org.carcv.core.model;
 
-import java.io.Serializable;
+import org.apache.commons.lang.builder.CompareToBuilder;
+import org.apache.commons.lang.builder.EqualsBuilder;
+import org.apache.commons.lang.builder.HashCodeBuilder;
 
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
 import javax.validation.constraints.NotNull;
-
-import org.apache.commons.lang.builder.CompareToBuilder;
-import org.apache.commons.lang.builder.EqualsBuilder;
-import org.apache.commons.lang.builder.HashCodeBuilder;
+import java.io.Serializable;
 
 /**
  * Serves as the base abstract class for all Entity model classes. Implements Serializable and is Comparable with other
  * AbstractModels.
- * <p>
- * The preffered way to override <code>equals</code> and <code>hashCode</code> is to use Apache Commons {@link EqualsBuilder}
+ * <p/>
+ * The preferred way to override <code>equals</code> and <code>hashCode</code> is to use Apache Commons {@link EqualsBuilder}
  * and {@link HashCodeBuilder}. Do not append the id field to any of the two methods.
- * <p>
+ * <p/>
  * The main purpose of this class is to handle the ID of all models and all compares that are done using the id.
  */
 @MappedSuperclass
@@ -57,8 +56,8 @@ public abstract class AbstractModel implements Serializable, Comparable<Abstract
     }
 
     /**
-     * @see #getId()
      * @param id the Long number to set
+     * @see #getId()
      */
     public void setId(Long id) {
         this.id = id;
@@ -73,6 +72,6 @@ public abstract class AbstractModel implements Serializable, Comparable<Abstract
     @Override
     public int compareTo(AbstractModel o) {
         return new CompareToBuilder().append(getClass().getName(), o.getClass().getName()).append(id, o.id)
-            .toComparison();
+                .toComparison();
     }
 }

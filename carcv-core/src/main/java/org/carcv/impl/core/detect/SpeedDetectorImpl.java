@@ -16,16 +16,15 @@
 
 package org.carcv.impl.core.detect;
 
-import java.util.List;
-
 import org.carcv.core.detect.SpeedDetector;
 import org.carcv.core.model.AbstractCarImage;
 import org.carcv.impl.core.io.FFMPEGVideoHandler;
 
+import java.util.List;
+
 /**
  * A Singleton implementation of a SpeedDetector based on a simple, non-precise equation:
- *
- * <p>
+ * <p/>
  * <code>speed = (numberOfImagesInList / {@link FFMPEGVideoHandler#defaultFrameRate defaultFrameRate})
  * * 10 (meters; default value) * 3.6 (conversion rate from ms to kph)</code>
  */

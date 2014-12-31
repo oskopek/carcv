@@ -16,15 +16,15 @@
 
 package org.carcv.core.io;
 
+import org.carcv.core.model.AbstractEntry;
+
 import java.io.IOException;
 import java.util.List;
-
-import org.carcv.core.model.AbstractEntry;
 
 /**
  * An interface for any object that wants to save a batch (java.util.List) of {@link AbstractEntry}-s. The output form and
  * method are responsibilities of the implementation.
- * <p>
+ * <p/>
  * If you implement this interface, it is considered good conduct to implement a complementing {@link Loader} interface and link
  * here) too. The saving/loading shouldn't in any way lose data contained in the <code>AbstractEntry</code> -s. You are also
  * encouraged to add other, more specific saving methods.

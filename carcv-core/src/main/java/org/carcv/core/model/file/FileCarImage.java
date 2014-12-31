@@ -16,14 +16,9 @@
 
 package org.carcv.core.model.file;
 
-import java.awt.Graphics2D;
-import java.awt.Rectangle;
-import java.awt.image.BufferedImage;
-import java.io.IOException;
-import java.io.InputStream;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.StandardOpenOption;
+import org.apache.commons.lang.builder.EqualsBuilder;
+import org.apache.commons.lang.builder.HashCodeBuilder;
+import org.carcv.core.model.AbstractCarImage;
 
 import javax.imageio.ImageIO;
 import javax.imageio.ImageReadParam;
@@ -33,14 +28,17 @@ import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
-
-import org.apache.commons.lang.builder.EqualsBuilder;
-import org.apache.commons.lang.builder.HashCodeBuilder;
-import org.carcv.core.model.AbstractCarImage;
+import java.awt.*;
+import java.awt.image.BufferedImage;
+import java.io.IOException;
+import java.io.InputStream;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.StandardOpenOption;
 
 /**
  * An implementation of AbstractCarImage using images from the file system.
- * <p>
+ * <p/>
  * Default behavior is to not load an image from path along the construction of the object. To load it, use
  * {@link FileCarImage#loadImage()} or any other load method in FileCarImage.
  *
@@ -142,7 +140,7 @@ public class FileCarImage extends AbstractCarImage {
      * Reads a rectangular region from an image in the inStream.
      *
      * @param inStream the InputStream from which to load the image fraction
-     * @param rect specifies the rectangular region to load as the image
+     * @param rect     specifies the rectangular region to load as the image
      * @throws IOException if an error during loading occurs
      */
     public void loadFragment(InputStream inStream, Rectangle rect) throws IOException {
@@ -181,8 +179,8 @@ public class FileCarImage extends AbstractCarImage {
      * Returns the Path of the FileCarImage. This isn't a traditional getter, it is handled by an internal object, but works
      * exactly like one.
      *
-     * @see PersistablePath#getPath()
      * @return the Path of the FileCarImage on the current file system
+     * @see PersistablePath#getPath()
      */
     @Transient
     public Path getFilepath() {
@@ -193,8 +191,8 @@ public class FileCarImage extends AbstractCarImage {
      * Sets the Path of the FileCarImage. This isn't a traditional setter, an internal object handles it, but works exactly like
      * one.
      *
-     * @see PersistablePath#setPath(Path)
      * @param filepath the Path of the FileCarImage on the current file system
+     * @see PersistablePath#setPath(Path)
      */
     public void setFilepath(Path filepath) {
         this.persistablePath = new PersistablePath(filepath);

@@ -21,12 +21,13 @@ import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
 import org.junit.Test;
-import static org.junit.Assert.*;
 import org.junit.runner.RunWith;
 
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
 import java.io.File;
+
+import static org.junit.Assert.assertTrue;
 
 @RunWith(Arquillian.class)
 public class RolesIT {

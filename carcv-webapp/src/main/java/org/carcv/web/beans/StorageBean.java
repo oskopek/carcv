@@ -16,6 +16,13 @@
 
 package org.carcv.web.beans;
 
+import org.carcv.core.model.file.FileEntry;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import javax.annotation.PostConstruct;
+import javax.ejb.EJB;
+import javax.ejb.Stateless;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -23,14 +30,6 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
-
-import javax.annotation.PostConstruct;
-import javax.ejb.EJB;
-import javax.ejb.Stateless;
-
-import org.carcv.core.model.file.FileEntry;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 /**
  * Handles storage (loading and saving) of images and Entries. Also provides easy database access for persistence.
@@ -65,7 +64,7 @@ public class StorageBean {
 
     /**
      * Returns the location of the data directory.
-     * <p>
+     * <p/>
      * Note: The actual data resides in the <code>getPrefix()+"/carcv_data"</code> directory.
      *
      * @return the prefix
@@ -89,8 +88,8 @@ public class StorageBean {
     /**
      * Makes sure the input directory exists and returns it's path.
      *
-     * @see #assertDirCreated(Path)
      * @return the input directory Path
+     * @see #assertDirCreated(Path)
      */
     public Path getInputDirectory() {
         try {
@@ -105,8 +104,8 @@ public class StorageBean {
     /**
      * Makes sure the output directory exists and returns it's path.
      *
-     * @see #assertDirCreated(Path)
      * @return the output directory Path
+     * @see #assertDirCreated(Path)
      */
     public Path getOutputDirectory() {
         try {
@@ -133,11 +132,11 @@ public class StorageBean {
     /**
      * Reads InputStream and stores it to the <code>dir</code> with the name <code>fileName</code>.
      *
-     * @param is the InputStream from which to read
+     * @param is       the InputStream from which to read
      * @param fileName the file name of the saved file
-     * @param dir the directory to which to save the file
-     * @see #saveToFile(InputStream, OutputStream)
+     * @param dir      the directory to which to save the file
      * @throws IOException if an error occurs
+     * @see #saveToFile(InputStream, OutputStream)
      */
     public void storeToDirectory(InputStream is, String fileName, Path dir) throws IOException {
         assertDirCreated(dir);
@@ -149,8 +148,8 @@ public class StorageBean {
     /**
      * Persists all members of the list to the database.
      *
-     * @see EntryBean#persist(FileEntry...)
      * @param list the list of FileEntries to store
+     * @see EntryBean#persist(FileEntry...)
      */
     public void storeBatchToDatabase(final List<FileEntry> list) {
         FileEntry[] array = new FileEntry[list.size()];
@@ -161,7 +160,7 @@ public class StorageBean {
      * Reads from the InputStream and writes to the OutputStream. Used for writing streams to files.
      *
      * @param from the InputStream to read from
-     * @param to the OutputStream to write to
+     * @param to   the OutputStream to write to
      * @throws IOException if an error during read/write occurs
      */
     private void saveToFile(InputStream from, OutputStream to) throws IOException {

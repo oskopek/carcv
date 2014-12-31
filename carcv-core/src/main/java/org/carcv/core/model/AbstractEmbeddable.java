@@ -16,9 +16,8 @@
 
 package org.carcv.core.model;
 
-import java.io.Serializable;
-
 import javax.persistence.MappedSuperclass;
+import java.io.Serializable;
 
 /**
  * The base class for all Embeddables. It is recommended for subclasses to implement Comparable with the given type.

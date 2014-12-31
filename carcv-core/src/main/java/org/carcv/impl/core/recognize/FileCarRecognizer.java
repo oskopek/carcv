@@ -16,11 +16,6 @@
 
 package org.carcv.impl.core.recognize;
 
-import java.io.IOException;
-import java.nio.file.Path;
-import java.util.ArrayList;
-import java.util.List;
-
 import org.carcv.core.io.DirectoryWatcher;
 import org.carcv.core.model.NumberPlate;
 import org.carcv.core.model.Speed;
@@ -34,9 +29,14 @@ import org.carcv.impl.core.io.FileSaver;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.io.IOException;
+import java.nio.file.Path;
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * An implementation of {@link FileCarRecognizer} using {@link FileEntry}.
- * <p>
+ * <p/>
  * It uses {@link DirectoryWatcher} for input and {@link FileSaver} for output. For the different stages of recognition, it
  * uses:
  * <ul>
@@ -56,7 +56,7 @@ public class FileCarRecognizer extends CarRecognizer {
     /**
      * Constructor for use with input/output directories.
      *
-     * @param inDir the path to use as input directory
+     * @param inDir  the path to use as input directory
      * @param outDir the path to use as output directory
      */
     public FileCarRecognizer(Path inDir, Path outDir) {
@@ -78,9 +78,9 @@ public class FileCarRecognizer extends CarRecognizer {
     /**
      * Implementation of {@link CarRecognizer#recognize()} using {@link FileEntry}-s.
      *
-     * @see CarRecognizer#recognize()
      * @return the List of <code>FileEntry</code>-s (the batch) after the recognition process
      * @throws IOException if an error occurred during loading or saving of the batch
+     * @see CarRecognizer#recognize()
      */
     public List<FileEntry> listRecognize() throws IOException {
         watcher.discover();
@@ -109,8 +109,8 @@ public class FileCarRecognizer extends CarRecognizer {
     /**
      * Supervises the Speed detection stage.
      *
-     * @see SpeedDetectorImpl#detectSpeed(List)
      * @param batch the batch to detect Speed in
+     * @see SpeedDetectorImpl#detectSpeed(List)
      */
     private void detectSpeeds(ArrayList<FileEntry> batch) {
         SpeedDetectorImpl sd = SpeedDetectorImpl.getInstance();
@@ -125,9 +125,9 @@ public class FileCarRecognizer extends CarRecognizer {
     /**
      * Supervises the NumberPlate detection stage.
      *
+     * @param batch the batch to detect NumberPlates in
      * @see NumberPlateDetectorImpl#detectPlateText(List)
      * @see NumberPlateDetectorImpl#detectPlateOrigin(List)
-     * @param batch the batch to detect NumberPlates in
      */
     private void detectNumberPlates(ArrayList<FileEntry> batch) {
         NumberPlateDetectorImpl npd = NumberPlateDetectorImpl.getInstance();
@@ -155,8 +155,8 @@ public class FileCarRecognizer extends CarRecognizer {
     /**
      * Supervises the sorting stage.
      *
-     * @see CarSorterImpl#sortIntoCars(FileEntry)
      * @param batch the batch to sort into cars
+     * @see CarSorterImpl#sortIntoCars(FileEntry)
      */
     private void sortIntoCars(ArrayList<FileEntry> batch) {
         ArrayList<FileEntry> res = new ArrayList<>(); // prevents ConcurrentModificationException

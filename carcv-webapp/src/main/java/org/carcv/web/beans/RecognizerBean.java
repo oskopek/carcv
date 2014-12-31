@@ -16,16 +16,15 @@
 
 package org.carcv.web.beans;
 
-import java.io.IOException;
-import java.nio.file.Path;
-import java.util.List;
+import org.carcv.core.model.file.FileEntry;
+import org.carcv.impl.core.recognize.FileCarRecognizer;
 
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
-
-import org.carcv.core.model.file.FileEntry;
-import org.carcv.impl.core.recognize.FileCarRecognizer;
+import java.io.IOException;
+import java.nio.file.Path;
+import java.util.List;
 
 /**
  * Provides a method to run {@link FileCarRecognizer#recognize() recognize()} on the default input and output directories. Also
@@ -53,9 +52,9 @@ public class RecognizerBean {
      * {@link StorageBean#storeBatchToDatabase(List)}. Also checks if input and output directories of {@link StorageBean} return
      * validly.
      *
+     * @throws IOException if an error during recognition occurs
      * @see FileCarRecognizer#listRecognize()
      * @see StorageBean#storeBatchToDatabase(List)
-     * @throws IOException if an error during recognition occurs
      */
     public void recognize() throws IOException {
         // these two checks actually prevent an IOException, because storageBean verifies and creates them if they don't exist

@@ -16,11 +16,6 @@
 
 package org.carcv.impl.core.detect;
 
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-
 import org.carcv.core.detect.CarSorter;
 import org.carcv.core.model.CarData;
 import org.carcv.core.model.file.FileCarImage;
@@ -28,12 +23,16 @@ import org.carcv.core.model.file.FileEntry;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 /**
  * Provides a Singleton probabilistic implementation of <code>CarSorter</code> based on the <a
  * href="http://en.wikipedia.org/wiki/Levenshtein_distance#Iterative_with_two_matrix_rows">Levenshtein Distance</a> between the
  * two number plate Strings.
- *
- * <p>
+ * <p/>
  * This class is a Singleton, not meant to be instantiated.
  *
  * @see CarSorterImpl#getInstance()
@@ -194,8 +193,7 @@ public class CarSorterImpl extends CarSorter {
         return numberPlateProbabilityEquals(onePlate, twoPlate);
     }
 
-    private static int levenshteinDistance(String s, String t)
-    {
+    private static int levenshteinDistance(String s, String t) {
         // degenerate cases
         if (s.equals(t))
             return 0;
@@ -214,8 +212,7 @@ public class CarSorterImpl extends CarSorter {
         for (int i = 0; i < v0.length; i++)
             v0[i] = i;
 
-        for (int i = 0; i < s.length(); i++)
-        {
+        for (int i = 0; i < s.length(); i++) {
             // calculate v1 (current row distances) from the previous row v0
 
             // first element of v1 is A[i+1][0]
@@ -223,8 +220,7 @@ public class CarSorterImpl extends CarSorter {
             v1[0] = i + 1;
 
             // use formula to fill in the rest of the row
-            for (int j = 0; j < t.length(); j++)
-            {
+            for (int j = 0; j < t.length(); j++) {
                 int cost = (s.charAt(i) == t.charAt(j) ? 0 : 1);
                 v1[j + 1] = Math.min(Math.min(v1[j] + 1, v0[j + 1] + 1), v0[j] + cost);
             }

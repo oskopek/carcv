@@ -16,21 +16,6 @@
 
 package org.carcv.web.servlet;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.util.List;
-import java.util.Properties;
-
-import javax.ejb.EJB;
-import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
 import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.fileupload.FileUploadException;
 import org.apache.commons.fileupload.disk.DiskFileItemFactory;
@@ -39,6 +24,20 @@ import org.apache.commons.io.FilenameUtils;
 import org.carcv.core.io.DirectoryLoader;
 import org.carcv.impl.core.run.Main;
 import org.carcv.web.beans.StorageBean;
+
+import javax.ejb.EJB;
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.io.InputStream;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.List;
+import java.util.Properties;
 
 /**
  * A Servlet that uploads images to a new batch input directory.
@@ -52,7 +51,7 @@ public class UploadServlet extends HttpServlet {
     private StorageBean storageBean;
 
     /**
-     * @param request the HttpServletRequest
+     * @param request  the HttpServletRequest
      * @param response the HttpServletResponse
      * @throws IOException
      */

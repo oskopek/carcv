@@ -15,10 +15,17 @@
  */
 package org.carcv.impl.core.io;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assume.assumeTrue;
+import org.apache.commons.lang.builder.CompareToBuilder;
+import org.carcv.core.io.DirectoryWatcher;
+import org.carcv.core.model.file.FileEntry;
+import org.carcv.impl.core.model.FileEntryTool;
+import org.junit.After;
+import org.junit.Before;
+import org.junit.BeforeClass;
+import org.junit.Ignore;
+import org.junit.Test;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -35,17 +42,10 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.Random;
 
-import org.apache.commons.lang.builder.CompareToBuilder;
-import org.carcv.core.io.DirectoryWatcher;
-import org.carcv.core.model.file.FileEntry;
-import org.carcv.impl.core.model.FileEntryTool;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.BeforeClass;
-import org.junit.Ignore;
-import org.junit.Test;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assume.assumeTrue;
 
 /**
  * Test for {@link FFMPEGVideoHandler}.
@@ -365,13 +365,13 @@ public class FFMPEGVideoHandlerIT {
         }
 
         Path output = Paths.get("/tmp", "video-"
-            + new Random().nextInt() + "-"
-            + System.currentTimeMillis()
-            + "." + "mjpeg");
+                + new Random().nextInt() + "-"
+                + System.currentTimeMillis()
+                + "." + "mjpeg");
 
         String command = "ffmpeg -y -f image2 -pattern_type glob -i \"" +
-            videoDir.toAbsolutePath().toString() + File.separator + "*." + imageSuffix +
-            "\" -r " + 2 + " " + output.toAbsolutePath().toString();
+                videoDir.toAbsolutePath().toString() + File.separator + "*." + imageSuffix +
+                "\" -r " + 2 + " " + output.toAbsolutePath().toString();
 
         LOGGER.info("Executing: " + command);
         Process p = Runtime.getRuntime().exec(command);
@@ -403,7 +403,7 @@ public class FFMPEGVideoHandlerIT {
 
     public String getErrorMessage(InputStream error) throws IOException {
         BufferedReader stdError = new BufferedReader(new
-            InputStreamReader(error));
+                InputStreamReader(error));
         String s = "";
         String lastLine = s;
         while ((s = stdError.readLine()) != null) {

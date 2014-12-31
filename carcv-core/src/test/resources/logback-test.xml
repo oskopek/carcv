@@ -7,9 +7,9 @@
         </layout>
     </appender>
 
-    <logger name="org.carcv" level="TRACE" />
+    <logger name="org.carcv" level="TRACE"/>
 
     <root level="debug">
-        <appender-ref ref="STDOUT" />
+        <appender-ref ref="STDOUT"/>
     </root>
 </configuration>

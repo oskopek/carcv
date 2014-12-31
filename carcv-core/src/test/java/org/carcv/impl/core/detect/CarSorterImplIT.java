@@ -15,18 +15,6 @@
  */
 package org.carcv.impl.core.detect;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
-
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.util.ArrayList;
-import java.util.Date;
-
 import org.carcv.core.io.DirectoryWatcher;
 import org.carcv.core.model.Address;
 import org.carcv.core.model.CarData;
@@ -36,6 +24,18 @@ import org.carcv.core.model.file.FileEntry;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.ArrayList;
+import java.util.Date;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 
 /**
  * Test for {@link CarSorterImpl}.
@@ -102,9 +102,9 @@ public class CarSorterImplIT {
         assertEquals(3, images.size());
 
         CarData carData = new CarData(new Speed(20.1),
-            new Address("Bratislava", "92231", "Hrušková", "Slovakia", 32),
-            null,
-            new Date(System.currentTimeMillis()));
+                new Address("Bratislava", "92231", "Hrušková", "Slovakia", 32),
+                null,
+                new Date(System.currentTimeMillis()));
         FileEntry batch = new FileEntry(carData, images);
 
         assertEquals(3, batch.getCarImages().size());

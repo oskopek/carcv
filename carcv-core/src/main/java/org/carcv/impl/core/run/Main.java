@@ -15,6 +15,8 @@
  */
 package org.carcv.impl.core.run;
 
+import org.carcv.impl.core.recognize.FileCarRecognizer;
+
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.nio.file.DirectoryStream;
@@ -23,8 +25,6 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Date;
 import java.util.Properties;
-
-import org.carcv.impl.core.recognize.FileCarRecognizer;
 
 /**
  * Provides a demo command line implementation of CarCV Core functionality.
@@ -50,7 +50,7 @@ public class Main {
 
     /**
      * Main method for demo command line implementation. The preferred way to invoke it is to run <code>mvn exec:java</code>
-     * <p>
+     * <p/>
      * Possible arguments:
      * <ul>
      * <li>--out=OUTPUT_DIR

@@ -16,16 +16,6 @@
 
 package org.carcv.web.test;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-
-import java.io.File;
-import java.nio.file.Paths;
-import java.util.Arrays;
-import java.util.Date;
-
-import javax.ejb.EJB;
-
 import org.carcv.core.model.Address;
 import org.carcv.core.model.CarData;
 import org.carcv.core.model.NumberPlate;
@@ -40,6 +30,15 @@ import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+
+import javax.ejb.EJB;
+import java.io.File;
+import java.nio.file.Paths;
+import java.util.Arrays;
+import java.util.Date;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 
 /**
  *

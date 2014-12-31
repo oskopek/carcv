@@ -16,21 +16,7 @@
 
 package org.carcv.web.reports;
 
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
-
-import java.io.File;
-import java.io.IOException;
-import java.net.URL;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.StandardCopyOption;
-import java.util.Arrays;
-import java.util.Date;
-import java.util.TimeZone;
-
 import net.sf.jasperreports.engine.JRException;
-
 import org.carcv.core.model.Address;
 import org.carcv.core.model.CarData;
 import org.carcv.core.model.NumberPlate;
@@ -43,6 +29,19 @@ import org.junit.Before;
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import java.io.File;
+import java.io.IOException;
+import java.net.URL;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.StandardCopyOption;
+import java.util.Arrays;
+import java.util.Date;
+import java.util.TimeZone;
+
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 
 /**
  *
@@ -114,7 +113,7 @@ public class BasicReportGeneratorTest {
         TimeZone tz = TimeZone.getTimeZone("CET");
 
         BasicReportGenerator brg = new BasicReportGenerator(testEntry, "/reports/speed_report.jasper", "Myjava",
-            "TestReport", "https://carcv-oskopek.rhcloud.com", tz);
+                "TestReport", "https://carcv-oskopek.rhcloud.com", tz);
 
         brg.exportFile(filename);
     }

@@ -16,15 +16,8 @@
 
 package org.carcv.impl.core.detect;
 
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-
-import javax.xml.parsers.ParserConfigurationException;
-
 import net.sf.javaanpr.imageanalysis.CarSnapshot;
 import net.sf.javaanpr.intelligence.Intelligence;
-
 import org.carcv.core.detect.NumberPlateDetector;
 import org.carcv.core.model.AbstractCarImage;
 import org.carcv.impl.core.util.CollectionUtils;
@@ -32,11 +25,15 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.xml.sax.SAXException;
 
+import javax.xml.parsers.ParserConfigurationException;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * An implementation of <code>NumberPlateDetector</code> based on <a
  * href="https://github.com/oskopek/javaanpr.git">JavaANPR</a>.
- *
- * <p>
+ * <p/>
  * Make sure all images are loaded in advance!
  */
 public class NumberPlateDetectorImpl extends NumberPlateDetector {

@@ -16,29 +16,26 @@
 
 package org.carcv.core.detect;
 
-import java.io.IOException;
-import java.util.List;
-
 import org.carcv.core.model.file.FileCarImage;
 import org.carcv.core.model.file.FileEntry;
 
+import java.io.IOException;
+import java.util.List;
+
 /**
  * Provides methods for arranging a sequence of images (video frames) into groups of individual real cars depicted in them.
- *
  */
 public abstract class CarSorter {
 
     /**
      * Turns the FileEntry directly loaded from input directory (containing all images from a given video) into several
      * FileEntry-s, corresponding to the individual real cars on the video.
-     *
-     * <p>
+     * <p/>
      * Be careful to clone the CarData when assigning it from <code>batchEntry</code> to all new FileEntries.
      *
      * @param batchEntry <code>FileEntry</code> containing all images from the new batch
-     *
      * @return individual real cars as a list of <code>FileEntry</code>-s, or an empty List if the list of FileCarImages is
-     *         empty
+     * empty
      */
     public abstract List<FileEntry> sortIntoCars(FileEntry batchEntry) throws IOException;
 
@@ -54,7 +51,7 @@ public abstract class CarSorter {
     /**
      * Wrapper method for {@link CarSorter#carsEquals(String, String)}.
      *
-     * @param one <code>A FileCarImage</code>, has to have a valid filePath set, not null
+     * @param one      <code>A FileCarImage</code>, has to have a valid filePath set, not null
      * @param twoPlate Text of the number plate of the second Car to compare
      */
     public abstract boolean carsEquals(FileCarImage one, String twoPlate);

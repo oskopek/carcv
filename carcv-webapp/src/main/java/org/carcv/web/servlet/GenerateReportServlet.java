@@ -16,8 +16,10 @@
 
 package org.carcv.web.servlet;
 
-import java.io.IOException;
-import java.util.TimeZone;
+import net.sf.jasperreports.engine.JRException;
+import org.carcv.core.model.file.FileEntry;
+import org.carcv.web.beans.EntryBean;
+import org.carcv.web.reports.BasicReportGenerator;
 
 import javax.ejb.EJB;
 import javax.servlet.ServletException;
@@ -25,12 +27,8 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
-import net.sf.jasperreports.engine.JRException;
-
-import org.carcv.core.model.file.FileEntry;
-import org.carcv.web.beans.EntryBean;
-import org.carcv.web.reports.BasicReportGenerator;
+import java.io.IOException;
+import java.util.TimeZone;
 
 /**
  * A Servlet that generates a report with {@link BasicReportGenerator} using the <code>entry_id</code> parameter.
@@ -44,12 +42,12 @@ public class GenerateReportServlet extends HttpServlet {
     private EntryBean entryBean;
 
     /**
-     * @see GenerateReportServlet
-     * @param request the HttpServletRequest
+     * @param request  the HttpServletRequest
      * @param response the HttpServletResponse
      * @throws ServletException
      * @throws IOException
-     * @throws JRException if an error during generation of the report occurs
+     * @throws JRException      if an error during generation of the report occurs
+     * @see GenerateReportServlet
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws
             JRException, IOException {
@@ -71,7 +69,7 @@ public class GenerateReportServlet extends HttpServlet {
         String hostURL = request.getScheme() + "://" + request.getServerName();
 
         BasicReportGenerator brg = new BasicReportGenerator(fileEntry, "/reports/speed_report.jasper", "Myjava",
-            "TestReport", hostURL, tz);
+                "TestReport", hostURL, tz);
         brg.exportStream(filename, response.getOutputStream());
     }
 
@@ -93,7 +91,7 @@ public class GenerateReportServlet extends HttpServlet {
      * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
      */
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException,
-        IOException {
+            IOException {
         try {
             processRequest(request, response);
         } catch (JRException e) {

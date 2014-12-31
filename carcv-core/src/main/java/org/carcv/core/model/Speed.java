@@ -16,12 +16,12 @@
 
 package org.carcv.core.model;
 
-import javax.persistence.Embeddable;
-import javax.validation.constraints.NotNull;
-
 import org.apache.commons.lang.builder.CompareToBuilder;
 import org.apache.commons.lang.builder.EqualsBuilder;
 import org.apache.commons.lang.builder.HashCodeBuilder;
+
+import javax.persistence.Embeddable;
+import javax.validation.constraints.NotNull;
 
 /**
  * An abstraction of the speed a car is moving at, along with it's unit.
@@ -41,7 +41,7 @@ public class Speed extends AbstractEmbeddable implements Comparable<Speed> {
 
     /**
      * Constructs an initialized Speed object.
-     * <p>
+     * <p/>
      * Initializes with the default unit - {@link SpeedUnit#KPH}
      *
      * @param speed the speed to set
@@ -55,7 +55,7 @@ public class Speed extends AbstractEmbeddable implements Comparable<Speed> {
      * Constructs an initialized Speed object.
      *
      * @param speed the speed to set
-     * @param unit the unit to set
+     * @param unit  the unit to set
      */
     public Speed(Double speed, SpeedUnit unit) {
         this.speed = speed;
@@ -81,8 +81,8 @@ public class Speed extends AbstractEmbeddable implements Comparable<Speed> {
     /**
      * A value from {@link SpeedUnit}.
      *
-     * @see SpeedUnit
      * @return the unit
+     * @see SpeedUnit
      */
     @NotNull
     public SpeedUnit getUnit() {
@@ -92,8 +92,8 @@ public class Speed extends AbstractEmbeddable implements Comparable<Speed> {
     /**
      * Set a value from {@link SpeedUnit}.
      *
-     * @see SpeedUnit
      * @param unit the unit to set
+     * @see SpeedUnit
      */
     public void setUnit(SpeedUnit unit) {
         this.unit = unit;
@@ -137,7 +137,7 @@ public class Speed extends AbstractEmbeddable implements Comparable<Speed> {
         }
         Speed other = (Speed) obj;
         return new EqualsBuilder().append(this.getSpeed(), other.getSpeed()).append(this.getUnit(), other.getUnit())
-            .isEquals();
+                .isEquals();
     }
 
     @Override
