@@ -7,9 +7,9 @@ jdk:
 
 env:
   global:
-    - WILDFLY="8.0.0.Final"
-    - JBOSS_HOME=$HOME/wildfly-$WILDFLY
-    - MAVEN_PROFILES="it,wildfly-it-travis"
+    - JBOSSAS="7.1.1.Final"
+    - JBOSS_HOME=$HOME/jboss-as-$JBOSSAS
+    - MAVEN_PROFILES="it,jboss-as-it-travis"
     - secure: WrQYhD3HBLqpKj83AxUH+Gf1EL1vlAX/kcfTAMPSJdjyIcYR/U1b0BYl9ne8Glro8UopZrH8X+3I0oP6GXXG7ihnb8L2sawCutC9EyccQOvFcfuMttSMhTpJpnLSLqEw5Gdp3qb4WDHOFALfo0G4hd/Yr2iIxSp/x6DQAuIz76M=
 
 cache:
@@ -19,10 +19,10 @@ cache:
 before_script:
   - export ROOT_DIR=`pwd`
   - cd $HOME
-  - wget http://download.jboss.org/wildfly/$WILDFLY/wildfly-$WILDFLY.tar.gz
-  - tar xfz wildfly-$WILDFLY.tar.gz
+  - wget hhttp://download.jboss.org/jbossas/7.1/jboss-as-$JBOSSAS/jboss-as-$JBOSSAS.tar.gz
+  - tar xfz jboss-as-$JBOSSAS.tar.gz
   - cd $ROOT_DIR
-  - cp carcv-webapp/src/test/resources/wildfly_configuration_standalone/standalone.xml $JBOSS_HOME/standalone/configuration/standalone.xml
+  - cp carcv-webapp/src/test/resources/as_configuration/jboss-as-7-standalone.xml $JBOSS_HOME/standalone/configuration/standalone.xml
 
 script: "mvn clean verify -P$MAVEN_PROFILES"
 

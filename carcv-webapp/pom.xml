@@ -23,6 +23,7 @@
         <version.shrinkwrap.resolvers>2.1.0-alpha-1</version.shrinkwrap.resolvers>
 
         <version.wildfly>8.0.0.CR1</version.wildfly>
+        <version.jboss-as>7.1.1.Final</version.jboss-as>
         <skipTests>false</skipTests>
         <skipITs>true</skipITs>
         <skipUTs>${skipTests}</skipUTs>
@@ -255,7 +256,7 @@
         </profile>
 
         <profile>
-            <id>jboss-as-7-it</id>
+            <id>jboss-as-it</id>
 
             <properties>
                 <skipTests>false</skipTests>
@@ -270,7 +271,7 @@
                         <artifactId>maven-failsafe-plugin</artifactId>
                         <configuration>
                             <systemPropertyVariables>
-                                <arquillian.launch>jboss-as-7</arquillian.launch>
+                                <arquillian.launch>jboss-as</arquillian.launch>
                             </systemPropertyVariables>
 
                         </configuration>
@@ -282,41 +283,7 @@
                 <dependency>
                     <groupId>org.jboss.as</groupId>
                     <artifactId>jboss-as-arquillian-container-managed</artifactId>
-                    <version>7.1.1.Final</version>
-                    <scope>test</scope>
-                </dependency>
-            </dependencies>
-        </profile>
-
-        <profile>
-            <id>jboss-eap-6-it</id>
-
-            <properties>
-                <skipTests>false</skipTests>
-                <skipITs>${skipTests}</skipITs>
-                <skipUTs>${skipTests}</skipUTs>
-            </properties>
-
-            <build>
-                <plugins>
-                    <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-failsafe-plugin</artifactId>
-                        <configuration>
-                            <systemPropertyVariables>
-                                <arquillian.launch>jboss-eap-6</arquillian.launch>
-                            </systemPropertyVariables>
-
-                        </configuration>
-                    </plugin>
-                </plugins>
-            </build>
-
-            <dependencies>
-                <dependency>
-                    <groupId>org.jboss.as</groupId>
-                    <artifactId>jboss-as-arquillian-container-managed</artifactId>
-                    <version>7.2.0.Final</version>
+                    <version>${version.jboss-as}</version>
                     <scope>test</scope>
                 </dependency>
             </dependencies>
@@ -340,7 +307,6 @@
                             <systemPropertyVariables>
                                 <arquillian.launch>wildfly</arquillian.launch>
                             </systemPropertyVariables>
-
                         </configuration>
                     </plugin>
                 </plugins>
@@ -399,5 +365,37 @@
                 </dependency>
             </dependencies>
         </profile>
+        <profile>
+        <id>jboss-as-it-travis</id>
+
+        <properties>
+            <skipTests>false</skipTests>
+            <skipITs>${skipTests}</skipITs>
+            <skipUTs>${skipTests}</skipUTs>
+        </properties>
+
+        <build>
+            <plugins>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-failsafe-plugin</artifactId>
+                    <configuration>
+                        <systemPropertyVariables>
+                            <arquillian.launch>jboss-as-travis</arquillian.launch>
+                        </systemPropertyVariables>
+                    </configuration>
+                </plugin>
+            </plugins>
+        </build>
+
+        <dependencies>
+            <dependency>
+                <groupId>org.jboss.as</groupId>
+                <artifactId>jboss-as-arquillian-container-managed</artifactId>
+                <version>${version.jboss-as}</version>
+                <scope>test</scope>
+            </dependency>
+        </dependencies>
+    </profile>
     </profiles>
 </project>
