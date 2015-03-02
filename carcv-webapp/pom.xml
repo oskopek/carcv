@@ -366,36 +366,36 @@
             </dependencies>
         </profile>
         <profile>
-        <id>jboss-as-it-travis</id>
+            <id>jboss-as-it-travis</id>
 
-        <properties>
-            <skipTests>false</skipTests>
-            <skipITs>${skipTests}</skipITs>
-            <skipUTs>${skipTests}</skipUTs>
-        </properties>
+            <properties>
+                <skipTests>false</skipTests>
+                <skipITs>${skipTests}</skipITs>
+                <skipUTs>${skipTests}</skipUTs>
+            </properties>
 
-        <build>
-            <plugins>
-                <plugin>
-                    <groupId>org.apache.maven.plugins</groupId>
-                    <artifactId>maven-failsafe-plugin</artifactId>
-                    <configuration>
-                        <systemPropertyVariables>
-                            <arquillian.launch>jboss-as-travis</arquillian.launch>
-                        </systemPropertyVariables>
-                    </configuration>
-                </plugin>
-            </plugins>
-        </build>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-failsafe-plugin</artifactId>
+                        <configuration>
+                            <systemPropertyVariables>
+                                <arquillian.launch>jboss-as-travis</arquillian.launch>
+                            </systemPropertyVariables>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
 
-        <dependencies>
-            <dependency>
-                <groupId>org.jboss.as</groupId>
-                <artifactId>jboss-as-arquillian-container-managed</artifactId>
-                <version>${version.jboss-as}</version>
-                <scope>test</scope>
-            </dependency>
-        </dependencies>
-    </profile>
+            <dependencies>
+                <dependency>
+                    <groupId>org.jboss.as</groupId>
+                    <artifactId>jboss-as-arquillian-container-managed</artifactId>
+                    <version>${version.jboss-as}</version>
+                    <scope>test</scope>
+                </dependency>
+            </dependencies>
+        </profile>
     </profiles>
 </project>
