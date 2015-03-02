@@ -22,7 +22,7 @@
         <version.arquillian>1.1.2.Final</version.arquillian>
         <version.shrinkwrap.resolvers>2.1.0-alpha-1</version.shrinkwrap.resolvers>
 
-        <version.wildfly>8.0.0.CR1</version.wildfly>
+        <version.wildfly>8.2.0.Final</version.wildfly>
         <version.jboss-as>7.1.1.Final</version.jboss-as>
         <skipTests>false</skipTests>
         <skipITs>true</skipITs>

@@ -22,7 +22,7 @@ before_script:
   - wget http://download.jboss.org/jbossas/7.1/jboss-as-$JBOSSAS/jboss-as-$JBOSSAS.tar.gz
   - tar xfz jboss-as-$JBOSSAS.tar.gz
   - cd $ROOT_DIR
-  - cp carcv-webapp/src/test/resources/as_configuration/jboss-as-7-standalone.xml $JBOSS_HOME/standalone/configuration/standalone.xml
+  - cp carcv-webapp/src/test/resources/as_configuration/jboss-as-standalone.xml $JBOSS_HOME/standalone/configuration/standalone.xml
 
 script: "mvn clean verify -P$MAVEN_PROFILES"
 
