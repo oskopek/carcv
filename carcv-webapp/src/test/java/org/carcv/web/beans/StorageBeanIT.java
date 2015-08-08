@@ -21,6 +21,7 @@ import org.carcv.core.io.DirectoryWatcher;
 import org.carcv.core.model.file.FileCarImage;
 import org.carcv.core.model.file.FileEntry;
 import org.carcv.impl.core.model.FileEntryTool;
+import org.carcv.web.test.AbstractIT;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
@@ -66,22 +67,9 @@ public class StorageBeanIT {
 
     @Deployment
     public static WebArchive createDeployment() {
-
-        WebArchive testArchive = ShrinkWrap.createFromZipFile(WebArchive.class, new File("target/carcv-webapp.war"));
-
-        testArchive.delete("WEB-INF/classes/META-INF/persistence.xml");
-        testArchive.addAsResource("META-INF/test-persistence.xml", "META-INF/persistence.xml");
-
-        testArchive.delete("WEB-INF/jboss-web.xml");
-        testArchive.addAsWebInfResource("WEB-INF/test-jboss-web.xml", "jboss-web.xml");
-
+        WebArchive testArchive = AbstractIT.createGenericDeployment();
         testArchive.addAsResource("img/skoda_oct.jpg");
         testArchive.addAsResource("img/test_041.jpg");
-
-        testArchive.addAsResource("arquillian.xml");
-
-        // testArchive.as(ZipExporter.class).exportTo(new File("target/carcv-webapp-test.war"));
-
         return testArchive;
     }
 
@@ -154,6 +142,10 @@ public class StorageBeanIT {
         Path p1 = Paths.get("/tmp", "storageImage1-" + System.currentTimeMillis() + ".jpg");
         Path p2 = Paths.get("/tmp", "storageImage2-" + System.currentTimeMillis() + ".jpg");
 
+        assertNotNull(is1);
+        assertNotNull(is2);
+        assertNotNull(p1);
+        assertNotNull(p2);
         Files.copy(is1, p1);
         Files.copy(is2, p2);
 

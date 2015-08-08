@@ -18,45 +18,31 @@ package org.carcv.web.test;
 
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
-import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
-import java.io.File;
 
 import static org.junit.Assert.assertTrue;
 
 @RunWith(Arquillian.class)
 public class RolesIT {
 
-    @Deployment
-    public static WebArchive createDeployment() {
-
-        WebArchive testArchive = ShrinkWrap.createFromZipFile(WebArchive.class, new File("target/carcv-webapp.war"));
-
-        testArchive.delete("WEB-INF/classes/META-INF/persistence.xml");
-        testArchive.addAsResource("META-INF/test-persistence.xml", "META-INF/persistence.xml");
-
-        testArchive.delete("WEB-INF/jboss-web.xml");
-        testArchive.addAsWebInfResource("WEB-INF/test-jboss-web.xml", "jboss-web.xml");
-
-        testArchive.addAsResource("arquillian.xml");
-
-        return testArchive;
-    }
+    @Inject
+    public HttpServletRequest adminRequest;
 
     @Inject
-    private HttpServletRequest adminRequest;
-
-    @Inject
-    private HttpServletRequest userRequest;
+    public HttpServletRequest userRequest;
 
     private static final String adminRole = "admin";
     private static final String userRole = "user";
+
+    @Deployment
+    public static WebArchive createDeployment() {
+        return AbstractIT.createGenericDeployment();
+    }
 
     @Test
     public void userRoleTest() throws Exception {
