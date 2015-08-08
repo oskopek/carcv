@@ -24,6 +24,7 @@ import org.carcv.core.model.Speed;
 import org.carcv.core.model.file.FileCarImage;
 import org.carcv.core.model.file.FileEntry;
 import org.junit.After;
+import static org.junit.Assert.*;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -38,13 +39,6 @@ import java.util.List;
 import java.util.Properties;
 import java.util.Random;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
-
 /**
  * Test for {@link FileSaver}.
  */
@@ -58,9 +52,6 @@ public class FileSaverTest {
 
     private FileSaver saver;
 
-    /**
-     * @throws java.lang.Exception
-     */
     @Before
     public void setUp() throws Exception {
 
@@ -75,9 +66,9 @@ public class FileSaverTest {
 
         for (int i = 0; i < 10; i++) {
 
-            CarData cd =
-                    new CarData(new Speed(r.nextDouble() * 50), new Address("Bratislava", "93221", "Hrušková", "Slovakia", 32),
-                            new NumberPlate("SK" + r.nextInt(900) + 100 + "AA"), new Date(System.currentTimeMillis()));
+            CarData cd = new CarData(new Speed(r.nextDouble() * 50),
+                    new Address("Bratislava", "93221", "Hrušková", "Slovakia", 32),
+                    new NumberPlate("SK" + r.nextInt(900) + 100 + "AA"), new Date(System.currentTimeMillis()));
 
             List<FileCarImage> images = new ArrayList<>();
 
@@ -93,9 +84,6 @@ public class FileSaverTest {
         saver = new FileSaver(outDir);
     }
 
-    /**
-     * @throws java.lang.Exception
-     */
     @After
     public void tearDown() throws Exception {
         // /*
@@ -126,9 +114,9 @@ public class FileSaverTest {
     }
 
     /**
-     * Test method for {@link org.carcv.impl.core.io.FileSaver#saveFileBatch(java.util.List)}.
+     * Test method for {@link FileSaver#saveFileBatch(java.util.List)}.
      *
-     * @throws IOException
+     * @throws IOException if an IOException occurs
      */
     @Test
     public void testSaveFileBatch() throws IOException {

@@ -19,25 +19,22 @@ package org.carcv.web.test;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
+import static org.junit.Assert.*;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
 
-import static org.junit.Assert.assertTrue;
-
 @RunWith(Arquillian.class)
 public class RolesIT {
 
-    @Inject
-    public HttpServletRequest adminRequest;
-
-    @Inject
-    public HttpServletRequest userRequest;
-
     private static final String adminRole = "admin";
     private static final String userRole = "user";
+    @Inject
+    public HttpServletRequest adminRequest;
+    @Inject
+    public HttpServletRequest userRequest;
 
     @Deployment
     public static WebArchive createDeployment() {

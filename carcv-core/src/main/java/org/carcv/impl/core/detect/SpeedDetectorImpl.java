@@ -23,21 +23,21 @@ import org.carcv.impl.core.io.FFMPEGVideoHandler;
 import java.util.List;
 
 /**
- * A Singleton implementation of a SpeedDetector based on a simple, non-precise equation:
- * <p/>
+ * A Singleton implementation of a SpeedDetector. Based on a simple, non-precise equation:
+ * <p>
  * <code>speed = (numberOfImagesInList / {@link FFMPEGVideoHandler#defaultFrameRate defaultFrameRate})
  * * 10 (meters; default value) * 3.6 (conversion rate from ms to kph)</code>
  */
-public class SpeedDetectorImpl extends SpeedDetector { // TODO 2 Add the complex speed calculation method
+public final class SpeedDetectorImpl extends SpeedDetector { // TODO 2 Add the complex speed calculation method
 
     private static SpeedDetectorImpl detector = new SpeedDetectorImpl();
 
     private SpeedDetectorImpl() {
-
+        // intentionally empty
     }
 
     /**
-     * Returns a reference to the static singleton instantiation of SpeedDetectorImpl
+     * Returns a reference to the static singleton instantiation of SpeedDetectorImpl.
      *
      * @return reference to static SpeedDetectorImpl instance
      */
@@ -52,7 +52,8 @@ public class SpeedDetectorImpl extends SpeedDetector { // TODO 2 Add the complex
 
     @Override
     public Double detectSpeed(final List<? extends AbstractCarImage> images) {
-        // speed = (numOfImages/frameRate) * 3.6 (conversion rate from ms^-1 to kph) * 10 (meters, in which car is in speed box)
+        // speed = (numOfImages/frameRate) * 3.6 (conversion rate from ms^-1 to kph) * 10 (meters, in which car is in
+        // speed box)
         return ((double) images.size() / (double) FFMPEGVideoHandler.defaultFrameRate) * 3.6d * 10d;
     }
 

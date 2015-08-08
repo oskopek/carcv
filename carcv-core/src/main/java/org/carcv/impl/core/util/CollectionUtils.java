@@ -22,7 +22,11 @@ import com.google.common.collect.Multisets;
 import java.util.List;
 import java.util.NoSuchElementException;
 
-public class CollectionUtils {
+public final class CollectionUtils {
+
+    private CollectionUtils() {
+        // intentionally empty
+    }
 
     public static <T> T highestCountElement(final List<T> list) throws NoSuchElementException {
         final Multiset<T> plateSet = HashMultiset.create();

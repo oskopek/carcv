@@ -43,7 +43,6 @@ public class FileEntry extends AbstractEntry {
     /**
      * A private default constructor used for persistence.
      */
-    @SuppressWarnings("unused")
     private FileEntry() {
         // intentionally empty
     }
@@ -51,7 +50,7 @@ public class FileEntry extends AbstractEntry {
     /**
      * A constructor for FileEntry specifying CarData and a list of FileCarImages.
      *
-     * @param carData   instance of CarData corresponding to the given car
+     * @param carData instance of CarData corresponding to the given car
      * @param carImages a list of images of the car
      */
     public FileEntry(CarData carData, List<FileCarImage> carImages) {
@@ -70,11 +69,19 @@ public class FileEntry extends AbstractEntry {
     }
 
     /**
+     * @param carData the CarData to set
+     */
+    public void setCarData(CarData carData) {
+        this.carData = carData;
+    }
+
+    /**
      * @return a list of FileCarImages of this FileEntry
      */
     @Override
     @NotNull
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, targetEntity = FileCarImage.class, orphanRemoval = true)
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, targetEntity = FileCarImage.class,
+            orphanRemoval = true)
     public List<FileCarImage> getCarImages() {
         return carImages;
     }
@@ -84,13 +91,6 @@ public class FileEntry extends AbstractEntry {
      */
     public void setCarImages(List<FileCarImage> carImages) {
         this.carImages = carImages;
-    }
-
-    /**
-     * @param carData the CarData to set
-     */
-    public void setCarData(CarData carData) {
-        this.carData = carData;
     }
 
     @Override
@@ -137,7 +137,5 @@ public class FileEntry extends AbstractEntry {
         }
 
         return e.isEquals();
-
     }
-
 }

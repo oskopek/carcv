@@ -17,7 +17,6 @@
 package org.carcv.core.model;
 
 import org.apache.commons.lang.builder.CompareToBuilder;
-import org.apache.commons.lang.builder.EqualsBuilder;
 import org.apache.commons.lang.builder.HashCodeBuilder;
 
 import javax.persistence.GeneratedValue;
@@ -29,10 +28,11 @@ import java.io.Serializable;
 /**
  * Serves as the base abstract class for all Entity model classes. Implements Serializable and is Comparable with other
  * AbstractModels.
- * <p/>
- * The preferred way to override <code>equals</code> and <code>hashCode</code> is to use Apache Commons {@link EqualsBuilder}
+ * <p>
+ * The preferred way to override <code>equals</code> and <code>hashCode</code> is to use Apache Commons {@link
+ * org.apache.commons.lang.builder.EqualsBuilder}
  * and {@link HashCodeBuilder}. Do not append the id field to any of the two methods.
- * <p/>
+ * <p>
  * The main purpose of this class is to handle the ID of all models and all compares that are done using the id.
  */
 @MappedSuperclass

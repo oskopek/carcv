@@ -20,6 +20,8 @@ import org.carcv.core.io.DirectoryWatcher;
 import org.carcv.core.model.file.FileEntry;
 import org.carcv.impl.core.model.FileEntryTool;
 import org.junit.After;
+import static org.junit.Assert.*;
+import static org.junit.Assume.assumeTrue;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Ignore;
@@ -42,35 +44,42 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.Random;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assume.assumeTrue;
-
 /**
  * Test for {@link FFMPEGVideoHandler}.
  */
-@Ignore(value = "createVideo doesn't work")
+@Ignore(value = "createVideo doesn't work yet")
 public class FFMPEGVideoHandlerIT {
 
-    final private static Logger LOGGER = LoggerFactory.getLogger(FFMPEGVideoHandlerIT.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(FFMPEGVideoHandlerIT.class);
 
     private Path rootDir;
     private Path videoDir;
     private FileEntryTool tool;
     private FileEntry entry;
 
-    /**
-     * @throws java.lang.Exception
-     */
     @BeforeClass
     public static void setUpBeforeClass() throws Exception {
         assumeTrue(isFFMPEGInstalled());
     }
 
     /**
-     * @throws java.lang.Exception
+     * Tests if FFMPEG is installed using "ffmpeg -version".
+     *
+     * @return true if ffmpeg is installed and works
+     * @throws InterruptedException if the runtime is interrupted while waiting for the return value
      */
+    private static boolean isFFMPEGInstalled() throws InterruptedException {
+        Process ffmpegVersionTest;
+        try {
+            ffmpegVersionTest = Runtime.getRuntime().exec("ffmpeg -version");
+        } catch (IOException e) {
+            return false; // if ffmpeg isn't installed
+        }
+        int retVal = ffmpegVersionTest.waitFor();
+
+        return retVal == 0; // if the return value is 0, ffmpeg returned without problem
+    }
+
     @Before
     public void setUp() throws Exception {
         rootDir = Files.createTempDirectory("ffmpegVideoHandlerTest-");
@@ -90,15 +99,13 @@ public class FFMPEGVideoHandlerIT {
         entry = tool.generate(p1, p2);
     }
 
-    /**
-     * @throws java.lang.Exception
-     */
     @After
     public void tearDown() throws Exception {
         /*
          * tool.close(); DirectoryWatcher.deleteDirectory(rootDir);
          *
-         * DirectoryStream<Path> leftOvers = Files.newDirectoryStream(rootDir.getParent()); for(Path p : leftOvers) { String
+         * DirectoryStream<Path> leftOvers = Files.newDirectoryStream(rootDir.getParent()); for(Path p : leftOvers) {
+          * String
          * filename = p.getFileName().toString();
          *
          * if (filename.startsWith("tempVideo") || filename.startsWith("testvideo") || filename.startsWith("video")) {
@@ -107,9 +114,9 @@ public class FFMPEGVideoHandlerIT {
     }
 
     /**
-     * Test method for {@link org.carcv.impl.core.io.FFMPEGVideoHandler#splitIntoFrames(java.nio.file.Path, int)}.
+     * Test method for {@link FFMPEGVideoHandler#splitIntoFrames(Path, int)}.
      *
-     * @throws IOException
+     * @throws IOException if an IOException occurs
      */
     @Test
     public void testSplitIntoFramesPathInt() throws IOException {
@@ -122,8 +129,7 @@ public class FFMPEGVideoHandlerIT {
         Path dir = Paths.get(video.toString() + ".dir");
         DirectoryStream<Path> paths = Files.newDirectoryStream(dir);
         int counter = 0;
-        for (@SuppressWarnings("unused")
-        Path p : paths) {
+        for (@SuppressWarnings("unused") Path p : paths) {
             counter++;
         }
         assertEquals(entry.getCarImages().size(), counter);
@@ -133,10 +139,9 @@ public class FFMPEGVideoHandlerIT {
     }
 
     /**
-     * Test method for
-     * {@link org.carcv.impl.core.io.FFMPEGVideoHandler#splitIntoFrames(java.nio.file.Path, int, java.nio.file.Path)}.
+     * Test method for {@link FFMPEGVideoHandler#splitIntoFrames(Path, int, Path)}.
      *
-     * @throws IOException
+     * @throws IOException if an IOException occurs
      */
     @Test
     public void testSplitIntoFramesPathIntPath() throws IOException {
@@ -149,8 +154,7 @@ public class FFMPEGVideoHandlerIT {
 
         DirectoryStream<Path> paths = Files.newDirectoryStream(dir);
         int counter = 0;
-        for (@SuppressWarnings("unused")
-        Path p : paths) {
+        for (@SuppressWarnings("unused") Path p : paths) {
             counter++;
         }
         assertEquals(entry.getCarImages().size(), counter);
@@ -160,10 +164,9 @@ public class FFMPEGVideoHandlerIT {
     }
 
     /**
-     * Test method for
-     * {@link org.carcv.impl.core.io.FFMPEGVideoHandler#generateVideo(java.nio.file.Path, int, java.nio.file.Path)}.
+     * Test method for {@link FFMPEGVideoHandler#generateVideo(Path, int, Path)}.
      *
-     * @throws IOException
+     * @throws IOException if an IOException occurs
      */
     @Test
     public void testGenerateVideoPathIntPath() throws IOException {
@@ -176,9 +179,9 @@ public class FFMPEGVideoHandlerIT {
     }
 
     /**
-     * Test method for {@link org.carcv.impl.core.io.FFMPEGVideoHandler#generateVideo(java.nio.file.Path, int)}.
+     * Test method for {@link FFMPEGVideoHandler#generateVideo(Path, int)}.
      *
-     * @throws IOException
+     * @throws IOException if an IOException occurs
      */
     @Test
     public void testGenerateVideoPathInt() throws IOException {
@@ -190,19 +193,20 @@ public class FFMPEGVideoHandlerIT {
     }
 
     /**
-     * Test method for {@link org.carcv.impl.core.io.FFMPEGVideoHandler#generateVideoAsStream(java.nio.file.Path, int)}.
+     * Test method for {@link FFMPEGVideoHandler#generateVideoAsStream(Path, int)}.
      *
-     * @throws IOException
+     * @throws IOException if an IOException occurs
      */
     @Test
     public void testGenerateVideoAsStreamPathInt() throws IOException {
         FFMPEGVideoHandler.copyCarImagesToDir(entry.getCarImages(), videoDir);
-        OutputStream out = new FFMPEGVideoHandler().generateVideoAsStream(videoDir, FFMPEGVideoHandler.defaultFrameRate);
+        OutputStream out =
+                new FFMPEGVideoHandler().generateVideoAsStream(videoDir, FFMPEGVideoHandler.defaultFrameRate);
         assertNotNull("Generated video output stream is null", out);
     }
 
     /**
-     * Test method for {@link org.carcv.impl.core.io.FFMPEGVideoHandler#FFMPEGVideoHandler()}.
+     * Test method for {@link FFMPEGVideoHandler#FFMPEGVideoHandler()}.
      */
     @Test
     public void testFFMPEGVideoHandler() {
@@ -214,9 +218,9 @@ public class FFMPEGVideoHandlerIT {
     }
 
     /**
-     * Test method for {@link org.carcv.impl.core.io.FFMPEGVideoHandler#splitIntoFrames(java.nio.file.Path)}.
+     * Test method for {@link FFMPEGVideoHandler#splitIntoFrames(Path)}.
      *
-     * @throws IOException
+     * @throws IOException if an IOException occurs
      */
     @Test
     public void testSplitIntoFramesPath() throws IOException {
@@ -229,8 +233,7 @@ public class FFMPEGVideoHandlerIT {
         Path dir = Paths.get(video.toString() + ".dir");
         DirectoryStream<Path> paths = Files.newDirectoryStream(dir);
         int counter = 0;
-        for (@SuppressWarnings("unused")
-        Path p : paths) {
+        for (@SuppressWarnings("unused") Path p : paths) {
             counter++;
         }
         assertEquals(entry.getCarImages().size(), counter);
@@ -240,9 +243,9 @@ public class FFMPEGVideoHandlerIT {
     }
 
     /**
-     * Test method for {@link org.carcv.impl.core.io.FFMPEGVideoHandler#generateVideoAsStream(java.nio.file.Path)}.
+     * Test method for {@link FFMPEGVideoHandler#generateVideoAsStream(Path)}.
      *
-     * @throws IOException
+     * @throws IOException if an IOException occurs
      */
     @Test
     public void testGenerateVideoAsStreamPath() throws IOException {
@@ -252,11 +255,9 @@ public class FFMPEGVideoHandlerIT {
     }
 
     /**
-     * Test method for
-     * {@link org.carcv.impl.core.io.FFMPEGVideoHandler#generateVideoAsStream(org.carcv.core.model.file.FileEntry, java.io.OutputStream)}
-     * .
+     * Test method for {@link FFMPEGVideoHandler#generateVideoAsStream(FileEntry, OutputStream)}.
      *
-     * @throws IOException
+     * @throws IOException if an IOException occurs
      */
     @Test
     public void testGenerateVideoAsStreamFileEntryOutputStream() throws IOException {
@@ -271,9 +272,9 @@ public class FFMPEGVideoHandlerIT {
     }
 
     /**
-     * Test method for {@link org.carcv.impl.core.io.FFMPEGVideoHandler#copyCarImagesToDir(java.util.List, java.nio.file.Path)}.
+     * Test method for {@link FFMPEGVideoHandler#copyCarImagesToDir(java.util.List, Path)}.
      *
-     * @throws IOException
+     * @throws IOException if an IOException occurs
      */
     @Test
     public void testCopyCarImagesToDir() throws IOException {
@@ -289,7 +290,8 @@ public class FFMPEGVideoHandlerIT {
         Collections.sort(paths, new Comparator<Path>() {
             @Override
             public int compare(Path o1, Path o2) {
-                return new CompareToBuilder().append(o1.getFileName().toString(), o2.getFileName().toString()).toComparison();
+                return new CompareToBuilder().append(o1.getFileName().toString(), o2.getFileName().toString())
+                        .toComparison();
             }
         });
 
@@ -299,7 +301,7 @@ public class FFMPEGVideoHandlerIT {
     }
 
     /**
-     * Test method for {@link org.carcv.impl.core.io.FFMPEGVideoHandler#getSuffix(java.nio.file.Path)}.
+     * Test method for {@link FFMPEGVideoHandler#getSuffix(Path)}.
      */
     @Test
     public void testGetSuffix() {
@@ -311,10 +313,9 @@ public class FFMPEGVideoHandlerIT {
     }
 
     /**
-     * Test method for
-     * {@link org.carcv.impl.core.io.FFMPEGVideoHandler#generateVideoAsStream(java.nio.file.Path, int, java.io.OutputStream)}.
+     * Test method for {@link FFMPEGVideoHandler#generateVideoAsStream(Path, int, OutputStream)}.
      *
-     * @throws IOException
+     * @throws IOException if an IOException occurs
      */
     @Test
     public void testGenerateVideoAsStreamPathIntOutputStream() throws IOException {
@@ -331,9 +332,9 @@ public class FFMPEGVideoHandlerIT {
     }
 
     /**
-     * Test method for {@link org.carcv.impl.core.io.FFMPEGVideoHandler#createVideo(java.nio.file.Path, int)}.
+     * Test method for {@link FFMPEGVideoHandler#createVideo(Path, int)}.
      *
-     * @throws IOException
+     * @throws IOException if an IOException occurs
      */
     @Test
     public void testCreateVideo() throws IOException {
@@ -360,18 +361,17 @@ public class FFMPEGVideoHandlerIT {
         String imageSuffix = ".invalid";
         for (Path p : paths) {
             imageSuffix = FFMPEGVideoHandler.getSuffix(p);
-            if (imageSuffix != null)
+            if (imageSuffix != null) {
                 break;
+            }
         }
 
-        Path output = Paths.get("/tmp", "video-"
-                + new Random().nextInt() + "-"
-                + System.currentTimeMillis()
-                + "." + "mjpeg");
+        Path output =
+                Paths.get("/tmp", "video-" + new Random().nextInt() + "-" + System.currentTimeMillis() + "." + "mjpeg");
 
-        String command = "ffmpeg -y -f image2 -pattern_type glob -i \"" +
-                videoDir.toAbsolutePath().toString() + File.separator + "*." + imageSuffix +
-                "\" -r " + 2 + " " + output.toAbsolutePath().toString();
+        String command =
+                "ffmpeg -y -f image2 -pattern_type glob -i \"" + videoDir.toAbsolutePath().toString() + File.separator
+                        + "*." + imageSuffix + "\" -r " + 2 + " " + output.toAbsolutePath().toString();
 
         LOGGER.info("Executing: " + command);
         Process p = Runtime.getRuntime().exec(command);
@@ -383,27 +383,8 @@ public class FFMPEGVideoHandlerIT {
         LOGGER.debug("Path of created video: {}", output);
     }
 
-    /**
-     * Tests if FFMPEG is installed using "ffmpeg -version"
-     *
-     * @return true if ffmpeg is installed and works
-     * @throws InterruptedException if the runtime is interrupted while waiting for the return value
-     */
-    private static boolean isFFMPEGInstalled() throws InterruptedException {
-        Process ffmpegVersionTest;
-        try {
-            ffmpegVersionTest = Runtime.getRuntime().exec("ffmpeg -version");
-        } catch (IOException e) {
-            return false; // if ffmpeg isn't installed
-        }
-        int retVal = ffmpegVersionTest.waitFor();
-
-        return retVal == 0; // if the return value is 0, ffmpeg returned without problem
-    }
-
     public String getErrorMessage(InputStream error) throws IOException {
-        BufferedReader stdError = new BufferedReader(new
-                InputStreamReader(error));
+        BufferedReader stdError = new BufferedReader(new InputStreamReader(error));
         String s = "";
         String lastLine = s;
         while ((s = stdError.readLine()) != null) {

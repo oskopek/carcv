@@ -50,11 +50,6 @@ public class UploadServlet extends HttpServlet {
     @EJB
     private StorageBean storageBean;
 
-    /**
-     * @param request  the HttpServletRequest
-     * @param response the HttpServletResponse
-     * @throws IOException
-     */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws IOException {
         Path batchDir = storageBean.createBatchDirectory();
 
@@ -69,14 +64,10 @@ public class UploadServlet extends HttpServlet {
         }
 
         for (FileItem item : items) {
-            if (item.isFormField()) {
-                // ignore regular form fields
-            } else {
-                // process files
-
+            // process files (ignore regular form fields)
+            if (!item.isFormField()) {
                 String fileName = FilenameUtils.getName(item.getName());
                 InputStream fileContent = item.getInputStream();
-
                 storageBean.storeToDirectory(fileContent, fileName, batchDir);
             }
         }
@@ -89,21 +80,15 @@ public class UploadServlet extends HttpServlet {
         }
     }
 
-    /**
-     * @see #processRequest(HttpServletRequest, HttpServletResponse)
-     * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-     */
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
         processRequest(request, response);
     }
 
-    /**
-     * @see #processRequest(HttpServletRequest, HttpServletResponse)
-     * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-     */
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
         processRequest(request, response);
     }
 }

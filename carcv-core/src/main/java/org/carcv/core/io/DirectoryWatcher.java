@@ -38,9 +38,9 @@ import java.util.List;
  */
 public class DirectoryWatcher implements Loader {
 
-    final private static Logger LOGGER = LoggerFactory.getLogger(DirectoryWatcher.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(DirectoryWatcher.class);
 
-    final private static String completedMarkerFilename = "completed";
+    private static final String completedMarkerFilename = "completed";
 
     private Path rootDir;
 
@@ -64,11 +64,80 @@ public class DirectoryWatcher implements Loader {
     }
 
     /**
-     * Discovers new batches in the root directory and adds them to the List of Entries. Runs {@link DirectoryLoader#load(Path)}
+     * Deletes given path (directory) and everything under it recursively.
+     * <p/>
+     * Similar to <code>rm -rf path</code>
+     * <p/>
+     * <strong>USE WITH CAUTION!</strong>
+     *
+     * @param path the path to delete
+     * @throws IOException if an IO error occurs in one of the visitors, see {@link Files#walkFileTree(Path,
+     * FileVisitor)}
+     */
+    public static void deleteDirectory(Path path) throws IOException {
+        Files.walkFileTree(path, new FileVisitor<Path>() {
+
+            @Override
+            public FileVisitResult postVisitDirectory(Path dir, IOException exc) throws IOException {
+                LOGGER.debug("Deleting directory: {}", dir);
+                Files.delete(dir);
+                return FileVisitResult.CONTINUE;
+            }
+
+            @Override
+            public FileVisitResult preVisitDirectory(Path dir, BasicFileAttributes attrs) throws IOException {
+                return FileVisitResult.CONTINUE;
+            }
+
+            @Override
+            public FileVisitResult visitFile(Path file, BasicFileAttributes attrs) throws IOException {
+                LOGGER.debug("Deleting file: {}", file);
+                Files.delete(file);
+                return FileVisitResult.CONTINUE;
+            }
+
+            @Override
+            public FileVisitResult visitFileFailed(Path file, IOException exc) throws IOException {
+                LOGGER.debug(exc.getMessage());
+                return FileVisitResult.CONTINUE;
+            }
+        });
+    }
+
+    /**
+     * Checks if directory is empty.
+     *
+     * @param dir a Path that {@link Files#isDirectory(Path, LinkOption...)}
+     * @return true if directory contains no files/directories
+     * @throws IOException if an IO error occurs, see {@link Files#newDirectoryStream(Path)}
+     */
+    public static boolean isDirEmpty(Path dir) throws IOException {
+        if (!Files.isDirectory(dir)) {
+            throw new IllegalArgumentException("Path " + dir + " is not a directory");
+        }
+
+        DirectoryStream<Path> ds = Files.newDirectoryStream(dir);
+
+        int counter = 0;
+        for (Path p : ds) {
+            if (Files.exists(p)) {
+                counter++;
+            } else {
+                throw new IllegalStateException("Path was loaded from dir but the file doesn't exist!");
+            }
+        }
+
+        return counter == 0;
+    }
+
+    /**
+     * Discovers new batches in the root directory and adds them to the List of Entries. Runs {@link
+     * DirectoryLoader#load(Path)}
      * on every newly discovered file.
      *
-     * @throws IOException If an error creating a DirectoryStream from rootDir occurs. Doesn't throw if an invalid directory
-     *                     happens to be in rootDir, just ignores it (adds it to knownDirs) and continues
+     * @throws IOException If an error creating a DirectoryStream from rootDir occurs. Doesn't throw if an invalid
+     * directory
+     * happens to be in rootDir, just ignores it (adds it to knownDirs) and continues
      */
     public void discover() throws IOException {
         DirectoryStream<Path> stream;
@@ -82,9 +151,7 @@ public class DirectoryWatcher implements Loader {
         for (Path p : stream) {
             completed = Paths.get(p.toString(), completedMarkerFilename);
 
-            if (!Files.isDirectory(p)
-                    || knownDirs.contains(p)
-                    || Files.exists(completed)) {
+            if (!Files.isDirectory(p) || knownDirs.contains(p) || Files.exists(completed)) {
                 continue;
             }
 
@@ -130,72 +197,6 @@ public class DirectoryWatcher implements Loader {
      */
     public List<FileEntry> getEntries() {
         return entries;
-    }
-
-    /**
-     * Deletes given path (directory) and everything under it recursively.
-     * <p/>
-     * Similar to <code>rm -rf path</code>
-     * <p/>
-     * <strong>USE WITH CAUTION!</strong>
-     *
-     * @param path the path to delete
-     * @throws IOException
-     */
-    public static void deleteDirectory(Path path) throws IOException {
-        Files.walkFileTree(path, new FileVisitor<Path>() {
-
-            @Override
-            public FileVisitResult postVisitDirectory(Path dir, IOException exc) throws IOException {
-                LOGGER.debug("Deleting directory: {}", dir);
-                Files.delete(dir);
-                return FileVisitResult.CONTINUE;
-            }
-
-            @Override
-            public FileVisitResult preVisitDirectory(Path dir, BasicFileAttributes attrs) throws IOException {
-                return FileVisitResult.CONTINUE;
-            }
-
-            @Override
-            public FileVisitResult visitFile(Path file, BasicFileAttributes attrs) throws IOException {
-                LOGGER.debug("Deleting file: {}", file);
-                Files.delete(file);
-                return FileVisitResult.CONTINUE;
-            }
-
-            @Override
-            public FileVisitResult visitFileFailed(Path file, IOException exc) throws IOException {
-                LOGGER.debug(exc.getMessage());
-                return FileVisitResult.CONTINUE;
-            }
-        });
-    }
-
-    /**
-     * Checks if directory is empty.
-     *
-     * @param dir a Path that {@link Files#isDirectory(Path, LinkOption...) isDirectory}
-     * @return true if directory contains no files/directories
-     * @throws IOException
-     */
-    public static boolean isDirEmpty(Path dir) throws IOException {
-        if (!Files.isDirectory(dir)) {
-            throw new IllegalArgumentException("Path " + dir + " is not a directory");
-        }
-
-        DirectoryStream<Path> ds = Files.newDirectoryStream(dir);
-
-        int counter = 0;
-        for (Path p : ds) {
-            if (Files.exists(p)) {
-                counter++;
-            } else {
-                throw new IllegalStateException("Path was loaded from dir but the file doesn't exist!");
-            }
-        }
-
-        return counter == 0;
     }
 
     /**

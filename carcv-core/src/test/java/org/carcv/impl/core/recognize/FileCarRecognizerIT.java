@@ -18,6 +18,7 @@ package org.carcv.impl.core.recognize;
 
 import org.carcv.core.io.DirectoryWatcher;
 import org.junit.After;
+import static org.junit.Assert.*;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -28,10 +29,6 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Date;
 import java.util.Properties;
-
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
 
 /**
  * Test for {@link FileCarRecognizer}.
@@ -46,9 +43,6 @@ public class FileCarRecognizerIT {
 
     private Properties properties;
 
-    /**
-     * @throws java.lang.Exception
-     */
     @Before
     public void setUp() throws Exception {
         inDir = Files.createTempDirectory("inDir");
@@ -70,9 +64,6 @@ public class FileCarRecognizerIT {
         properties.setProperty("timestamp", String.valueOf(new Date(System.currentTimeMillis()).getTime()));
     }
 
-    /**
-     * @throws java.lang.Exception
-     */
     @After
     public void tearDown() throws Exception {
         // /* // uncomment this to view results in /tmp - NOTE: pollutes tmp directory!
@@ -87,10 +78,11 @@ public class FileCarRecognizerIT {
     }
 
     /**
-     * Test of recognizing one input image in one batch<BR>
-     * Test method for {@link org.carcv.impl.core.recognize.FileCarRecognizer#recognize()}.
+     * Test of recognizing one input image in one batch.
+     * <p>
+     * Test method for {@link FileCarRecognizer#recognize()}.
      *
-     * @throws IOException
+     * @throws IOException if an IOException occurs
      */
     @Test
     public void testRecognize() throws IOException {
@@ -127,9 +119,9 @@ public class FileCarRecognizerIT {
     // TODO 2 Split the multipleRecognize Test up
 
     /**
-     * Test of recognizing multiple (three) input images in one batch
+     * Test of recognizing multiple (three) input images in one batch.
      *
-     * @throws IOException
+     * @throws IOException if an IOException occurs
      */
     @Test
     public void testMultipleRecognize() throws IOException {

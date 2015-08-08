@@ -51,7 +51,8 @@
                 <json-formatter name="json-formatter"/>
             </formatters>
             <handlers>
-                <file-handler name="file" formatter="json-formatter" relative-to="jboss.server.data.dir" path="audit-log.log"/>
+                <file-handler name="file" formatter="json-formatter" relative-to="jboss.server.data.dir"
+                              path="audit-log.log"/>
             </handlers>
             <logger log-boot="true" log-read-only="false" enabled="false">
                 <handlers>
@@ -127,7 +128,8 @@
         </subsystem>
         <subsystem xmlns="urn:jboss:domain:datasources:1.2">
             <datasources>
-                <datasource jndi-name="java:jboss/datasources/ExampleDS" pool-name="ExampleDS" enabled="true" use-java-context="true">
+                <datasource jndi-name="java:jboss/datasources/ExampleDS" pool-name="ExampleDS" enabled="true"
+                            use-java-context="true">
                     <connection-url>jdbc:h2:mem:test;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE</connection-url>
                     <driver>h2</driver>
                     <security>
@@ -160,8 +162,10 @@
             </session-bean>
             <pools>
                 <bean-instance-pools>
-                    <strict-max-pool name="slsb-strict-max-pool" max-pool-size="20" instance-acquisition-timeout="5" instance-acquisition-timeout-unit="MINUTES"/>
-                    <strict-max-pool name="mdb-strict-max-pool" max-pool-size="20" instance-acquisition-timeout="5" instance-acquisition-timeout-unit="MINUTES"/>
+                    <strict-max-pool name="slsb-strict-max-pool" max-pool-size="20" instance-acquisition-timeout="5"
+                                     instance-acquisition-timeout-unit="MINUTES"/>
+                    <strict-max-pool name="mdb-strict-max-pool" max-pool-size="20" instance-acquisition-timeout="5"
+                                     instance-acquisition-timeout-unit="MINUTES"/>
                 </bean-instance-pools>
             </pools>
             <caches>
@@ -174,7 +178,8 @@
             <async thread-pool-name="default"/>
             <timer-service thread-pool-name="default" default-data-store="default-file-store">
                 <data-stores>
-                    <file-data-store name="default-file-store" path="timer-service-data" relative-to="jboss.server.data.dir"/>
+                    <file-data-store name="default-file-store" path="timer-service-data"
+                                     relative-to="jboss.server.data.dir"/>
                 </data-stores>
             </timer-service>
             <remote connector-ref="remoting-connector" thread-pool-name="default"/>
@@ -188,7 +193,8 @@
             <default-missing-method-permissions-deny-access value="true"/>
         </subsystem>
         <subsystem xmlns="urn:jboss:domain:infinispan:1.5">
-            <cache-container name="web" aliases="standard-session-cache" default-cache="local-web" module="org.jboss.as.clustering.web.infinispan">
+            <cache-container name="web" aliases="standard-session-cache" default-cache="local-web"
+                             module="org.jboss.as.clustering.web.infinispan">
                 <local-cache name="local-web" batching="true">
                     <file-store passivation="false" purge="false"/>
                 </local-cache>
@@ -279,8 +285,8 @@
                 <security-domain name="carcv" cache-type="default">
                     <authentication>
                         <login-module code="UsersRoles" flag="required">
-                            <module-option name="usersProperties" value="users.properties" />
-                            <module-option name="rolesProperties" value="roles.properties" />
+                            <module-option name="usersProperties" value="users.properties"/>
+                            <module-option name="rolesProperties" value="roles.properties"/>
                         </login-module>
                     </authentication>
                 </security-domain>
@@ -308,7 +314,8 @@
             <wsdl-host>${jboss.bind.address:127.0.0.1}</wsdl-host>
             <endpoint-config name="Standard-Endpoint-Config"/>
             <endpoint-config name="Recording-Endpoint-Config">
-                <pre-handler-chain name="recording-handlers" protocol-bindings="##SOAP11_HTTP ##SOAP11_HTTP_MTOM ##SOAP12_HTTP ##SOAP12_HTTP_MTOM">
+                <pre-handler-chain name="recording-handlers"
+                                   protocol-bindings="##SOAP11_HTTP ##SOAP11_HTTP_MTOM ##SOAP12_HTTP ##SOAP12_HTTP_MTOM">
                     <handler name="RecordingHandler" class="org.jboss.ws.common.invocation.RecordingServerHandler"/>
                 </pre-handler-chain>
             </endpoint-config>
@@ -332,7 +339,8 @@
             <inet-address value="${jboss.bind.address.unsecure:127.0.0.1}"/>
         </interface>
     </interfaces>
-    <socket-binding-group name="standard-sockets" default-interface="public" port-offset="${jboss.socket.binding.port-offset:0}">
+    <socket-binding-group name="standard-sockets" default-interface="public"
+                          port-offset="${jboss.socket.binding.port-offset:0}">
         <socket-binding name="management-native" interface="management" port="${jboss.management.native.port:9999}"/>
         <socket-binding name="management-http" interface="management" port="${jboss.management.http.port:9990}"/>
         <socket-binding name="management-https" interface="management" port="${jboss.management.https.port:9443}"/>

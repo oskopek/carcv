@@ -58,12 +58,13 @@ public class FileEntryTool implements AutoCloseable {
     }
 
     /**
-     * The caller is responsible for disposing the object, including deletion of FileCarImages on disk. The images are not
+     * The caller is responsible for disposing the object, including deletion of FileCarImages on disk. The images are
+     * not
      * loaded.
      *
      * @param resources list of paths of CarImages - originals are preserved
      * @return a randomly generated FileEntry with 2 images
-     * @throws IOException
+     * @throws IOException if an IOException occurs
      */
     public FileEntry generate(Path... resources) throws IOException {
 
@@ -71,8 +72,8 @@ public class FileEntryTool implements AutoCloseable {
         Files.createDirectory(curDir);
 
         // CarData
-        Address add = new Address(r.nextDouble() * 100, r.nextDouble() * 100, randomString(5),
-                randomString(5), randomString(10), randomString(10), randomInteger(3), randomInteger(5));
+        Address add = new Address(r.nextDouble() * 100, r.nextDouble() * 100, randomString(5), randomString(5),
+                randomString(10), randomString(10), randomInteger(3), randomInteger(5));
         Speed sp = new Speed(r.nextDouble() * 100);
         NumberPlate np = new NumberPlate(randomString(5).toUpperCase(), randomString(2).toUpperCase());
         CarData cd = new CarData(sp, add, np, new Date(r.nextLong()));
@@ -92,8 +93,6 @@ public class FileEntryTool implements AutoCloseable {
             FileCarImage f = new FileCarImage(path);
             images.add(f);
         }
-
-        // FileEntry
 
         return new FileEntry(cd, images);
     }

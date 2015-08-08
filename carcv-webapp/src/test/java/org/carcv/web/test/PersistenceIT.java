@@ -26,33 +26,26 @@ import org.carcv.core.model.file.FileEntry;
 import org.carcv.web.beans.EntryBean;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
-import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
+import static org.junit.Assert.*;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
 import javax.ejb.EJB;
-import java.io.File;
 import java.nio.file.Paths;
 import java.util.Arrays;
 import java.util.Date;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-
-/**
- *
- */
 @RunWith(Arquillian.class)
 public class PersistenceIT {
+
+    @EJB
+    private EntryBean entryBean;
 
     @Deployment
     public static WebArchive createDeployment() {
         return AbstractIT.createGenericDeployment();
     }
-
-    @EJB
-    private EntryBean entryBean;
 
     @Test
     public void persistenceTest() {

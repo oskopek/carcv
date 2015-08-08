@@ -24,15 +24,14 @@ import org.carcv.impl.core.model.FileEntryTool;
 import org.carcv.web.test.AbstractIT;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
-import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
 import org.junit.After;
+import static org.junit.Assert.*;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
 import javax.ejb.EJB;
-import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.DirectoryStream;
@@ -45,14 +44,8 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Random;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
-
 /**
- * Test class for {@link StorageBean}
+ * Test class for {@link StorageBean}.
  */
 @RunWith(Arquillian.class)
 public class StorageBeanIT {
@@ -73,19 +66,34 @@ public class StorageBeanIT {
         return testArchive;
     }
 
-    /**
-     * @throws java.lang.Exception
-     */
+    private static void assertFileEntry(FileEntry e) {
+        // FileEntry
+        assertNotNull(e);
+        assertNotNull(e.getCarData());
+        assertNotNull(e.getCarImages());
+        assertNotEquals(0, e.getCarImages().size());
+
+        // CarData
+        assertNotNull(e.getCarData().getAddress());
+        assertNotNull(e.getCarData().getNumberPlate());
+        assertNotNull(e.getCarData().getSpeed());
+
+        // FileCarImage
+        for (FileCarImage f : e.getCarImages()) {
+            assertNotNull(f);
+            assertNotNull(f.getFilepath());
+            assertTrue(Files.exists(f.getFilepath()));
+        }
+    }
+
     @Before
     public void setUp() throws Exception {
-        // we choose to compare to this path, because the StorageBean should internally chose it against OPENSHIFT_DATA_DIR
+        // we choose to compare to this path, because the StorageBean should internally chose it against
+        // OPENSHIFT_DATA_DIR
         String property = System.getProperty(StorageBean.JbossDataDirProperty);
         rootDir = Paths.get(property, "carcv_data");
     }
 
-    /**
-     * @throws java.lang.Exception
-     */
     @After
     public void tearDown() throws Exception {
         DirectoryWatcher.deleteDirectory(storageBean.getInputDirectory().getParent());
@@ -114,7 +122,7 @@ public class StorageBeanIT {
     /**
      * Test method for {@link org.carcv.web.beans.StorageBean#createBatchDirectory()}.
      *
-     * @throws IOException
+     * @throws IOException if an IOException occurs
      */
     @Test
     public void testCreateBatchDirectory() throws IOException {
@@ -128,9 +136,9 @@ public class StorageBeanIT {
     }
 
     /**
-     * Test method for {@link org.carcv.web.beans.StorageBean#storeToDirectory(java.io.InputStream, String, Path)}.
+     * Test method for {@link StorageBean#storeToDirectory(java.io.InputStream, String, Path)}.
      *
-     * @throws Exception
+     * @throws Exception if an Exception occurs
      */
     @Test
     public void testStoreToDirectory() throws Exception {
@@ -172,9 +180,9 @@ public class StorageBeanIT {
     }
 
     /**
-     * Test method for {@link org.carcv.web.beans.StorageBean#storeBatchToDatabase(java.util.List)}.
+     * Test method for {@link StorageBean#storeBatchToDatabase(java.util.List)}.
      *
-     * @throws Exception
+     * @throws Exception if an Exception occurs
      */
     @Test
     public void testStoreBatchToDatabase() throws Exception {
@@ -219,7 +227,7 @@ public class StorageBeanIT {
     }
 
     /**
-     * Test method for {@link org.carcv.web.beans.StorageBean#getPrefix()}.
+     * Test method for {@link StorageBean#getPrefix()}.
      */
     @Test
     public void testGetPrefix() {
@@ -240,25 +248,5 @@ public class StorageBeanIT {
         assertTrue(Files.exists(checkedPath));
         assertTrue(Files.isDirectory(checkedPath));
         assertTrue(Files.isWritable(checkedPath));
-    }
-
-    private static void assertFileEntry(FileEntry e) {
-        // FileEntry
-        assertNotNull(e);
-        assertNotNull(e.getCarData());
-        assertNotNull(e.getCarImages());
-        assertNotEquals(0, e.getCarImages().size());
-
-        // CarData
-        assertNotNull(e.getCarData().getAddress());
-        assertNotNull(e.getCarData().getNumberPlate());
-        assertNotNull(e.getCarData().getSpeed());
-
-        // FileCarImage
-        for (FileCarImage f : e.getCarImages()) {
-            assertNotNull(f);
-            assertNotNull(f.getFilepath());
-            assertTrue(Files.exists(f.getFilepath()));
-        }
     }
 }

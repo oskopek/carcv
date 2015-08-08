@@ -22,6 +22,7 @@ import org.carcv.core.model.Speed;
 import org.carcv.core.model.file.FileCarImage;
 import org.carcv.core.model.file.FileEntry;
 import org.junit.After;
+import static org.junit.Assert.*;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -32,11 +33,6 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Date;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
-
 /**
  * Test for {@link CarSorterImpl}.
  */
@@ -44,9 +40,6 @@ public class CarSorterImplIT {
 
     private Path imagePath1, imagePath2;
 
-    /**
-     * @throws java.lang.Exception
-     */
     @Before
     public void setUp() throws Exception {
         Path p = Files.createTempDirectory("CarSorterImplIT");
@@ -67,23 +60,21 @@ public class CarSorterImplIT {
 
     }
 
-    /**
-     * @throws java.lang.Exception
-     */
     @After
     public void tearDown() throws Exception {
         DirectoryWatcher.deleteDirectory(imagePath1.getParent());
     }
 
     /**
-     * Test method for {@link org.carcv.impl.core.detect.CarSorterImpl#sortIntoCars(org.carcv.core.model.file.FileEntry)}.
+     * Test method for {@link CarSorterImpl#sortIntoCars(FileEntry)}.
      *
-     * @throws IOException
+     * @throws IOException if an IOException occurs
      */
     @Test
     public void testSortIntoCars() throws IOException {
         // Add a third image, that isn't of the same car as the two before
-        Path imagePath3 = Paths.get(imagePath1.getParent().toString(), "testImage3-" + System.currentTimeMillis() + ".jpg");
+        Path imagePath3 =
+                Paths.get(imagePath1.getParent().toString(), "testImage3-" + System.currentTimeMillis() + ".jpg");
 
         Files.copy(getClass().getResourceAsStream("/img/test_041.jpg"), imagePath3);
 
@@ -101,10 +92,9 @@ public class CarSorterImplIT {
 
         assertEquals(3, images.size());
 
-        CarData carData = new CarData(new Speed(20.1),
-                new Address("Bratislava", "92231", "Hrušková", "Slovakia", 32),
-                null,
-                new Date(System.currentTimeMillis()));
+        CarData carData =
+                new CarData(new Speed(20.1), new Address("Bratislava", "92231", "Hrušková", "Slovakia", 32), null,
+                        new Date(System.currentTimeMillis()));
         FileEntry batch = new FileEntry(carData, images);
 
         assertEquals(3, batch.getCarImages().size());
@@ -134,11 +124,9 @@ public class CarSorterImplIT {
     }
 
     /**
-     * Test method for
-     * {@link org.carcv.impl.core.detect.CarSorterImpl#carsEquals(org.carcv.core.model.file.FileCarImage, org.carcv.core.model.file.FileCarImage)}
-     * .
+     * Test method for {@link CarSorterImpl#carsEquals(FileCarImage, FileCarImage)}.
      *
-     * @throws IOException
+     * @throws IOException if an IOException occurs
      */
     @Test
     public void testCarsEqualsFileCarImageFileCarImage() throws IOException {
@@ -156,10 +144,9 @@ public class CarSorterImplIT {
     }
 
     /**
-     * Test method for
-     * {@link org.carcv.impl.core.detect.CarSorterImpl#carsEquals(org.carcv.core.model.file.FileCarImage, java.lang.String)}.
+     * Test method for {@link CarSorterImpl#carsEquals(FileCarImage, String)}.
      *
-     * @throws IOException
+     * @throws IOException if an IOException occurs
      */
     @Test
     public void testCarsEqualsFileCarImageString() throws IOException {
@@ -174,7 +161,7 @@ public class CarSorterImplIT {
     }
 
     /**
-     * Test method for {@link org.carcv.impl.core.detect.CarSorterImpl#carsEquals(java.lang.String, java.lang.String)}.
+     * Test method for {@link CarSorterImpl#carsEquals(String, String)}.
      */
     @Test
     public void testCarsEqualsStringString() {

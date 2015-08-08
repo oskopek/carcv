@@ -16,6 +16,7 @@
 package org.carcv.impl.core.util;
 
 import org.junit.After;
+import static org.junit.Assert.*;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
@@ -25,15 +26,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.NoSuchElementException;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-
 public class CollectionUtilsTest {
-
-    private List<String> list;
 
     @Rule
     public ExpectedException thrown = ExpectedException.none();
+    private List<String> list;
 
     @Before
     public void setUp() {

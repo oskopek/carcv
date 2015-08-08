@@ -61,8 +61,8 @@ public class FileCarImage extends AbstractCarImage {
     }
 
     /**
-     * Creates a new instance of FileCarImage of an image on the file system with the given Path. Doesn't load the image, you
-     * are responsible for calling {@link #loadImage()} and {@link #close()} on demand.
+     * Creates a new instance of FileCarImage of an image on the file system with the given Path. Doesn't load the
+     * image, you are responsible for calling {@link #loadImage()} and {@link #close()} on demand.
      *
      * @param filepath the Path of the image in the file system
      */
@@ -71,7 +71,8 @@ public class FileCarImage extends AbstractCarImage {
     }
 
     /**
-     * Loads the image from {@link #getFilepath() filepath} into memory. Calls {@link #loadImage(InputStream)} internally.
+     * Loads the image from {@link #getFilepath() filepath} into memory. Calls {@link #loadImage(InputStream)}
+     * internally.
      *
      * @throws IOException if an error during loading occurs
      */
@@ -140,7 +141,7 @@ public class FileCarImage extends AbstractCarImage {
      * Reads a rectangular region from an image in the inStream.
      *
      * @param inStream the InputStream from which to load the image fraction
-     * @param rect     specifies the rectangular region to load as the image
+     * @param rect specifies the rectangular region to load as the image
      * @throws IOException if an error during loading occurs
      */
     public void loadFragment(InputStream inStream, Rectangle rect) throws IOException {
@@ -176,8 +177,8 @@ public class FileCarImage extends AbstractCarImage {
     }
 
     /**
-     * Returns the Path of the FileCarImage. This isn't a traditional getter, it is handled by an internal object, but works
-     * exactly like one.
+     * Returns the Path of the FileCarImage. This isn't a traditional getter, it is handled by an internal object, but
+     * works exactly like one.
      *
      * @return the Path of the FileCarImage on the current file system
      * @see PersistablePath#getPath()
@@ -188,8 +189,8 @@ public class FileCarImage extends AbstractCarImage {
     }
 
     /**
-     * Sets the Path of the FileCarImage. This isn't a traditional setter, an internal object handles it, but works exactly like
-     * one.
+     * Sets the Path of the FileCarImage. This isn't a traditional setter, an internal object handles it, but works
+     * exactly like one.
      *
      * @param filepath the Path of the FileCarImage on the current file system
      * @see PersistablePath#setPath(Path)

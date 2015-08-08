@@ -39,11 +39,6 @@ public class GenerateVideoServlet extends HttpServlet {
     @EJB
     private EntryBean entryBean;
 
-    /**
-     * @param request  the HttpServletRequest
-     * @param response the HttpServletResponse
-     * @throws IOException
-     */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws IOException {
         response.setContentType("video/h264");
         String filename = "video-" + System.currentTimeMillis() + ".h264";
@@ -63,18 +58,10 @@ public class GenerateVideoServlet extends HttpServlet {
         }
     }
 
-    /**
-     * @see #processRequest(HttpServletRequest, HttpServletResponse)
-     * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-     */
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
         processRequest(request, response);
     }
 
-    /**
-     * @see #processRequest(HttpServletRequest, HttpServletResponse)
-     * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-     */
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
         processRequest(request, response);
     }

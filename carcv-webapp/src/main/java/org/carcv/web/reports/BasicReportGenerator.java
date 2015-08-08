@@ -50,16 +50,16 @@ public class BasicReportGenerator {
     /**
      * Constructs a basic report from the parameters.
      *
-     * @param e                     the FileEntry from which to fill the data
-     * @param templateFilename      the template report to fill
+     * @param e the FileEntry from which to fill the data
+     * @param templateFilename the template report to fill
      * @param reportBuilderLocation the place where report is being built (physical, real)
-     * @param reportName            the title of the report
-     * @param hostURL               URL of the domain that is generating the report
-     * @param tz                    TimeZone of the returned date (it is stored in UTC)
+     * @param reportName the title of the report
+     * @param hostURL URL of the domain that is generating the report
+     * @param tz TimeZone of the returned date (it is stored in UTC)
      * @throws JRException if an error during the generation occurs
      */
-    public BasicReportGenerator(FileEntry e, String templateFilename, String reportBuilderLocation,
-                                String reportName, String hostURL, TimeZone tz) throws JRException {
+    public BasicReportGenerator(FileEntry e, String templateFilename, String reportBuilderLocation, String reportName,
+            String hostURL, TimeZone tz) throws JRException {
 
         Map<String, Object> values = new HashMap<>();
         Map<String, Object> parameters = new HashMap<>();
@@ -101,8 +101,8 @@ public class BasicReportGenerator {
         parameters.put("LPNumber", data.getNumberPlate().getText());
         parameters.put("videoURL", hostURL + "/servlet/GenerateVideo?entry_id=" + e.getId().toString());
         parameters.put("time", timeFormat.format(data.getTimestamp()));
-        parameters.put("speed", Double.toString(data.getSpeed().getSpeed()) + " "
-                + data.getSpeed().getUnit().toString());
+        parameters
+                .put("speed", Double.toString(data.getSpeed().getSpeed()) + " " + data.getSpeed().getUnit().toString());
 
         // parameters.put
 
@@ -142,6 +142,7 @@ public class BasicReportGenerator {
      * Writes the report into the OutputStream in PDF format.
      *
      * @param filename filename of the exported report
+     * @param out the output stream to print the report to
      * @throws JRException if an error during exporting occurs
      */
     public void exportStream(String filename, OutputStream out) throws JRException {

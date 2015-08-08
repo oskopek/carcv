@@ -37,13 +37,11 @@ import java.util.List;
 @Stateless
 public class StorageBean {
 
-    final private static Logger LOGGER = LoggerFactory.getLogger(StorageBean.class);
-
-    @EJB
-    private EntryBean entryBean;
-
     protected static final String envname_OPENSHIFT_DATA_DIR = "OPENSHIFT_DATA_DIR";
     protected static final String JbossDataDirProperty = "jboss.server.data.dir";
+    private static final Logger LOGGER = LoggerFactory.getLogger(StorageBean.class);
+    @EJB
+    private EntryBean entryBean;
     private String prefix;
     private Path inDir;
     private Path outDir;
@@ -64,7 +62,7 @@ public class StorageBean {
 
     /**
      * Returns the location of the data directory.
-     * <p/>
+     * <p>
      * Note: The actual data resides in the <code>getPrefix()+"/carcv_data"</code> directory.
      *
      * @return the prefix
@@ -74,14 +72,14 @@ public class StorageBean {
     }
 
     /**
-     * Checks if the directory exists, if not, creates it. Prints an error if an error during creating occurred, doesn't throw
-     * any Exception.
+     * Checks if the directory exists, if not, creates it.
      *
-     * @param p the Path to check
+     * @param path the Path to check
+     * @throws IOException if an error during creating occurs
      */
-    private void assertDirCreated(Path p) throws IOException {
-        if (!Files.exists(p) || !Files.isDirectory(p)) {
-            Files.createDirectories(p);
+    private void assertDirCreated(Path path) throws IOException {
+        if (!Files.exists(path) || !Files.isDirectory(path)) {
+            Files.createDirectories(path);
         }
     }
 
@@ -118,10 +116,11 @@ public class StorageBean {
     }
 
     /**
-     * Creates a new batch directory for storing input images. Also assures that the input and output directories exist.
+     * Creates a new batch directory for storing input images. Also assures that the input and output directories
+     * exist.
      *
      * @return Path of the new batch directory
-     * @throws IOException if an error during the creation occurrs
+     * @throws IOException if an error during the creation occurs
      */
     public Path createBatchDirectory() throws IOException {
         assertDirCreated(inDir);
@@ -132,9 +131,9 @@ public class StorageBean {
     /**
      * Reads InputStream and stores it to the <code>dir</code> with the name <code>fileName</code>.
      *
-     * @param is       the InputStream from which to read
+     * @param is the InputStream from which to read
      * @param fileName the file name of the saved file
-     * @param dir      the directory to which to save the file
+     * @param dir the directory to which to save the file
      * @throws IOException if an error occurs
      * @see #saveToFile(InputStream, OutputStream)
      */
@@ -160,7 +159,7 @@ public class StorageBean {
      * Reads from the InputStream and writes to the OutputStream. Used for writing streams to files.
      *
      * @param from the InputStream to read from
-     * @param to   the OutputStream to write to
+     * @param to the OutputStream to write to
      * @throws IOException if an error during read/write occurs
      */
     private void saveToFile(InputStream from, OutputStream to) throws IOException {

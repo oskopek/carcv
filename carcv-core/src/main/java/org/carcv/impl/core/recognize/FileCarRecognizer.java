@@ -36,9 +36,9 @@ import java.util.List;
 
 /**
  * An implementation of {@link FileCarRecognizer} using {@link FileEntry}.
- * <p/>
- * It uses {@link DirectoryWatcher} for input and {@link FileSaver} for output. For the different stages of recognition, it
- * uses:
+ * <p>
+ * It uses {@link DirectoryWatcher} for input and {@link FileSaver} for output.
+ * For the different stages of recognition, it uses:
  * <ul>
  * <li>Sorting - {@link CarSorterImpl}
  * <li>Speed - {@link SpeedDetectorImpl}
@@ -47,7 +47,7 @@ import java.util.List;
  */
 public class FileCarRecognizer extends CarRecognizer {
 
-    final private static Logger LOGGER = LoggerFactory.getLogger(FileCarRecognizer.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(FileCarRecognizer.class);
 
     private DirectoryWatcher watcher;
 
@@ -56,7 +56,7 @@ public class FileCarRecognizer extends CarRecognizer {
     /**
      * Constructor for use with input/output directories.
      *
-     * @param inDir  the path to use as input directory
+     * @param inDir the path to use as input directory
      * @param outDir the path to use as output directory
      */
     public FileCarRecognizer(Path inDir, Path outDir) {

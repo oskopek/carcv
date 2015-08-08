@@ -31,12 +31,13 @@ import java.io.IOException;
 public abstract class CarRecognizer {
 
     /**
-     * This method is reads new <code>Entry</code>-s (any object that extends {@link AbstractEntry}) from one or more data
-     * source, detects individual cars, detects their speed and number plate, afterwards saves them to one or more data sources.
-     * <p/>
+     * This method is reads new <code>Entry</code>-s (any object that extends {@link AbstractEntry}) from one or more
+     * data source, detects individual cars, detects their speed and number plate, afterwards saves them
+     * to one or more data sources.
+     * <p>
      * Getting the data afterwards is the responsibility of your client externally from the input/output data sources.
      *
-     * @throws IOException
+     * @throws IOException if an IOException occurs
      * @see DirectoryWatcher#getNewEntries()
      * @see CarSorter#sortIntoCars(org.carcv.core.model.file.FileEntry)
      * @see NumberPlateDetector#detectPlateOrigin(java.util.List)

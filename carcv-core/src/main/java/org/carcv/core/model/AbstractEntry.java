@@ -19,7 +19,8 @@ package org.carcv.core.model;
 import java.util.List;
 
 /**
- * An abstraction of an entry object, which is a virtual complex of CarData and corresponding list of video frames (images).
+ * An abstraction of an entry object, which is a virtual complex of CarData and corresponding list of video frames
+ * (images).
  */
 public abstract class AbstractEntry extends AbstractModel {
 

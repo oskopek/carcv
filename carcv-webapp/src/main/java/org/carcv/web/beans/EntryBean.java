@@ -59,12 +59,11 @@ public class EntryBean {
 
     /**
      * Queries the database, selecting all FileEntries in the table.
-     * <p/>
+     * <p>
      * Query: <code>select e from FileEntry e</code>
      *
      * @return the list result of the query
      */
-    @SuppressWarnings("unchecked")
     public List<FileEntry> getAll() {
         return em.createQuery("select e from FileEntry e").getResultList();
     }

@@ -44,24 +44,14 @@ import java.util.TimeZone;
 public class CarTableServlet extends HttpServlet {
 
     private static final long serialVersionUID = 650302178430670688L;
-
+    private static final String adminRole = "admin";
     @EJB
     private EntryBean bean;
 
-    private static final String adminRole = "admin";
-
-    /**
-     * @param request  the HttpServletRequest
-     * @param response the HttpServletResponse
-     * @throws ServletException
-     * @throws IOException
-     * @see CarTableServlet
-     */
-    protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException,
-            IOException {
+    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
         final ArrayList<FileEntry> requestEntries = (ArrayList<FileEntry>) bean.getAll();
 
-        @SuppressWarnings("unchecked")
         ArrayList<FileEntry> abstractEntries = (ArrayList<FileEntry>) requestEntries.clone();
 
         // Timezone
@@ -76,8 +66,7 @@ public class CarTableServlet extends HttpServlet {
         Collections.sort(abstractEntries, new Comparator<FileEntry>() {
             @Override
             public int compare(FileEntry o1, FileEntry o2) {
-                return new CompareToBuilder()
-                        .append(o2.getCarData().getTimestamp(), o1.getCarData().getTimestamp())
+                return new CompareToBuilder().append(o2.getCarData().getTimestamp(), o1.getCarData().getTimestamp())
                         .toComparison();
             }
         });
@@ -92,16 +81,16 @@ public class CarTableServlet extends HttpServlet {
 
             entryId = e.getId().toString();
 
-            licensePlate = e.getCarData().getNumberPlate().getOrigin() + ": "
-                    + e.getCarData().getNumberPlate().getText();
+            licensePlate =
+                    e.getCarData().getNumberPlate().getOrigin() + ": " + e.getCarData().getNumberPlate().getText();
 
             location = e.getCarData().getAddress().printBR();
 
             FileCarImage fci = e.getCarImages().get(0);
             previewPath = fci.getFilepath().toString();
 
-            WebReportTableMember wrtm = new WebReportTableMember(previewPath, entryId, time, date, location, licensePlate,
-                    timeZoneStr);
+            WebReportTableMember wrtm =
+                    new WebReportTableMember(previewPath, entryId, time, date, location, licensePlate, timeZoneStr);
 
             wrtmList.add(wrtm);
         }
@@ -115,22 +104,15 @@ public class CarTableServlet extends HttpServlet {
         rd.forward(request, response);
     }
 
-    /**
-     * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-     * @see #processRequest(HttpServletRequest, HttpServletResponse)
-     */
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
         processRequest(request, response);
     }
 
-    /**
-     * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-     * @see #processRequest(HttpServletRequest, HttpServletResponse)
-     */
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException,
-            IOException {
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
         processRequest(request, response);
     }
 }

@@ -35,7 +35,7 @@ import java.util.concurrent.Executors;
 @WebServlet("/servlet/Recognize")
 public class RecognizeServlet extends HttpServlet {
 
-    final private static Logger LOGGER = LoggerFactory.getLogger(RecognizeServlet.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(RecognizeServlet.class);
 
     private static final long serialVersionUID = -235344099282905675L;
 
@@ -49,33 +49,20 @@ public class RecognizeServlet extends HttpServlet {
         pool = Executors.newFixedThreadPool(2);
     }
 
-    /**
-     * @param request  the HttpServletRequest
-     * @param response the HttpServletResponse
-     * @throws ServletException
-     * @throws IOException
-     */
-    protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws
-            IOException {
+    protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws IOException {
         pool.execute(new RecognizeRunnable());
         response.sendRedirect("/app/refresh_in_progress.jsp");
     }
 
-    /**
-     * @see #processRequest(HttpServletRequest, HttpServletResponse)
-     * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-     */
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
         processRequest(request, response);
     }
 
-    /**
-     * @see #processRequest(HttpServletRequest, HttpServletResponse)
-     * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-     */
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
         processRequest(request, response);
     }
 

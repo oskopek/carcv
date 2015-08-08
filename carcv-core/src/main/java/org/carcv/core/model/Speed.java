@@ -34,14 +34,13 @@ public class Speed extends AbstractEmbeddable implements Comparable<Speed> {
     private Double speed;
     private SpeedUnit unit;
 
-    @SuppressWarnings("unused")
     private Speed() {
         // persistence constructor stub
     }
 
     /**
      * Constructs an initialized Speed object.
-     * <p/>
+     * <p>
      * Initializes with the default unit - {@link SpeedUnit#KPH}
      *
      * @param speed the speed to set
@@ -55,7 +54,7 @@ public class Speed extends AbstractEmbeddable implements Comparable<Speed> {
      * Constructs an initialized Speed object.
      *
      * @param speed the speed to set
-     * @param unit  the unit to set
+     * @param unit the unit to set
      */
     public Speed(Double speed, SpeedUnit unit) {
         this.speed = speed;
@@ -74,7 +73,7 @@ public class Speed extends AbstractEmbeddable implements Comparable<Speed> {
     /**
      * @param speed the speed to set
      */
-    public void setSpeed(double speed) {
+    public void setSpeed(Double speed) {
         this.speed = speed;
     }
 
@@ -99,31 +98,16 @@ public class Speed extends AbstractEmbeddable implements Comparable<Speed> {
         this.unit = unit;
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see java.lang.Object#toString()
-     */
     @Override
     public String toString() {
         return "Speed [speed=" + getSpeed().toString() + ", unit=" + getUnit().toString() + "]";
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see java.lang.Object#hashCode()
-     */
     @Override
     public int hashCode() {
         return new HashCodeBuilder().append(getSpeed()).append(getUnit()).toHashCode();
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see java.lang.Object#equals(java.lang.Object)
-     */
     @Override
     public boolean equals(Object obj) {
         if (this == obj) {

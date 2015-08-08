@@ -31,7 +31,7 @@ import java.util.Properties;
  */
 public class Main {
 
-    final private static String envHOME = System.getenv("HOME");
+    private static final String envHOME = System.getenv("HOME");
 
     private static Path inDir = Paths.get(envHOME + "/dev/java/carcv_data/in");
     private static Path outDir = Paths.get(envHOME + "/dev/java/carcv_data/out");
@@ -39,18 +39,9 @@ public class Main {
     private FileCarRecognizer recognizer;
 
     /**
-     * A wrapper method that runs {@link FileCarRecognizer#recognize()} on the private FileCarRecognizer instance
-     *
-     * @throws IOException
-     * @deprecated Unused, unneeded, to be removed ASAP
-     */
-    public void recognize() throws IOException {
-        recognizer.recognize();
-    }
-
-    /**
-     * Main method for demo command line implementation. The preferred way to invoke it is to run <code>mvn exec:java</code>
-     * <p/>
+     * Main method for demo command line implementation.
+     * The preferred way to invoke it is to run <code>mvn exec:java</code>
+     * <p>
      * Possible arguments:
      * <ul>
      * <li>--out=OUTPUT_DIR
@@ -58,7 +49,7 @@ public class Main {
      * </ul>
      *
      * @param args command line arguments
-     * @throws IOException
+     * @throws IOException if an IOException occurs
      */
     public static void main(String[] args) throws IOException {
         final String dashes = "-------------------------------------------------------------------------------";
@@ -104,24 +95,7 @@ public class Main {
     }
 
     /**
-     * Actually goes through the whole recognition process a {@link FileCarRecognizer} normally would.
-     *
-     * @throws IOException
-     */
-    private void run() throws IOException {
-        System.out.println("\nCreating FileCarRecognizer instance");
-        recognizer = new FileCarRecognizer(inDir, outDir);
-
-        System.out.print("\nRecognizing... ");
-        recognizer.recognize();
-        System.out.println("done.");
-
-        System.out.println("\nFor results see the output directory:\t" + outDir.toString());
-        System.out.println();
-    }
-
-    /**
-     * Creates a sample Properties object to be used as <code>info.properties</code> in a input batch folder
+     * Creates a sample Properties object to be used as <code>info.properties</code> in a input batch folder.
      *
      * @return an example of a <code>info.properties</code> Properties object
      */
@@ -139,5 +113,32 @@ public class Main {
         properties.setProperty("timestamp", String.valueOf(new Date(System.currentTimeMillis()).getTime()));
 
         return properties;
+    }
+
+    /**
+     * A wrapper method that runs {@link FileCarRecognizer#recognize()} on the private FileCarRecognizer instance.
+     *
+     * @throws IOException if an IOException occurs
+     * @deprecated Unused, unneeded, to be removed ASAP
+     */
+    public void recognize() throws IOException {
+        recognizer.recognize();
+    }
+
+    /**
+     * Actually goes through the whole recognition process a {@link FileCarRecognizer} normally would.
+     *
+     * @throws IOException if an IOException occurs
+     */
+    private void run() throws IOException {
+        System.out.println("\nCreating FileCarRecognizer instance");
+        recognizer = new FileCarRecognizer(inDir, outDir);
+
+        System.out.print("\nRecognizing... ");
+        recognizer.recognize();
+        System.out.println("done.");
+
+        System.out.println("\nFor results see the output directory:\t" + outDir.toString());
+        System.out.println();
     }
 }

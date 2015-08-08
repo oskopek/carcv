@@ -27,7 +27,8 @@ import java.nio.file.Path;
 import java.util.List;
 
 /**
- * Provides a method to run {@link FileCarRecognizer#recognize() recognize()} on the default input and output directories. Also
+ * Provides a method to run {@link FileCarRecognizer#recognize() recognize()} on the default input and output
+ * directories. Also
  * auto-stores to database.
  */
 @Stateless
@@ -49,7 +50,8 @@ public class RecognizerBean {
 
     /**
      * Calls {@link FileCarRecognizer#listRecognize()} and then on the resulting list
-     * {@link StorageBean#storeBatchToDatabase(List)}. Also checks if input and output directories of {@link StorageBean} return
+     * {@link StorageBean#storeBatchToDatabase(List)}. Also checks if input and output directories of {@link
+     * StorageBean} return
      * validly.
      *
      * @throws IOException if an error during recognition occurs
@@ -57,7 +59,8 @@ public class RecognizerBean {
      * @see StorageBean#storeBatchToDatabase(List)
      */
     public void recognize() throws IOException {
-        // these two checks actually prevent an IOException, because storageBean verifies and creates them if they don't exist
+        // these two checks actually prevent an IOException, because storageBean verifies and creates them if they
+        // don't exist
         if (storageBean.getInputDirectory() == null) {
             throw new IOException("StorageBean Input Directory is null.");
         }
