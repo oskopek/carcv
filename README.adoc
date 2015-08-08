@@ -23,7 +23,7 @@ CarCV uses http://semver.org/[semantic versioning].
 link:./docs/howto-setup-environment-windows.adoc[Windows], link:./docs/howto-setup-environment-linux.adoc[Linux & Mac]
 * *Recommended*: +mvn clean install -DskipTests+
 * To run *unit tests*: +mvn clean install+
-* To run *integration tests*: +mvn clean install -Pit,wildfly-it+
+* To run *integration tests*: +mvn clean install -Pit,wildfly+
 * To *clean*, run: +mvn clean+
 * Run a simple link:./docs/core/core-usage.adoc[carcv-core demo]
 
@@ -75,15 +75,3 @@ the bug, including your Java version and operating system.
 . If the tests fail, return to step 3 and 4
 . Add, commit, and push your changes
 . http://help.github.com/send-pull-requests/[Submit a pull request]
-
-
-=== Configuring the project for Eclipse with the m2eclipse plugin
-The m2eclipse plugin is a plugin in Eclipse for Maven.
-
-* Open Eclipse
-* Follow link:http://m2eclipse.sonatype.org/m2eclipse[the installation instructions of m2eclipse].
-** Follow the link *Installing m2eclipse* at the bottom.
-* Click menu *File*, menu item *Import*, tree item *Maven*, tree item *Existing Maven Projects*.
-* Click button *Browse*, select a repository directory. For example: `~/git/carcv`.
-
-For more information, see http://www.sonatype.com/books/m2eclipse-book/reference/[the m2eclipse book]

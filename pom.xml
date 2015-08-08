@@ -1,4 +1,4 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://maven.apache.org/POM/4.0.0"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <groupId>org.carcv</groupId>
@@ -7,6 +7,10 @@
     <packaging>pom</packaging>
     <name>CarCV</name>
     <description>A car recognizing and speed calculating platform</description>
+    <modules>
+        <module>carcv-core</module>
+        <module>carcv-webapp</module>
+    </modules>
     <scm>
         <url>https://github.com/oskopek/carcv.git</url>
         <connection>scm:git:https://github.com/oskopek/carcv.git</connection>
@@ -26,24 +30,17 @@
         <name>CarCV Development Team</name>
         <url>https://github.com/oskopek/carcv/graphs/contributors</url>
     </organization>
-
     <prerequisites>
         <maven>3.0.5</maven>
     </prerequisites>
-
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+        <skipTests>false</skipTests>
+        <skipITs>true</skipITs>
     </properties>
-
     <dependencyManagement>
         <dependencies>
-            <dependency>
-                <groupId>org.jboss.spec</groupId>
-                <artifactId>jboss-javaee-6.0</artifactId>
-                <version>3.0.2.Final</version>
-                <type>pom</type>
-                <scope>provided</scope>
-            </dependency>
             <!-- Required by jboss-javaee-6.0:3.0.2.Final (https://issues.jboss.org/browse/JBBUILD-708) & (http://stackoverflow.com/questions/16300544/cannot-use-dependency-jboss-javaee-6-0-in-my-maven-project) -->
             <dependency>
                 <groupId>xalan</groupId>
@@ -51,9 +48,31 @@
                 <version>2.7.1</version>
                 <scope>provided</scope>
             </dependency>
+            <dependency>
+                <groupId>commons-lang</groupId>
+                <artifactId>commons-lang</artifactId>
+                <version>20030203.000129</version>
+            </dependency>
+            <dependency>
+                <groupId>junit</groupId>
+                <artifactId>junit</artifactId>
+                <version>4.11</version>
+                <scope>test</scope>
+            </dependency>
+            <dependency>
+                <groupId>ch.qos.logback</groupId>
+                <artifactId>logback-classic</artifactId>
+                <version>1.1.0</version>
+            </dependency>
+            <dependency>
+                <groupId>org.jboss.spec</groupId>
+                <artifactId>jboss-javaee-6.0</artifactId>
+                <version>3.0.2.Final</version>
+                <type>pom</type>
+                <scope>provided</scope>
+            </dependency>
         </dependencies>
     </dependencyManagement>
-
     <build>
         <plugins>
             <plugin>
@@ -81,14 +100,6 @@
                         </regexes>
                     </check>
                 </configuration>
-                <!-- <executions>
-                            <execution>
-                                <goals>
-                                    <goal>clean</goal>
-                                    <goal>check</goal>
-                                </goals>
-                            </execution>
-                </executions> -->
             </plugin>
             <plugin>
                 <groupId>org.eluder.coveralls</groupId>
@@ -98,33 +109,50 @@
                     <repoToken>${env.COVERALLS_TOKEN}</repoToken>
                 </configuration>
             </plugin>
+
         </plugins>
+        <pluginManagement>
+            <plugins>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-surefire-plugin</artifactId>
+                    <version>2.16</version>
+                    <configuration>
+                        <skipTests>${skipTests}</skipTests>
+                    </configuration>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-failsafe-plugin</artifactId>
+                    <version>2.16</version>
+                    <executions>
+                        <execution>
+                            <goals>
+                                <goal>integration-test</goal>
+                                <goal>verify</goal>
+                            </goals>
+                        </execution>
+                    </executions>
+                    <configuration>
+                        <skipTests>${skipTests}</skipTests>
+                        <skipITs>${skipITs}</skipITs>
+                        <systemPropertyVariables>
+                            <arquillian.launch>jboss</arquillian.launch>
+                        </systemPropertyVariables>
+                    </configuration>
+                </plugin>
+                <plugin>
+                    <artifactId>maven-compiler-plugin</artifactId>
+                    <version>3.1</version>
+                    <configuration>
+                        <source>1.7</source>
+                        <target>1.7</target>
+                    </configuration>
+                </plugin>
+            </plugins>
+        </pluginManagement>
     </build>
-
     <profiles>
-        <profile>
-            <!-- When built in OpenShift the 'openshift' profile will be used when invoking mvn.
-                 Use this profile for any OpenShift specific customization your app will need.
-                 By default that is to put the resulting archive into the 'deployments' folder.
-                 http://maven.apache.org/guides/mini/guide-building-for-different-environments.html -->
-            <id>openshift</id>
-            <modules>
-                <module>carcv-core</module>
-                <module>carcv-webapp</module>
-            </modules>
-        </profile>
-
-        <profile>
-            <id>default</id>
-            <activation>
-                <activeByDefault>true</activeByDefault>
-            </activation>
-            <modules>
-                <module>carcv-core</module>
-                <module>carcv-webapp</module>
-            </modules>
-        </profile>
-
         <profile>
             <id>all</id>
             <modules>
@@ -133,26 +161,12 @@
                 <module>carcv-cpp</module>
             </modules>
         </profile>
-
         <profile>
-            <id>core</id>
-            <modules>
-                <module>carcv-core</module>
-            </modules>
-        </profile>
-
-        <profile>
-            <id>webapp</id>
-            <modules>
-                <module>carcv-webapp</module>
-            </modules>
-        </profile>
-
-        <profile>
-            <id>cpp</id>
-            <modules>
-                <module>carcv-cpp</module>
-            </modules>
+            <id>it</id>
+            <properties>
+                <skipTests>false</skipTests>
+                <skipITs>${skipTests}</skipITs>
+            </properties>
         </profile>
     </profiles>
 </project>
