@@ -31,9 +31,9 @@ link:./docs/howto-setup-environment-windows.adoc[Windows], link:./docs/howto-set
 CarCV is also available as a https://registry.hub.docker.com/u/oskopek/carcv-webapp/[Docker image]:
 
 ```
-docker pull oskopek/carcv-webapp
-docker run -d --name=mariadb fedora/mariadb
-docker run -it --rm --link mariadb:mariadb -p 8080:8080 oskopek/carcv-webapp
+sudo docker pull oskopek/carcv-webapp
+sudo docker run -d --name=mariadb fedora/mariadb
+sudo docker run -it --rm --link mariadb:mariadb -p 8080:8080 oskopek/carcv-webapp
 ```
 
 === Getting help
