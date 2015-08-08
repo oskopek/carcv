@@ -3,14 +3,14 @@
 ==== Build-related installations
 
 . *Install Git*
-** Fedora: `sudo yum install git`
+** Fedora: `sudo dnf install git`
 ** Ubuntu: `sudo apt-get install git`
 
 . *Install Java8 JDK* -- link:http://www.oracle.com/technetwork/java/javase/downloads/index.html[Oracle JDK Downloads] -- Select: Java Platform (JDK)
 
 . *Install Maven* -- preferably the latest version you can.
 Usually, your distribution's package management repository is enough:
-** Fedora: `sudo yum install mvn`
+** Fedora: `sudo dnf install mvn`
 ** Ubuntu: `sudo apt-get install maven`
 
 . *Run the build* (see the Building section in the link:../README.adoc[README])
@@ -22,19 +22,10 @@ Usually, your distribution's package management repository is enough:
 If you want to run integration tests as part of your build, follow these instructions:
 
 . *Install an application server* -- You need to install at least one Java EE application server.
-
 .. It is recommended to install the latest http://wildfly.org/[Wildfly] release.
-
-.. You should place it into `/opt/wildfly/yourWildflyVersionHere`
-and create a symlink called `/opt/wildfly/latest` to point to it.
-
-... `ln -s /opt/wildfly/wildfly-8.0.0.Final /opt/wildfly/latest`
-
-... Sometimes, *if you can't place Wildfly into /opt*, you want to place the environment variable *JBOSS_HOME* into your *.bashrc* file:
-`export JBOSS_HOME=/path/to/wildfly`. In this case, make sure to run the profile `wildfly-it-travis` instead of `wildfly-it`
-
+.. You should place it into `/opt/wildfly/yourWildflyVersionHere` and create a symlink called `/opt/wildfly/latest` to point to it.
+... `ln -s /opt/wildfly/wildfly-yourWildflyVersionHere /opt/wildfly/latest`
+... Set the environment variable *JBOSS_HOME* into your *.bashrc* file: `export JBOSS_HOME=/opt/wildfly/latest`.
 . *Add a security domain and data source* to `standalone.xml`, see: link:webapp/howto-jboss-standalone-xml.adoc[How-to JBoss standalone.xml]
-
 . For specific instructions on deploying the app to OpenShift, see: link:webapp/deploy-to-openshift.adoc[Deploy to Openshift]
-
 . *Create a directory for data input/output* -- the default is `$HOME/dev/java/carcv_data/in` and `$HOME/dev/java/carcv_data/out`.

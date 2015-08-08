@@ -22,12 +22,13 @@ import java.io.IOException;
 import java.util.List;
 
 /**
- * An interface for any object that wants to save a batch (java.util.List) of {@link AbstractEntry}-s. The output form and
- * method are responsibilities of the implementation.
- * <p/>
- * If you implement this interface, it is considered good conduct to implement a complementing {@link Loader} interface and link
- * here) too. The saving/loading shouldn't in any way lose data contained in the <code>AbstractEntry</code> -s. You are also
- * encouraged to add other, more specific saving methods.
+ * An interface for any object that wants to save a batch (java.util.List) of {@link AbstractEntry}-s. The output form
+ * and method are responsibilities of the implementation.
+ * <p>
+ * If you implement this interface, it is considered good conduct to implement a complementing {@link Loader} interface
+ * and link here) too.
+ * The saving/loading shouldn't in any way lose data contained in the <code>AbstractEntry</code> -s.
+ * You are also encouraged to add other, more specific saving methods.
  */
 public interface Saver {
 
@@ -37,5 +38,5 @@ public interface Saver {
      * @param batch a List of anything that extends <code>AbstractEntry</code>
      * @throws IOException if an error during the save occurs
      */
-    public void save(final List<? extends AbstractEntry> batch) throws IOException;
+    void save(final List<? extends AbstractEntry> batch) throws IOException;
 }

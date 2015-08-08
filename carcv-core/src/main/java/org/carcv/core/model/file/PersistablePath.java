@@ -28,8 +28,8 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 
 /**
- * An internal persistable Path object storing the Path as a String. The {@link #getPath()} method returns a Path constructed
- * from the String.
+ * An internal persistable Path object storing the Path as a String.
+ * The {@link #getPath()} method returns a Path constructed from the String.
  */
 @Embeddable
 class PersistablePath extends AbstractEmbeddable implements Comparable<PersistablePath> {
@@ -60,11 +60,6 @@ class PersistablePath extends AbstractEmbeddable implements Comparable<Persistab
         this.pathStr = path.toString();
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see org.carcv.core.model.AbstractModel#equals(java.lang.Object)
-     */
     @Override
     public boolean equals(Object o) {
         if (!(o instanceof PersistablePath)) {
@@ -75,18 +70,13 @@ class PersistablePath extends AbstractEmbeddable implements Comparable<Persistab
         return new EqualsBuilder().append(this.pathStr, other.pathStr).isEquals();
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see org.carcv.core.model.AbstractModel#hashCode()
-     */
     @Override
     public int hashCode() {
         return new HashCodeBuilder().append(pathStr).toHashCode();
     }
 
     /**
-     * Returns a Path constructed from {@link #getPathStr()} using {@link Paths#get(String, String...)}
+     * Returns a Path constructed from {@link #getPathStr()} using {@link Paths#get(String, String...)}.
      *
      * @return a Path constructed from the pathStr
      */
@@ -96,7 +86,7 @@ class PersistablePath extends AbstractEmbeddable implements Comparable<Persistab
     }
 
     /**
-     * Sets {@link #setPathStr(String)} using path.toString()
+     * Sets {@link #setPathStr(String)} using path.toString().
      *
      * @param path the path to set pathStr as
      */

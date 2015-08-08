@@ -1,49 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://maven.apache.org/POM/4.0.0"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <groupId>org.carcv.webapp</groupId>
     <packaging>war</packaging>
     <name>CarCV WebApp</name>
     <artifactId>carcv-webapp</artifactId>
-
     <parent>
         <groupId>org.carcv</groupId>
         <artifactId>carcv</artifactId>
         <version>2.0.0-SNAPSHOT</version>
     </parent>
-
-    <prerequisites>
-        <maven>3.0.5</maven>
-    </prerequisites>
     <properties>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <version.carcv-core>${project.version}</version.carcv-core>
-        <version.arquillian>1.1.2.Final</version.arquillian>
-        <version.shrinkwrap.resolvers>2.1.0-alpha-1</version.shrinkwrap.resolvers>
-
-        <version.wildfly>8.2.0.Final</version.wildfly>
+        <version.wildfly>8.2.1.Final</version.wildfly>
         <version.jboss-as>7.1.1.Final</version.jboss-as>
-        <skipTests>false</skipTests>
-        <skipITs>true</skipITs>
-        <skipUTs>${skipTests}</skipUTs>
+        <version.jboss-eap>7.1.1.Final</version.jboss-eap>
+        <version.carcv-core>${project.version}</version.carcv-core>
     </properties>
-
-    <repositories>
-        <!-- We are maintaining a mirror at OpenShift manually, because Travis-CI
-             had problems downloading artifacts from the jasperreports repository.
-             Original repo URL: http://jasperreports.sourceforge.net/maven2/ -->
-        <repository>
-            <id>jasperreports-mirror</id>
-            <url>http://httpd-oskopek.rhcloud.com/maven2/</url>
-        </repository>
-    </repositories>
-
     <build>
-        <sourceDirectory>src/main/java</sourceDirectory>
-        <testSourceDirectory>src/test/java</testSourceDirectory>
-        <outputDirectory>target/classes</outputDirectory>
-        <testOutputDirectory>target/test-classes</testOutputDirectory>
+        <finalName>carcv-webapp</finalName>
         <resources> <!-- Filters persistence.xml and test-persistence.xml, leaves out the rest -->
             <resource>
                 <directory>src/main/resources</directory>
@@ -66,100 +41,33 @@
                 <filtering>true</filtering>
             </testResource>
         </testResources>
-
-        <finalName>carcv-webapp</finalName>
         <plugins>
-            <plugin>
-                <artifactId>maven-compiler-plugin</artifactId>
-                <version>3.1</version>
-                <configuration>
-                    <source>1.7</source>
-                    <target>1.7</target>
-                </configuration>
-            </plugin>
-            <plugin>
-                <artifactId>maven-war-plugin</artifactId>
-                <version>2.4</version>
-                <configuration>
-                    <warSourceDirectory>src/main/webapp</warSourceDirectory>
-                </configuration>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-eclipse-plugin</artifactId>
-                <version>2.9</version>
-                <configuration>
-                    <downloadJavadocs>true</downloadJavadocs>
-                    <downloadSources>true</downloadSources>
-                    <forceRecheck>true</forceRecheck>
-                </configuration>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-surefire-plugin</artifactId>
-                <version>2.16</version>
-                <configuration>
-                    <skipTests>${skipUTs}</skipTests>
-                </configuration>
-            </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-failsafe-plugin</artifactId>
-                <version>2.16</version>
-                <executions>
-                    <execution>
-                        <goals>
-                            <goal>integration-test</goal>
-                            <goal>verify</goal>
-                        </goals>
-                    </execution>
-                </executions>
-                <configuration>
-                    <skipTests>${skipTests}</skipTests>
-                    <skipITs>${skipITs}</skipITs>
-                    <systemPropertyVariables>
-                        <arquillian.launch>wildfly</arquillian.launch>
-                    </systemPropertyVariables>
-                </configuration>
             </plugin>
         </plugins>
     </build>
-
     <dependencies>
-        <dependency>
-            <groupId>org.carcv.core</groupId>
-            <artifactId>carcv-core</artifactId>
-            <version>${version.carcv-core}</version>
-        </dependency>
-        <dependency>
-            <groupId>commons-lang</groupId>
-            <artifactId>commons-lang</artifactId>
-            <version>20030203.000129</version>
-        </dependency>
         <dependency>
             <groupId>commons-fileupload</groupId>
             <artifactId>commons-fileupload</artifactId>
             <version>1.3.1</version>
         </dependency>
         <dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
-            <version>4.11</version>
-        </dependency>
-        <dependency>
-            <groupId>ch.qos.logback</groupId>
-            <artifactId>logback-classic</artifactId>
-            <version>1.1.0</version>
-        </dependency>
-        <dependency>
             <groupId>net.sf.jasperreports</groupId>
             <artifactId>jasperreports</artifactId>
-            <version>5.5.1</version>
+            <version>6.1.0</version>
         </dependency>
         <dependency>
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
-            <version>5.1.29</version>
+            <version>5.1.36</version>
+        </dependency>
+        <dependency>
+            <groupId>org.carcv.core</groupId>
+            <artifactId>carcv-core</artifactId>
+            <version>${version.carcv-core}</version>
         </dependency>
         <dependency>
             <groupId>org.jboss.arquillian.junit</groupId>
@@ -178,9 +86,23 @@
             <type>pom</type>
         </dependency>
         <dependency>
+            <groupId>commons-lang</groupId>
+            <artifactId>commons-lang</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>ch.qos.logback</groupId>
+            <artifactId>logback-classic</artifactId>
+        </dependency>
+        <dependency>
             <groupId>org.jboss.spec</groupId>
             <artifactId>jboss-javaee-6.0</artifactId>
             <type>pom</type>
+            <scope>provided</scope>
         </dependency>
     </dependencies>
 
@@ -191,20 +113,19 @@
             <dependency>
                 <groupId>org.jboss.shrinkwrap.resolver</groupId>
                 <artifactId>shrinkwrap-resolver-bom</artifactId>
-                <version>${version.shrinkwrap.resolvers}</version>
+                <version>2.2.0-beta-2</version>
                 <scope>import</scope>
                 <type>pom</type>
             </dependency>
             <dependency>
                 <groupId>org.jboss.arquillian</groupId>
                 <artifactId>arquillian-bom</artifactId>
-                <version>${version.arquillian}</version>
+                <version>1.1.8.Final</version>
                 <scope>import</scope>
                 <type>pom</type>
             </dependency>
         </dependencies>
     </dependencyManagement>
-
     <profiles>
         <profile>
             <!-- When built in OpenShift the 'openshift' profile will be used when invoking mvn.
@@ -224,7 +145,7 @@
                 <plugins>
                     <plugin>
                         <artifactId>maven-war-plugin</artifactId>
-                        <version>2.1.1</version>
+                        <version>2.6</version>
                         <configuration>
                             <outputDirectory>deployments</outputDirectory>
                             <warName>ROOT</warName>
@@ -254,64 +175,8 @@
                 </plugins>
             </build>
         </profile>
-
         <profile>
-            <id>jboss-as-it</id>
-
-            <properties>
-                <skipTests>false</skipTests>
-                <skipITs>${skipTests}</skipITs>
-                <skipUTs>${skipTests}</skipUTs>
-            </properties>
-
-            <build>
-                <plugins>
-                    <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-failsafe-plugin</artifactId>
-                        <configuration>
-                            <systemPropertyVariables>
-                                <arquillian.launch>jboss-as</arquillian.launch>
-                            </systemPropertyVariables>
-
-                        </configuration>
-                    </plugin>
-                </plugins>
-            </build>
-
-            <dependencies>
-                <dependency>
-                    <groupId>org.jboss.as</groupId>
-                    <artifactId>jboss-as-arquillian-container-managed</artifactId>
-                    <version>${version.jboss-as}</version>
-                    <scope>test</scope>
-                </dependency>
-            </dependencies>
-        </profile>
-
-        <profile>
-            <id>wildfly-it</id>
-
-            <properties>
-                <skipTests>false</skipTests>
-                <skipITs>${skipTests}</skipITs>
-                <skipUTs>${skipTests}</skipUTs>
-            </properties>
-
-            <build>
-                <plugins>
-                    <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-failsafe-plugin</artifactId>
-                        <configuration>
-                            <systemPropertyVariables>
-                                <arquillian.launch>wildfly</arquillian.launch>
-                            </systemPropertyVariables>
-                        </configuration>
-                    </plugin>
-                </plugins>
-            </build>
-
+            <id>wildfly</id>
             <dependencies>
                 <dependency>
                     <groupId>org.wildfly</groupId>
@@ -328,71 +193,23 @@
             </dependencies>
         </profile>
         <profile>
-            <id>wildfly-it-travis</id>
-
-            <properties>
-                <skipTests>false</skipTests>
-                <skipITs>${skipTests}</skipITs>
-                <skipUTs>${skipTests}</skipUTs>
-            </properties>
-
-            <build>
-                <plugins>
-                    <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-failsafe-plugin</artifactId>
-                        <configuration>
-                            <systemPropertyVariables>
-                                <arquillian.launch>wildfly-travis</arquillian.launch>
-                            </systemPropertyVariables>
-                        </configuration>
-                    </plugin>
-                </plugins>
-            </build>
-
-            <dependencies>
-                <dependency>
-                    <groupId>org.wildfly</groupId>
-                    <artifactId>wildfly-arquillian-common</artifactId>
-                    <version>${version.wildfly}</version>
-                    <scope>test</scope>
-                </dependency>
-                <dependency>
-                    <groupId>org.wildfly</groupId>
-                    <artifactId>wildfly-arquillian-container-managed</artifactId>
-                    <version>${version.wildfly}</version>
-                    <scope>test</scope>
-                </dependency>
-            </dependencies>
-        </profile>
-        <profile>
-            <id>jboss-as-it-travis</id>
-
-            <properties>
-                <skipTests>false</skipTests>
-                <skipITs>${skipTests}</skipITs>
-                <skipUTs>${skipTests}</skipUTs>
-            </properties>
-
-            <build>
-                <plugins>
-                    <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-failsafe-plugin</artifactId>
-                        <configuration>
-                            <systemPropertyVariables>
-                                <arquillian.launch>jboss-as-travis</arquillian.launch>
-                            </systemPropertyVariables>
-                        </configuration>
-                    </plugin>
-                </plugins>
-            </build>
-
+            <id>jboss-as</id>
             <dependencies>
                 <dependency>
                     <groupId>org.jboss.as</groupId>
                     <artifactId>jboss-as-arquillian-container-managed</artifactId>
                     <version>${version.jboss-as}</version>
+                    <scope>test</scope>
+                </dependency>
+            </dependencies>
+        </profile>
+        <profile>
+            <id>jboss-eap</id>
+            <dependencies>
+                <dependency>
+                    <groupId>org.jboss.as</groupId>
+                    <artifactId>jboss-as-arquillian-container-managed</artifactId>
+                    <version>${version.jboss-eap}</version>
                     <scope>test</scope>
                 </dependency>
             </dependencies>

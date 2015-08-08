@@ -33,66 +33,21 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
-/**
- *
- */
 @WebServlet("/servlet/DisplayImage")
 public class DisplayImageServlet extends HttpServlet {
 
-    final private static Logger LOGGER = LoggerFactory.getLogger(DisplayImageServlet.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(DisplayImageServlet.class);
 
     private static final long serialVersionUID = 3756019811253496208L;
 
     /**
-     * Remember to update the {@link DirectoryLoader#knownImageFileSuffixes} relative to this!
-     *
-     * @throws IOException
-     * @see DirectoryLoader#knownImageFileSuffixes
-     */
-    protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        String path = request.getParameter("path");
-
-        if (path == null) {
-            response.sendError(400, "No valid \"path\" attribute supplied in request.");
-            return;
-        }
-
-        String lowerCasePath = path.toLowerCase();
-        if (lowerCasePath.endsWith(".jpg") || lowerCasePath.endsWith(".jpeg")) {
-            response.setContentType("image/jpeg");
-        } else if (lowerCasePath.endsWith(".png")) {
-            response.setContentType("image/png");
-        } else if (lowerCasePath.endsWith(".gif")) {
-            response.setContentType("image/gif");
-        } else if (lowerCasePath.endsWith(".bmp")) {
-            response.setContentType("image/x-ms-bmp");
-        } else {
-            response.setContentType("application/octet-stream");
-        }
-
-        String width = request.getParameter("width");
-        String height = request.getParameter("height");
-
-        Path imagePath = imagePath(path, height, width);
-
-        if (imagePath == null) {
-            response.sendError(500, "Image at path " + path + " doesn't exist.");
-            return;
-        }
-
-        OutputStream out = response.getOutputStream();
-        Files.copy(imagePath, out);
-        out.flush();
-    }
-
-    /**
      * Return the path of the image, or resize and return the path of the resized one.
      *
-     * @param path   the request attribute of the path to load the image from
+     * @param path the request attribute of the path to load the image from
      * @param height the request attribute of the wanted height of load the image
-     * @param width  the request attribute of the wanted width of the image
+     * @param width the request attribute of the wanted width of the image
      * @return the path of the image according to the parameters, or null if the image at path doesn't exist
-     * @throws IOException
+     * @throws IOException if an IOException occurs
      */
     protected static Path imagePath(String path, String height, String width) throws IOException {
         if (path == null) {
@@ -135,8 +90,8 @@ public class DisplayImageServlet extends HttpServlet {
      * Resizes an image and returns the path of the resized image.
      *
      * @param imagePath path of the original image
-     * @param height    height of the image to resize it to
-     * @param width     width of the image to resize it to
+     * @param height height of the image to resize it to
+     * @param width width of the image to resize it to
      * @return the path of the resized image
      * @throws IOException if an error during load/write of the image occurs
      */
@@ -144,7 +99,8 @@ public class DisplayImageServlet extends HttpServlet {
         String filename = imagePath.getFileName().toString();
         int dot = filename.indexOf('.');
         Path resizedImagePath = Paths.get(imagePath.getParent().toString(),
-                filename.substring(0, dot) + "_" + width + "x" + height + "." + filename.substring(dot + 1, filename.length()));
+                filename.substring(0, dot) + "_" + width + "x" + height + "." + filename
+                        .substring(dot + 1, filename.length()));
 
         if (Files.exists(resizedImagePath)) { // if file already exists, return it's path
             return resizedImagePath;
@@ -163,23 +119,56 @@ public class DisplayImageServlet extends HttpServlet {
     }
 
     /**
-     * @throws ServletException
-     * @throws IOException
-     * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-     * @see #processRequest(HttpServletRequest, HttpServletResponse)
+     * Remember to update the {@link DirectoryLoader#knownImageFileSuffixes} relative to this!
+     *
+     * @param request the HttpServletRequest
+     * @param response the HttpServletResponse
+     * @throws IOException if an IOException occurs
+     * @see DirectoryLoader#knownImageFileSuffixes
      */
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        String path = request.getParameter("path");
+
+        if (path == null) {
+            response.sendError(400, "No valid \"path\" attribute supplied in request.");
+            return;
+        }
+
+        String lowerCasePath = path.toLowerCase();
+        if (lowerCasePath.endsWith(".jpg") || lowerCasePath.endsWith(".jpeg")) {
+            response.setContentType("image/jpeg");
+        } else if (lowerCasePath.endsWith(".png")) {
+            response.setContentType("image/png");
+        } else if (lowerCasePath.endsWith(".gif")) {
+            response.setContentType("image/gif");
+        } else if (lowerCasePath.endsWith(".bmp")) {
+            response.setContentType("image/x-ms-bmp");
+        } else {
+            response.setContentType("application/octet-stream");
+        }
+
+        String width = request.getParameter("width");
+        String height = request.getParameter("height");
+
+        Path imagePath = imagePath(path, height, width);
+
+        if (imagePath == null) {
+            response.sendError(500, "Image at path " + path + " doesn't exist.");
+            return;
+        }
+
+        OutputStream out = response.getOutputStream();
+        Files.copy(imagePath, out);
+        out.flush();
+    }
+
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
         processRequest(request, response);
     }
 
-    /**
-     * @throws ServletException
-     * @throws IOException
-     * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-     * @see #processRequest(HttpServletRequest, HttpServletResponse)
-     */
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException,
-            IOException {
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
         processRequest(request, response);
     }
 }

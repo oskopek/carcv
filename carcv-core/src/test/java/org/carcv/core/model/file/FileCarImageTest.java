@@ -17,6 +17,7 @@
 package org.carcv.core.model.file;
 
 import org.junit.After;
+import static org.junit.Assert.*;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -27,13 +28,6 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
-
 /**
  * Test for {@link FileCarImage}.
  */
@@ -43,9 +37,6 @@ public class FileCarImageTest {
 
     private FileCarImage file;
 
-    /**
-     * @throws URISyntaxException
-     */
     @Before
     public void setUp() throws URISyntaxException {
         filepath = Paths.get(getClass().getResource("/img/skoda_oct.jpg").toURI());
@@ -55,9 +46,6 @@ public class FileCarImageTest {
         assertNull(file.getImage());
     }
 
-    /**
-     *
-     */
     @After
     public void tearDown() {
         filepath = null;
@@ -65,9 +53,9 @@ public class FileCarImageTest {
     }
 
     /**
-     * Test method for {@link org.carcv.core.model.file.FileCarImage#FileCarImage(java.nio.file.Path)}
+     * Test method for {@link FileCarImage#FileCarImage(Path)}.
      *
-     * @throws IOException
+     * @throws IOException if an IOException occurs
      */
     @Test
     public void testFileCarImage() throws IOException {
@@ -90,7 +78,6 @@ public class FileCarImageTest {
         } catch (final Exception e) {
             // this should actually occur here:
             ex = e;
-            // System.err.println(e.getMessage() + " - this is expected");
         }
         assertNotNull(ex);
 
@@ -100,9 +87,9 @@ public class FileCarImageTest {
     }
 
     /**
-     * Test method for {@link org.carcv.core.model.file.FileCarImage#loadImage()}.
+     * Test method for {@link FileCarImage#loadImage()}.
      *
-     * @throws IOException
+     * @throws IOException if an IOException occurs
      */
     @Test
     public void testLoadImage() throws IOException {
@@ -112,9 +99,9 @@ public class FileCarImageTest {
     }
 
     /**
-     * Test method for {@link org.carcv.core.model.file.FileCarImage#loadFragment(java.awt.Rectangle)}.
+     * Test method for {@link FileCarImage#loadFragment(Rectangle)}.
      *
-     * @throws IOException
+     * @throws IOException if an IOException occurs
      */
     @Test
     public void testLoadFragment() throws IOException {
@@ -130,9 +117,9 @@ public class FileCarImageTest {
     }
 
     /**
-     * Test method for {@link org.carcv.core.model.file.FileCarImage#close()}.
+     * Test method for {@link FileCarImage#close()}.
      *
-     * @throws IOException
+     * @throws IOException if an IOException occurs
      */
     @Test
     public void testCloseNonLoaded() throws IOException {
@@ -157,9 +144,9 @@ public class FileCarImageTest {
     }
 
     /**
-     * Test method for {@link org.carcv.core.model.file.FileCarImage#close()}.
+     * Test method for {@link FileCarImage#close()}.
      *
-     * @throws IOException
+     * @throws IOException if an IOException occurs
      */
     @Test
     public void testCloseLoadedNonExisting() throws IOException {
@@ -181,8 +168,6 @@ public class FileCarImageTest {
         } catch (final Exception e) {
             // this should actually occur:
             ex = e;
-            // System.err.println(e.getMessage() + " - this is expected");
-
         }
         assertNotNull(ex);
 
@@ -198,9 +183,9 @@ public class FileCarImageTest {
     }
 
     /**
-     * Test method for {@link org.carcv.core.model.file.FileCarImage#close()}.
+     * Test method for {@link FileCarImage#close()}.
      *
-     * @throws IOException
+     * @throws IOException if an IOException occurs
      */
     @Test
     public void testCloseLoadedExisting() throws IOException {

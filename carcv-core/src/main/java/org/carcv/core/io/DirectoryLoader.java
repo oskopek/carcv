@@ -35,25 +35,25 @@ import java.util.Properties;
 /**
  * Provides methods for loading CarData from a directory containing a {@link #infoFileName info file}.
  */
-public class DirectoryLoader {
+public final class DirectoryLoader {
 
     /**
      * An array of lower case String representations of image file suffixes. Without leading dots.
      */
-    final public static String[] knownImageFileSuffixes = {"png", "jpg", "jpeg", "bmp"};
+    public static final String[] knownImageFileSuffixes = {"png", "jpg", "jpeg", "bmp"};
 
     /**
      * The default name of the info file.
      */
-    final public static String infoFileName = "info.properties";
+    public static final String infoFileName = "info.properties";
 
     private DirectoryLoader() {
         // intentionally empty
     }
 
     /**
-     * Loads the FileEntry with all {@link #knownImageFileSuffixes known images} and CarData from the {@value #infoFileName}
-     * file in the <code>directory</code>.
+     * Loads the FileEntry with all {@link #knownImageFileSuffixes known images} and CarData from the {@value
+     * #infoFileName} file in the <code>directory</code>.
      *
      * @param directory Path to the directory to load from
      * @return the loaded FileEntry
@@ -103,8 +103,9 @@ public class DirectoryLoader {
 
         String time = p.getProperty("timestamp");
 
-        Address address = new Address(Double.parseDouble(latitude), Double.parseDouble(longitude), city, postalcode, street,
-                country, Integer.parseInt(streetNumber), Integer.parseInt(referenceNumber));
+        Address address =
+                new Address(Double.parseDouble(latitude), Double.parseDouble(longitude), city, postalcode, street,
+                        country, Integer.parseInt(streetNumber), Integer.parseInt(referenceNumber));
 
         Date timestamp = new Date(Long.parseLong(time));
 

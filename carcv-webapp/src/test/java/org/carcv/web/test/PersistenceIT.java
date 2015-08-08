@@ -26,47 +26,26 @@ import org.carcv.core.model.file.FileEntry;
 import org.carcv.web.beans.EntryBean;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
-import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
+import static org.junit.Assert.*;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
 import javax.ejb.EJB;
-import java.io.File;
 import java.nio.file.Paths;
 import java.util.Arrays;
 import java.util.Date;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-
-/**
- *
- */
 @RunWith(Arquillian.class)
 public class PersistenceIT {
 
-    @Deployment
-    public static WebArchive createDeployment() {
-
-        WebArchive testArchive = ShrinkWrap.createFromZipFile(WebArchive.class, new File("target/carcv-webapp.war"));
-
-        testArchive.delete("WEB-INF/classes/META-INF/persistence.xml");
-        testArchive.addAsResource("META-INF/test-persistence.xml", "META-INF/persistence.xml");
-
-        testArchive.delete("WEB-INF/jboss-web.xml");
-        testArchive.addAsWebInfResource("WEB-INF/test-jboss-web.xml", "jboss-web.xml");
-
-        testArchive.addAsResource("arquillian.xml");
-
-        // testArchive.as(ZipExporter.class).exportTo(new
-        // File("target/carcv-webapp-test.war"));
-
-        return testArchive;
-    }
-
     @EJB
     private EntryBean entryBean;
+
+    @Deployment
+    public static WebArchive createDeployment() {
+        return AbstractIT.createGenericDeployment();
+    }
 
     @Test
     public void persistenceTest() {

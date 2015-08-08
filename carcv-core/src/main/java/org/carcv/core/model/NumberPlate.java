@@ -25,9 +25,9 @@ import javax.validation.constraints.NotNull;
 
 /**
  * An abstraction of a number plate.
- * <p/>
- * The text is the actual text printed on the number plate. The origin represents the country in which the number plate was
- * issued.
+ * <p>
+ * The text is the actual text printed on the number plate.
+ * The origin represents the country in which the number plate was issued.
  */
 @Embeddable
 public class NumberPlate extends AbstractEmbeddable implements Comparable<NumberPlate> {
@@ -46,7 +46,7 @@ public class NumberPlate extends AbstractEmbeddable implements Comparable<Number
     /**
      * Constructs an initialized NumberPlate object.
      *
-     * @param text   the text to set
+     * @param text the text to set
      * @param origin the origin to set
      */
     public NumberPlate(String text, String origin) {
@@ -56,7 +56,7 @@ public class NumberPlate extends AbstractEmbeddable implements Comparable<Number
 
     /**
      * Constructs an initialized NumberPlate object.
-     * <p/>
+     * <p>
      * The origin is set to an empty String.
      *
      * @param text the text to set
@@ -64,20 +64,6 @@ public class NumberPlate extends AbstractEmbeddable implements Comparable<Number
     public NumberPlate(String text) {
         this.text = text;
         this.origin = "";
-    }
-
-    /**
-     * @param text the text to set
-     */
-    public void setText(String text) {
-        this.text = text;
-    }
-
-    /**
-     * @param origin the origin to set
-     */
-    public void setOrigin(String origin) {
-        this.origin = origin;
     }
 
     /**
@@ -91,6 +77,13 @@ public class NumberPlate extends AbstractEmbeddable implements Comparable<Number
     }
 
     /**
+     * @param text the text to set
+     */
+    public void setText(String text) {
+        this.text = text;
+    }
+
+    /**
      * Origin of the plate is a two character long String derived from the NumberPlate text syntax - the issuer.
      *
      * @return the origin
@@ -100,31 +93,23 @@ public class NumberPlate extends AbstractEmbeddable implements Comparable<Number
         return origin;
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see java.lang.Object#toString()
+    /**
+     * @param origin the origin to set
      */
+    public void setOrigin(String origin) {
+        this.origin = origin;
+    }
+
     @Override
     public String toString() {
         return "NumberPlate [text=" + getText() + ", origin=" + getOrigin() + "]";
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see java.lang.Object#hashCode()
-     */
     @Override
     public int hashCode() {
         return new HashCodeBuilder().append(getText()).append(getOrigin()).toHashCode();
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see java.lang.Object#equals(java.lang.Object)
-     */
     @Override
     public boolean equals(Object obj) {
         if (this == obj) {

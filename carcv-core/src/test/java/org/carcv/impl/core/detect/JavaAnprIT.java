@@ -18,10 +18,8 @@ package org.carcv.impl.core.detect;
 
 import net.sf.javaanpr.imageanalysis.CarSnapshot;
 import net.sf.javaanpr.intelligence.Intelligence;
+import static org.junit.Assert.*;
 import org.junit.Test;
-
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
 
 /**
  * Test case for checking if the ANPR library (JavaANPR) works as expected.

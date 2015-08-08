@@ -18,25 +18,25 @@ package org.carcv.web.reports;
 import java.text.DateFormat;
 
 /**
- * A class used for passing data to cartable.jsp
+ * A class used for passing data to <code>cartable.jsp</code>.
  */
 public class WebReportTableMember {
 
-    final private String previewPath, entryId, time, date, location, licensePlate, timeZone;
+    private final String previewPath, entryId, time, date, location, licensePlate, timeZone;
 
     /**
      * Basic setter constructor.
      *
-     * @param previewPath  the path to the preview image
-     * @param entryId      id of the entry displayed
-     * @param time         the time of the entry, formatted
-     * @param date         the date of the entry, formatted
-     * @param location     the location of the entry, formatted with &lt;BR&gt; tags
+     * @param previewPath the path to the preview image
+     * @param entryId id of the entry displayed
+     * @param time the time of the entry, formatted
+     * @param date the date of the entry, formatted
+     * @param location the location of the entry, formatted with &lt;BR&gt; tags
      * @param licensePlate the recognized license plate text
-     * @param timeZone     TimeZone in any format {@link DateFormat#setTimeZone(java.util.TimeZone)} can handle
+     * @param timeZone TimeZone in any format {@link DateFormat#setTimeZone(java.util.TimeZone)} can handle
      */
     public WebReportTableMember(String previewPath, String entryId, String time, String date, String location,
-                                String licensePlate, String timeZone) {
+            String licensePlate, String timeZone) {
         this.previewPath = previewPath;
         this.entryId = entryId;
         this.time = time;
@@ -46,51 +46,30 @@ public class WebReportTableMember {
         this.timeZone = timeZone;
     }
 
-    /**
-     * @return the previewPath
-     */
     public String getPreviewPath() {
         return previewPath;
     }
 
-    /**
-     * @return the entryId
-     */
     public String getEntryId() {
         return entryId;
     }
 
-    /**
-     * @return the time
-     */
     public String getTime() {
         return time;
     }
 
-    /**
-     * @return the date
-     */
     public String getDate() {
         return date;
     }
 
-    /**
-     * @return the location
-     */
     public String getLocation() {
         return location;
     }
 
-    /**
-     * @return the licensePlate
-     */
     public String getLicensePlate() {
         return licensePlate;
     }
 
-    /**
-     * @return the timeZone
-     */
     public String getTimeZone() {
         return timeZone;
     }

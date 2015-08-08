@@ -41,16 +41,8 @@ public class GenerateReportServlet extends HttpServlet {
     @EJB
     private EntryBean entryBean;
 
-    /**
-     * @param request  the HttpServletRequest
-     * @param response the HttpServletResponse
-     * @throws ServletException
-     * @throws IOException
-     * @throws JRException      if an error during generation of the report occurs
-     * @see GenerateReportServlet
-     */
-    protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws
-            JRException, IOException {
+    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
+            throws JRException, IOException {
         response.setContentType("application/pdf");
         String filename = "report" + System.currentTimeMillis() + ".pdf";
 
@@ -68,16 +60,14 @@ public class GenerateReportServlet extends HttpServlet {
         // host URL
         String hostURL = request.getScheme() + "://" + request.getServerName();
 
-        BasicReportGenerator brg = new BasicReportGenerator(fileEntry, "/reports/speed_report.jasper", "Myjava",
-                "TestReport", hostURL, tz);
+        BasicReportGenerator brg =
+                new BasicReportGenerator(fileEntry, "/reports/speed_report.jasper", "Myjava", "TestReport", hostURL,
+                        tz);
         brg.exportStream(filename, response.getOutputStream());
     }
 
-    /**
-     * @see #processRequest(HttpServletRequest, HttpServletResponse)
-     * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-     */
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
         try {
             processRequest(request, response);
         } catch (JRException e) {
@@ -86,12 +76,8 @@ public class GenerateReportServlet extends HttpServlet {
         }
     }
 
-    /**
-     * @see #processRequest(HttpServletRequest, HttpServletResponse)
-     * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-     */
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException,
-            IOException {
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
         try {
             processRequest(request, response);
         } catch (JRException e) {

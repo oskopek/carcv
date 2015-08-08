@@ -19,6 +19,7 @@ package org.carcv.core.io;
 import org.carcv.core.model.file.FileCarImage;
 import org.carcv.core.model.file.FileEntry;
 import org.junit.After;
+import static org.junit.Assert.*;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -31,12 +32,6 @@ import java.util.Date;
 import java.util.List;
 import java.util.Properties;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
-
 /**
  * Test for {@link DirectoryWatcher}.
  */
@@ -48,9 +43,6 @@ public class DirectoryWatcherTest {
 
     private Properties properties;
 
-    /**
-     * @throws java.lang.Exception
-     */
     @Before
     public void setUp() throws Exception {
         rootPath = Files.createTempDirectory("directoryWatcherTestDir");
@@ -72,23 +64,21 @@ public class DirectoryWatcherTest {
     }
 
     /**
-     * Deletes the temp directory
+     * Deletes the temp directory.
      *
-     * @throws java.lang.Exception
+     * @throws Exception if an Exception occurs
      */
     @After
     public void tearDown() throws Exception {
-        // /*
         DirectoryWatcher.deleteDirectory(rootPath);
         assertFalse(Files.exists(rootPath));
         assertFalse(Files.isDirectory(rootPath));
-        // */
     }
 
     /**
-     * Test method for {@link org.carcv.core.io.DirectoryWatcher#discover()}.
+     * Test method for {@link DirectoryWatcher#discover()}.
      *
-     * @throws IOException
+     * @throws IOException if an IOException occurs
      */
     @Test
     public void testDiscover() throws IOException {

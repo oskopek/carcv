@@ -18,6 +18,7 @@ package org.carcv.impl.core.model;
 import org.carcv.core.model.file.FileCarImage;
 import org.carcv.core.model.file.FileEntry;
 import org.junit.After;
+import static org.junit.Assert.*;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -28,10 +29,6 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Random;
-
-import static org.junit.Assert.assertNotEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
 
 /**
  * Test for {@link FileEntryTool}.
@@ -45,60 +42,7 @@ public class FileEntryToolTest {
     private Path[] paths;
 
     /**
-     * @throws java.lang.Exception
-     */
-    @Before
-    public void setUp() throws Exception {
-        tool = new FileEntryTool();
-        list = new ArrayList<>();
-        paths = new Path[2];
-        assertNotNull(tool);
-
-        InputStream is1 = getClass().getResourceAsStream("/img/skoda_oct.jpg");
-        InputStream is2 = getClass().getResourceAsStream("/img/test_041.jpg");
-
-        paths[0] = Paths.get("/tmp", "testImage1-" + System.currentTimeMillis() + ".jpg");
-        paths[1] = Paths.get("/tmp", "testImage2-" + System.currentTimeMillis() + ".jpg");
-
-        Files.copy(is1, paths[0]);
-        Files.copy(is2, paths[1]);
-    }
-
-    /**
-     * @throws java.lang.Exception
-     */
-    @After
-    public void tearDown() throws Exception {
-        for (FileEntry e : list) {
-            for (FileCarImage fci : e.getCarImages()) {
-                Files.delete(fci.getFilepath());
-            }
-        }
-
-        for (Path p : paths) {
-            Files.delete(p);
-        }
-
-        tool.close();
-    }
-
-    /**
-     * Test for {@link org.carcv.impl.core.model.FileEntryTool#generate(java.nio.file.Path...)}
-     *
-     * @throws IOException
-     */
-    @Test
-    public void testGenerate() throws IOException {
-        Random r = new Random();
-        for (int i = 0; i < r.nextInt(20) + 10; i++) {
-            FileEntry e = tool.generate(paths);
-            FileEntryToolTest.assertFileEntry(e);
-            list.add(e);
-        }
-    }
-
-    /**
-     * A semi-deep non-null assertion for FileEntry
+     * A semi-deep non-null assertion for FileEntry.
      *
      * @param e the FileEntry to check
      */
@@ -119,6 +63,53 @@ public class FileEntryToolTest {
             assertNotNull(f);
             assertNotNull(f.getFilepath());
             assertTrue(Files.exists(f.getFilepath()));
+        }
+    }
+
+    @Before
+    public void setUp() throws Exception {
+        tool = new FileEntryTool();
+        list = new ArrayList<>();
+        paths = new Path[2];
+        assertNotNull(tool);
+
+        InputStream is1 = getClass().getResourceAsStream("/img/skoda_oct.jpg");
+        InputStream is2 = getClass().getResourceAsStream("/img/test_041.jpg");
+
+        paths[0] = Paths.get("/tmp", "testImage1-" + System.currentTimeMillis() + ".jpg");
+        paths[1] = Paths.get("/tmp", "testImage2-" + System.currentTimeMillis() + ".jpg");
+
+        Files.copy(is1, paths[0]);
+        Files.copy(is2, paths[1]);
+    }
+
+    @After
+    public void tearDown() throws Exception {
+        for (FileEntry e : list) {
+            for (FileCarImage fci : e.getCarImages()) {
+                Files.delete(fci.getFilepath());
+            }
+        }
+
+        for (Path p : paths) {
+            Files.delete(p);
+        }
+
+        tool.close();
+    }
+
+    /**
+     * Test for {@link FileEntryTool#generate(Path...)}.
+     *
+     * @throws IOException if an IOException occurs
+     */
+    @Test
+    public void testGenerate() throws IOException {
+        Random r = new Random();
+        for (int i = 0; i < r.nextInt(20) + 10; i++) {
+            FileEntry e = tool.generate(paths);
+            FileEntryToolTest.assertFileEntry(e);
+            list.add(e);
         }
     }
 }

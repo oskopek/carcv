@@ -25,6 +25,7 @@ import org.carcv.core.model.SpeedUnit;
 import org.carcv.core.model.file.FileCarImage;
 import org.carcv.core.model.file.FileEntry;
 import org.junit.After;
+import static org.junit.Assert.*;
 import org.junit.Before;
 import org.junit.Test;
 import org.slf4j.Logger;
@@ -40,21 +41,12 @@ import java.util.Arrays;
 import java.util.Date;
 import java.util.TimeZone;
 
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
-
-/**
- *
- */
 public class BasicReportGeneratorTest {
 
-    final private static Logger LOGGER = LoggerFactory.getLogger(BasicReportGeneratorTest.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(BasicReportGeneratorTest.class);
 
     private static FileEntry testEntry = null;
 
-    /**
-     * @throws java.lang.Exception
-     */
     @Before
     public void setUp() throws Exception {
         Speed speed = new Speed(80d, SpeedUnit.KPH);
@@ -76,7 +68,7 @@ public class BasicReportGeneratorTest {
         assertTrue(Files.isRegularFile(imagePath));
 
         testEntry = new FileEntry(carData, Arrays.asList(new FileCarImage(imagePath)));
-        testEntry.setId(0l);
+        testEntry.setId(0L);
 
         assertNotNull(testEntry.getCarImages().get(0).getFilepath());
         assertNotNull(testEntry.getId());
@@ -88,11 +80,11 @@ public class BasicReportGeneratorTest {
     }
 
     /**
-     * Test method for
-     * {@link org.carcv.web.reports.BasicReportGenerator#BasicReportGenerator(org.carcv.core.model.file.FileEntry, String, String, String, String, java.util.TimeZone)}
-     * and {@link org.carcv.web.reports.BasicReportGenerator#exportFile(String)}.
+     * Test method for {@link org.carcv.web.reports.BasicReportGenerator#BasicReportGenerator(FileEntry, String,
+     * String,
+     * String, String, TimeZone)} and {@link BasicReportGenerator#exportFile(String)}.
      *
-     * @throws JRException
+     * @throws JRException if an JRException occurs
      */
     @Test
     public void testBuildPDFReport() throws JRException {
@@ -112,8 +104,9 @@ public class BasicReportGeneratorTest {
 
         TimeZone tz = TimeZone.getTimeZone("CET");
 
-        BasicReportGenerator brg = new BasicReportGenerator(testEntry, "/reports/speed_report.jasper", "Myjava",
-                "TestReport", "https://carcv-oskopek.rhcloud.com", tz);
+        BasicReportGenerator brg =
+                new BasicReportGenerator(testEntry, "/reports/speed_report.jasper", "Myjava", "TestReport",
+                        "https://carcv-oskopek.rhcloud.com", tz);
 
         brg.exportFile(filename);
     }

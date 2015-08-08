@@ -25,7 +25,7 @@ import javax.validation.constraints.NotNull;
 
 /**
  * A basic implementation of an Address.
- * <p/>
+ * <p>
  * Provides basic getters and setters only.
  */
 @Embeddable
@@ -42,7 +42,6 @@ public class Address extends AbstractEmbeddable implements Comparable<Address> {
     private Integer streetNumber;
     private Integer referenceNumber;
 
-    @SuppressWarnings("unused")
     private Address() {
         // hibernate empty constructor
     }
@@ -50,17 +49,17 @@ public class Address extends AbstractEmbeddable implements Comparable<Address> {
     /**
      * Creates an initialized Address object.
      *
-     * @param latitude        the latitude to set
-     * @param longitude       the longitude to set
-     * @param city            the city to set
-     * @param postalcode      the postal code to set
-     * @param street          the street to set
-     * @param country         the country to set
-     * @param streetNumber    the street number to set
+     * @param latitude the latitude to set
+     * @param longitude the longitude to set
+     * @param city the city to set
+     * @param postalcode the postal code to set
+     * @param street the street to set
+     * @param country the country to set
+     * @param streetNumber the street number to set
      * @param referenceNumber the reference number to set
      */
     public Address(Double latitude, Double longitude, String city, String postalcode, String street, String country,
-                   Integer streetNumber, Integer referenceNumber) {
+            Integer streetNumber, Integer referenceNumber) {
         this.latitude = latitude;
         this.longitude = longitude;
         this.city = city;
@@ -76,15 +75,15 @@ public class Address extends AbstractEmbeddable implements Comparable<Address> {
      * <p/>
      * The latitude and longitude are initialized to 0d.
      *
-     * @param city            the city to set
-     * @param postalcode      the postal code to set
-     * @param street          the street to set
-     * @param country         the country to set
-     * @param streetNumber    the street number to set
+     * @param city the city to set
+     * @param postalcode the postal code to set
+     * @param street the street to set
+     * @param country the country to set
+     * @param streetNumber the street number to set
      * @param referenceNumber the reference number to set
      */
     public Address(String city, String postalcode, String street, String country, Integer streetNumber,
-                   Integer referenceNumber) {
+            Integer referenceNumber) {
         this.latitude = 0d;
         this.longitude = 0d;
 
@@ -98,13 +97,13 @@ public class Address extends AbstractEmbeddable implements Comparable<Address> {
 
     /**
      * Creates an initialized Address object.
-     * <p/>
+     * <p>
      * The latitude and longitude are initialized to 0d. The referenceNumber is initialized to 0.
      *
-     * @param city         the city to set
-     * @param postalcode   the postal code to set
-     * @param street       the street to set
-     * @param country      the country to set
+     * @param city the city to set
+     * @param postalcode the postal code to set
+     * @param street the street to set
+     * @param country the country to set
      * @param streetNumber the street number to set
      */
     public Address(String city, String postalcode, String street, String country, Integer streetNumber) {
@@ -121,67 +120,18 @@ public class Address extends AbstractEmbeddable implements Comparable<Address> {
     }
 
     /**
-     * @param latitude the latitude to set
-     */
-    public void setLatitude(double latitude) {
-        this.latitude = latitude;
-    }
-
-    /**
-     * @param longitude the longitude to set
-     */
-    public void setLongitude(double longitude) {
-        this.longitude = longitude;
-    }
-
-    /**
-     * @param city the city to set
-     */
-    public void setCity(String city) {
-        this.city = city;
-    }
-
-    /**
-     * @param postalcode the postal code to set
-     */
-    public void setPostalCode(String postalcode) {
-        this.postalCode = postalcode;
-    }
-
-    /**
-     * @param street the street to set
-     */
-    public void setStreet(String street) {
-        this.street = street;
-    }
-
-    /**
-     * @param country the country to set
-     */
-    public void setCountry(String country) {
-        this.country = country;
-    }
-
-    /**
-     * @param streetNumber the street number to set
-     */
-    public void setStreetNumber(int streetNumber) {
-        this.streetNumber = streetNumber;
-    }
-
-    /**
-     * @param referenceNumber the reference number to set
-     */
-    public void setReferenceNumber(int referenceNumber) {
-        this.referenceNumber = referenceNumber;
-    }
-
-    /**
      * @return the latitude
      */
     @NotNull
     public Double getLatitude() {
         return latitude;
+    }
+
+    /**
+     * @param latitude the latitude to set
+     */
+    public void setLatitude(Double latitude) {
+        this.latitude = latitude;
     }
 
     /**
@@ -193,11 +143,25 @@ public class Address extends AbstractEmbeddable implements Comparable<Address> {
     }
 
     /**
+     * @param longitude the longitude to set
+     */
+    public void setLongitude(Double longitude) {
+        this.longitude = longitude;
+    }
+
+    /**
      * @return the city
      */
     @NotNull
     public String getCity() {
         return city;
+    }
+
+    /**
+     * @param city the city to set
+     */
+    public void setCity(String city) {
+        this.city = city;
     }
 
     /**
@@ -209,11 +173,25 @@ public class Address extends AbstractEmbeddable implements Comparable<Address> {
     }
 
     /**
+     * @param street the street to set
+     */
+    public void setStreet(String street) {
+        this.street = street;
+    }
+
+    /**
      * @return the country
      */
     @NotNull
     public String getCountry() {
         return country;
+    }
+
+    /**
+     * @param country the country to set
+     */
+    public void setCountry(String country) {
+        this.country = country;
     }
 
     /**
@@ -225,11 +203,25 @@ public class Address extends AbstractEmbeddable implements Comparable<Address> {
     }
 
     /**
+     * @param postalcode the postal code to set
+     */
+    public void setPostalCode(String postalcode) {
+        this.postalCode = postalcode;
+    }
+
+    /**
      * @return the street number
      */
     @NotNull
     public Integer getStreetNumber() {
         return streetNumber;
+    }
+
+    /**
+     * @param streetNumber the street number to set
+     */
+    public void setStreetNumber(Integer streetNumber) {
+        this.streetNumber = streetNumber;
     }
 
     /**
@@ -240,11 +232,13 @@ public class Address extends AbstractEmbeddable implements Comparable<Address> {
         return referenceNumber;
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see java.lang.Object#hashCode()
+    /**
+     * @param referenceNumber the reference number to set
      */
+    public void setReferenceNumber(Integer referenceNumber) {
+        this.referenceNumber = referenceNumber;
+    }
+
     @Override
     public int hashCode() {
         return new HashCodeBuilder().append(getLatitude()).append(getLongitude()).append(getCity())
@@ -252,11 +246,6 @@ public class Address extends AbstractEmbeddable implements Comparable<Address> {
                 .append(getReferenceNumber()).toHashCode();
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see java.lang.Object#equals(java.lang.Object)
-     */
     @Override
     public boolean equals(Object obj) {
         if (this == obj) {
@@ -278,7 +267,7 @@ public class Address extends AbstractEmbeddable implements Comparable<Address> {
     }
 
     /**
-     * Prints the Address in a post-compliant format, lines ending with '\n'
+     * Prints the Address in a post-compliant format, lines ending with '\n'.
      *
      * @return a String representation of the Address separated by '\n'
      * @see #printBR()
@@ -288,8 +277,8 @@ public class Address extends AbstractEmbeddable implements Comparable<Address> {
     }
 
     /**
-     * Prints the Address with the '<code>&lt;br&gt;</code>' tag instead of '\n'
-     * <p/>
+     * Prints the Address with the '<code>&lt;br&gt;</code>' tag instead of '\n'.
+     * <p>
      * To be used in HTML pages.
      *
      * @return a String representation of the Address separated by '<code>&lt;br&gt;</code>'

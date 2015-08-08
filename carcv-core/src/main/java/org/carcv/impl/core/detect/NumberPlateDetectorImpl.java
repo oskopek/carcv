@@ -33,12 +33,12 @@ import java.util.List;
 /**
  * An implementation of <code>NumberPlateDetector</code> based on <a
  * href="https://github.com/oskopek/javaanpr.git">JavaANPR</a>.
- * <p/>
+ * <p>
  * Make sure all images are loaded in advance!
  */
 public class NumberPlateDetectorImpl extends NumberPlateDetector {
 
-    final private static Logger LOGGER = LoggerFactory.getLogger(NumberPlateDetectorImpl.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(NumberPlateDetectorImpl.class);
 
     private static NumberPlateDetectorImpl detector;
     private Intelligence intel;
@@ -54,11 +54,11 @@ public class NumberPlateDetectorImpl extends NumberPlateDetector {
     }
 
     /**
-     * Returns a reference to the static singleton instantiation of NumberPlateDetectorImpl
+     * Returns a reference to the static singleton instantiation of NumberPlateDetectorImpl.
      *
      * @return reference to static NumberPlateDetectorImpl instance, null if an error occurs during initialization
      */
-    public static NumberPlateDetectorImpl getInstance() throws IllegalStateException {
+    public static NumberPlateDetectorImpl getInstance() {
         if (detector == null) {
             detector = new NumberPlateDetectorImpl();
         }

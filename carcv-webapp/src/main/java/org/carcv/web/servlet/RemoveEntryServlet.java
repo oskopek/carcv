@@ -15,7 +15,6 @@
  */
 package org.carcv.web.servlet;
 
-import org.carcv.core.model.file.FileEntry;
 import org.carcv.web.beans.EntryBean;
 
 import javax.ejb.EJB;
@@ -40,11 +39,12 @@ public class RemoveEntryServlet extends HttpServlet {
     /**
      * Removes the FileEntry with id in the <code>entry_id</code> request parameter from the database.
      *
-     * @throws IOException
-     * @see EntryBean#remove(FileEntry...)
+     * @param request the HttpServletRequest
+     * @param response the HttpServletResponse
+     * @throws IOException if an IOException occurs
+     * @see EntryBean#remove(org.carcv.core.model.file.FileEntry...)
      */
-    protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws
-            IOException {
+    protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws IOException {
         String[] entryIdArray = request.getParameter("entry_id").split(",");
         for (String entryId : entryIdArray) {
             entryBean.remove(Long.parseLong(entryId));
@@ -52,24 +52,13 @@ public class RemoveEntryServlet extends HttpServlet {
         response.sendRedirect("/app/index.jsp"); // TODO 3 redirect should be more intelligent
     }
 
-    /**
-     * @throws ServletException
-     * @throws IOException
-     * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-     * @see #processRequest(HttpServletRequest, HttpServletResponse)
-     */
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
         processRequest(request, response);
     }
 
-    /**
-     * @throws ServletException
-     * @throws IOException
-     * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-     * @see #processRequest(HttpServletRequest, HttpServletResponse)
-     */
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException,
-            IOException {
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
         processRequest(request, response);
     }
 }

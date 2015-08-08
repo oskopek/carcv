@@ -19,15 +19,14 @@ import org.carcv.core.io.DirectoryWatcher;
 import org.carcv.core.model.file.FileCarImage;
 import org.carcv.impl.core.io.FFMPEGVideoHandler;
 import org.junit.After;
+import static org.junit.Assert.*;
 import org.junit.Before;
 import org.junit.Test;
 
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
-
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotEquals;
 
 /**
  * Test for {@link SpeedDetectorImpl}.
@@ -38,43 +37,31 @@ public class SpeedDetectorImplTest {
     private ArrayList<FileCarImage> images;
     private Path tmpDir;
 
-    /**
-     * @throws java.lang.Exception
-     */
     @Before
     public void setUp() throws Exception {
         detector = SpeedDetectorImpl.getInstance();
-
         images = new ArrayList<>();
-
         tmpDir = Files.createTempDirectory("SpeedDetectorImplTestDir");
 
-        for (int j = 0; j < 10; j++) {
-            /*
-             * // Would be useful if the SpeedDetector actually looked at the image file Path p = Paths.get(tmpDir.toString(),
-             * "testImage-" + j + ".carcv.jpg");
-             *
-             * Files.copy(getClass().getResourceAsStream("/img/test_041.jpg"), p); assertTrue(Files.exists(p) &&
-             * Files.isRegularFile(p));
-             *
-             * FileCarImage f = new FileCarImage(p); images.add(f);
-             */
-
-            FileCarImage f = new FileCarImage(Files.createTempFile(tmpDir, "testImage-", ".carc.jpg"));
+        for (int j = 0; j < 15; j++) {
+            // Would be useful if the SpeedDetector actually looked at the image file
+            Path p = Paths.get(tmpDir.toString(), "testImage - " + j + ".carcv.jpg");
+            Files.copy(getClass().getResourceAsStream("/img/test_041.jpg"), p);
+            assertTrue(Files.exists(p));
+            assertTrue(Files.isRegularFile(p));
+            FileCarImage f = new FileCarImage(p);
+            images.add(f);
             images.add(f);
         }
     }
 
-    /**
-     * @throws java.lang.Exception
-     */
     @After
     public void tearDown() throws Exception {
         DirectoryWatcher.deleteDirectory(tmpDir);
     }
 
     /**
-     * Test method for {@link org.carcv.impl.core.detect.SpeedDetectorImpl#detect(java.util.List)}.
+     * Test method for {@link SpeedDetectorImpl#detect(java.util.List)}.
      */
     @Test
     public void testDetect() {
@@ -83,16 +70,16 @@ public class SpeedDetectorImplTest {
     }
 
     /**
-     * Test method for {@link org.carcv.impl.core.detect.SpeedDetectorImpl#detectSpeed(java.util.List)}.
+     * Test method for {@link SpeedDetectorImpl#detectSpeed(java.util.List)}.
      */
     @Test
     public void testDetectSpeed() {
         Double res = detector.detectSpeed(images);
         assertNotEquals(0d, res);
 
-        Double expected = ((double) images.size() / FFMPEGVideoHandler.defaultFrameRate) * 3.6 * images.size();
+        Double expected = (images.size() / (double) FFMPEGVideoHandler.defaultFrameRate) * 3.6d * 10;
 
-        assertEquals(expected, res);
         assertEquals(res, detector.detectSpeed(images));
+        assertEquals(expected, res);
     }
 }

@@ -1,10 +1,22 @@
 #!/bin/bash
 
-export ROOT_DIR=`pwd`
-cd $HOME
+download_jboss () {
+    root_dir=`pwd`
+    cd $HOME
+    rm -rf "$JBOSS_HOME"
+    wget "$WF_LINK"
+    tar xfz "wildfly-$WF_VERSION.tar.gz"
+    cd "$root_dir"
+}
+
 if [ ! -d "$JBOSS_HOME" ]; then
-    wget http://download.jboss.org/jbossas/7.1/jboss-as-$JBOSSAS/jboss-as-$JBOSSAS.tar.gz
-    tar xfz jboss-as-$JBOSSAS.tar.gz
+    echo "JBoss dir doesn't exist, downloading wildfly! ( $JBOSS_HOME )"
+    download_jboss
+else
+    echo "JBoss dir exists ( $JBOSS_HOME )"
+    if [ `ls "$JBOSS_HOME" | wc -l` -eq 0 ]; then
+        echo "... but is empty, downloading wildfly!"
+        download_jboss
+    fi
 fi
-cd $ROOT_DIR
-cp $ROOT_DIR/carcv-webapp/src/test/resources/as_configuration/jboss-as-standalone.xml $JBOSS_HOME/standalone/configuration/standalone.xml
+cp carcv-webapp/src/test/resources/as_configuration/wildfly-standalone.xml $JBOSS_HOME/standalone/configuration/standalone.xml

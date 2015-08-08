@@ -31,7 +31,8 @@ import java.util.Properties;
 /**
  * An implementation of <code>Saver</code> that stores batches into files.
  * <p/>
- * <strong>Note</strong>: This implementation only stores a properties files containing all needed info about cars in the batch.
+ * <strong>Note</strong>: This implementation only stores a properties files containing all needed info about cars in
+ * the batch.
  * <p/>
  * Actual paths of {@link FileCarImage}s are referenced inside the properties files, as filepath0, filepath1, ...
  */
@@ -57,7 +58,6 @@ public class FileSaver implements Saver {
      */
     @Override
     public void save(final List<? extends AbstractEntry> batch) throws IOException {
-        @SuppressWarnings("unchecked")
         final List<FileEntry> fileBatch = (List<FileEntry>) batch;
 
         saveFileBatch(fileBatch);
@@ -132,8 +132,8 @@ public class FileSaver implements Saver {
             p.setProperty("filepath" + i, fciList.get(i).getFilepath().toString());
         }
 
-        Path outFilePath = Paths.get(directory.toString(), e.hashCode() + "-" + System.currentTimeMillis()
-                + ".properties");
+        Path outFilePath =
+                Paths.get(directory.toString(), e.hashCode() + "-" + System.currentTimeMillis() + ".properties");
 
         FileOutputStream fous = new FileOutputStream(outFilePath.toFile());
         p.store(fous, fciList.get(0).getFilepath().getFileName().toString());
