@@ -1,5 +1,7 @@
 language: java
 
+sudo: false
+
 jdk:
   - openjdk7
   - oraclejdk7
@@ -15,14 +17,10 @@ env:
 cache:
   directories:
     - $HOME/.m2
+    - JBOSS_HOME=$HOME/jboss-as-$JBOSSAS
 
 before_script:
-  - export ROOT_DIR=`pwd`
-  - cd $HOME
-  - wget http://download.jboss.org/jbossas/7.1/jboss-as-$JBOSSAS/jboss-as-$JBOSSAS.tar.gz
-  - tar xfz jboss-as-$JBOSSAS.tar.gz
-  - cd $ROOT_DIR
-  - cp carcv-webapp/src/test/resources/as_configuration/jboss-as-standalone.xml $JBOSS_HOME/standalone/configuration/standalone.xml
+  - bash docs/scripts/travis_before.sh
 
 script: "mvn clean verify -P$MAVEN_PROFILES"
 
