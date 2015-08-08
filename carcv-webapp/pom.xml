@@ -19,16 +19,6 @@
         <version.arquillian>1.1.2.Final</version.arquillian>
         <version.shrinkwrap.resolvers>2.1.0-alpha-1</version.shrinkwrap.resolvers>
     </properties>
-    <repositories>
-        <!-- We are maintaining a mirror at OpenShift manually, because Travis-CI
-             had problems downloading artifacts from the jasperreports repository.
-             Original repo URL: http://jasperreports.sourceforge.net/maven2/ -->
-        <!-- TODO remove this -->
-        <repository>
-            <id>jasperreports-mirror</id>
-            <url>http://httpd-oskopek.rhcloud.com/maven2/</url>
-        </repository>
-    </repositories>
     <build>
         <finalName>carcv-webapp</finalName>
         <resources> <!-- Filters persistence.xml and test-persistence.xml, leaves out the rest -->
