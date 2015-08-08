@@ -31,7 +31,6 @@ import java.io.File;
 import static org.junit.Assert.assertTrue;
 
 @RunWith(Arquillian.class)
-@Ignore
 public class RolesIT {
 
     @Deployment
