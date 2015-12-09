@@ -2,4 +2,6 @@ build/
 test/
 /cmake
 default.sh
+CMakeFiles/
+CMakeCache.txt
 target/
