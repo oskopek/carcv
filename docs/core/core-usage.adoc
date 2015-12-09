@@ -52,10 +52,10 @@ View the `.properties` files in `out` for results.
 
 === Using the default implementation of CarRecognizer
 
-To use +carcv-core+ (number plate detection and speed detection) in your application,
-simply instantiate a +FileCarRecognizer+ (the default implementation of +CarRecognizer+).
+To use `carcv-core` (number plate detection and speed detection) in your application,
+simply instantiate a `FileCarRecognizer` (the default implementation of `CarRecognizer`).
 
-For example, in +carcv-webapp+ we use this method in +RecognizerBean+ like this:
+For example, in `carcv-webapp` we use this method in `RecognizerBean` like this:
 
 [source,java]
 ----
@@ -69,10 +69,10 @@ public class RecognizerBean {
 }
 ----
 
-This assumes you use a data input and output directory in a filesystem +java.nio+ can access.
+This assumes you use a data input and output directory in a filesystem `java.nio` can access.
 
 === Using your own implementation of CarRecognizer
 
-If you wish to implement it yourself, simply extend the +CarRecognizer+ abstract class.
-Notes on implementation details are in the javadoc for +CarRecognizer+. 
-To see the default implementation, see the +org.carcv.impl+ packages.
+If you wish to implement it yourself, simply extend the `CarRecognizer` abstract class.
+Notes on implementation details are in the javadoc for `CarRecognizer`.
+To see the default implementation, see the `org.carcv.impl` packages.

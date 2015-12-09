@@ -21,10 +21,10 @@ CarCV uses http://semver.org/[semantic versioning].
 === Building
 * See: How-to setup your *build environment*:
 link:./docs/howto-setup-environment-windows.adoc[Windows], link:./docs/howto-setup-environment-linux.adoc[Linux & Mac]
-* *Recommended*: +mvn clean install -DskipTests+
-* To run *unit tests*: +mvn clean install+
-* To run *integration tests*: +mvn clean install -Pit,wildfly+
-* To *clean*, run: +mvn clean+
+* *Recommended*: `mvn clean install -DskipTests`
+* To run *unit tests*: `mvn clean install`
+* To run *integration tests*: `mvn clean install -Pit,wildfly`
+* To *clean*, run: `mvn clean`
 * Run a simple link:./docs/core/core-usage.adoc[carcv-core demo]
 
 === Docker
@@ -70,7 +70,7 @@ the bug, including your Java version and operating system.
 . http://learn.github.com/p/branching.html[Create a topic branch]
 . Implement your feature or bug fix
 . If applicable, add tests for your feature or bug fix
-. Run +mvn clean install -Pit+
+. Run `mvn clean install -Pit`
 .. If you contributed to *carcv-webapp*, run: `mvn clean install -Pit,wildfly-it`
 . If the tests fail, return to step 3 and 4
 . Add, commit, and push your changes
