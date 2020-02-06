@@ -3,9 +3,10 @@ language: java
 sudo: false
 
 jdk:
-  - openjdk7
-  - oraclejdk7
-  - oraclejdk8 #JBoss7 hangs on jdk8
+  - oraclejdk8
+  - oraclejdk11
+  - openjdk10
+  - openjdk11
 
 env:
   global:
