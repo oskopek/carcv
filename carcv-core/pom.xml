@@ -35,7 +35,7 @@
         <dependency>
             <groupId>com.google.guava</groupId>
             <artifactId>guava</artifactId>
-            <version>19.0-rc1</version>
+            <version>24.1.1</version>
         </dependency>
         <dependency>
             <groupId>commons-lang</groupId>
