@@ -1,13 +1,8 @@
 == CarCV
 
-image:https://travis-ci.org/oskopek/carcv.svg?branch=master["Build Status", link="https://travis-ci.org/oskopek/carcv"]
-image:https://coveralls.io/repos/oskopek/carcv/badge.png?branch=master["Coverage status", link="https://coveralls.io/r/oskopek/carcv?branch=master"]
-image:https://www.ohloh.net/p/carcv/widgets/project_thin_badge.gif["Ohloh widget", link="https://www.ohloh.net/p/carcv"]
+image:https://github.com/oskopek/carcv/workflows/Java%20CI%20with%20Maven/badge.svg["build status", link="https://github.com/oskopek/carcv/actions?query=workflow%3A%22Java+CI+with+Maven%22"]
 
 A car recognizing and speed calculation platform.
-
-=== Screenshot
-image:http://cdn.imghack.se/images/a6f3be78f72232fa6e9f09a11c53f7a6.png["CarCV screenshot", scalewidth="20%"]
 
 === Modules
 CarCV consists of several modules:
