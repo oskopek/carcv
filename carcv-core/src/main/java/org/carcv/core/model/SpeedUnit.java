@@ -36,7 +36,7 @@ public enum SpeedUnit {
 
     private double conversionCoef;
 
-    private SpeedUnit(double conversionCoef) {
+    SpeedUnit(double conversionCoef) {
         this.conversionCoef = conversionCoef;
     }
 

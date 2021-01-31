@@ -38,5 +38,5 @@ public interface Saver {
      * @param batch a List of anything that extends <code>AbstractEntry</code>
      * @throws IOException if an error during the save occurs
      */
-    void save(final List<? extends AbstractEntry> batch) throws IOException;
+    void save(List<? extends AbstractEntry> batch) throws IOException;
 }

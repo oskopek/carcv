@@ -34,7 +34,7 @@ public abstract class NumberPlateDetector implements Detector {
      * @param images Must be non-null, loaded externally!
      * @return A String containing the text of the plate, or null if an error occurred
      */
-    public abstract String detectPlateText(final List<? extends AbstractCarImage> images);
+    public abstract String detectPlateText(List<? extends AbstractCarImage> images);
 
     /**
      * Detects the country where the Number Plate is registered.
@@ -42,6 +42,6 @@ public abstract class NumberPlateDetector implements Detector {
      * @param images Must be non-null, loaded externally!
      * @return A String containing the shortcut for the country of origin of the plate, or null if an error occurred
      */
-    public abstract String detectPlateOrigin(final List<? extends AbstractCarImage> images);
+    public abstract String detectPlateOrigin(List<? extends AbstractCarImage> images);
 
 }

@@ -5,7 +5,7 @@ cmake_minimum_required(VERSION 2.8)
 project( CARCV )
 
 #Required lib
-find_package( OpenCV REQUIRED )
+find_package( OpenCV 2.4 REQUIRED )
 
 #Debug flag:
 IF(CMAKE_COMPILER_IS_GNUCC)

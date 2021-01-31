@@ -36,5 +36,5 @@ public abstract class SpeedDetector implements Detector {
      * @param images Should be non-null, don't have to be loaded
      * @return A Double value representing the speed in {@link SpeedUnit#KPH}
      */
-    public abstract Double detectSpeed(final List<? extends AbstractCarImage> images);
+    public abstract Double detectSpeed(List<? extends AbstractCarImage> images);
 }

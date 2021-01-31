@@ -58,8 +58,7 @@ int main() {
 	cout << "Responses_mat: " << responses_mat.size() << endl;
 
 	//train
-	CvKNearest kn_model = CvKNearest();
-	kn_model.train(samples_mat, responses_mat);
+        CvKNearest kn_model(samples_mat, responses_mat);
 
 	//2. testing
 	//Loads test image with numbers

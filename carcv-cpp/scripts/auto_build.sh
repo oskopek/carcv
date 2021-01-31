@@ -1,16 +1,10 @@
 #!/bin/bash
+set -e
+
 DASHES="------------------------------------------------------"
 build_basedir=$(pwd)
 
 
-echo $DASHES
-echo "AutoBuild script by oskopek"
-echo $DASHES
-echo
-
-echo
-echo
-echo
 echo $DASHES
 echo "-------CREATING BUILD DIR"
 echo $DASHES
